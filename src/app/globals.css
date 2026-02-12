@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+body {
+   font-family: 'Marcellus', 'Work Sans', serif;
+}
+:root {
+  --theme-color: #924A00;
+}
+.text-gray-700 {
+  color: #000000 !important; 
+}
+
+.text-secondary {
+  color: #7F7F7F !important; 
+}
+
+.text-white {
+  color: #FFFFFF !important; 
+}
+
+.bg-white {
+  background-color: #FFFFFF !important;
+}
