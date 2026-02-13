@@ -127,7 +127,7 @@ export default function Header() {
               {cartCount > 0 && <Badge count={cartCount} />}
             </button>
 
-            <button onClick={() => router.push('/profile')} className="p-1">
+            <button onClick={() => router.push('/pages/profile')} className="p-1">
               <User size={24} className="text-black" />
             </button>
           </div>

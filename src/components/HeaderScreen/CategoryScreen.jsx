@@ -9,8 +9,8 @@ const categories = [
     id: 'Attendant',
     name: 'Attended For Parents',
     image: '/image/attendantcat.png',
-    screen: '/all-category',
-    params: { categoryId: 'Attendant' },
+    screen: '/pages/Attendant',
+    // params: { categoryId: 'Attendant' },
     iconBg: '#D6E4FF',
   },
   {
