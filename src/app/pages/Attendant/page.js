@@ -1,33 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-
-// ─── POOJAS DATA ────────────────────────────────────────────────────────────
-const POOJAS = [
-  { _id: "p1",  name: "Satyanarayan Puja",       price: 2100,  time: "2-3 Hours",  description: "Dedicated to Lord Vishnu for gratitude and achievements." },
-  { _id: "p2",  name: "Ganesha Puja",             price: 1500,  time: "1-2 Hours",  description: "For prosperity, success, and removal of obstacles." },
-  { _id: "p3",  name: "Griha Pravesh Puja",        price: 5100,  time: "4-5 Hours",  description: "Moving into a new house to bring peace and prosperity." },
-  { _id: "p4",  name: "Laxmi Puja",               price: 2500,  time: "2 Hours",    description: "Dedicated to Goddess Laxmi for wealth and prosperity." },
-  { _id: "p5",  name: "Rudrabhishek Puja",         price: 3500,  time: "3 Hours",    description: "Powerful ritual dedicated to Lord Shiva for health and happiness." },
-  { _id: "p6",  name: "Saraswati Puja",            price: 1800,  time: "2 Hours",    description: "Dedicated to Goddess of Knowledge and Art." },
-  { _id: "p7",  name: "Maha Mrityunjaya Jaap",     price: 11000, time: "8-10 Hours", description: "Powerful mantra chanting for long life and health." },
-  { _id: "p8",  name: "Hanuman Chalisa Path",      price: 1100,  time: "1.5 Hours",  description: "Reciting Hanuman Chalisa for strength and protection." },
-  { _id: "p9",  name: "Durga Puja",               price: 3100,  time: "3 Hours",    description: "Seeking blessings of Goddess Durga for victory over evil." },
-  { _id: "p10", name: "Shani Shanti Puja",         price: 2100,  time: "2 Hours",    description: "To pacify Lord Shani and reduce ill effects." },
-  { _id: "p11", name: "Navagraha Puja",            price: 4500,  time: "4 Hours",    description: "Dedicated to all nine planets for positive influence." },
-  { _id: "p12", name: "Bhoomi Puja",              price: 5500,  time: "3 Hours",    description: "Performed before starting construction on a piece of land." },
-  { _id: "p13", name: "Namakaran Sanskar",         price: 2100,  time: "2 Hours",    description: "Naming ceremony of a newborn baby." },
-  { _id: "p14", name: "Vivah Puja",               price: 21000, time: "6-8 Hours",  description: "Complete Vedic wedding rituals." },
-  { _id: "p15", name: "Birthday Puja",             price: 1500,  time: "1.5 Hours",  description: "For longevity, health, and prosperity on birthdays." },
-  { _id: "p16", name: "Vastu Shanti Puja",         price: 4100,  time: "4 Hours",    description: "To balance the energies of a building." },
-  { _id: "p17", name: "Mundan Sanskar",            price: 2500,  time: "2 Hours",    description: "First haircut ceremony of a child." },
-  { _id: "p18", name: "Akhand Ramayan Path",       price: 15000, time: "24 Hours",   description: "Continuous 24-hour recitation for peace." },
-  { _id: "p19", name: "Sundarkand Path",           price: 2100,  time: "3 Hours",    description: "Dedicated to Lord Hanuman's exploits." },
-  { _id: "p20", name: "Chandi Path",              price: 5100,  time: "4 Hours",    description: "Invoke power of Goddess Chandi for protection." },
-  { _id: "p21", name: "Kaal Sarp Dosh Puja",      price: 3500,  time: "3 Hours",    description: "Mitigate effects of Kaal Sarp Dosh." },
-  { _id: "p22", name: "Pitra Dosh Nivaran",        price: 4500,  time: "4 Hours",    description: "Appease ancestors and remove hurdles." },
-];
 
 // ─── CATEGORIES CONFIG ───────────────────────────────────────────────────────
 const CATEGORIES = [
@@ -36,31 +10,29 @@ const CATEGORIES = [
     name: "Guardian For Kids",
     endpoint: "https://api.marasimpex.com/api/services/category/GaurdianKids",
     emoji: "👶",
-    color: "bg-blue-50",
   },
   {
     id: "Attendant",
     name: "Attendant For Your Parents",
     endpoint: "https://api.marasimpex.com/api/services/category/Attendant",
     emoji: "🧓",
-    color: "bg-green-50",
   },
   {
     id: "TravelingAttendant",
     name: "Attendant For Traveling",
     emoji: "✈️",
-    color: "bg-yellow-50",
   },
 ];
 
-// ─── STATIC SERVICE DATA FOR NON-API CATEGORIES ─────────────────────────────
+// ─── STATIC SERVICE DATA ─────────────────────────────────────────────────────
 const STATIC_SERVICES = {
   TravelingAttendant: [
     {
       _id: "traveling_attendant_1",
       name: "Book Traveling Attendant",
       price: 500,
-      description: "Professional attendant for traveling needs. Includes support for gender, religion, and location selection.",
+      description:
+        "Professional attendant for traveling needs. Includes support for gender, religion, and location selection.",
       emoji: "🧳",
       isTraveling: true,
     },
@@ -68,7 +40,8 @@ const STATIC_SERVICES = {
       _id: "traveling_vehicle_1",
       name: "Traveling with Vehicle",
       price: 800,
-      description: "Professional attendant for traveling with vehicle. Support for Two Wheeler and Four Wheeler.",
+      description:
+        "Professional attendant for traveling with vehicle. Support for Two Wheeler and Four Wheeler.",
       emoji: "🚗",
       isTraveling: true,
       withVehicle: true,
@@ -76,7 +49,7 @@ const STATIC_SERVICES = {
   ],
 };
 
-// ─── CART HELPERS (localStorage) ────────────────────────────────────────────
+// ─── localStorage HELPERS ────────────────────────────────────────────────────
 const CART_KEY = "marasimpex_cart";
 const USER_KEY = "marasimpex_user";
 
@@ -88,13 +61,11 @@ function loadCart() {
     return [];
   }
 }
-
 function saveCart(items) {
   try {
     localStorage.setItem(CART_KEY, JSON.stringify(items));
   } catch {}
 }
-
 function loadUser() {
   try {
     const raw = localStorage.getItem(USER_KEY);
@@ -104,23 +75,22 @@ function loadUser() {
   }
 }
 
-// ─── SERVICE CARD EMOJI / PLACEHOLDER ────────────────────────────────────────
+// ─── EMOJI HELPER ────────────────────────────────────────────────────────────
 const SERVICE_EMOJIS = ["🙏", "⭐", "🌸", "🪔", "🌺", "🔔", "🕉️", "✨"];
 function getServiceEmoji(id) {
   let hash = 0;
-  for (let i = 0; i < id.length; i++) hash = (hash * 31 + id.charCodeAt(i)) % SERVICE_EMOJIS.length;
+  for (let i = 0; i < id.length; i++)
+    hash = (hash * 31 + id.charCodeAt(i)) % SERVICE_EMOJIS.length;
   return SERVICE_EMOJIS[Math.abs(hash) % SERVICE_EMOJIS.length];
 }
 
-// ─── CART BUTTON COMPONENT ───────────────────────────────────────────────────
+// ─── CART BUTTON ─────────────────────────────────────────────────────────────
 function CartButton({ cartItems, onViewCart }) {
   const totalQty = cartItems.reduce((s, i) => s + i.quantity, 0);
   const totalAmt = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
-
   if (totalQty === 0) return null;
-
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-transparent pointer-events-none">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 pointer-events-none">
       <button
         onClick={onViewCart}
         className="pointer-events-auto w-full max-w-lg mx-auto flex items-center justify-between bg-violet-600 text-white px-5 py-3 rounded-2xl shadow-2xl shadow-violet-300 active:scale-95 transition-transform"
@@ -131,26 +101,40 @@ function CartButton({ cartItems, onViewCart }) {
           </span>
           <span className="font-semibold text-sm">View Cart</span>
         </div>
-        <span className="font-bold text-sm">₹{totalAmt.toLocaleString("en-IN")}</span>
+        <span className="font-bold text-sm">
+          ₹{totalAmt.toLocaleString("en-IN")}
+        </span>
       </button>
     </div>
   );
 }
 
-// ─── SEARCH BAR OVERLAY ──────────────────────────────────────────────────────
+// ─── SEARCH OVERLAY ───────────────────────────────────────────────────────────
 function SearchOverlay({ services, onClose, onSelectService }) {
   const [query, setQuery] = useState("");
   const allServices = Object.values(services).flat();
   const filtered = query.trim()
-    ? allServices.filter((s) => s.name.toLowerCase().includes(query.toLowerCase()))
+    ? allServices.filter((s) =>
+        s.name.toLowerCase().includes(query.toLowerCase())
+      )
     : [];
 
   return (
     <div className="fixed inset-0 z-50 bg-white flex flex-col">
       <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-100">
         <button onClick={onClose}>
-          <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="w-6 h-6 text-gray-700"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </button>
         <input
@@ -162,23 +146,40 @@ function SearchOverlay({ services, onClose, onSelectService }) {
         />
         {query && (
           <button onClick={() => setQuery("")}>
-            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         )}
       </div>
       <div className="flex-1 overflow-y-auto p-4">
         {query.trim() === "" && (
-          <p className="text-center text-gray-400 text-sm mt-10">Type to search services…</p>
+          <p className="text-center text-gray-400 text-sm mt-10">
+            Type to search services…
+          </p>
         )}
         {filtered.length === 0 && query.trim() !== "" && (
-          <p className="text-center text-gray-400 text-sm mt-10">No results for "{query}"</p>
+          <p className="text-center text-gray-400 text-sm mt-10">
+            No results for &quot;{query}&quot;
+          </p>
         )}
         {filtered.map((item) => (
           <button
             key={item._id}
-            onClick={() => { onSelectService(item); onClose(); }}
+            onClick={() => {
+              onSelectService(item);
+              onClose();
+            }}
             className="w-full flex items-center gap-3 py-3 border-b border-gray-100 text-left"
           >
             <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center text-xl flex-shrink-0">
@@ -186,7 +187,9 @@ function SearchOverlay({ services, onClose, onSelectService }) {
             </div>
             <div>
               <p className="text-sm font-semibold text-gray-800">{item.name}</p>
-              <p className="text-xs text-violet-600 font-bold">₹{item.price?.toLocaleString("en-IN")}</p>
+              <p className="text-xs text-violet-600 font-bold">
+                ₹{item.price?.toLocaleString("en-IN")}
+              </p>
             </div>
           </button>
         ))}
@@ -199,29 +202,45 @@ function SearchOverlay({ services, onClose, onSelectService }) {
 function ServiceDetailModal({ item, qty, onClose, onAdd, onInc, onDec }) {
   if (!item) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/40"
+      onClick={onClose}
+    >
       <div
-        className="bg-white w-full max-w-lg rounded-t-3xl p-6 pb-10"
+        className="bg-white w-full max-w-lg rounded-t-3xl p-6 pb-10 overflow-y-auto"
+        style={{ maxHeight: "90vh" }}
         onClick={(e) => e.stopPropagation()}
-        style={{ maxHeight: "90vh", overflowY: "auto" }}
       >
-        {/* Image / emoji */}
         <div className="w-full aspect-[5/3] bg-violet-50 rounded-2xl flex items-center justify-center mb-4 text-7xl">
           {item.emoji || getServiceEmoji(item._id)}
         </div>
         <h2 className="text-xl font-bold text-gray-900 mb-1">{item.name}</h2>
         <p className="text-sm text-gray-500 mb-4">{item.description}</p>
         <div className="flex items-center justify-between mb-6">
-          <span className="text-2xl font-extrabold text-violet-600">₹{item.price?.toLocaleString("en-IN")}</span>
+          <span className="text-2xl font-extrabold text-violet-600">
+            ₹{item.price?.toLocaleString("en-IN")}
+          </span>
           {item.time && (
-            <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">⏱ {item.time}</span>
+            <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+              ⏱ {item.time}
+            </span>
           )}
         </div>
         {qty > 0 ? (
           <div className="flex items-center justify-between bg-violet-600 rounded-xl px-4 py-3">
-            <button onClick={onDec} className="text-white text-2xl font-bold w-8 h-8 flex items-center justify-center">−</button>
+            <button
+              onClick={onDec}
+              className="text-white text-2xl font-bold w-8 h-8 flex items-center justify-center"
+            >
+              −
+            </button>
             <span className="text-white font-bold text-lg">{qty}</span>
-            <button onClick={onInc} className="text-white text-2xl font-bold w-8 h-8 flex items-center justify-center">+</button>
+            <button
+              onClick={onInc}
+              className="text-white text-2xl font-bold w-8 h-8 flex items-center justify-center"
+            >
+              +
+            </button>
           </div>
         ) : (
           <button
@@ -231,7 +250,10 @@ function ServiceDetailModal({ item, qty, onClose, onAdd, onInc, onDec }) {
             ADD TO CART
           </button>
         )}
-        <button onClick={onClose} className="w-full mt-3 text-gray-400 text-sm py-2">
+        <button
+          onClick={onClose}
+          className="w-full mt-3 text-gray-400 text-sm py-2"
+        >
           Close
         </button>
       </div>
@@ -239,13 +261,12 @@ function ServiceDetailModal({ item, qty, onClose, onAdd, onInc, onDec }) {
   );
 }
 
-// ─── MAIN PAGE ───────────────────────────────────────────────────────────────
-export default function AllCategoryPage() {
+// ─── INNER COMPONENT — uses useSearchParams (must be inside Suspense) ─────────
+function AllCategoryInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const categoryId = searchParams?.get("categoryId");
 
-  // ── State ──────────────────────────────────────────────────────────────────
   const [loading, setLoading] = useState(true);
   const [services, setServices] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -255,27 +276,30 @@ export default function AllCategoryPage() {
   const [detailItem, setDetailItem] = useState(null);
   const [apiErrors, setApiErrors] = useState({});
 
-  // ── Bootstrap cart & user from localStorage ──────────────────────────────
+  // Hydrate from localStorage (client only)
   useEffect(() => {
     setCartItems(loadCart());
     setUser(loadUser());
   }, []);
 
-  // Persist cart on change
+  // Persist cart to localStorage whenever it changes
   useEffect(() => {
-    if (cartItems.length >= 0) saveCart(cartItems);
+    saveCart(cartItems);
   }, [cartItems]);
 
-  // ── Set initial selected category ────────────────────────────────────────
+  // Set initial selected category from query param
   useEffect(() => {
-    const found = categoryId ? CATEGORIES.find((c) => c.id === categoryId) : null;
+    const found = categoryId
+      ? CATEGORIES.find((c) => c.id === categoryId)
+      : null;
     setSelectedCategory(found || CATEGORIES[0]);
   }, [categoryId]);
 
-  // ── Fetch all services ────────────────────────────────────────────────────
+  // Fetch all services from API + static data
   const fetchAllServices = useCallback(async () => {
     setLoading(true);
     const errors = {};
+
     const results = await Promise.allSettled(
       CATEGORIES.map(async (cat) => {
         if (STATIC_SERVICES[cat.id]) {
@@ -283,10 +307,12 @@ export default function AllCategoryPage() {
         }
         if (cat.endpoint) {
           try {
-            const res = await fetch(cat.endpoint, { cache: "no-store" });
+            const res = await fetch(cat.endpoint, {
+              cache: "no-store",
+              headers: { Accept: "application/json" },
+            });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
-            // API returns { services: [...] } or an array directly
             const list = Array.isArray(data)
               ? data
               : data.services || data.data || [];
@@ -316,43 +342,51 @@ export default function AllCategoryPage() {
     fetchAllServices();
   }, [fetchAllServices]);
 
-  // ── Cart helpers ──────────────────────────────────────────────────────────
+  // ── Cart helpers ────────────────────────────────────────────────────────────
   const getQty = (id) => cartItems.find((i) => i.id === id)?.quantity || 0;
 
   const addToCart = (item) => {
     setCartItems((prev) => {
       const existing = prev.find((i) => i.id === item._id);
       if (existing) {
-        return prev.map((i) => i.id === item._id ? { ...i, quantity: i.quantity + 1 } : i);
+        return prev.map((i) =>
+          i.id === item._id ? { ...i, quantity: i.quantity + 1 } : i
+        );
       }
-      return [...prev, { id: item._id, name: item.name, price: item.price, quantity: 1, emoji: item.emoji || getServiceEmoji(item._id) }];
+      return [
+        ...prev,
+        {
+          id: item._id,
+          name: item.name,
+          price: item.price,
+          quantity: 1,
+          emoji: item.emoji || getServiceEmoji(item._id),
+        },
+      ];
     });
   };
 
-  const incrementQty = (id) => {
+  const incrementQty = (id) =>
     setCartItems((prev) =>
-      prev.map((i) => i.id === id ? { ...i, quantity: i.quantity + 1 } : i)
+      prev.map((i) => (i.id === id ? { ...i, quantity: i.quantity + 1 } : i))
     );
-  };
 
-  const decrementQty = (id) => {
+  const decrementQty = (id) =>
     setCartItems((prev) => {
       const item = prev.find((i) => i.id === id);
       if (!item) return prev;
       if (item.quantity <= 1) return prev.filter((i) => i.id !== id);
-      return prev.map((i) => i.id === id ? { ...i, quantity: i.quantity - 1 } : i);
+      return prev.map((i) =>
+        i.id === id ? { ...i, quantity: i.quantity - 1 } : i
+      );
     });
-  };
 
-  // ── Service press handler ─────────────────────────────────────────────────
-  const handleServicePress = (item) => setDetailItem(item);
+  const currentServices = selectedCategory
+    ? services[selectedCategory.id] || []
+    : [];
 
-  // ── Current services ──────────────────────────────────────────────────────
-  const currentServices = selectedCategory ? (services[selectedCategory.id] || []) : [];
-
-  // ─────────────────────────────────────────────────────────────────────────
   return (
-    <div className="flex flex-col min-h-screen max-w-lg mx-auto bg-white relative overflow-hidden">
+    <div className="flex flex-col min-h-screen max-w-lg mx-auto bg-white relative">
       {/* ── HEADER ── */}
       <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-100 sticky top-0 z-30">
         <div className="flex items-center gap-3">
@@ -360,8 +394,18 @@ export default function AllCategoryPage() {
             onClick={() => router.back()}
             className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition"
           >
-            <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-5 h-5 text-gray-800"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
           <span className="text-lg font-semibold text-gray-900">Services</span>
@@ -370,13 +414,23 @@ export default function AllCategoryPage() {
           onClick={() => setSearchOpen(true)}
           className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition"
         >
-          <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+          <svg
+            className="w-5 h-5 text-gray-800"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2.5}
+              d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"
+            />
           </svg>
         </button>
       </div>
 
-      {/* ── USER BADGE (from localStorage) ── */}
+      {/* ── USER BADGE ── */}
       {user && (
         <div className="mx-4 mt-2 px-3 py-2 bg-violet-50 rounded-xl flex items-center gap-2 text-xs text-violet-700 font-medium">
           <span>👤</span>
@@ -386,14 +440,15 @@ export default function AllCategoryPage() {
 
       {/* ── LOADER ── */}
       {loading ? (
-        <div className="flex-1 flex items-center justify-center py-20">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-10 h-10 border-4 border-violet-200 border-t-violet-600 rounded-full animate-spin" />
-            <p className="text-sm text-gray-400">Loading services…</p>
-          </div>
+        <div className="flex-1 flex flex-col items-center justify-center py-20 gap-4">
+          <div className="w-10 h-10 border-4 border-violet-200 border-t-violet-600 rounded-full animate-spin" />
+          <p className="text-sm text-gray-400">Loading services…</p>
         </div>
       ) : (
-        <div className="flex flex-1 overflow-hidden" style={{ height: "calc(100vh - 60px)" }}>
+        <div
+          className="flex flex-1 overflow-hidden"
+          style={{ height: "calc(100vh - 60px)" }}
+        >
           {/* ── SIDEBAR ── */}
           <div className="w-[100px] flex-shrink-0 bg-white border-r border-gray-100 overflow-y-auto">
             {CATEGORIES.map((cat) => {
@@ -422,9 +477,10 @@ export default function AllCategoryPage() {
                   >
                     {cat.name}
                   </span>
-                  {/* badge for api error */}
                   {apiErrors[cat.id] && (
-                    <span className="text-[9px] text-red-400 mt-0.5">⚠ no data</span>
+                    <span className="text-[9px] text-red-400 mt-0.5">
+                      ⚠ no data
+                    </span>
                   )}
                 </button>
               );
@@ -434,23 +490,25 @@ export default function AllCategoryPage() {
           {/* ── SERVICES GRID ── */}
           <div className="flex-1 bg-gray-50 overflow-y-auto pb-28">
             <div className="p-2">
-              {/* Category header */}
               {selectedCategory && (
                 <div className="px-2 py-2 mb-2">
-                  <h2 className="text-sm font-semibold text-gray-700">{selectedCategory.name}</h2>
+                  <h2 className="text-sm font-semibold text-gray-700">
+                    {selectedCategory.name}
+                  </h2>
                   {apiErrors[selectedCategory.id] && (
                     <p className="text-xs text-red-400 mt-0.5">
-                      ⚠ Could not load from server. Showing cached data.
+                      ⚠ Could not load from server.
                     </p>
                   )}
                 </div>
               )}
 
-              {/* Grid */}
               {currentServices.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                   <div className="text-5xl mb-3">📭</div>
-                  <p className="text-gray-400 text-sm">No services available in this category</p>
+                  <p className="text-gray-400 text-sm">
+                    No services available in this category
+                  </p>
                   <button
                     onClick={fetchAllServices}
                     className="mt-4 text-violet-600 text-xs font-medium underline"
@@ -463,36 +521,27 @@ export default function AllCategoryPage() {
                   {currentServices.map((item) => {
                     const qty = getQty(item._id);
                     const emoji = item.emoji || getServiceEmoji(item._id);
-                    // Image: use API URL if available
-                    const imageUrl =
-                      item.images && item.images.length > 0 && item.images[0]?.url
-                        ? item.images[0].url
-                        : null;
+                    const imageUrl = item.images?.[0]?.url || null;
 
                     return (
                       <div
                         key={item._id}
                         className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col cursor-pointer active:scale-95 transition-transform"
-                        onClick={() => handleServicePress(item)}
+                        onClick={() => setDetailItem(item)}
                       >
-                        {/* Image / emoji block */}
-                        <div className="w-full aspect-[1.2/1] bg-violet-50 flex items-center justify-center overflow-hidden">
-                          {imageUrl ? (
+                        {/* Image / emoji */}
+                        <div className="w-full aspect-[1.2/1] bg-violet-50 flex items-center justify-center overflow-hidden relative">
+                          {imageUrl && (
                             <img
                               src={imageUrl}
                               alt={item.name}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover absolute inset-0"
                               onError={(e) => {
-                                e.target.style.display = "none";
-                                e.target.nextSibling.style.display = "flex";
+                                e.currentTarget.style.display = "none";
                               }}
                             />
-                          ) : null}
-                          <div
-                            className={`w-full h-full flex items-center justify-center text-4xl ${imageUrl ? "hidden" : "flex"}`}
-                          >
-                            {emoji}
-                          </div>
+                          )}
+                          <span className="text-4xl z-0">{emoji}</span>
                         </div>
 
                         {/* Details */}
@@ -505,11 +554,12 @@ export default function AllCategoryPage() {
                               ₹{item.price?.toLocaleString("en-IN")}
                             </span>
                             {item.time && (
-                              <span className="text-[10px] text-gray-400">{item.time}</span>
+                              <span className="text-[10px] text-gray-400">
+                                {item.time}
+                              </span>
                             )}
                           </div>
 
-                          {/* Add / qty control */}
                           {qty > 0 ? (
                             <div
                               className="flex items-center justify-between bg-violet-600 rounded-md px-2 py-1"
@@ -521,7 +571,9 @@ export default function AllCategoryPage() {
                               >
                                 −
                               </button>
-                              <span className="text-white font-bold text-sm">{qty}</span>
+                              <span className="text-white font-bold text-sm">
+                                {qty}
+                              </span>
                               <button
                                 onClick={() => incrementQty(item._id)}
                                 className="text-white font-bold text-lg w-6 h-6 flex items-center justify-center"
@@ -552,7 +604,10 @@ export default function AllCategoryPage() {
       )}
 
       {/* ── CART BUTTON ── */}
-      <CartButton cartItems={cartItems} onViewCart={() => router.push("/cart")} />
+      <CartButton
+        cartItems={cartItems}
+        onViewCart={() => router.push("/cart")}
+      />
 
       {/* ── SEARCH OVERLAY ── */}
       {searchOpen && (
@@ -560,13 +615,11 @@ export default function AllCategoryPage() {
           services={services}
           onClose={() => setSearchOpen(false)}
           onSelectService={(item) => {
-            setSearchOpen(false);
-            // Find and select the right category
             const cat = CATEGORIES.find((c) =>
               (services[c.id] || []).some((s) => s._id === item._id)
             );
             if (cat) setSelectedCategory(cat);
-            handleServicePress(item);
+            setDetailItem(item);
           }}
         />
       )}
@@ -577,11 +630,34 @@ export default function AllCategoryPage() {
           item={detailItem}
           qty={getQty(detailItem._id)}
           onClose={() => setDetailItem(null)}
-          onAdd={() => { addToCart(detailItem); }}
+          onAdd={() => addToCart(detailItem)}
           onInc={() => incrementQty(detailItem._id)}
           onDec={() => decrementQty(detailItem._id)}
         />
       )}
     </div>
+  );
+}
+
+// ─── SUSPENSE FALLBACK ────────────────────────────────────────────────────────
+function PageFallback() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-10 h-10 border-4 border-violet-200 border-t-violet-600 rounded-full animate-spin" />
+        <p className="text-sm text-gray-400">Loading…</p>
+      </div>
+    </div>
+  );
+}
+
+// ─── DEFAULT EXPORT ───────────────────────────────────────────────────────────
+// useSearchParams() MUST be inside a Suspense boundary.
+// The inner component uses it; this wrapper provides the boundary.
+export default function AllCategoryPage() {
+  return (
+    <Suspense fallback={<PageFallback />}>
+      <AllCategoryInner />
+    </Suspense>
   );
 }
