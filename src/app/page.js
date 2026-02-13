@@ -44,10 +44,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white pb-24 max-w-md mx-auto shadow-xl relative overflow-x-hidden">
       <Header />
-      <div className="flex-1 overflow-y-auto">
-        <Carousel />
-        <Categories />
-      </div>
+ 
       <Footer />
     </main>
   );
