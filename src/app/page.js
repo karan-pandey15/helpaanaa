@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import SplashScreen from '@/components/SplashScreen';
 import Auth from '@/components/Auth';
 import Header from '@/components/Header';
@@ -11,8 +11,9 @@ export default function Home() {
   const [currentScreen, setCurrentScreen] = useState('loading');
 
   useEffect(() => {
-    const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
-    const token = localStorage.getItem('userToken');
+    // Check storage only after mounting to avoid hydration mismatch
+    const hasSeenSplash = typeof window !== 'undefined' ? sessionStorage.getItem('hasSeenSplash') : null;
+    const token = typeof window !== 'undefined' ? localStorage.getItem('userToken') : null;
 
     if (hasSeenSplash) {
       if (token) {
@@ -25,7 +26,7 @@ export default function Home() {
     }
   }, []);
 
-  const handleSplashFinish = () => {
+  const handleSplashFinish = useCallback(() => {
     sessionStorage.setItem('hasSeenSplash', 'true');
     const token = localStorage.getItem('userToken');
     if (token) {
@@ -33,15 +34,15 @@ export default function Home() {
     } else {
       setCurrentScreen('auth');
     }
-  };
+  }, []);
 
-  const handleAuthSuccess = () => {
+  const handleAuthSuccess = useCallback(() => {
     setCurrentScreen('home');
-  };
+  }, []);
 
-  const handleSkip = () => {
+  const handleSkip = useCallback(() => {
     setCurrentScreen('home');
-  };
+  }, []);
 
   if (currentScreen === 'loading') {
     return null; // Or a simple spinner

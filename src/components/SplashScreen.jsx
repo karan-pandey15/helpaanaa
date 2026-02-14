@@ -4,10 +4,17 @@ import { motion } from 'framer-motion';
 
 const SplashScreen = ({ onFinish }) => {
   useEffect(() => {
+    let isMounted = true;
     const timer = setTimeout(() => {
-      onFinish();
-    }, 4500); // Total duration of animations
-    return () => clearTimeout(timer);
+      if (isMounted) {
+        onFinish();
+      }
+    }, 4500); 
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    };
   }, [onFinish]);
 
   const letters = "Helpaana".split("");

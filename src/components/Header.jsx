@@ -80,7 +80,7 @@ export default function Header() {
  
 
   return (
-    <div className="flex flex-col h-screen bg-white">
+    <div className="flex flex-col bg-white">
 
       {/* ── Fixed Header ─────────────────────────────────────────── */}
       <div className="sticky top-0 z-50 bg-[#457b9d]">
@@ -137,7 +137,7 @@ export default function Header() {
       </div>
 
       {/* ── Scrollable Content ───────────────────────────────────── */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1">
    
 
          <CategorySlider />

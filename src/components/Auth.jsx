@@ -32,11 +32,15 @@ const Auth = ({ onAuthSuccess, onSkip }) => {
     }
 
     setIsLoading(true);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
     try {
       const response = await fetch(`${API_BASE_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: loginPhone }),
+        signal: controller.signal
       });
 
       const data = await response.json();
@@ -48,8 +52,13 @@ const Auth = ({ onAuthSuccess, onSkip }) => {
         alert(data.message || 'Login failed. Please try again.');
       }
     } catch (error) {
-      alert('Network error. Please check your connection.');
+      if (error.name === 'AbortError') {
+        alert('Request timed out. Please try again.');
+      } else {
+        alert('Network error. Please check your connection.');
+      }
     } finally {
+      clearTimeout(timeoutId);
       setIsLoading(false);
     }
   };
@@ -68,11 +77,15 @@ const Auth = ({ onAuthSuccess, onSkip }) => {
     }
 
     setIsLoading(true);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
     try {
       const response = await fetch(`${API_BASE_URL}/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(signupForm),
+        signal: controller.signal
       });
 
       const data = await response.json();
@@ -84,8 +97,13 @@ const Auth = ({ onAuthSuccess, onSkip }) => {
         alert(data.message || 'Signup failed. Please try again.');
       }
     } catch (error) {
-      alert('Network error. Please check your connection.');
+      if (error.name === 'AbortError') {
+        alert('Request timed out. Please try again.');
+      } else {
+        alert('Network error. Please check your connection.');
+      }
     } finally {
+      clearTimeout(timeoutId);
       setIsLoading(false);
     }
   };
