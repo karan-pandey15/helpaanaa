@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 // ─── Lucide-style inline SVG icons ───────────────────────────────────────────
 const ChevronLeft = () => (
@@ -118,6 +119,7 @@ const MenuItem = ({ icon, label, onClick, isLast = false }) => (
 
 // ─── Main Profile Component ───────────────────────────────────────────────────
 export default function Profile() {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [logoutVisible, setLogoutVisible] = useState(false);
   const [modalReady, setModalReady] = useState(false);
@@ -183,7 +185,7 @@ export default function Profile() {
         style={{ paddingTop: "calc(env(safe-area-inset-top) + 16px)" }}
       >
         <button
-          onClick={() => window.history.back()}
+          onClick={() => router.back()}
           className="p-1 rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors"
           aria-label="Go back"
         >

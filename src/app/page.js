@@ -8,15 +8,25 @@ import Categories from '@/components/Categories';
 import Footer from '@/components/Footer';
 
 export default function Home() {
-  const [currentScreen, setCurrentScreen] = useState('splash');
+  const [currentScreen, setCurrentScreen] = useState('loading');
 
   useEffect(() => {
-    // Check if user is already logged in
+    const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
     const token = localStorage.getItem('userToken');
-    // We'll let the splash screen finish its animation first
+
+    if (hasSeenSplash) {
+      if (token) {
+        setCurrentScreen('home');
+      } else {
+        setCurrentScreen('auth');
+      }
+    } else {
+      setCurrentScreen('splash');
+    }
   }, []);
 
   const handleSplashFinish = () => {
+    sessionStorage.setItem('hasSeenSplash', 'true');
     const token = localStorage.getItem('userToken');
     if (token) {
       setCurrentScreen('home');
@@ -32,6 +42,10 @@ export default function Home() {
   const handleSkip = () => {
     setCurrentScreen('home');
   };
+
+  if (currentScreen === 'loading') {
+    return null; // Or a simple spinner
+  }
 
   if (currentScreen === 'splash') {
     return <SplashScreen onFinish={handleSplashFinish} />;

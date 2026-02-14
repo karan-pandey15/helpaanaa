@@ -16,25 +16,25 @@ const categories = [
     id: 3,
     name: 'Pandit Ji',
     image: '/image/panditcat.png',
-    screen: '/fresh-fruit',
+    screen: '/pages/Pandit',
   },
   {
     id: 2,
     name: 'Hotel Resort',
     image: '/image/hotelcat.png',
-    screen: '/hotel',
+    screen: '/pages/Hotel',
   },
   {
     id: 4,
     name: 'Groceries',
-    image: '/image/cosmeticcat.png',
-    screen: '/fresh-veg',
+    image: '/image/grocerycat.png',
+    screen: '/pages/Groceries',
   },
   {
     id: 5,
     name: 'School Items',
     image: '/image/schoolcat.png',
-    screen: '/milk-bread',
+    screen: '/pages/School',
   },
 ];
 
