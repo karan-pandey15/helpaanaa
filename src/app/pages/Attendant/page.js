@@ -2,15 +2,11 @@
 
 import { useState, useEffect, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart as addToCartRedux, removeFromCart as removeFromCartRedux } from "@/redux/cartSlice";
 
 // ─── CATEGORIES CONFIG ───────────────────────────────────────────────────────
 const CATEGORIES = [
-  {
-    id: "GaurdianKids",
-    name: "Guardian For Kids",
-    endpoint: "https://api.marasimpex.com/api/services/category/GaurdianKids",
-    emoji: "👶",
-  },
   {
     id: "Attendant",
     name: "Attendant For Your Parents",
@@ -266,11 +262,12 @@ function AllCategoryInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const categoryId = searchParams?.get("categoryId");
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
 
   const [loading, setLoading] = useState(true);
   const [services, setServices] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
   const [user, setUser] = useState(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [detailItem, setDetailItem] = useState(null);
@@ -278,14 +275,8 @@ function AllCategoryInner() {
 
   // Hydrate from localStorage (client only)
   useEffect(() => {
-    setCartItems(loadCart());
     setUser(loadUser());
   }, []);
-
-  // Persist cart to localStorage whenever it changes
-  useEffect(() => {
-    saveCart(cartItems);
-  }, [cartItems]);
 
   // Set initial selected category from query param
   useEffect(() => {
@@ -346,40 +337,28 @@ function AllCategoryInner() {
   const getQty = (id) => cartItems.find((i) => i.id === id)?.quantity || 0;
 
   const addToCart = (item) => {
-    setCartItems((prev) => {
-      const existing = prev.find((i) => i.id === item._id);
-      if (existing) {
-        return prev.map((i) =>
-          i.id === item._id ? { ...i, quantity: i.quantity + 1 } : i
-        );
-      }
-      return [
-        ...prev,
-        {
-          id: item._id,
-          name: item.name,
-          price: item.price,
-          quantity: 1,
-          emoji: item.emoji || getServiceEmoji(item._id),
-        },
-      ];
-    });
+    dispatch(addToCartRedux({
+      id: item._id,
+      name: item.name,
+      price: item.price,
+      image: item.image || null,
+    }));
   };
 
-  const incrementQty = (id) =>
-    setCartItems((prev) =>
-      prev.map((i) => (i.id === id ? { ...i, quantity: i.quantity + 1 } : i))
-    );
+  const incrementQty = (id) => {
+    const item = cartItems.find(i => i.id === id);
+    if (item) {
+      dispatch(addToCartRedux({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+      }));
+    }
+  };
 
-  const decrementQty = (id) =>
-    setCartItems((prev) => {
-      const item = prev.find((i) => i.id === id);
-      if (!item) return prev;
-      if (item.quantity <= 1) return prev.filter((i) => i.id !== id);
-      return prev.map((i) =>
-        i.id === id ? { ...i, quantity: i.quantity - 1 } : i
-      );
-    });
+  const decrementQty = (id) => {
+    dispatch(removeFromCartRedux(id));
+  };
 
   const currentServices = selectedCategory
     ? services[selectedCategory.id] || []

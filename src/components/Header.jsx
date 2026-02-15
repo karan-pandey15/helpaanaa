@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
 import {
   Zap, ChevronDown, Heart, ShoppingCart, User, RefreshCw
 } from 'lucide-react';
@@ -22,12 +23,12 @@ export default function Header() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [favoriteCount, setFavoriteCount] = useState(0);
-  const [cartCount, setCartCount] = useState(0);
+  const cartItems = useSelector((state) => state.cart.items);
+  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   useEffect(() => {
     fetchAddresses();
     fetchFavoriteCount();
-    fetchCartCount();
   }, []);
 
   const fetchAddresses = async () => {
@@ -67,15 +68,6 @@ export default function Header() {
     }
   };
 
-  const fetchCartCount = () => {
-    try {
-      const raw = localStorage.getItem('cart_items');
-      const items = raw ? JSON.parse(raw) : [];
-      setCartCount(items.length);
-    } catch {
-      setCartCount(0);
-    }
-  };
 
  
 

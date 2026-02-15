@@ -5,7 +5,6 @@ import Auth from '@/components/Auth';
 import Header from '@/components/Header';
 import Carousel from '@/components/Carousel';
 import Categories from '@/components/Categories';
-import Footer from '@/components/Footer';
 
 export default function Home() {
   const [currentScreen, setCurrentScreen] = useState('loading');
@@ -60,7 +59,6 @@ export default function Home() {
     <main className="min-h-screen bg-white pb-24 max-w-md mx-auto shadow-xl relative overflow-x-hidden">
       <Header />
  
-      <Footer />
     </main>
   );
 }

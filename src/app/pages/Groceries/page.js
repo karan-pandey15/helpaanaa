@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, removeFromCart } from '@/redux/cartSlice';
 
 /**
  * Grocery Page Component
@@ -10,12 +12,16 @@ import { useRouter } from 'next/navigation';
  */
 export default function GroceryPage() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
+  const cartTotal = useSelector((state) => state.cart.totalAmount);
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   // --- STATE ---
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-  const [cart, setCart] = useState([]);
 
   // --- API FETCHING ---
   useEffect(() => {
@@ -40,54 +46,38 @@ export default function GroceryPage() {
     };
 
     fetchProducts();
-    
-    // Load cart from localStorage if available
-    const savedCart = localStorage.getItem('grocery_cart');
-    if (savedCart) {
-      try {
-        setCart(JSON.parse(savedCart));
-      } catch (e) {
-        console.error('Cart parse error:', e);
-      }
-    }
   }, []);
-
-  // Save cart to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem('grocery_cart', JSON.stringify(cart));
-  }, [cart]);
 
   // --- CART LOGIC ---
   const handleAddToCart = (product) => {
-    setCart((prev) => [
-      ...prev,
-      {
-        id: product._id,
-        name: product.name,
-        price: product.price.selling_price,
-        image: product.images?.[0]?.url,
-        quantity: 1,
-      },
-    ]);
+    dispatch(addToCart({
+      id: product._id,
+      name: product.name,
+      price: product.price.selling_price,
+      image: product.images?.[0]?.url,
+    }));
   };
 
   const updateQuantity = (productId, delta) => {
-    setCart((prev) => {
-      return prev
-        .map((item) =>
-          item.id === productId ? { ...item, quantity: item.quantity + delta } : item
-        )
-        .filter((item) => item.quantity > 0);
-    });
+    if (delta > 0) {
+      const item = products.find(p => p._id === productId);
+      if (item) {
+        dispatch(addToCart({
+          id: item._id,
+          name: item.name,
+          price: item.price.selling_price,
+          image: item.images?.[0]?.url,
+        }));
+      }
+    } else {
+      dispatch(removeFromCart(productId));
+    }
   };
 
   const getQuantity = (productId) => {
-    const item = cart.find((i) => i.id === productId);
+    const item = cartItems.find((i) => i.id === productId);
     return item ? item.quantity : 0;
   };
-
-  const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   // --- FILTERED DATA ---
   const filteredProducts = products.filter((p) => p.sub_category === selectedSubCategory);
@@ -222,7 +212,10 @@ export default function GroceryPage() {
       {/* FLOATING CART BUTTON */}
       {cartCount > 0 && (
         <div className="fixed bottom-6 left-4 right-4 z-[100]">
-          <button className="w-full bg-pink-600 text-white rounded-xl py-3.5 px-5 flex items-center justify-between shadow-lg shadow-pink-200 animate-in fade-in slide-in-from-bottom-4 duration-300">
+          <button 
+            onClick={() => router.push('/cart')}
+            className="w-full bg-pink-600 text-white rounded-xl py-3.5 px-5 flex items-center justify-between shadow-lg shadow-pink-200 animate-in fade-in slide-in-from-bottom-4 duration-300"
+          >
             <div className="flex flex-col items-start">
               <span className="text-[10px] uppercase font-bold tracking-wider opacity-80">{cartCount} ITEMS</span>
               <span className="text-base font-bold">₹{cartTotal}</span>
