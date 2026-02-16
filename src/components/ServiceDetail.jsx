@@ -31,6 +31,7 @@ const ServiceDetail = ({
 
   const title = propTitle || searchParams.get('title') || 'Service Details';
   const image = propImage || searchParams.get('image') || 'https://images.unsplash.com/photo-1584512603392-f0c3d99c1ce0?q=80&w=800';
+  const emoji = searchParams.get('emoji') || '✨';
   const basePrice = Number(propBasePrice || searchParams.get('price') || 299);
   
   const item = propItem || {
@@ -134,12 +135,16 @@ const ServiceDetail = ({
         <motion.div 
           initial={{ opacity: 0, scale: 1.1 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="relative h-[45vh] w-full overflow-hidden"
+          className="relative h-[45vh] w-full overflow-hidden flex items-center justify-center bg-violet-50 text-7xl"
         >
+          {emoji}
           <img 
             src={image} 
             alt={title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover absolute inset-0"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
           

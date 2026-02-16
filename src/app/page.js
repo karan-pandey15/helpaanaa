@@ -15,11 +15,7 @@ export default function Home() {
     const token = typeof window !== 'undefined' ? localStorage.getItem('userToken') : null;
 
     if (hasSeenSplash) {
-      if (token) {
-        setCurrentScreen('home');
-      } else {
-        setCurrentScreen('auth');
-      }
+      setCurrentScreen('home');
     } else {
       setCurrentScreen('splash');
     }
@@ -27,12 +23,7 @@ export default function Home() {
 
   const handleSplashFinish = useCallback(() => {
     sessionStorage.setItem('hasSeenSplash', 'true');
-    const token = localStorage.getItem('userToken');
-    if (token) {
-      setCurrentScreen('home');
-    } else {
-      setCurrentScreen('auth');
-    }
+    setCurrentScreen('home');
   }, []);
 
   const handleAuthSuccess = useCallback(() => {

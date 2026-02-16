@@ -80,7 +80,7 @@ function CartButton({ cartItems, onViewCart }) {
           <span className="bg-white text-violet-600 font-bold text-xs rounded-full w-6 h-6 flex items-center justify-center">
             {totalQty}
           </span>
-          <span className="font-semibold text-sm">View Cart</span>
+          <span className="font-semibold text-sm">View Cart 🛒</span>
         </div>
         <span className="font-bold text-sm">
           ₹{totalAmt.toLocaleString("en-IN")}
@@ -192,8 +192,18 @@ function ServiceDetailModal({ item, qty, onClose, onAdd, onInc, onDec }) {
         style={{ maxHeight: "90vh" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-full aspect-[5/3] bg-violet-50 rounded-2xl flex items-center justify-center mb-4 text-7xl">
+        <div className="w-full aspect-[5/3] bg-violet-50 rounded-2xl flex items-center justify-center mb-4 text-7xl overflow-hidden relative">
           {item.emoji || getServiceEmoji(item._id)}
+          {(item.images?.[0]?.url || item.image) && (
+            <img 
+              src={item.images?.[0]?.url || item.image} 
+              alt={item.name}
+              className="w-full h-full object-cover absolute inset-0"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+            />
+          )}
         </div>
         <h2 className="text-xl font-bold text-gray-900 mb-1">{item.name}</h2>
         <p className="text-sm text-gray-500 mb-4">{item.description}</p>
@@ -322,11 +332,13 @@ function AllCategoryInner() {
   const getQty = (id) => cartItems.find((i) => i.id === id)?.quantity || 0;
 
   const addToCart = (item) => {
+    const emoji = item.emoji || getServiceEmoji(item._id);
     dispatch(addToCartRedux({
       id: item._id,
       name: item.name,
       price: item.price,
       image: item.image || null,
+      emoji: emoji,
     }));
   };
 
@@ -351,6 +363,7 @@ function AllCategoryInner() {
 
   const handleServiceClick = (item) => {
     const imageUrl = item.images?.[0]?.url || item.image || "https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=800";
+    const emoji = item.emoji || getServiceEmoji(item._id);
     const params = new URLSearchParams({
       title: item.name,
       price: item.price,
@@ -358,6 +371,7 @@ function AllCategoryInner() {
       category: selectedCategory?.name || "Service",
       isTraveling: item.isTraveling ? "true" : "false",
       image: imageUrl,
+      emoji: emoji,
     });
     router.push(`/pages/ServiceDetail?${params.toString()}`);
   };

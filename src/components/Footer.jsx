@@ -13,14 +13,15 @@ import Logo from "./Logo.jsx";
 
 const Footer = () => {
   const serviceLinks = [
-    { name: "Attendant", href: "/pages/Attendant" },
+    { name: "Book a Attendant", href: "/pages/Attendant" },
+    { name: "Book Guardian For Kids", href: "/pages/GuardianKids" },
+    { name: "Book a Female Attendant For Droping Airport", href: "/pages/Attendant" },
+    { name: "Book a Pandit Ji", href: "/pages/Pandit" },
+    { name: "Mehndi Artist", href: "/pages/Mehndi" },
+    { name: "Resirt Booking For Wedding & Function", href: "/pages/Hotel" }, 
+    { name: "School Uniform & Accessories", href: "/pages/School" },
     { name: "Cosmetic", href: "/pages/Cosmetic" },
     { name: "Groceries", href: "/pages/Groceries" },
-    { name: "Guardian Kids", href: "/pages/GuardianKids" },
-    { name: "Hotel", href: "/pages/Hotel" },
-    { name: "Mehndi", href: "/pages/Mehndi" },
-    { name: "Pandit", href: "/pages/Pandit" },
-    { name: "School", href: "/pages/School" },
   ];
 
   const companyLinks = [
@@ -28,12 +29,20 @@ const Footer = () => {
     { name: "Contact Us", href: "/contact" },
     { name: "Privacy Policy", href: "/privacy-policy" },
     { name: "Terms & Conditions", href: "/terms" },
-    { name: "Join Us", href: "/career" },
+    { name: "Join Us (Career)", href: "/career" },
+    { name: "Business Collerabation", href: "#" },
+    { name: "For Investors", href: "#" },
+    { name: "Become a Partner", href: "#" }, 
+    
+    
   ];
 
   const otherLinks = [
     { name: "Blog", href: "/blog" },
     { name: "Admin Login", href: "/admin/login" },
+    { name: "  Achievements & Appearances", href: "" },
+    { name: "Our Official Business Partner", href: "" },
+    
   ];
 
   return (
@@ -95,7 +104,7 @@ const Footer = () => {
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-5 h-5 shrink-0" />
-              <span>+91 9717699144</span>
+              <span>+91 8887796224</span>
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-5 h-5 shrink-0" />

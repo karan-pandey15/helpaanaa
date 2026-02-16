@@ -9,7 +9,7 @@ import { addToCart as addToCartRedux, removeFromCart as removeFromCartRedux } fr
 const CATEGORIES = [
   {
     id: "Attendant",
-    name: "Attendant For Your Parents",
+    name: "Book a Attendant For Your Parents",
     endpoint: "https://api.marasimpex.com/api/services/category/Attendant",
     emoji: "🧓",
   },
@@ -25,8 +25,8 @@ const STATIC_SERVICES = {
   TravelingAttendant: [
     {
       _id: "traveling_attendant_1",
-      name: "Book Traveling Attendant",
-      price: 500,
+      name: "Book Traveling Attendant",  // wutg byke 1499
+      price: 999,
       description:
         "Professional attendant for traveling needs. Includes support for gender, religion, and location selection.",
       emoji: "🧳",
@@ -35,7 +35,7 @@ const STATIC_SERVICES = {
     {
       _id: "traveling_vehicle_1",
       name: "Traveling with Vehicle",
-      price: 800,
+      price: 2499,
       description:
         "Professional attendant for traveling with vehicle. Support for Two Wheeler and Four Wheeler.",
       emoji: "🚗",
@@ -95,7 +95,7 @@ function CartButton({ cartItems, onViewCart }) {
           <span className="bg-white text-violet-600 font-bold text-xs rounded-full w-6 h-6 flex items-center justify-center">
             {totalQty}
           </span>
-          <span className="font-semibold text-sm">View Cart</span>
+          <span className="font-semibold text-sm">View Cart 🛒</span>
         </div>
         <span className="font-bold text-sm">
           ₹{totalAmt.toLocaleString("en-IN")}
@@ -207,8 +207,18 @@ function ServiceDetailModal({ item, qty, onClose, onAdd, onInc, onDec }) {
         style={{ maxHeight: "90vh" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-full aspect-[5/3] bg-violet-50 rounded-2xl flex items-center justify-center mb-4 text-7xl">
+        <div className="w-full aspect-[5/3] bg-violet-50 rounded-2xl flex items-center justify-center mb-4 text-7xl overflow-hidden relative">
           {item.emoji || getServiceEmoji(item._id)}
+          {(item.images?.[0]?.url || item.image) && (
+            <img 
+              src={item.images?.[0]?.url || item.image} 
+              alt={item.name}
+              className="w-full h-full object-cover absolute inset-0"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+            />
+          )}
         </div>
         <h2 className="text-xl font-bold text-gray-900 mb-1">{item.name}</h2>
         <p className="text-sm text-gray-500 mb-4">{item.description}</p>
@@ -337,11 +347,13 @@ function AllCategoryInner() {
   const getQty = (id) => cartItems.find((i) => i.id === id)?.quantity || 0;
 
   const addToCart = (item) => {
+    const emoji = item.emoji || getServiceEmoji(item._id);
     dispatch(addToCartRedux({
       id: item._id,
       name: item.name,
       price: item.price,
       image: item.image || null,
+      emoji: emoji,
     }));
   };
 
@@ -366,6 +378,7 @@ function AllCategoryInner() {
 
   const handleServiceClick = (item) => {
     const imageUrl = item.images?.[0]?.url || item.image || "https://images.unsplash.com/photo-1584512603392-f0c3d99c1ce0?q=80&w=800";
+    const emoji = item.emoji || getServiceEmoji(item._id);
     const params = new URLSearchParams({
       title: item.name,
       price: item.price,
@@ -373,6 +386,7 @@ function AllCategoryInner() {
       category: selectedCategory?.name || "Service",
       isTraveling: item.isTraveling ? "true" : "false",
       image: imageUrl,
+      emoji: emoji,
     });
     router.push(`/pages/ServiceDetail?${params.toString()}`);
   };
@@ -522,7 +536,8 @@ function AllCategoryInner() {
                         onClick={() => handleServiceClick(item)}
                       >
                         {/* Image / emoji */}
-                        <div className="w-full aspect-[1.2/1] bg-violet-50 flex items-center justify-center overflow-hidden relative">
+                        <div className="w-full aspect-[1.2/1] bg-violet-50 flex items-center justify-center overflow-hidden relative text-4xl">
+                          {emoji}
                           {imageUrl && (
                             <img
                               src={imageUrl}
@@ -532,8 +547,7 @@ function AllCategoryInner() {
                                 e.currentTarget.style.display = "none";
                               }}
                             />
-                          )}
-                          <span className="text-4xl z-0">{emoji}</span>
+                          )} 
                         </div>
 
                         {/* Details */}

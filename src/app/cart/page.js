@@ -136,17 +136,17 @@ const CartPage = () => {
                     className="bg-white p-4 rounded-3xl shadow-sm border border-gray-100 flex gap-4 relative overflow-hidden group"
                   >
                     {/* Item Image */}
-                    <div className="w-24 h-24 bg-gray-50 rounded-2xl overflow-hidden flex-shrink-0 border border-gray-50">
-                      {item.image ? (
+                    <div className="w-24 h-24 bg-gray-50 rounded-2xl overflow-hidden flex-shrink-0 border border-gray-50 flex items-center justify-center text-4xl relative">
+                      {item.emoji || "✨"}
+                      {item.image && (
                         <img 
                           src={typeof item.image === 'string' ? item.image : (item.image.uri || '')} 
                           alt={item.name} 
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 absolute inset-0" 
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
                         />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-[#457b9d]/30">
-                          <ShoppingCart size={32} />
-                        </div>
                       )}
                     </div>
                     
