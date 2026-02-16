@@ -13,12 +13,12 @@ import Logo from "./Logo.jsx";
 
 const Footer = () => {
   const serviceLinks = [
-    { name: "Book a Attendant", href: "/pages/Attendant" },
-    { name: "Book Guardian For Kids", href: "/pages/GuardianKids" },
+    { name: "Book a Attendant For Your Parents", href: "/pages/Attendant" },
+    { name: "Book Guardian For Your Kids", href: "/pages/GuardianKids" },
     { name: "Book a Female Attendant For Droping Airport", href: "/pages/Attendant" },
     { name: "Book a Pandit Ji", href: "/pages/Pandit" },
     { name: "Mehndi Artist", href: "/pages/Mehndi" },
-    { name: "Resirt Booking For Wedding & Function", href: "/pages/Hotel" }, 
+    { name: "Resort Booking For Wedding & Function", href: "/pages/Hotel" }, 
     { name: "School Uniform & Accessories", href: "/pages/School" },
     { name: "Cosmetic", href: "/pages/Cosmetic" },
     { name: "Groceries", href: "/pages/Groceries" },
