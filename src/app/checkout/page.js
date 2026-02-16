@@ -19,7 +19,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { clearCart } from "@/redux/cartSlice";
 
 // Mock API functions - Replace these with your actual API calls
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://api.marasimpex.com';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://api.marasimpex.com';
 
 export default function CheckoutPage() {
   const router = useRouter();

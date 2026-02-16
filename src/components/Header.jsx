@@ -18,7 +18,7 @@ import CategorySlider from "./HeaderScreen/Categoryslider.jsx";
 import CategoryScreen from "./HeaderScreen/CategoryScreen.jsx";
 import BannerComponent from "./HeaderScreen/BannerComponent.jsx";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://api.marasimpex.com';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://api.marasimpex.com';
 
 // ── Helpaana Brand Component ─────────────────────────────────────
 const HelpaanaBrand = () => (
