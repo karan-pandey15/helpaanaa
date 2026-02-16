@@ -9,6 +9,7 @@ import {
   Phone, 
   MapPin 
 } from "lucide-react";
+import Logo from "./Logo.jsx";
 
 const Footer = () => {
   const serviceLinks = [
@@ -37,6 +38,9 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#457B9D] pt-12 pb-6 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto mb-10 border-b border-white/10 pb-8">
+        <Logo size="lg" light={true} />
+      </div>
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Services Section */}
         <div className="col-span-1">
@@ -106,14 +110,14 @@ const Footer = () => {
           <div className="mt-6">
             <h4 className="text-black font-bold mb-3">Follow Us</h4>
             <div className="flex gap-4">
-              <Link href="https://facebook.com/helpaana" className="text-white hover:text-black transition-colors">
-                <Facebook className="w-6 h-6" />
-              </Link>
-              <Link href="https://instagram.com/helpaana" className="text-white hover:text-black transition-colors">
+             
+              <Link href="https://www.instagram.com/helpaana?utm_source=qr&igsh=MXE3ZWt2dHUycjZpNw%3D%3D" className="text-white hover:text-black transition-colors">
                 <Instagram className="w-6 h-6" />
               </Link>
-              <Link href="https://youtube.com/helpaana" className="text-white hover:text-black transition-colors">
+              <Link href="https://www.youtube.com/@helpaana?si=try2DdrCGa4JpNfl" className="text-white hover:text-black transition-colors">
                 <Youtube className="w-6 h-6" />
+              </Link>  <Link href="https://facebook.com/helpaana" className="text-white hover:text-black transition-colors">
+                <Facebook className="w-6 h-6" />
               </Link>
             </div>
           </div>

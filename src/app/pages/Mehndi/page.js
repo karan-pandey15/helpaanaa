@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart as addToCartRedux } from "@/redux/cartSlice";
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
-const ACCENT = "#8b5cf6";
+const ACCENT = "#457B9D";
 
 const CATEGORIES = [
   { id: "Bridal",     name: "Bridal Wedding",    icon: "/image/mehndi.png" },
@@ -96,7 +98,7 @@ const IconBrush = () => (
   </svg>
 );
 const IconInfo = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#457B9D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="10" />
     <line x1="12" y1="8" x2="12" y2="8" strokeWidth="3" />
     <line x1="12" y1="12" x2="12" y2="16" />
@@ -117,8 +119,8 @@ const IconHandRight = ({ color }) => (
   </svg>
 );
 const IconRadioOn = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="2">
-    <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="5" fill="#8b5cf6" />
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#457B9D" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="5" fill="#457B9D" />
   </svg>
 );
 const IconRadioOff = () => (
@@ -138,8 +140,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
   const [instructions,    setInstructions]    = useState("");
 
   const currentPkg  = PACKAGES.find(p => p.name === selectedPackage);
-  const basePerHand = (artist.price / selectedHands) + (currentPkg?.priceAdd || 0);
-  const totalPrice  = basePerHand * selectedHands * peopleCount;
+  const totalPrice  = (artist.price + (currentPkg?.priceAdd || 0)) * selectedHands * peopleCount;
 
   const handleBooking = () => {
     if (!selectedDate) return alert("Please select a date");
@@ -149,7 +150,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
     onAddToCart({
       id: `${artist._id}_${Date.now()}`,
       name: `${artist.name} (${selectedPackage})`,
-      price: basePerHand,
+      price: artist.price + (currentPkg?.priceAdd || 0),
       totalPrice,
       quantity: peopleCount,
       hands: selectedHands,
@@ -166,7 +167,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
     <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif", backgroundColor: "#f4f7fa", minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
       {/* Detail Header */}
       <div style={{
-        backgroundColor: "#8b5cf6", height: 200,
+        backgroundColor: "#457B9D", height: 200,
         borderBottomLeftRadius: 35, borderBottomRightRadius: 35,
         display: "flex", flexDirection: "column", alignItems: "center",
         justifyContent: "center", position: "relative", flexShrink: 0,
@@ -196,7 +197,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
         {/* People Count */}
         <div style={{
           backgroundColor: "#fff", borderRadius: 18, border: "1px solid #f1f5f9",
-          boxShadow: "0 2px 10px rgba(139,92,246,0.07)",
+          boxShadow: "0 2px 10px rgba(69,123,157,0.08)",
           display: "flex", justifyContent: "space-between", alignItems: "center",
           padding: "16px 18px", marginBottom: 20, marginTop: 8,
         }}>
@@ -206,10 +207,10 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
           </div>
           <div style={{ display: "flex", alignItems: "center", backgroundColor: "#f1f5f9", borderRadius: 12, padding: 4, gap: 4 }}>
             <button onClick={() => peopleCount > 1 && setPeopleCount(c => c - 1)}
-              style={{ width: 32, height: 32, borderRadius: 10, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 18, fontWeight: 700, color: "#8b5cf6" }}>−</button>
+              style={{ width: 32, height: 32, borderRadius: 10, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 18, fontWeight: 700, color: "#457B9D" }}>−</button>
             <span style={{ fontSize: 16, fontWeight: 800, color: "#1e293b", minWidth: 28, textAlign: "center" }}>{peopleCount}</span>
             <button onClick={() => setPeopleCount(c => c + 1)}
-              style={{ width: 32, height: 32, borderRadius: 10, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 18, fontWeight: 700, color: "#8b5cf6" }}>+</button>
+              style={{ width: 32, height: 32, borderRadius: 10, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 18, fontWeight: 700, color: "#457B9D" }}>+</button>
           </div>
         </div>
 
@@ -223,15 +224,15 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                 <button key={opt.hands} onClick={() => setSelectedHands(opt.hands)}
                   style={{
                     flex: 1, padding: "12px 8px",
-                    backgroundColor: active ? "#8b5cf6" : "#fff",
-                    border: `1px solid ${active ? "#8b5cf6" : "#f1f5f9"}`,
+                    backgroundColor: active ? "#457B9D" : "#fff",
+                    border: `1px solid ${active ? "#457B9D" : "#f1f5f9"}`,
                     borderRadius: 16, cursor: "pointer",
                     display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
                     boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
                   }}>
                   <div style={{ display: "flex" }}>
-                    <IconHandRight color={active ? "#fff" : "#8b5cf6"} />
-                    {opt.hands === 2 && <IconHandRight color={active ? "#fff" : "#8b5cf6"} />}
+                    <IconHandRight color={active ? "#fff" : "#457B9D"} />
+                    {opt.hands === 2 && <IconHandRight color={active ? "#fff" : "#457B9D"} />}
                   </div>
                   <span style={{ fontSize: 13, fontWeight: 700, color: active ? "#fff" : "#475569" }}>{opt.label}</span>
                 </button>
@@ -250,18 +251,18 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                 style={{
                   width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center",
                   padding: "12px 16px", marginBottom: 8,
-                  backgroundColor: active ? "#f5f3ff" : "#fff",
-                  border: `1px solid ${active ? "#8b5cf6" : "#f1f5f9"}`,
+                  backgroundColor: active ? "#eef6fa" : "#fff",
+                  border: `1px solid ${active ? "#457B9D" : "#f1f5f9"}`,
                   borderRadius: 16, cursor: "pointer", textAlign: "left",
                 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   {active ? <IconRadioOn /> : <IconRadioOff />}
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 700, color: active ? "#8b5cf6" : "#334155", margin: 0 }}>{pkg.name}</p>
+                    <p style={{ fontSize: 14, fontWeight: 700, color: active ? "#457B9D" : "#334155", margin: 0 }}>{pkg.name}</p>
                     <p style={{ fontSize: 11, color: "#64748b", margin: "1px 0 0" }}>{pkg.desc}</p>
                   </div>
                 </div>
-                <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#8b5cf6" : "#475569" }}>+₹{pkg.priceAdd}</span>
+                <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#457B9D" : "#475569" }}>+₹{pkg.priceAdd}</span>
               </button>
             );
           })}
@@ -277,8 +278,8 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                 <button key={i} onClick={() => setSelectedDate(item.full)}
                   style={{
                     minWidth: 65, height: 80, flexShrink: 0,
-                    backgroundColor: active ? "#8b5cf6" : "#fff",
-                    border: `1px solid ${active ? "#8b5cf6" : "#f1f5f9"}`,
+                    backgroundColor: active ? "#457B9D" : "#fff",
+                    border: `1px solid ${active ? "#457B9D" : "#f1f5f9"}`,
                     borderRadius: 16, cursor: "pointer",
                     display: "flex", flexDirection: "column",
                     alignItems: "center", justifyContent: "center", gap: 1,
@@ -302,8 +303,8 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                 <button key={i} onClick={() => setSelectedTime(time)}
                   style={{
                     width: "calc(33.33% - 6px)", padding: "10px 0",
-                    backgroundColor: active ? "#8b5cf6" : "#fff",
-                    border: `1px solid ${active ? "#8b5cf6" : "#f1f5f9"}`,
+                    backgroundColor: active ? "#457B9D" : "#fff",
+                    border: `1px solid ${active ? "#457B9D" : "#f1f5f9"}`,
                     borderRadius: 10, cursor: "pointer",
                     fontSize: 11, fontWeight: 700, color: active ? "#fff" : "#1e293b",
                   }}>
@@ -339,11 +340,11 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
       }}>
         <div>
           <p style={{ fontSize: 11, color: "#64748b", fontWeight: 600, margin: 0 }}>Total Amount</p>
-          <p style={{ fontSize: 22, fontWeight: 800, color: "#8b5cf6", margin: "2px 0 0" }}>₹{totalPrice.toLocaleString()}</p>
+          <p style={{ fontSize: 22, fontWeight: 800, color: "#457B9D", margin: "2px 0 0" }}>₹{totalPrice.toLocaleString()}</p>
         </div>
         <button onClick={handleBooking}
           style={{
-            backgroundColor: "#8b5cf6", color: "#fff", border: "none",
+            backgroundColor: "#457B9D", color: "#fff", border: "none",
             borderRadius: 12, padding: "12px 20px",
             display: "flex", alignItems: "center", gap: 6,
             fontSize: 14, fontWeight: 800, cursor: "pointer",
@@ -358,16 +359,16 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
 // ─── MAIN COMPONENT: LIST ───────────────────────────────────────────────────
 export default function MehndiArtist() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.items);
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[0]);
   const [selectedArtist,   setSelectedArtist]   = useState(null);
-  const [cart,             setCart]             = useState([]);
   const [toast,            setToast]            = useState(null);
   const [showSearch,       setShowSearch]       = useState(false);
   const [searchQuery,      setSearchQuery]      = useState("");
 
   const currentServices = MEHNDI_SERVICES[selectedCategory.id] || [];
-  const getQty = (id) => cart.find(i => i.id === id)?.qty || 0;
-  const totalCartQty = cart.reduce((s, i) => s + (i.qty || 1), 0);
+  const totalCartQty = cart.reduce((s, i) => s + (i.quantity || 1), 0);
 
   const showToast = (msg, type = "success") => {
     setToast({ msg, type });
@@ -375,7 +376,7 @@ export default function MehndiArtist() {
   };
 
   const handleAddToCart = (item) => {
-    setCart(prev => [...prev, item]);
+    dispatch(addToCartRedux(item));
     showToast(`${item.name} added to cart`);
     setSelectedArtist(null); // Return to list after booking
   };
@@ -429,7 +430,7 @@ export default function MehndiArtist() {
               style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", color: "#000" }}>
               <IconSearch />
             </button>
-            <button onClick={() => showToast(totalCartQty === 0 ? "Cart is empty" : `${totalCartQty} item(s) in cart`)}
+            <button onClick={() => router.push("/cart")}
               style={{ position: "relative", backgroundColor: ACCENT, border: "none", borderRadius: 10, padding: "6px 10px", cursor: "pointer", display: "flex", color: "#fff" }}>
               <IconCart />
               {totalCartQty > 0 && (
@@ -443,7 +444,7 @@ export default function MehndiArtist() {
         {showSearch && (
           <input autoFocus value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
             placeholder="Search mehndi services..."
-            style={{ width: "100%", padding: "9px 14px", border: `1px solid ${ACCENT}`, borderRadius: 10, fontSize: 14, outline: "none", backgroundColor: "#faf5ff", color: "#1f2937", boxSizing: "border-box" }}
+            style={{ width: "100%", padding: "9px 14px", border: `1px solid ${ACCENT}`, borderRadius: 10, fontSize: 14, outline: "none", backgroundColor: "#f0f7f9", color: "#1f2937", boxSizing: "border-box" }}
           />
         )}
       </div>
@@ -457,8 +458,8 @@ export default function MehndiArtist() {
             const active = selectedCategory.id === cat.id;
             return (
               <button key={cat.id} onClick={() => setSelectedCategory(cat)}
-                style={{ width: "100%", padding: "12px 4px", display: "flex", flexDirection: "column", alignItems: "center", gap: 6, backgroundColor: active ? "#f5f3ff" : "#fff", border: "none", cursor: "pointer", borderRight: active ? `3px solid ${ACCENT}` : "3px solid transparent" }}>
-                <div style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: active ? "#ede9fe" : "#f9fafb", border: `1px solid ${active ? ACCENT : "#e5e7eb"}`, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                style={{ width: "100%", padding: "12px 4px", display: "flex", flexDirection: "column", alignItems: "center", gap: 6, backgroundColor: active ? "#eef6fa" : "#fff", border: "none", cursor: "pointer", borderRight: active ? `3px solid ${ACCENT}` : "3px solid transparent" }}>
+                <div style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: active ? "#e0eff5" : "#f9fafb", border: `1px solid ${active ? ACCENT : "#e5e7eb"}`, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
                   <img src={cat.icon} alt={cat.name} style={{ width: 35, height: 35, objectFit: "contain" }} onError={e => { e.target.onerror = null; e.target.src = "/image/mehndi.png"; }} />
                 </div>
                 <span style={{ fontSize: 10, textAlign: "center", fontWeight: 500, color: active ? ACCENT : "#374151", lineHeight: 1.3, padding: "0 2px" }}>

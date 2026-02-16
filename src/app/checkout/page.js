@@ -36,6 +36,12 @@ export default function CheckoutPage() {
 
   // Load initial data
   useEffect(() => {
+    // Load Razorpay Script
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+
     const initData = async () => {
       try {
         setInitializing(true);
@@ -69,6 +75,12 @@ export default function CheckoutPage() {
     };
 
     initData();
+
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
   }, [router]);
 
   // Totals Calculation
@@ -80,6 +92,12 @@ export default function CheckoutPage() {
 
     return { itemTotal, deliveryFee, platformFee, totalPayable };
   }, [totalAmount]);
+
+  const computeExpectedTime = () => {
+    const base = new Date();
+    const expectedTime = new Date(base.getTime() + 24 * 60 * 60 * 1000);
+    return expectedTime.toISOString();
+  };
 
   const handlePlaceOrder = async () => {
     if (!selectedAddressId) {
@@ -94,16 +112,23 @@ export default function CheckoutPage() {
 
       const payload = {
         items: cartItems.map(item => ({
-          productId: item.id,
+          productId: item.id || item._id,
           name: item.name,
           quantity: item.quantity,
           unitPrice: item.price,
+          finalPrice: item.price,
+          discount: 0,
           image: typeof item.image === 'string' ? item.image : (item.image?.uri || ""),
           // Service specific fields
-          date: item.date,
-          time: item.time,
-          hours: item.hours,
-          description: item.description
+          date: item.date || null,
+          time: item.time || null,
+          hours: item.hours || null,
+          description: item.description || null,
+          category: item.category || null,
+          devoteeName: item.devoteeName || null,
+          instructions: item.instructions || null,
+          package: item.package || null,
+          hands: item.hands || null
         })),
         pricing: {
           subtotal: billDetails.itemTotal,
@@ -111,7 +136,17 @@ export default function CheckoutPage() {
           platformFee: billDetails.platformFee,
           grandTotal: billDetails.totalPayable
         },
-        address: selectedAddress,
+        delivery: {
+          type: 'Standard',
+          expectedTime: computeExpectedTime(),
+          instructions: '',
+        },
+        address: {
+          ...selectedAddress,
+          contactName: profile?.name || selectedAddress?.label || '',
+          contactPhone: profile?.phone || '',
+        },
+        addressId: selectedAddressId,
         payment: { method: selectedPayment }
       };
 
@@ -129,25 +164,92 @@ export default function CheckoutPage() {
       if (response.ok) {
         if (selectedPayment === "cod") {
           dispatch(clearCart());
-          router.push("/pages/orders?success=true");
+          router.push("/pages/profile?view=orders&success=true");
         } else {
           // Trigger Online Payment Logic (Razorpay)
-          handleRazorpay(data.order);
+          handleRazorpay(data);
         }
       } else {
         alert(data.message || "Failed to place order");
       }
     } catch (error) {
+      console.error("Order creation error:", error);
       alert("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleRazorpay = (orderData) => {
-    // Implement Razorpay checkout logic here
-    console.log("Initiating Razorpay...", orderData);
-    alert("Online payment integration pending. Using COD for now.");
+  const handleRazorpay = (data) => {
+    if (!window.Razorpay) {
+      alert("Razorpay SDK not loaded. Please refresh the page.");
+      return;
+    }
+
+    const { order, razorpayOrder, razorpayKeyId } = data;
+    const rzpOrder = razorpayOrder || order?.razorpayOrder;
+    const rzpKey = razorpayKeyId || order?.razorpayKeyId;
+
+    if (!rzpOrder || !rzpKey) {
+      alert("Razorpay order details not available");
+      return;
+    }
+
+    const options = {
+      key: rzpKey,
+      amount: rzpOrder.amount,
+      currency: rzpOrder.currency,
+      name: "Helpaana",
+      description: "Service Booking Payment",
+      order_id: rzpOrder.id,
+      handler: async function (response) {
+        setLoading(true);
+        try {
+          const token = localStorage.getItem("userToken");
+          const verifyRes = await fetch(`${BASE_URL}/orders/verify`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            })
+          });
+
+          const verifyData = await verifyRes.json();
+          if (verifyRes.ok) {
+            dispatch(clearCart());
+            router.push("/pages/profile?view=orders&success=true");
+          } else {
+            alert(verifyData.message || "Payment verification failed");
+          }
+        } catch (error) {
+          console.error("Verification error:", error);
+          alert("Payment verification failed");
+        } finally {
+          setLoading(false);
+        }
+      },
+      prefill: {
+        name: profile?.name || "",
+        email: profile?.email || "",
+        contact: profile?.phone || "",
+      },
+      theme: {
+        color: "#457b9d",
+      },
+      modal: {
+        ondismiss: function() {
+          setLoading(false);
+        }
+      }
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
   if (initializing) {

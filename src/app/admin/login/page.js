@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import SimpleHeader from '@/components/SimpleHeader';
-import { ShieldCheck, Lock } from 'lucide-react';
+import { Lock } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 export default function AdminLoginPage() {
   const [phone, setPhone] = useState('');
@@ -22,9 +23,7 @@ export default function AdminLoginPage() {
       <SimpleHeader title="Admin Login" />
       
       <div className="p-6 flex flex-col items-center justify-center min-h-[70vh] space-y-8">
-        <div className="w-24 h-24 bg-[#457b9d]/10 rounded-full flex items-center justify-center text-[#457b9d]">
-          <ShieldCheck size={56} />
-        </div>
+        <Logo size="lg" light={false} />
 
         <div className="text-center space-y-2">
           <h2 className="text-2xl font-bold text-gray-800">Welcome Back, Admin</h2>

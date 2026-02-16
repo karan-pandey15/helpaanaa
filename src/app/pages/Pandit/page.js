@@ -4,11 +4,13 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { MapPin, ChevronRight } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart as addToCartRedux } from '@/redux/cartSlice';
 
 // ============================================
 // MOCK DATA & CONSTANTS
 // ============================================
-const THEME_COLOR = '#023e8a';
+const THEME_COLOR = '#457B9D';
 const PANDIT_IMAGE = 'https://lh3.googleusercontent.com/ogw/AF2bZygnDN02Te97on5Wf-4sDfYUPxMX27fbGwu4tJIZbNoA2eI=s64-c-mo';
 
 const PANDITS = [
@@ -433,6 +435,9 @@ const StarIcon = () => (
 // ============================================
 export default function PanditPage() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.items);
+  const cartTotal = useSelector((state) => state.cart.totalAmount);
   const [currentView, setCurrentView] = useState('services');
   const [selectedService, setSelectedService] = useState('Kundli Making');
   const [selectedPandit, setSelectedPandit] = useState(null);
@@ -442,7 +447,6 @@ export default function PanditPage() {
   const [selectedPooja, setSelectedPooja] = useState(null);
   const [prasadMode, setPrasadMode] = useState('grid');
   const [selectedTemple, setSelectedTemple] = useState(null);
-  const [cart, setCart] = useState([]);
   
   // Form fields
   const [devoteeName, setDevoteeName] = useState('');
@@ -451,24 +455,19 @@ export default function PanditPage() {
   const [birthPlace, setBirthPlace] = useState('');
   const [mobile, setMobile] = useState('');
   const [address, setAddress] = useState('');
+  const [prayerWish, setPrayerWish] = useState('');
   const [dates] = useState(generateDates());
   const [offeringDate, setOfferingDate] = useState(dates[0].fullDate);
   const [selectedDate, setSelectedDate] = useState(dates[0].fullDate);
   const [selectedTime, setSelectedTime] = useState('08:00 AM');
 
-  // Load cart from LocalStorage
-  useEffect(() => {
-    const savedCart = localStorage.getItem('pandit_cart');
-    if (savedCart) setCart(JSON.parse(savedCart));
-  }, []);
-
-  // Save cart to LocalStorage
-  useEffect(() => {
-    localStorage.setItem('pandit_cart', JSON.stringify(cart));
-  }, [cart]);
-
   const addToCart = (item) => {
-    setCart([...cart, { ...item, cartId: Date.now() }]);
+    dispatch(addToCartRedux({
+      ...item,
+      id: item.id || `pandit_${Date.now()}`,
+      quantity: 1,
+      totalPrice: item.price
+    }));
   };
 
   const getFilteredPandits = () => {
@@ -502,13 +501,18 @@ export default function PanditPage() {
       <div className="grid grid-cols-2 gap-3">
         {POOJAS.map((item) => (
           <div key={item.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
-            <img src={item.image} className="h-28 w-full object-cover" alt={item.title} />
+            <img 
+              src={item.image} 
+              className="h-28 w-full object-cover cursor-pointer hover:opacity-90 transition-opacity" 
+              alt={item.title} 
+              onClick={() => handleServiceClick(item, "Pooja")}
+            />
             <div className="p-3 flex flex-col flex-1">
               <h3 className="text-sm font-bold text-gray-800 line-clamp-1">{item.title}</h3>
-              <p className="text-blue-700 font-bold text-sm mt-1">₹{item.price}</p>
+              <p className="text-[#457B9D] font-bold text-sm mt-1">₹{item.price}</p>
               <button 
                 onClick={() => handleServiceClick(item, "Pooja")}
-                className="mt-2 w-full py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold border border-blue-100"
+                className="mt-2 w-full py-1.5 bg-blue-50 text-[#457B9D] rounded-lg text-xs font-bold border border-blue-100"
               >
                 Book Now
               </button>
@@ -521,14 +525,14 @@ export default function PanditPage() {
 
   const renderPoojaDetail = () => (
     <div className="flex flex-col p-4 pb-24 h-full overflow-y-auto">
-      <button onClick={() => setPoojaMode('grid')} className="flex items-center gap-1 text-purple-600 mb-4 font-medium">
+      <button onClick={() => setPoojaMode('grid')} className="flex items-center gap-1 text-[#457B9D] mb-4 font-medium">
         <ArrowBack /> <span className="text-sm">Back to List</span>
       </button>
       <img src={selectedPooja?.image} className="w-full h-48 object-cover rounded-2xl shadow-lg" alt="" />
       <div className="mt-4">
         <h2 className="text-2xl font-bold text-gray-800">{selectedPooja?.title}</h2>
         <div className="flex items-center justify-between mt-2">
-          <span className="text-2xl font-black text-blue-700">₹{selectedPooja?.price}</span>
+          <span className="text-2xl font-black text-[#457B9D]">₹{selectedPooja?.price}</span>
           <span className="text-sm text-gray-500">📍 {selectedPooja?.location}</span>
         </div>
         
@@ -538,7 +542,7 @@ export default function PanditPage() {
             <button 
               key={i} 
               onClick={() => setSelectedDate(d.fullDate)}
-              className={`flex flex-col items-center min-w-[60px] p-3 rounded-xl border transition-all ${selectedDate === d.fullDate ? 'bg-blue-600 border-blue-600 text-white shadow-md' : 'bg-white border-gray-100 text-gray-600'}`}
+              className={`flex flex-col items-center min-w-[60px] p-3 rounded-xl border transition-all ${selectedDate === d.fullDate ? 'bg-[#457B9D] border-[#457B9D] text-white shadow-md' : 'bg-white border-gray-100 text-gray-600'}`}
             >
               <span className="text-[10px] uppercase font-bold">{d.day}</span>
               <span className="text-lg font-black">{d.date}</span>
@@ -554,7 +558,7 @@ export default function PanditPage() {
             addToCart({ ...selectedPooja, date: selectedDate, category: 'Pooja' });
             alert('Added to cart!');
           }}
-          className="mt-8 w-full py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform"
+          className="mt-8 w-full py-4 bg-[#457B9D] text-white rounded-2xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform"
         >
           Add to Cart
         </button>
@@ -565,50 +569,42 @@ export default function PanditPage() {
   const renderPrasadGrid = () => (
     <div className="flex flex-col gap-6 p-4 pb-24">
       <div className="flex flex-col gap-1">
-        <h2 className="text-2xl font-black italic tracking-tighter text-gray-900 uppercase">Sacred Prasad Seva</h2>
+        <h2 className="text-2xl font-black italic tracking-tighter text-gray-900 uppercase">Select Sacred Destination</h2>
         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Select a temple to offer Prasad</p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-2 gap-3">
         {TEMPLES_DATA.map((item) => (
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             key={item.id} 
-            className="bg-white rounded-[32px] shadow-sm border border-gray-100 overflow-hidden flex flex-col group"
+            className="bg-white rounded-[24px] shadow-sm border border-gray-100 overflow-hidden flex flex-col group"
           >
-            <div className="relative h-48 w-full overflow-hidden">
+            <div 
+              onClick={() => { setSelectedTemple(item); setPrasadMode('form'); }}
+              className="relative h-32 w-full overflow-hidden cursor-pointer"
+            >
               <img 
                 src={item.image} 
                 className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-700" 
                 alt={item.name} 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="px-2 py-0.5 bg-yellow-400 text-black text-[8px] font-black uppercase rounded-md shadow-sm">
-                    {item.deity || 'Holy Shrine'}
-                  </span>
-                </div>
-                <h3 className="text-lg font-black italic tracking-tight leading-none uppercase">{item.name}</h3>
-              </div>
             </div>
 
-            <div className="p-5 flex flex-col">
-              <div className="flex items-center gap-1.5 text-gray-400 mb-3">
-                <MapPin size={12} className="text-[#457b9d]" />
-                <span className="text-[10px] font-bold uppercase tracking-wider">{item.location}</span>
-              </div>
+            <div className="p-3 flex flex-col flex-1">
+              <h3 className="text-[13px] font-black text-gray-800 leading-tight mb-2 line-clamp-2 min-h-[32px]">{item.name}</h3>
               
-              <p className="text-xs font-medium text-gray-500 leading-relaxed mb-4 line-clamp-2">
-                {item.description}
-              </p>
+              <div className="flex items-center gap-1 text-[#457B9D] mb-3">
+                <MapPin size={10} className="fill-[#457B9D]/10" />
+                <span className="text-[10px] font-bold">{item.location.split(',')[0]}</span>
+              </div>
 
               <button 
                 onClick={() => { setSelectedTemple(item); setPrasadMode('form'); }}
-                className="w-full py-4 bg-[#457b9d]/5 hover:bg-[#457b9d] text-[#457b9d] hover:text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] border border-[#457b9d]/10 transition-all active:scale-95 flex items-center justify-center gap-2"
+                className="w-full py-2.5 bg-[#457B9D] text-white rounded-xl text-[10px] font-bold transition-all active:scale-95"
               >
-                Select Temple <ChevronRight size={14} />
+                Select Temple
               </button>
             </div>
           </motion.div>
@@ -618,52 +614,109 @@ export default function PanditPage() {
   );
 
   const renderPrasadForm = () => (
-    <div className="flex flex-col p-4 pb-24 h-full overflow-y-auto">
-      <button onClick={() => setPrasadMode('grid')} className="flex items-center gap-1 text-purple-600 mb-4 font-medium">
+    <div className="flex flex-col p-4 pb-24 h-full overflow-y-auto bg-white">
+      <button 
+        onClick={() => setPrasadMode('grid')} 
+        className="flex items-center gap-2 text-[#457B9D] mb-6 font-bold"
+      >
         <ArrowBack /> <span className="text-sm">Back to Temples</span>
       </button>
-      <h2 className="text-xl font-bold text-gray-800 mb-4">{selectedTemple?.name} - Sankalp Form</h2>
       
-      <div className="space-y-4">
+      <h2 className="text-2xl font-bold text-gray-800 mb-8">{selectedTemple?.name}</h2>
+      
+      <div className="space-y-6">
         <div>
-          <label className="text-xs font-bold text-gray-600 uppercase mb-1 block">Devotee Full Name *</label>
+          <label className="text-[13px] font-bold text-gray-700 mb-2 block">Devotee Full Name *</label>
           <input 
-            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
             value={devoteeName} onChange={(e) => setDevoteeName(e.target.value)} placeholder="Name for Sankalp"
           />
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="text-xs font-bold text-gray-600 uppercase mb-1 block">Rashi *</label>
-            <input 
-              className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm"
-              value={rashi} onChange={(e) => setRashi(e.target.value)} placeholder="Your Rashi"
-            />
-          </div>
-          <div>
-            <label className="text-xs font-bold text-gray-600 uppercase mb-1 block">Gotra</label>
-            <input 
-              className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm"
-              value={gotra} onChange={(e) => setGotra(e.target.value)} placeholder="Your Gotra"
-            />
+
+        <div>
+          <label className="text-[13px] font-bold text-gray-700 mb-2 block">Gotra (Optional)</label>
+          <input 
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            value={gotra} onChange={(e) => setGotra(e.target.value)} placeholder="Your Gotra"
+          />
+        </div>
+
+        <div>
+          <label className="text-[13px] font-bold text-gray-700 mb-2 block">Rashi *</label>
+          <input 
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            value={rashi} onChange={(e) => setRashi(e.target.value)} placeholder="Your Rashi"
+          />
+        </div>
+
+        <div>
+          <label className="text-[13px] font-bold text-gray-700 mb-2 block">Birth Place *</label>
+          <input 
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            value={birthPlace} onChange={(e) => setBirthPlace(e.target.value)} placeholder="City, State"
+          />
+        </div>
+
+        <div>
+          <label className="text-[13px] font-bold text-gray-700 mb-2 block">Mobile Number *</label>
+          <input 
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="10-digit mobile"
+          />
+        </div>
+
+        <div>
+          <label className="text-[13px] font-bold text-gray-700 mb-2 block">Delivery Address *</label>
+          <input 
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address to deliver Prasad"
+          />
+        </div>
+
+        <div>
+          <label className="text-[13px] font-bold text-gray-700 mb-2 block">Select Offering Date *</label>
+          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+            {dates.map((d, idx) => (
+              <button
+                key={idx}
+                onClick={() => setSelectedDate(d.fullDate)}
+                className={`flex-shrink-0 w-16 h-20 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all ${
+                  selectedDate === d.fullDate 
+                    ? 'bg-[#457B9D] text-white shadow-lg shadow-purple-200' 
+                    : 'bg-gray-50 text-gray-600 border border-gray-100'
+                }`}
+              >
+                <span className="text-[10px] font-bold">{d.day}</span>
+                <span className="text-xl font-black">{d.date}</span>
+              </button>
+            ))}
           </div>
         </div>
+
         <div>
-          <label className="text-xs font-bold text-gray-600 uppercase mb-1 block">Delivery Address *</label>
+          <label className="text-[13px] font-bold text-gray-700 mb-2 block">Prayer/Wish</label>
           <textarea 
-            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm h-20"
-            value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Complete address for Prasad delivery"
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm h-32 focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            value={prayerWish} onChange={(e) => setPrayerWish(e.target.value)}
+            placeholder="Write your prayer or wish here..."
           />
         </div>
         
         <button 
           onClick={() => {
-            if (!devoteeName || !address) return alert('Fill mandatory fields');
-            addToCart({ name: `Prasad - ${selectedTemple.name}`, price: 1101, devotee: devoteeName, category: 'Prasad' });
+            if (!devoteeName || !address || !rashi || !birthPlace || !mobile) return alert('Please fill all mandatory fields');
+            addToCart({ 
+              name: `Prasad - ${selectedTemple.name}`, 
+              price: 1101, 
+              devotee: devoteeName, 
+              date: selectedDate,
+              prayerWish: prayerWish,
+              category: 'Prasad' 
+            });
             alert('Added to Cart!');
             setPrasadMode('grid');
           }}
-          className="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg shadow-lg mt-4"
+          className="w-full py-5 bg-[#457B9D] text-white rounded-2xl font-black text-lg shadow-xl shadow-purple-100 mt-4 active:scale-95 transition-all"
         >
           Book Prasad Seva
         </button>
@@ -690,7 +743,7 @@ export default function PanditPage() {
                   <StarIcon />
                   <span className="text-[10px] font-bold text-yellow-700">{p.rating}</span>
                 </div>
-                <span className="text-sm font-black text-blue-700">₹{p.price}</span>
+                <span className="text-sm font-black text-[#457B9D]">₹{p.price}</span>
               </div>
             </div>
           </div>
@@ -701,14 +754,14 @@ export default function PanditPage() {
 
   const renderProfile = () => (
     <div className="min-h-screen bg-white max-w-md mx-auto relative flex flex-col font-sans">
-      <div className="relative h-72 bg-blue-900 overflow-hidden">
+      <div className="relative h-72 bg-[#457B9D] overflow-hidden">
         <div className="absolute top-6 left-4 z-10">
           <button onClick={() => setCurrentView('services')} className="p-2 bg-white/20 backdrop-blur rounded-full text-white">
             <ArrowBack />
           </button>
         </div>
         <img src={selectedPandit?.image} className="w-full h-full object-cover opacity-80" alt="" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-blue-900 to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#457B9D] to-transparent">
           <h2 className="text-2xl font-black text-white">{selectedPandit?.name}</h2>
           <p className="text-blue-100 text-sm opacity-90">{selectedPandit?.specialization}</p>
         </div>
@@ -718,7 +771,7 @@ export default function PanditPage() {
         <h3 className="font-bold text-gray-800 mb-3">Expertise</h3>
         <div className="flex flex-wrap gap-2 mb-8">
           {selectedPandit?.expertise.map((e, i) => (
-            <span key={i} className="px-3 py-1.5 bg-blue-50 text-blue-700 text-xs font-bold rounded-lg border border-blue-100 uppercase tracking-tight">
+            <span key={i} className="px-3 py-1.5 bg-blue-50 text-[#457B9D] text-xs font-bold rounded-lg border border-blue-100 uppercase tracking-tight">
               {e}
             </span>
           ))}
@@ -731,7 +784,7 @@ export default function PanditPage() {
 
         <button 
           onClick={() => alert('Booking request sent!')}
-          className="w-full py-4 bg-blue-700 text-white rounded-2xl font-black text-lg shadow-xl shadow-blue-100 active:scale-95 transition-all"
+          className="w-full py-4 bg-[#457B9D] text-white rounded-2xl font-black text-lg shadow-xl shadow-blue-100 active:scale-95 transition-all"
         >
           Connect Now - ₹{selectedPandit?.price}
         </button>
@@ -750,30 +803,34 @@ export default function PanditPage() {
         <button onClick={() => router.back()} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
           <ArrowBack />
         </button>
-        <h1 className="text-lg font-black text-gray-800 tracking-tight uppercase">Pandit Ji Seva</h1>
+        <h1 className="text-lg font-black text-gray-800 tracking-tight uppercase">
+          {selectedService === 'Online Prasad Seva' ? 'Our Services' : 'Pandit Ji Seva'}
+        </h1>
         <div className="w-10"></div>
       </div>
 
       <div className="flex flex-1 overflow-hidden">
         {/* SIDEBAR */}
-        <div className="w-24 border-r border-gray-50 overflow-y-auto bg-white scrollbar-hide">
-          {SERVICES.map((s) => (
-            <button
-              key={s.id}
-              onClick={() => {
-                setSelectedService(s.key);
-                if (s.key === 'Pooja Booking') setPoojaMode('grid');
-                if (s.key === 'Online Prasad Seva') setPrasadMode('grid');
-              }}
-              className={`w-full py-5 flex flex-col items-center gap-2 border-b border-gray-50 transition-all ${selectedService === s.key ? 'bg-blue-50 border-r-4 border-blue-600' : ''}`}
-            >
-              <span className="text-2xl">{s.icon}</span>
-              <span className={`text-[9px] font-black text-center px-1 uppercase leading-tight ${selectedService === s.key ? 'text-blue-700' : 'text-gray-400'}`}>
-                {s.name}
-              </span>
-            </button>
-          ))}
-        </div>
+        {!(selectedService === 'Online Prasad Seva' && prasadMode === 'form') && (
+          <div className="w-24 border-r border-gray-50 overflow-y-auto bg-white scrollbar-hide">
+            {SERVICES.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => {
+                  setSelectedService(s.key);
+                  if (s.key === 'Pooja Booking') setPoojaMode('grid');
+                  if (s.key === 'Online Prasad Seva') setPrasadMode('grid');
+                }}
+                className={`w-full py-5 flex flex-col items-center gap-2 border-b border-gray-50 transition-all ${selectedService === s.key ? 'bg-blue-50 border-r-4 border-[#457B9D]' : ''}`}
+              >
+                <span className="text-2xl">{s.icon}</span>
+                <span className={`text-[9px] font-black text-center px-1 uppercase leading-tight ${selectedService === s.key ? 'text-[#457B9D]' : 'text-gray-400'}`}>
+                  {s.name}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* CONTENT AREA */}
         <div className="flex-1 bg-gray-50/30 overflow-y-auto overflow-x-hidden">
@@ -786,10 +843,13 @@ export default function PanditPage() {
       {/* FLOATING CART SUMMARY */}
       {cart.length > 0 && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[85%] z-[100]">
-          <button className="w-full bg-blue-700 text-white rounded-2xl py-4 px-6 flex items-center justify-between shadow-2xl shadow-blue-200 animate-in fade-in slide-in-from-bottom-4">
+          <button 
+            onClick={() => router.push('/cart')}
+            className="w-full bg-[#457B9D] text-white rounded-2xl py-4 px-6 flex items-center justify-between shadow-2xl shadow-blue-200 animate-in fade-in slide-in-from-bottom-4"
+          >
             <div className="flex flex-col items-start">
               <span className="text-[10px] font-black uppercase opacity-70 tracking-widest">{cart.length} ITEMS</span>
-              <span className="text-lg font-black tracking-tight">₹{cart.reduce((a, b) => a + b.price, 0)}</span>
+              <span className="text-lg font-black tracking-tight">₹{cartTotal}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="font-black text-sm tracking-widest">VIEW CART</span>

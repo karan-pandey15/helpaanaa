@@ -5,16 +5,12 @@ import { useRouter } from "next/navigation";
 import { Search, ShoppingCart } from "lucide-react";
 
 const placeholderItems = [
-  "Safai Abhiyaan",
-  "Potato",
-  "Tomato",
-  "Onion",
-  "Cabbage",
-  "Brinjal",
-  "Mango",
-  "Apple",
-  "Banana",
-  "Grapes",
+  
+  "Attendant",
+  "Pandit Ji",
+  "Gautdian For Kids",
+  "Mehndi Artist",
+  "Pooja Booking", 
 ];
 
 export default function SearchBar({ onAdPress }) {
