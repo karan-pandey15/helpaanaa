@@ -27,21 +27,21 @@ const Footer = () => {
   ];
 
   const companyLinks = [
-    { name: "About Us", href: "/about" },
-    { name: "Contact Us", href: "/contact" },
-    { name: "Privacy Policy", href: "/privacy-policy" },
-    { name: "Terms & Conditions", href: "/terms" },
-    { name: "Join Us (Career)", href: "/career" },
-    { name: "Business Collerabation", href: "#" },
+    { name: "About Us", href: "/about" }, 
+ 
+    { name: "For Business Collerabation", href: "#" },
     { name: "For Investors", href: "#" },
     { name: "Become a Partner", href: "#" }, 
     
-    
+    { name: "Join Us (Career)", href: "/career" },
+    { name: "Contact Us", href: "/contact" },
+        { name: "Privacy Policy", href: "/privacy-policy" },
+    { name: "Terms & Conditions", href: "/terms" }, 
   ];
 
   const otherLinks = [
     { name: "Blog", href: "/blog" },
-    { name: "Admin Login", href: "/admin/login" },
+    { name: "Admin Login", href: "/admin/login" },     { name: "Partner Login", href: "/admin/login" },
     { name: "  Achievements & Appearances", href: "" },
     { name: "Our Official Business Partner", href: "" },
     
