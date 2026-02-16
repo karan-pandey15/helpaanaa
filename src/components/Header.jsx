@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import SearchBar from "./HeaderScreen/SearchBar.jsx";
 import CategorySlider from "./HeaderScreen/Categoryslider.jsx";
 import CategoryScreen from "./HeaderScreen/CategoryScreen.jsx";
+import BannerComponent from "./HeaderScreen/BannerComponent.jsx";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://api.marasimpex.com';
 
@@ -173,7 +174,7 @@ export default function Header() {
           <div className="bg-white">
             <CategorySlider />
           </div>
-
+         <BannerComponent />
           <div className="px-4 py-2">
             <CategoryScreen />
           </div>
