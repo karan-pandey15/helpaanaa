@@ -15,6 +15,8 @@ const Footer = () => {
   const serviceLinks = [
     { name: "Book a Attendant For Your Parents", href: "/pages/Attendant" },
     { name: "Book Guardian For Your Kids", href: "/pages/GuardianKids" },
+    
+    { name: "Book a Attendant For Physically Challenged Kids",  href: "/pages/GuardianKids"},
     { name: "Book a Female Attendant For Droping Airport", href: "/pages/Attendant" },
     { name: "Book a Pandit Ji", href: "/pages/Pandit" },
     { name: "Mehndi Artist", href: "/pages/Mehndi" },
