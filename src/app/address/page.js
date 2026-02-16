@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://your-api.com';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://api.marasimpex.com';
 
 export default function AddressPage() {
   const router = useRouter();
