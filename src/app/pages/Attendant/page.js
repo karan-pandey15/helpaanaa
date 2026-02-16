@@ -364,6 +364,19 @@ function AllCategoryInner() {
     ? services[selectedCategory.id] || []
     : [];
 
+  const handleServiceClick = (item) => {
+    const imageUrl = item.images?.[0]?.url || item.image || "https://images.unsplash.com/photo-1584512603392-f0c3d99c1ce0?q=80&w=800";
+    const params = new URLSearchParams({
+      title: item.name,
+      price: item.price,
+      description: item.description || "",
+      category: selectedCategory?.name || "Service",
+      isTraveling: item.isTraveling ? "true" : "false",
+      image: imageUrl,
+    });
+    router.push(`/pages/ServiceDetail?${params.toString()}`);
+  };
+
   return (
     <div className="flex flex-col min-h-screen max-w-lg mx-auto bg-white relative">
       {/* ── HEADER ── */}
@@ -506,7 +519,7 @@ function AllCategoryInner() {
                       <div
                         key={item._id}
                         className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col cursor-pointer active:scale-95 transition-transform"
-                        onClick={() => setDetailItem(item)}
+                        onClick={() => handleServiceClick(item)}
                       >
                         {/* Image / emoji */}
                         <div className="w-full aspect-[1.2/1] bg-violet-50 flex items-center justify-center overflow-hidden relative">
@@ -598,7 +611,7 @@ function AllCategoryInner() {
               (services[c.id] || []).some((s) => s._id === item._id)
             );
             if (cat) setSelectedCategory(cat);
-            setDetailItem(item);
+            handleServiceClick(item);
           }}
         />
       )}

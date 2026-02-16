@@ -220,6 +220,18 @@ export default function PanditPage() {
 
   // --- RENDERS ---
 
+  const handleServiceClick = (item, type = "Pooja") => {
+    const imageUrl = item.image || "https://images.unsplash.com/photo-1545127398-14699f92334b?q=80&w=800";
+    const params = new URLSearchParams({
+      title: item.title || item.name,
+      price: item.price,
+      description: item.description || "",
+      category: type,
+      image: imageUrl,
+    });
+    router.push(`/pages/ServiceDetail?${params.toString()}`);
+  };
+
   const renderPoojaGrid = () => (
     <div className="flex flex-col gap-4 p-4 pb-24">
       <h2 className="text-xl font-bold text-gray-800">Select Pooja</h2>
@@ -231,7 +243,7 @@ export default function PanditPage() {
               <h3 className="text-sm font-bold text-gray-800 line-clamp-1">{item.title}</h3>
               <p className="text-blue-700 font-bold text-sm mt-1">₹{item.price}</p>
               <button 
-                onClick={() => { setSelectedPooja(item); setPoojaMode('detail'); }}
+                onClick={() => handleServiceClick(item, "Pooja")}
                 className="mt-2 w-full py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold border border-blue-100"
               >
                 Book Now
@@ -370,7 +382,7 @@ export default function PanditPage() {
         {getFilteredPandits().map((p) => (
           <div 
             key={p.id} 
-            onClick={() => { setSelectedPandit(p); setCurrentView('profile'); }}
+            onClick={() => handleServiceClick(p, "Pandit")}
             className="bg-white p-3 rounded-2xl border border-gray-100 shadow-sm flex gap-4 cursor-pointer active:scale-[0.98] transition-all"
           >
             <img src={p.image} className="w-20 h-20 rounded-xl object-cover" alt="" />

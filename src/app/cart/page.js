@@ -1,10 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart, clearCart } from "@/redux/cartSlice";
-import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
+import { 
+  ShoppingCart, 
+  Trash2, 
+  Plus, 
+  Minus, 
+  ArrowLeft, 
+  Calendar, 
+  Clock, 
+  MapPin, 
+  User, 
+  ChevronRight,
+  Info,
+  CheckCircle2,
+  Search
+} from "lucide-react";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 const CartPage = () => {
   const { items, totalAmount } = useSelector((state) => state.cart);
@@ -20,89 +35,255 @@ const CartPage = () => {
   };
 
   const handleClearCart = () => {
-    dispatch(clearCart());
+    if (window.confirm("Are you sure you want to clear your cart?")) {
+      dispatch(clearCart());
+    }
   };
 
-  return (
-    <div className="min-h-screen bg-gray-50 p-4 pb-24">
-      <div className="flex items-center gap-4 mb-6">
-        <button onClick={() => router.back()} className="p-2 bg-white rounded-full shadow-sm">
-          <ArrowLeft size={24} />
-        </button>
-        <h1 className="text-2xl font-bold text-gray-800">My Cart</h1>
-      </div>
+  // ── Totals Calculation ──────────────────────────────────────────
+  const billDetails = useMemo(() => {
+    const itemTotal = totalAmount;
+    const deliveryFee = itemTotal >= 500 || itemTotal === 0 ? 0 : 40;
+    const platformFee = itemTotal === 0 ? 0 : 5;
+    const totalPayable = itemTotal + deliveryFee + platformFee;
 
-      {items.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-gray-500">
-          <ShoppingCart size={80} className="mb-4 opacity-20" />
-          <p className="text-lg">Your cart is empty</p>
+    return {
+      itemTotal,
+      deliveryFee,
+      platformFee,
+      totalPayable
+    };
+  }, [totalAmount]);
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* ── Sticky Header ────────────────────────────────────────── */}
+      <header className="sticky top-0 z-50 bg-white border-b border-gray-100 px-4 py-4 backdrop-blur-md bg-white/90">
+        <div className="max-w-2xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => router.back()} 
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors group"
+            >
+              <ArrowLeft size={24} className="text-gray-800 group-active:-translate-x-1 transition-transform" />
+            </button>
+            <div>
+              <h1 className="text-xl font-black italic tracking-tighter text-gray-900 leading-none">MY CART</h1>
+              <p className="text-[10px] font-bold text-[#457b9d] uppercase tracking-widest mt-1">
+                {items.length} {items.length === 1 ? 'Service' : 'Services'} Added
+              </p>
+            </div>
+          </div>
           <button 
-            onClick={() => router.push("/")}
-            className="mt-4 px-6 py-2 bg-[#457b9d] text-white rounded-lg"
+            onClick={() => router.push('/pages/SearchScreen')}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
-            Start Shopping
+            <Search size={22} className="text-gray-800" />
           </button>
         </div>
-      ) : (
-        <div className="space-y-4">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-gray-600">{items.length} Items</span>
-            <button 
-              onClick={handleClearCart}
-              className="text-red-500 text-sm flex items-center gap-1"
+      </header>
+
+      <main className="flex-1 max-w-2xl mx-auto w-full px-4 pt-6 pb-40">
+        <AnimatePresence mode="wait">
+          {items.length === 0 ? (
+            <motion.div 
+              key="empty"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="flex flex-col items-center justify-center py-24 text-center"
             >
-              <Trash2 size={16} /> Clear Cart
-            </button>
-          </div>
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-[#457b9d]/10 rounded-full scale-150 blur-2xl" />
+                <ShoppingCart size={100} className="text-[#457b9d]/20 relative z-10" />
+              </div>
+              <h2 className="text-2xl font-black text-gray-800 mb-2 italic">YOUR CART IS EMPTY</h2>
+              <p className="text-sm text-gray-400 font-medium max-w-[200px] mb-8">
+                Looks like you haven't added any services yet.
+              </p>
+              <button 
+                onClick={() => router.push("/")}
+                className="px-10 py-4 bg-[#457b9d] text-white font-black rounded-2xl shadow-xl shadow-blue-100 active:scale-95 transition-all"
+              >
+                START EXPLORING
+              </button>
+            </motion.div>
+          ) : (
+            <motion.div 
+              key="content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="space-y-6"
+            >
+              {/* Clear Cart Action */}
+              <div className="flex justify-end">
+                <button 
+                  onClick={handleClearCart}
+                  className="flex items-center gap-1.5 text-xs font-black text-red-500 bg-red-50 px-3 py-2 rounded-full hover:bg-red-100 transition-colors uppercase tracking-wider"
+                >
+                  <Trash2 size={14} /> Clear Cart
+                </button>
+              </div>
 
-          <div className="space-y-3">
-            {items.map((item) => (
-              <div key={item.id} className="bg-white p-4 rounded-xl shadow-sm flex items-center gap-4">
-                <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                  {item.image ? (
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">
-                      <ShoppingCart size={24} />
+              {/* Items List */}
+              <div className="space-y-4">
+                {items.map((item, idx) => (
+                  <motion.div 
+                    key={item.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="bg-white p-4 rounded-3xl shadow-sm border border-gray-100 flex gap-4 relative overflow-hidden group"
+                  >
+                    {/* Item Image */}
+                    <div className="w-24 h-24 bg-gray-50 rounded-2xl overflow-hidden flex-shrink-0 border border-gray-50">
+                      {item.image ? (
+                        <img 
+                          src={typeof item.image === 'string' ? item.image : (item.image.uri || '')} 
+                          alt={item.name} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-[#457b9d]/30">
+                          <ShoppingCart size={32} />
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-                
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-800 truncate">{item.name}</h3>
-                  <p className="text-[#457b9d] font-bold mt-1">₹{item.price}</p>
+                    
+                    {/* Item Details */}
+                    <div className="flex-1 min-w-0 flex flex-col justify-between">
+                      <div>
+                        <h3 className="font-black text-gray-800 text-base leading-tight truncate uppercase italic">
+                          {item.name}
+                        </h3>
+                        
+                        {/* Service Metadata */}
+                        <div className="mt-1.5 space-y-1">
+                          {item.date && (
+                            <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
+                              <Calendar size={12} className="text-[#457b9d]" /> {item.date}
+                            </div>
+                          )}
+                          {item.time && (
+                            <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
+                              <Clock size={12} className="text-[#457b9d]" /> {item.time} {item.hours ? `(${item.hours} hrs)` : ''}
+                            </div>
+                          )}
+                          {item.address && (
+                            <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
+                              <MapPin size={12} className="text-[#457b9d]" /> <span className="truncate">{item.address}</span>
+                            </div>
+                          )}
+                          {item.devoteeName && (
+                            <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
+                              <User size={12} className="text-[#457b9d]" /> {item.devoteeName}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between mt-3">
+                        <p className="text-lg font-black text-[#1d4e6e]">₹{item.price * item.quantity}</p>
+                        
+                        {/* Quantity Controls */}
+                        <div className="flex items-center bg-gray-50 rounded-xl p-1 border border-gray-100">
+                          <button 
+                            onClick={() => handleRemoveItem(item.id)}
+                            className="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-gray-600 active:scale-90 transition-transform"
+                          >
+                            <Minus size={14} />
+                          </button>
+                          <span className="w-10 text-center font-black text-gray-800 text-sm">{item.quantity}</span>
+                          <button 
+                            onClick={() => handleAddItem(item)}
+                            className="w-8 h-8 flex items-center justify-center bg-[#457b9d] text-white rounded-lg shadow-md active:scale-90 transition-transform"
+                          >
+                            <Plus size={14} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Bill Summary Card */}
+              <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-4">
+                <div className="flex items-center gap-2 pb-2 border-b border-gray-50">
+                  <Info size={20} className="text-[#457b9d]" />
+                  <h3 className="font-black text-gray-800 text-sm uppercase tracking-widest italic">Bill Summary</h3>
                 </div>
 
-                <div className="flex items-center bg-gray-100 rounded-lg p-1">
-                  <button 
-                    onClick={() => handleRemoveItem(item.id)}
-                    className="p-1 hover:bg-white rounded transition-colors"
-                  >
-                    <Minus size={16} />
-                  </button>
-                  <span className="w-8 text-center font-medium">{item.quantity}</span>
-                  <button 
-                    onClick={() => handleAddItem(item)}
-                    className="p-1 hover:bg-white rounded transition-colors"
-                  >
-                    <Plus size={16} />
-                  </button>
+                <div className="space-y-3">
+                  <div className="flex justify-between text-sm font-bold text-gray-500">
+                    <span>Item Total</span>
+                    <span>₹{billDetails.itemTotal}</span>
+                  </div>
+                  <div className="flex justify-between text-sm font-bold">
+                    <span className="text-gray-500">Delivery Fee</span>
+                    <span className={billDetails.deliveryFee === 0 ? "text-green-500" : "text-gray-800"}>
+                      {billDetails.deliveryFee === 0 ? "FREE" : `₹${billDetails.deliveryFee}`}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm font-bold text-gray-500">
+                    <span>Platform Fee</span>
+                    <span>₹{billDetails.platformFee}</span>
+                  </div>
+                  
+                  <div className="pt-3 border-t border-dashed border-gray-200 flex justify-between items-center">
+                    <span className="text-base font-black text-gray-800 uppercase italic">To Pay</span>
+                    <span className="text-2xl font-black text-[#1d4e6e]">₹{billDetails.totalPayable}</span>
+                  </div>
+                </div>
+
+                <div className="bg-green-50 border border-green-100 p-3 rounded-2xl flex items-center gap-2 text-green-700">
+                  <CheckCircle2 size={16} />
+                  <p className="text-[10px] font-black uppercase tracking-wider">Secure Payment • No hidden charges</p>
                 </div>
               </div>
-            ))}
-          </div>
 
-          <div className="fixed bottom-0 left-0 right-0 bg-white p-6 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-3xl">
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-gray-600">Total Amount</span>
-              <span className="text-2xl font-bold text-[#457b9d]">₹{totalAmount}</span>
+              {/* Safety Policy */}
+              <div className="flex items-start gap-3 p-4 bg-gray-100/50 rounded-2xl border border-gray-100">
+                <div className="bg-white p-2 rounded-lg text-gray-400">
+                  <Info size={16} />
+                </div>
+                <div>
+                  <h4 className="text-[10px] font-black text-gray-800 uppercase mb-1">Cancellation Policy</h4>
+                  <p className="text-[9px] font-medium text-gray-400 leading-normal">
+                    Orders cannot be cancelled once the professional is assigned. Please review your order details before proceeding.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </main>
+
+      {/* ── Fixed Bottom Bar ─────────────────────────────────────── */}
+      <AnimatePresence>
+        {items.length > 0 && (
+          <motion.div 
+            initial={{ y: 100 }}
+            animate={{ y: 0 }}
+            exit={{ y: 100 }}
+            className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-6 z-[100] rounded-t-[40px] shadow-[0_-20px_40px_rgba(0,0,0,0.05)]"
+          >
+            <div className="max-w-2xl mx-auto flex items-center justify-between gap-4">
+              <div className="flex flex-col">
+                <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Payable</span>
+                <span className="text-2xl font-black text-[#1d4e6e]">₹{billDetails.totalPayable}</span>
+              </div>
+              <button 
+                onClick={() => router.push('/checkout')}
+                className="flex-1 bg-[#457b9d] text-white py-4 rounded-2xl font-black text-lg shadow-xl shadow-blue-200 active:scale-95 transition-all flex items-center justify-center gap-2 group italic"
+              >
+                PROCEED TO PAY
+                <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              </button>
             </div>
-            <button className="w-full py-4 bg-[#457b9d] text-white font-bold rounded-2xl shadow-lg active:scale-[0.98] transition-transform">
-              Proceed to Checkout
-            </button>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
