@@ -393,10 +393,11 @@ const TEMPLES_DATA = [
 const SERVICES = [
   { id: '1', name: 'Prasad Seva', icon: '⭐', key: 'Online Prasad Seva' },
   { id: '2', name: 'Pooja Booking', icon: '🕉️', key: 'Pooja Booking' },
-  { id: '3', name: 'Kundli Making', icon: '📜', key: 'Kundli Making' }, 
-  { id: '4', name: 'Vastu', icon: '🏠', key: 'Vastu' },
-  { id: '5', name: 'Palmistry', icon: '🤚', key: 'Palmistry' },
-  { id: '6', name: 'Tarot', icon: '🃏', key: 'Tarot' }, 
+  { id: '3', name: 'Kundli', icon: '📜', key: 'Kundli' }, 
+  { id: '4', name: 'Matching', icon: '💞', key: 'Matching' },
+  { id: '5', name: 'Vastu', icon: '🏠', key: 'Vastu' },
+  { id: '6', name: 'Palmistry', icon: '🤚', key: 'Palmistry' },
+  { id: '7', name: 'Tarot', icon: '🃏', key: 'Tarot' }, 
 ];
 
 // --- HELPERS ---
@@ -439,7 +440,7 @@ export default function PanditPage() {
   const cart = useSelector((state) => state.cart.items);
   const cartTotal = useSelector((state) => state.cart.totalAmount);
   const [currentView, setCurrentView] = useState('services');
-  const [selectedService, setSelectedService] = useState('Kundli Making');
+  const [selectedService, setSelectedService] = useState('Online Prasad Seva');
   const [selectedPandit, setSelectedPandit] = useState(null);
   
   // States
@@ -752,6 +753,27 @@ export default function PanditPage() {
     </div>
   );
 
+  const renderComingSoon = () => (
+    <div className="flex flex-col items-center justify-center h-full p-8 text-center bg-gray-50/30">
+      <motion.div 
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="bg-white p-10 rounded-3xl shadow-xl shadow-[#457B9D]/10 border border-[#457B9D]/5 max-w-sm w-full"
+      >
+        <div className="text-6xl mb-6">✨</div>
+        <h2 className="text-2xl font-black text-gray-800 uppercase tracking-tight mb-3">{selectedService}</h2>
+        <div className="h-1.5 w-16 bg-[#457B9D] rounded-full mx-auto mb-6"></div>
+        <p className="text-gray-500 font-medium leading-relaxed mb-8">
+          We are currently working on bringing the best {selectedService} experts and services to you.
+        </p>
+        <div className="bg-[#457B9D]/5 border border-[#457B9D]/10 rounded-2xl p-4">
+          <span className="text-[#457B9D] font-black text-sm uppercase tracking-widest">Coming Soon</span>
+        </div>
+      </motion.div>
+    </div>
+  );
+
   const renderProfile = () => (
     <div className="min-h-screen bg-white max-w-md mx-auto relative flex flex-col font-sans">
       <div className="relative h-72 bg-[#457B9D] overflow-hidden">
@@ -836,6 +858,7 @@ export default function PanditPage() {
         <div className="flex-1 bg-gray-50/30 overflow-y-auto overflow-x-hidden">
           {selectedService === 'Pooja Booking' ? (poojaMode === 'grid' ? renderPoojaGrid() : renderPoojaDetail()) : 
            selectedService === 'Online Prasad Seva' ? (prasadMode === 'grid' ? renderPrasadGrid() : renderPrasadForm()) : 
+           ['Kundli', 'Matching', 'Vastu', 'Palmistry', 'Tarot'].includes(selectedService) ? renderComingSoon() :
            renderPanditList()}
         </div>
       </div>

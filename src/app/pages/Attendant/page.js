@@ -15,7 +15,7 @@ const CATEGORIES = [
   },
   {
     id: "TravelingAttendant",
-    name: "Attendant For Traveling",
+    name: "Book a Female Attendant For Traveling Airport",
     emoji: "✈️",
   },
 ];
@@ -25,7 +25,7 @@ const STATIC_SERVICES = {
   TravelingAttendant: [
     {
       _id: "traveling_attendant_1",
-      name: "Book Traveling Attendant",  // wutg byke 1499
+      name: "Book Traveling Attendant",  
       price: 999,
       description:
         "Professional attendant for traveling needs. Includes support for gender, religion, and location selection.",

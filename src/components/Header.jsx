@@ -8,7 +8,6 @@ import {
   Heart, 
   ShoppingCart, 
   User, 
-  Zap,
   MapPin
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,21 +16,13 @@ import SearchBar from "./HeaderScreen/SearchBar.jsx";
 import CategorySlider from "./HeaderScreen/Categoryslider.jsx";
 import CategoryScreen from "./HeaderScreen/CategoryScreen.jsx";
 import BannerComponent from "./HeaderScreen/BannerComponent.jsx";
+import Logo from "./Logo.jsx";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://api.marasimpex.com';
 
 // ── Helpaana Brand Component ─────────────────────────────────────
 const HelpaanaBrand = () => (
-  <div className="flex flex-col">
-    <div className="flex items-center gap-1.5">
-      <div className="bg-blue-400 p-1 rounded-lg shadow-sm">
-        <Zap size={18} className="text-[#1d4e6e] fill-current" />
-      </div>
-      <h1 className="text-2xl font-black tracking-tighter text-white italic">
-        HELPAANA
-      </h1>
-    </div> 
-  </div>
+  <Logo size="md" light={true} />
 );
 
 // ── Main Header Component ────────────────────────────────────────
@@ -111,7 +102,7 @@ export default function Header() {
                 <motion.button
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  onClick={() => router.push('/address')}
+                  onClick={() => router.push('/pages/addresses')}
                   className="flex flex-col items-start group max-w-[200px]"
                 >
                   <div className="flex items-center gap-1 text-white/70 group-hover:text-white transition-colors">
@@ -138,16 +129,11 @@ export default function Header() {
 
               {/* Right Side: Action Icons */}
               <div className="flex items-center gap-2 sm:gap-4">
-                <ActionButton 
-                  icon={Heart} 
-                  badge={favoriteCount} 
-                  onClick={() => router.push('/favorites')}
-                  label="Favorites"
-                />
+          
                 <ActionButton 
                   icon={ShoppingCart} 
                   badge={cartCount} 
-                  onClick={() => router.push('/cart')}
+                  onClick={() => router.push('/pages/cart')}
                   label="Cart"
                   highlight
                 />
@@ -194,7 +180,7 @@ export default function Header() {
             className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[110]"
           >
             <button 
-              onClick={() => router.push('/cart')}
+              onClick={() => router.push('/pages/cart')}
               className="bg-[#1d4e6e] text-white px-8 py-4 rounded-full shadow-2xl flex items-center gap-3 hover:scale-105 transition-transform active:scale-95"
             >
               <ShoppingCart size={20} />

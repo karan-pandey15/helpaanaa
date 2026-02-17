@@ -163,7 +163,7 @@ export default function SearchScreen() {
                 <div className="mt-8 pt-8 border-t border-gray-50">
                   <div className="bg-gradient-to-r from-[#457B9D] to-[#1d4e6e] rounded-[32px] p-6 text-white relative overflow-hidden shadow-2xl shadow-blue-200">
                     <Sparkles className="absolute -right-4 -top-4 w-24 h-24 text-white opacity-10 rotate-12" />
-                    <h4 className="text-lg font-black italic uppercase leading-none mb-2">Can't find it?</h4>
+                    <h4 className="text-lg font-black italic uppercase leading-none mb-2">Can&apos;t find it?</h4>
                     <p className="text-xs text-white/80 font-medium leading-relaxed max-w-[200px]">
                       Our support team is available 24/7 to help you with bookings.
                     </p>
@@ -184,9 +184,9 @@ export default function SearchScreen() {
               <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mb-6 text-gray-200">
                 <Search size={40} />
               </div>
-              <h3 className="text-xl font-black text-gray-800 italic uppercase tracking-tight">No results for "{query}"</h3>
+              <h3 className="text-xl font-black text-gray-800 italic uppercase tracking-tight">No results for &quot;{query}&quot;</h3>
               <p className="text-sm text-gray-400 font-medium mt-2 max-w-[200px]">
-                Try searching for specific services like "Mehndi" or "Grocery"
+                Try searching for specific services like &quot;Mehndi&quot; or &quot;Grocery&quot;
               </p>
               <motion.button
                 whileTap={{ scale: 0.95 }}

@@ -20,29 +20,29 @@ const CATEGORIES = [
 
 const MEHNDI_SERVICES = {
   Bridal: [
-    { _id: "m1", name: "Full Hand Bridal Mehndi", price: 1500, time: "3-4 Hours", image: "/image/mehndi.png",    description: "Intricate full hand design for brides." },
-    { _id: "m2", name: "Leg Mehndi Bridal",        price: 1200, time: "2 Hours",   image: "/image/mehnditwo.png", description: "Traditional bridal patterns for legs." },
+    { _id: "m1", name: "Full Hand Bridal Mehndi", price: 1499, time: "3-4 Hours", image: "/image/mehndi.png",    description: "Intricate full hand design for brides." },
+    { _id: "m2", name: "Leg Mehndi Bridal",        price: 1499, time: "2 Hours",   image: "/image/mehnditwo.png", description: "Traditional bridal patterns for legs." },
   ],
   Arabic: [
-    { _id: "m3", name: "Simple Arabic Design",     price: 500,  time: "1 Hour",    image: "/image/mehnditwo.png", description: "Beautiful and quick Arabic patterns." },
-    { _id: "m4", name: "Heavy Arabic Mehndi",      price: 800,  time: "1.5 Hours", image: "/image/mehnditwo.png", description: "Detailed Arabic floral designs." },
+    { _id: "m3", name: "Simple Arabic Design",     price: 199,  time: "1 Hour",    image: "/image/mehnditwo.png", description: "Beautiful and quick Arabic patterns." },
+    { _id: "m4", name: "Heavy Arabic Mehndi",      price: 199,  time: "1.5 Hours", image: "/image/mehnditwo.png", description: "Detailed Arabic floral designs." },
   ],
   Simple: [
-    { _id: "m5", name: "Minimalist Mehndi",        price: 300,  time: "30 Mins",   image: "/image/mehndi3.png",   description: "Elegant and simple patterns." },
-    { _id: "m6", name: "Kids Mehndi",              price: 200,  time: "20 Mins",   image: "/image/mehndi3.png",   description: "Cute and small designs for children." },
+    { _id: "m5", name: "Minimalist Mehndi",        price: 199,  time: "30 Mins",   image: "/image/mehndi3.png",   description: "Elegant and simple patterns." },
+    { _id: "m6", name: "Kids Mehndi",              price: 199,  time: "20 Mins",   image: "/image/mehndi3.png",   description: "Cute and small designs for children." },
   ],
   Group: [
-    { _id: "m7", name: "Family Group (5-10)",      price: 5000, time: "4-6 Hours", image: "/image/mehndi.png",    description: "Mehndi for group events and family gatherings." },
-    { _id: "m8", name: "Small Group (3-5)",         price: 2500, time: "3 Hours",   image: "/image/mehnditwo.png", description: "Perfect for small get-togethers." },
+    { _id: "m7", name: "Family Group (5-10)",      price: 199, time: "4-6 Hours", image: "/image/mehndi.png",    description: "Mehndi for group events and family gatherings." },
+    { _id: "m8", name: "Small Group (3-5)",         price: 199, time: "3 Hours",   image: "/image/mehnditwo.png", description: "Perfect for small get-togethers." },
   ],
   KittyParty: [
-    { _id: "m9", name: "Kitty Party Special",      price: 1500, time: "2 Hours",   image: "/image/mehndi3.png",   description: "Fast and trendy designs for kitty parties." },
+    { _id: "m9", name: "Kitty Party Special",      price: 199, time: "2 Hours",   image: "/image/mehndi3.png",   description: "Fast and trendy designs for kitty parties." },
   ],
   Corporate: [
-    { _id: "m10", name: "Corporate Event Booking", price: 8000, time: "Full Day",  image: "/image/mehndi.png",    description: "Professional mehndi for corporate events." },
+    { _id: "m10", name: "Corporate Event Booking", price: 199, time: "Full Day",  image: "/image/mehndi.png",    description: "Professional mehndi for corporate events." },
   ],
   Individual: [
-    { _id: "m11", name: "Single Person Premium",   price: 1000, time: "1.5 Hours", image: "/image/mehnditwo.png", description: "Detailed custom design for a single individual." },
+    { _id: "m11", name: "Single Person Premium",   price: 199, time: "1.5 Hours", image: "/image/mehnditwo.png", description: "Detailed custom design for a single individual." },
   ],
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap } from 'lucide-react';
 
 const Logo = ({ className = "", size = "md", light = true }) => {
   const sizeClasses = {
@@ -22,55 +21,34 @@ const Logo = ({ className = "", size = "md", light = true }) => {
   };
 
   return (
-    <div className={`flex items-center gap-2.5 ${className}`}>
+    <div className={`flex items-center gap-3 ${className}`}>
       <motion.div 
-        whileHover={{ scale: 1.05, rotate: 5 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.02 }}
         className="relative"
       >
         <div className={`
           ${containerSizes[size]} 
-          bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 
-          rounded-xl shadow-lg flex items-center justify-center
-          ring-2 ring-white/20
+          bg-gradient-to-br from-[#FF9D00] to-[#FF4D00] 
+          rounded-2xl shadow-xl flex items-center justify-center
+          border-2 border-white/20
         `}>
-          <Zap 
-            size={zapSizes[size]} 
-            className="text-white fill-current drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]" 
-          />
+          <span className={`font-serif font-bold text-white leading-none ${size === 'lg' ? 'text-4xl' : size === 'md' ? 'text-2xl' : 'text-xl'}`}>H</span>
         </div>
-        
-        {/* Animated glow effect */}
-        <motion.div 
-          animate={{ 
-            opacity: [0.3, 0.6, 0.3],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{ 
-            duration: 2, 
-            repeat: Infinity,
-            ease: "easeInOut" 
-          }}
-          className={`
-            absolute inset-0 bg-yellow-400 blur-md -z-10 rounded-xl
-            ${containerSizes[size]}
-          `}
-        />
       </motion.div>
       
-      <div className="flex flex-col -space-y-1">
+      <div className="flex flex-col justify-center">
         <h1 className={`
-          font-black tracking-tighter italic
+          font-serif font-black italic tracking-tight leading-none
           ${sizeClasses[size]} 
           ${light ? 'text-white' : 'text-[#1d4e6e]'}
         `}>
-          HELP<span className={light ? 'text-yellow-400' : 'text-orange-500'}>AANA</span>
+          HELP<span className="text-[#FFC107]">AANA</span>
         </h1>
-        <div className="flex items-center gap-1">
-          <div className={`h-[2px] w-4 rounded-full ${light ? 'bg-yellow-400/50' : 'bg-orange-500/50'}`} />
+        <div className="flex items-center gap-2 mt-1">
+          <div className="h-[3px] w-8 bg-[#FFC107] rounded-full" />
           <span className={`
-            text-[9px] uppercase tracking-[0.25em] font-extrabold
-            ${light ? 'text-blue-100' : 'text-slate-500'}
+            text-[10px] uppercase tracking-[0.1em] font-black
+            ${light ? 'text-white' : 'text-slate-600'}
           `}>
             Premium Services
           </span>

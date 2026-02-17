@@ -173,8 +173,32 @@ export default function Profile() {
 
   // Navigation helpers — replace with your Next.js router.push calls
   const navigate = (route) => {
-    console.log("Navigate to:", route);
-    // e.g. router.push(`/${route}`)
+    switch (route) {
+      case "YourOrders":
+        router.push("/pages/orders");
+        break;
+      case "HelpSupport":
+        router.push("/pages/help-support");
+        break;
+      case "KeevaCart":
+        router.push("/pages/cart");
+        break;
+      case "AddressPage":
+        router.push("/pages/addresses");
+        break;
+      case "ProfilePage":
+        // Already on profile, or could be a detailed profile edit page
+        router.push("/pages/profile");
+        break;
+      case "Rewards":
+        router.push("/pages/refer-friend");
+        break;
+      case "Membership":
+        router.push("/pages/membership");
+        break;
+      default:
+        console.log("Navigate to:", route);
+    }
   };
 
   return (
@@ -334,7 +358,7 @@ export default function Profile() {
 
             <h2 className="text-2xl font-bold text-black mb-3 text-center">Logout?</h2>
             <p className="text-base text-gray-500 text-center mb-7 leading-6">
-              Are you sure you want to logout? You'll need to login again to access your account.
+              Are you sure you want to logout? You&apos;ll need to login again to access your account.
             </p>
 
             <div className="flex w-full gap-3">
