@@ -18,9 +18,9 @@ const ReferFriend = () => {
     try {
       setShareLoading(true);
       const shareData = {
-        title: 'Share Keeva with Friends',
-        text: 'Join Keeva and get 20% discount on your first order! Use my referral code and enjoy amazing fresh groceries delivered to your doorstep. Download the app now!',
-        url: 'https://play.google.com/store/apps/details?id=com.keeva',
+        title: 'Share Helpaana  with Friends',
+        text: 'Join Helpaana  and get 20% discount on your first order! Use my referral code and enjoy amazing fresh groceries delivered to your doorstep. Download the app now!',
+        url: 'https://play.google.com/store/apps/details?id=com.Helpaana ',
       };
 
       if (navigator.share) {
@@ -91,7 +91,7 @@ const ReferFriend = () => {
                 </div>
                 <div>
                   <h4 className="text-base font-bold text-black">They Download & Sign Up</h4>
-                  <p className="text-sm text-gray-500">Your friends download Keeva and use your referral code</p>
+                  <p className="text-sm text-gray-500">Your friends download Helpaana  and use your referral code</p>
                 </div>
               </div>
 

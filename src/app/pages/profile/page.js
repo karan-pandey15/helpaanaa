@@ -180,7 +180,7 @@ export default function Profile() {
       case "HelpSupport":
         router.push("/pages/help-support");
         break;
-      case "KeevaCart":
+      case "Helpaana Cart":
         router.push("/pages/cart");
         break;
       case "AddressPage":
@@ -272,7 +272,7 @@ export default function Profile() {
             <MenuItem
               icon={<CartIcon />}
               label="Your Cart"
-              onClick={() => navigate("KeevaCart")}
+              onClick={() => navigate("Helpaana Cart")}
             />
             <MenuItem
               icon={<MessageIcon />}

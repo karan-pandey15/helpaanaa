@@ -80,7 +80,7 @@ const Footer = () => {
 
                 {/* Partner App Badge */}
                 <Link 
-                  href="https://play.google.com/store/apps/details?id=com.keeva&hl=en_IN" 
+                  href="https://play.google.com/store/apps/details?id=com.Helpaana &hl=en_IN" 
                   target="_blank"
                   className="flex items-center gap-3 bg-black/40 hover:bg-black/60 border border-white/10 p-3 rounded-xl transition-all group"
                 >

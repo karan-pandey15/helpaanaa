@@ -23,7 +23,7 @@ const HelpSupport = () => {
   const [expandedFaq, setExpandedFaq] = useState(null);
 
   const phoneNumber = '+918957056844';
-  const email = 'keeva@support.com';
+  const email = 'Helpaana @support.com';
 
   const faqs = [
     {
