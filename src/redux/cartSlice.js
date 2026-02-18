@@ -42,14 +42,17 @@ const cartSlice = createSlice({
       if (!existingItem) {
         state.items.push({
           ...newItem,
-          quantity: 1,
-          totalPrice: newItem.price,
+          quantity: newItem.quantity || 1,
+          totalPrice: newItem.totalPrice || newItem.price,
         });
+        state.totalAmount = Number(state.totalAmount) + Number(newItem.totalPrice || newItem.price);
       } else {
-        existingItem.quantity++;
-        existingItem.totalPrice = Number(existingItem.totalPrice) + Number(newItem.price);
+        const qtyToAdd = newItem.quantity || 1;
+        const priceToAdd = newItem.totalPrice || newItem.price;
+        existingItem.quantity += qtyToAdd;
+        existingItem.totalPrice = Number(existingItem.totalPrice) + Number(priceToAdd);
+        state.totalAmount = Number(state.totalAmount) + Number(priceToAdd);
       }
-      state.totalAmount = Number(state.totalAmount) + Number(newItem.price);
       saveToLocalStorage(state);
     },
     removeFromCart: (state, action) => {

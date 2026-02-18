@@ -14,7 +14,7 @@ const bannerData = [
   },
   { 
     id: 2, 
-    image: "/image/ttt.png", 
+    image: "/image/attendant.png", 
     route: "/pages/Attendant",
     title: "Professional Attendants" 
   },
@@ -24,6 +24,20 @@ const bannerData = [
     route: "/pages/Pandit",
     title: "Expert Pandit Ji" 
   },
+  { 
+    id: 4, 
+    image: "/image/mehndiartist.png", 
+    route: "/pages/Mehndi",
+    title: "Expert Mehndi Artist" 
+  }, 
+  { 
+    id: 5, 
+    image: "/image/gauurdianforkids.png", 
+    route: "/pages/GuardianKids",
+    title: "Book Gaurdian For Kids" 
+  },
+
+   
 ];
 
 export default function BannerComponent() {
@@ -73,7 +87,7 @@ export default function BannerComponent() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden bg-gray-100 sm:rounded-[40px] shadow-lg group aspect-[16/9] sm:aspect-[21/9]">
+    <div className="relative w-full overflow-hidden bg-gray-100 sm:rounded-[40px] shadow-lg group aspect-[4/3] sm:aspect-[21/9] h-[350px] sm:h-auto">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}

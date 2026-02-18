@@ -591,6 +591,7 @@ export default function PanditPage() {
                 className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-700" 
                 alt={item.name} 
               />
+             
             </div>
 
             <div className="p-3 flex flex-col flex-1">
@@ -600,7 +601,7 @@ export default function PanditPage() {
                 <MapPin size={10} className="fill-[#457B9D]/10" />
                 <span className="text-[10px] font-bold">{item.location.split(',')[0]}</span>
               </div>
-
+                    <p className='mb-2' ><b>Price -</b> 1100</p>
               <button 
                 onClick={() => { setSelectedTemple(item); setPrasadMode('form'); }}
                 className="w-full py-2.5 bg-[#457B9D] text-white rounded-xl text-[10px] font-bold transition-all active:scale-95"

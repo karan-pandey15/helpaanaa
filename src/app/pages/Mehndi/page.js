@@ -150,7 +150,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
     onAddToCart({
       id: `${artist._id}_${Date.now()}`,
       name: `${artist.name} (${selectedPackage})`,
-      price: artist.price + (currentPkg?.priceAdd || 0),
+      price: (artist.price + (currentPkg?.priceAdd || 0)) * selectedHands,
       totalPrice,
       quantity: peopleCount,
       hands: selectedHands,
@@ -262,7 +262,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                     <p style={{ fontSize: 11, color: "#64748b", margin: "1px 0 0" }}>{pkg.desc}</p>
                   </div>
                 </div>
-                <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#457B9D" : "#475569" }}>+₹{pkg.priceAdd}</span>
+                <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#457B9D" : "#475569" }}>+₹{pkg.priceAdd * selectedHands}</span>
               </button>
             );
           })}
