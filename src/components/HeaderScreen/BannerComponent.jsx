@@ -6,11 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const bannerData = [
-  { 
+    { 
     id: 1, 
-    image: "/image/firwtgrocery.png", 
-    route: "/pages/Groceries",
-    title: "Fresh Groceries" 
+    image: "/image/gauurdianforkids.png", 
+    route: "/pages/GuardianKids",
+    title: "Book Gaurdian For Kids" 
   },
   { 
     id: 2, 
@@ -18,6 +18,7 @@ const bannerData = [
     route: "/pages/Attendant",
     title: "Professional Attendants" 
   },
+   
   { 
     id: 3, 
     image: "/image/pandiit.png", 
@@ -26,17 +27,16 @@ const bannerData = [
   },
   { 
     id: 4, 
-    image: "/image/mehndiartist.png", 
-    route: "/pages/Mehndi",
-    title: "Expert Mehndi Artist" 
+    image: "/image/firwtgrocery.png", 
+    route: "/pages/Groceries",
+    title: "Fresh Groceries" 
   }, 
   { 
     id: 5, 
-    image: "/image/gauurdianforkids.png", 
-    route: "/pages/GuardianKids",
-    title: "Book Gaurdian For Kids" 
-  },
-
+    image: "/image/pandiit.png", 
+    route: "/pages/Pandit",
+    title: "Expert Pandit Ji" 
+  }, 
    
 ];
 
