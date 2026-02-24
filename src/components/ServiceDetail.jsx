@@ -112,168 +112,200 @@ const ServiceDetail = ({
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white pb-32 font-sans overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-white font-sans overflow-hidden">
       {/* ── Fixed Navbar ── */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/70 backdrop-blur-xl border-b border-gray-100/50 px-4 py-3 flex items-center justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-xl border-b border-gray-200/50 px-6 py-4 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3">
           <button 
             onClick={() => router.back()}
-            className="p-2.5 bg-gray-50 hover:bg-gray-100 rounded-2xl transition-all active:scale-90"
+            className="p-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all active:scale-95 hover:shadow-md"
           >
             <ArrowLeft size={20} className="text-gray-900" />
           </button>
           <h1 className="text-sm font-black italic tracking-tighter text-gray-900 uppercase">Service Detail</h1>
         </div>
-        <div className="bg-[#457b9d]/10 px-3 py-1.5 rounded-full flex items-center gap-1.5">
+        <div className="bg-[#457b9d]/10 px-4 py-2 rounded-full flex items-center gap-2">
           <Zap size={14} className="text-[#457b9d] fill-current" />
-          <span className="text-[10px] font-black text-[#457b9d] uppercase">Quick Book</span>
+          <span className="text-[10px] font-black text-[#457b9d] uppercase tracking-wider">Quick Book</span>
         </div>
       </nav>
 
-      <div className="max-w-3xl mx-auto w-full pt-16">
-        {/* ── Hero Image ── */}
+      {/* ── Main Container: Side-by-Side on Desktop ── */}
+      <div className="flex-1 flex flex-col lg:flex-row pt-16 lg:pt-20">
+        
+        {/* ── LEFT SIDE: Image Section ── */}
         <motion.div 
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="relative h-[45vh] w-full overflow-hidden flex items-center justify-center bg-violet-50 text-7xl"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="w-full lg:w-[45%] h-[40vh] lg:h-[calc(100vh-5rem)] lg:sticky lg:top-20 relative bg-gradient-to-br from-violet-50 to-blue-50"
         >
-          {emoji}
-          <img 
-            src={image} 
-            alt={title}
-            className="w-full h-full object-cover absolute inset-0"
-            onError={(e) => {
-              e.currentTarget.style.display = "none";
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
-          
-          <div className="absolute bottom-10 left-6 right-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <span className="px-3 py-1 bg-yellow-400 text-black text-[10px] font-black uppercase rounded-lg mb-3 inline-block shadow-sm">
-                {item.category}
-              </span>
-              <h2 className="text-4xl font-black italic tracking-tighter text-gray-900 leading-[0.9] drop-shadow-sm uppercase">
-                {title}
-              </h2>
-            </motion.div>
+          <div className="absolute inset-0 w-full h-full overflow-hidden">
+            {/* Background Emoji */}
+            <div className="absolute inset-0 flex items-center justify-center text-8xl lg:text-9xl z-0 opacity-20">
+              {emoji}
+            </div>
+            
+            {/* Main Image */}
+            <img 
+              src={image} 
+              alt={title}
+              className="absolute inset-0 w-full h-full object-cover z-10"
+            />
+            
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-20" />
+            
+            {/* Title Overlay on Image */}
+            <div className="absolute bottom-8 left-6 right-6 z-30">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <span className="px-3 py-1.5 bg-yellow-400 text-black text-[10px] font-black uppercase mb-3 inline-block rounded shadow-lg">
+                  {item.category}
+                </span>
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-black italic tracking-tighter text-white leading-[0.95] uppercase drop-shadow-2xl">
+                  {title}
+                </h2>
+              </motion.div>
+            </div>
           </div>
         </motion.div>
 
-        {/* ── Main Content ── */}
-        <div className="px-6 -mt-6 relative z-10 space-y-10">
-          
-          {/* Stats Row */}
-          <div className="flex items-center justify-between gap-4 overflow-x-auto pb-2 scrollbar-hide">
-            <StatCard icon={Star} value="4.9" label="Rating" color="text-yellow-500" />
-            <StatCard icon={Users} value="500+" label="Booked" color="text-[#457b9d]" />
-            <StatCard icon={ShieldCheck} value="Safe" label="Verified" color="text-green-500" />
-            <StatCard icon={Clock} value={item.time} label="Duration" color="text-blue-500" />
-          </div>
+        {/* ── RIGHT SIDE: Content Section ── */}
+        <motion.div 
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="w-full lg:w-[55%] bg-white"
+        >
+          <div className="p-6 lg:p-8 space-y-6 lg:space-y-8 pb-32 lg:pb-24">
+            
+            {/* Stats Row */}
+            <div className="grid grid-cols-4 gap-3">
+              <StatCard icon={Star} value="4.9" label="Rating" color="text-yellow-500" />
+              <StatCard icon={Users} value="500+" label="Booked" color="text-[#457b9d]" />
+              <StatCard icon={ShieldCheck} value="Safe" label="Verified" color="text-green-500" />
+              <StatCard icon={Clock} value={item.time} label="Duration" color="text-blue-500" />
+            </div>
 
-          {/* Pricing & Info */}
-          <div className="bg-gray-50 rounded-[40px] p-8 border border-gray-100 shadow-sm">
-            <div className="flex items-end justify-between mb-6">
-              <div>
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Total Pricing</p>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-black text-gray-900">₹{basePrice}</span>
-                  <span className="text-xs font-bold text-gray-400">/ per service</span>
+            {/* Pricing Card */}
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-2xl border border-gray-200 shadow-sm">
+              <div className="flex items-end justify-between mb-4">
+                <div>
+                  <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1">Total Pricing</p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl lg:text-5xl font-black text-gray-900">₹{basePrice}</span>
+                    <span className="text-xs font-bold text-gray-500">/ service</span>
+                  </div>
+                </div>
+                <div className="flex flex-col items-end">
+                  <span className="text-[9px] font-black text-green-600 bg-green-100 px-3 py-1 rounded-full uppercase">Save 10%</span>
+                  <span className="text-sm font-bold text-gray-400 line-through mt-1">₹{Math.round(basePrice * 1.1)}</span>
                 </div>
               </div>
-              <div className="flex flex-col items-end">
-                <span className="text-[10px] font-black text-green-600 bg-green-100 px-2 py-1 rounded-md uppercase mb-1">Save 10%</span>
-                <span className="text-sm font-bold text-gray-400 line-through">₹{Math.round(basePrice * 1.1)}</span>
-              </div>
-            </div>
-            
-            <p className="text-sm text-gray-500 font-medium leading-relaxed">
-              Our professionals are highly trained to ensure the best experience. We guarantee 100% satisfaction and timely delivery of services.
-            </p>
-          </div>
-
-          {/* Date Selector */}
-          <section>
-            <h3 className="text-lg font-black italic tracking-tight text-gray-900 mb-6 uppercase">Select Schedule</h3>
-            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-              {dates.map((date) => (
-                <button
-                  key={date.id}
-                  onClick={() => setSelectedDate(date.id)}
-                  className={`flex flex-col items-center min-w-[85px] py-6 rounded-3xl border-2 transition-all duration-300 ${selectedDate === date.id ? 'bg-[#457b9d] border-[#457b9d] text-white shadow-2xl shadow-[#457b9d]/30 scale-105' : 'bg-white border-gray-100 text-gray-400 hover:border-gray-200'}`}
-                >
-                  <span className="text-[10px] font-black uppercase tracking-widest mb-2">{date.dayName}</span>
-                  <span className="text-2xl font-black">{date.dateNum}</span>
-                  <span className="text-[10px] font-bold mt-1 uppercase">{date.monthName}</span>
-                </button>
-              ))}
-            </div>
-          </section>
-
-          {/* Time Selector */}
-          <section>
-            <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest mb-4">Pick a Time</h3>
-            <div className="grid grid-cols-3 gap-3">
-              {timeSlots.map((time) => (
-                <button
-                  key={time}
-                  onClick={() => setSelectedTime(time)}
-                  className={`py-4 rounded-2xl border-2 font-black text-[11px] transition-all duration-200 ${selectedTime === time ? 'bg-gray-900 border-gray-900 text-white shadow-lg' : 'bg-white border-gray-100 text-gray-500'}`}
-                >
-                  {time}
-                </button>
-              ))}
-            </div>
-          </section>
-
-          {/* Traveling Section */}
-          {item.isTraveling && (
-            <motion.section 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="space-y-6 pt-6"
-            >
-              <div className="h-[2px] w-full bg-gray-100" />
-              <h3 className="text-lg font-black italic text-gray-900 uppercase">Passenger Details</h3>
               
-              <div className="space-y-5">
-                <InputField label="Preferred Gender" value={gender} onChange={setGender} placeholder="Male / Female / Any" />
-                <InputField label="Religion" value={religion} onChange={setReligion} placeholder="e.g. Hindu, Muslim, Sikh" />
-                <InputField label="Pickup Address" value={pickup} onChange={setPickup} placeholder="Where to pick up?" />
-                <InputField label="Destination" value={drop} onChange={setDrop} placeholder="Where to go?" />
+              <p className="text-sm text-gray-600 font-medium leading-relaxed">
+                Our professionals are highly trained to ensure the best experience. We guarantee 100% satisfaction and timely delivery of services.
+              </p>
+            </div>
+
+            {/* Date Selector */}
+            <section>
+              <h3 className="text-base font-black italic tracking-tight text-gray-900 mb-4 uppercase flex items-center gap-2">
+                <Calendar size={18} />
+                Select Schedule
+              </h3>
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                {dates.map((date) => (
+                  <button
+                    key={date.id}
+                    onClick={() => setSelectedDate(date.id)}
+                    className={`flex flex-col items-center min-w-[75px] py-4 px-3 rounded-xl border-2 transition-all duration-300 ${
+                      selectedDate === date.id 
+                        ? 'bg-[#457b9d] border-[#457b9d] text-white scale-105 shadow-lg' 
+                        : 'bg-white border-gray-200 text-gray-400 hover:border-gray-300 hover:shadow-md'
+                    }`}
+                  >
+                    <span className="text-[9px] font-black uppercase tracking-wider mb-1">{date.dayName}</span>
+                    <span className="text-2xl font-black">{date.dateNum}</span>
+                    <span className="text-[9px] font-bold mt-0.5 uppercase">{date.monthName}</span>
+                  </button>
+                ))}
               </div>
-            </motion.section>
-          )}
+            </section>
 
-          {/* Requirements */}
-          <section>
-            <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest mb-4">Special Requests</h3>
-            <textarea 
-              className="w-full bg-gray-50 border border-gray-100 rounded-[30px] p-6 text-sm font-medium focus:ring-2 focus:ring-[#457b9d] focus:bg-white outline-none transition-all h-32"
-              placeholder="Tell us more about your specific needs..."
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </section>
+            {/* Time Selector */}
+            <section>
+              <h3 className="text-xs font-black text-gray-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                <Clock size={16} />
+                Pick a Time
+              </h3>
+              <div className="grid grid-cols-3 gap-2.5">
+                {timeSlots.map((time) => (
+                  <button
+                    key={time}
+                    onClick={() => setSelectedTime(time)}
+                    className={`py-3.5 px-2 rounded-lg border-2 font-black text-[11px] transition-all duration-200 ${
+                      selectedTime === time 
+                        ? 'bg-gray-900 border-gray-900 text-white shadow-lg scale-105' 
+                        : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:shadow-md'
+                    }`}
+                  >
+                    {time}
+                  </button>
+                ))}
+              </div>
+            </section>
 
-          <div className="h-20" />
-        </div>
+            {/* Traveling Section */}
+            {item.isTraveling && (
+              <motion.section 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                className="space-y-4 pt-4 border-t-2 border-gray-100"
+              >
+                <h3 className="text-base font-black italic text-gray-900 uppercase flex items-center gap-2">
+                  <Users size={18} />
+                  Passenger Details
+                </h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <InputField label="Preferred Gender" value={gender} onChange={setGender} placeholder="Male / Female / Any" />
+                  <InputField label="Religion" value={religion} onChange={setReligion} placeholder="e.g. Hindu, Muslim" />
+                  <InputField label="Pickup Address" value={pickup} onChange={setPickup} placeholder="Where to pick up?" />
+                  <InputField label="Destination" value={drop} onChange={setDrop} placeholder="Where to go?" />
+                </div>
+              </motion.section>
+            )}
+
+            {/* Requirements */}
+            <section>
+              <h3 className="text-xs font-black text-gray-500 uppercase tracking-widest mb-3">Special Requests</h3>
+              <textarea 
+                className="w-full bg-gray-50 border-2 border-gray-200 rounded-xl p-4 text-sm font-medium focus:ring-2 focus:ring-[#457b9d] focus:border-[#457b9d] focus:bg-white outline-none transition-all resize-none"
+                placeholder="Tell us more about your specific needs..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={4}
+              />
+            </section>
+          </div>
+        </motion.div>
       </div>
 
       {/* ── Action Footer ── */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-gray-100 p-6 z-[100] rounded-t-[40px] shadow-2xl">
-        <div className="max-w-3xl mx-auto flex items-center justify-between gap-6">
+      <div className="fixed bottom-0 left-0 right-0 lg:left-[45%] bg-white/95 backdrop-blur-xl border-t border-gray-200 p-4 lg:p-6 z-[100] shadow-lg">
+        <div className="max-w-full mx-auto flex items-center justify-between gap-4 lg:gap-6">
           <div className="flex flex-col">
-            <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Pay</span>
-            <span className="text-3xl font-black text-gray-900 tracking-tighter">₹{basePrice * hours}</span>
+            <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Total Pay</span>
+            <span className="text-2xl lg:text-3xl font-black text-gray-900 tracking-tighter">₹{basePrice * hours}</span>
           </div>
           <button 
             onClick={handleAddToCart}
-            className="flex-1 bg-[#457b9d] text-white py-5 rounded-[24px] font-black text-lg shadow-xl shadow-[#457b9d]/20 active:scale-95 transition-all flex items-center justify-center gap-2 group italic uppercase"
+            className="flex-1 bg-gradient-to-r from-[#457b9d] to-[#1d3557] text-white py-4 px-6 rounded-xl font-black text-base lg:text-lg active:scale-95 transition-all flex items-center justify-center gap-2 group italic uppercase shadow-lg hover:shadow-xl"
           >
             Confirm Booking
             <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
@@ -285,18 +317,18 @@ const ServiceDetail = ({
 };
 
 const StatCard = ({ icon: Icon, value, label, color }) => (
-  <div className="flex-1 min-w-[80px] bg-white p-4 rounded-3xl border border-gray-100 shadow-sm flex flex-col items-center">
-    <Icon size={18} className={`${color} mb-1.5`} />
-    <span className="text-sm font-black text-gray-900">{value}</span>
-    <span className="text-[9px] font-bold text-gray-400 uppercase tracking-tighter">{label}</span>
+  <div className="flex-1 min-w-0 bg-white p-3 lg:p-4 rounded-xl border border-gray-200 flex flex-col items-center shadow-sm hover:shadow-md transition-shadow">
+    <Icon size={16} className={`${color} mb-1`} />
+    <span className="text-xs lg:text-sm font-black text-gray-900 truncate">{value}</span>
+    <span className="text-[8px] lg:text-[9px] font-bold text-gray-400 uppercase tracking-tighter truncate">{label}</span>
   </div>
 );
 
 const InputField = ({ label, value, onChange, placeholder }) => (
   <div>
-    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 mb-2 block">{label}</label>
+    <label className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-2 block">{label}</label>
     <input 
-      className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm font-bold focus:ring-2 focus:ring-[#457b9d] outline-none transition-all"
+      className="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-[#457b9d] focus:border-[#457b9d] outline-none transition-all"
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}

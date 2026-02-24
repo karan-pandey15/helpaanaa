@@ -81,9 +81,10 @@ const LogoutIconLarge = () => (
 
 // ─── Mock API (replace with your actual API calls) ───────────────────────────
 const getProfile = async () => {
-  // In production, replace with: const res = await fetch('/api/profile', { headers: { Authorization: `Bearer ${token}` } });
-  // For demo, we read from localStorage
   if (typeof window !== "undefined") {
+    const token = localStorage.getItem("userToken");
+    if (!token) return { ok: false };
+    
     const stored = localStorage.getItem("userData");
     if (stored) {
       try {
@@ -92,11 +93,7 @@ const getProfile = async () => {
       } catch {}
     }
   }
-  // Default demo user
-  return {
-    ok: true,
-    user: { name: "Karan Pandey", phone: "+91 9569125048", email: "pandeykaran1515@gmail.com" },
-  };
+  return { ok: false };
 };
 
 // ─── MenuItem component ───────────────────────────────────────────────────────
@@ -121,12 +118,15 @@ const MenuItem = ({ icon, label, onClick, isLast = false }) => (
 export default function Profile() {
   const router = useRouter();
   const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [logoutVisible, setLogoutVisible] = useState(false);
   const [modalReady, setModalReady] = useState(false);
   const [animating, setAnimating] = useState(false);
   const overlayRef = useRef(null);
 
   useEffect(() => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
+    setIsLoggedIn(!!token);
     fetchUserProfile();
   }, []);
 
@@ -157,10 +157,8 @@ export default function Profile() {
   const handleLogout = async () => {
     hideLogoutModal();
     try {
-      localStorage.removeItem("userToken");
-      localStorage.removeItem("userData");
-      // Replace with your router: router.replace('/login') or window.location
-      window.location.href = "/login";
+      localStorage.clear();
+      window.location.href = "/";
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -202,124 +200,144 @@ export default function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans">
-      {/* ── Header ── */}
-      <div
-        className="flex items-center bg-white px-4 py-4 border-b border-gray-200 sticky top-0 z-10"
-        style={{ paddingTop: "calc(env(safe-area-inset-top) + 16px)" }}
-      >
-        <button
-          onClick={() => router.back()}
-          className="p-1 rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors"
-          aria-label="Go back"
+    <div className="min-h-screen bg-gray-50 font-sans">
+      <div className="max-w-4xl mx-auto bg-white min-h-screen shadow-sm">
+        {/* ── Header ── */}
+        <div
+          className="flex items-center bg-white px-4 py-4 border-b border-gray-200 sticky top-0 z-10"
+          style={{ paddingTop: "calc(env(safe-area-inset-top) + 16px)" }}
         >
-          <ChevronLeft />
-        </button>
-        <h1 className="text-xl font-bold text-black ml-4">Settings</h1>
-      </div>
-
-      <div className="overflow-y-auto pb-10">
-        {/* ── Profile Section ── */}
-        <div className="flex items-center bg-white px-5 py-6">
-          <div
-            className="w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0"
-            style={{ backgroundColor: "#457b9d" }}
-          >
-            {user && user.name ? (
-              <span className="text-3xl font-bold text-white">{getInitials(user.name)}</span>
-            ) : (
-              <PersonIcon />
-            )}
-          </div>
-          <div className="ml-4">
-            <p className="text-[22px] font-bold text-black leading-tight">
-              {user?.name || "Guest User"}
-            </p>
-            {user?.phone && (
-              <p className="text-[15px] text-gray-500 mt-1">{user.phone}</p>
-            )}
-          </div>
-        </div>
-
-        {/* ── Quick Actions ── */}
-        <div className="flex gap-3 px-4 py-5">
           <button
-            onClick={() => navigate("YourOrders")}
-            className="flex-1 bg-white rounded-xl p-5 flex flex-col items-center justify-center shadow-sm border border-gray-100 min-h-[100px] hover:shadow-md hover:border-gray-200 transition-all duration-200 active:scale-95"
+            onClick={() => router.back()}
+            className="p-1 rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors"
+            aria-label="Go back"
           >
-            <ShoppingBag />
-            <span className="text-[13px] font-semibold text-black text-center mt-2 leading-[18px]">
-              Your{"\n"}Orders
-            </span>
+            <ChevronLeft />
           </button>
-
-          <button
-            onClick={() => navigate("HelpSupport")}
-            className="flex-1 bg-white rounded-xl p-5 flex flex-col items-center justify-center shadow-sm border border-gray-100 min-h-[100px] hover:shadow-md hover:border-gray-200 transition-all duration-200 active:scale-95"
-          >
-            <MessageIcon />
-            <span className="text-[13px] font-semibold text-black text-center mt-2 leading-[18px]">
-              Help &{"\n"}Support
-            </span>
-          </button>
+          <h1 className="text-xl font-bold text-black ml-4">Settings</h1>
         </div>
 
-        {/* ── Your Information ── */}
-        <div className="mt-2">
-          <p className="text-base font-bold text-black px-5 py-4">Your Information</p>
-
-          <div className="mx-4 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <MenuItem
-              icon={<CartIcon />}
-              label="Your Cart"
-              onClick={() => navigate("Helpaana Cart")}
-            />
-            <MenuItem
-              icon={<MessageIcon />}
-              label="Help & Support"
-              onClick={() => navigate("HelpSupport")}
-            />
-            <MenuItem
-              icon={<LocationIcon />}
-              label="Saved Addresses"
-              onClick={() => navigate("AddressPage")}
-            />
-            <MenuItem
-              icon={<PersonOutline />}
-              label="Profile"
-              onClick={() => navigate("ProfilePage")}
-            />
-            <MenuItem
-              icon={<GiftIcon />}
-              label="Refer A Friend"
-              onClick={() => navigate("Rewards")}
-            />
-            <MenuItem
-              icon={<CardIcon />}
-              label="Helpana MemberShip"
-              onClick={() => navigate("Membership")}
-              isLast
-            />
-          </div>
-        </div>
-
-        {/* ── Other Information (Logout) ── */}
-        <div className="mt-2">
-          <p className="text-base font-bold text-black px-5 py-4">Other Information</p>
-
-          <div className="mx-4 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <button
-              onClick={showLogoutModal}
-              className="w-full flex items-center justify-between px-4 py-4 bg-white hover:bg-red-50 active:bg-red-100 transition-colors duration-150"
+        <div className="overflow-y-auto pb-10">
+          {/* ── Profile Section ── */}
+          <div className="flex items-center bg-white px-5 py-8 md:py-10 border-b border-gray-50">
+            <div
+              className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center flex-shrink-0"
+              style={{ backgroundColor: "#457b9d" }}
             >
-              <div className="flex items-center gap-4">
-                <LogoutIcon />
-                <span className="text-base font-semibold text-[#E53935]">Logout</span>
+              {user && user.name ? (
+                <span className="text-3xl md:text-4xl font-bold text-white">{getInitials(user.name)}</span>
+              ) : (
+                <PersonIcon />
+              )}
+            </div>
+            <div className="ml-4 md:ml-6 flex-1 flex justify-between items-center">
+              <div>
+                <p className="text-[22px] md:text-2xl font-bold text-black leading-tight">
+                  {isLoggedIn ? (user?.name || "User") : "Guest User"}
+                </p>
+                {isLoggedIn && user?.phone && (
+                  <p className="text-[15px] md:text-base text-gray-500 mt-1">{user.phone}</p>
+                )}
               </div>
-              <span className="text-gray-400">
-                <ChevronRight />
+              {!isLoggedIn && (
+                <button 
+                  onClick={() => window.location.href = "/"}
+                  className="bg-[#457b9d] text-white px-6 py-2 rounded-full font-bold shadow-md hover:bg-[#1d4e6e] transition-colors"
+                >
+                  Login
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* ── Quick Actions ── */}
+          <div className="grid grid-cols-2 gap-4 px-4 py-6 md:py-8">
+            <button
+              onClick={() => navigate("YourOrders")}
+              className="bg-white rounded-2xl p-6 flex flex-col items-center justify-center shadow-sm border border-gray-100 min-h-[120px] hover:shadow-md hover:border-gray-200 transition-all duration-200 active:scale-95 group"
+            >
+              <div className="p-3 rounded-full bg-blue-50 text-blue-600 group-hover:bg-blue-100 transition-colors">
+                <ShoppingBag />
+              </div>
+              <span className="text-sm font-bold text-black text-center mt-3">
+                Your Orders
               </span>
             </button>
+
+            <button
+              onClick={() => navigate("HelpSupport")}
+              className="bg-white rounded-2xl p-6 flex flex-col items-center justify-center shadow-sm border border-gray-100 min-h-[120px] hover:shadow-md hover:border-gray-200 transition-all duration-200 active:scale-95 group"
+            >
+              <div className="p-3 rounded-full bg-green-50 text-green-600 group-hover:bg-green-100 transition-colors">
+                <MessageIcon />
+              </div>
+              <span className="text-sm font-bold text-black text-center mt-3">
+                Help & Support
+              </span>
+            </button>
+          </div>
+
+          <div className="md:grid md:grid-cols-2 md:gap-6 md:px-4">
+            {/* ── Your Information ── */}
+            <div className="mt-2">
+              <p className="text-base font-bold text-gray-400 uppercase tracking-wider px-5 py-4 text-xs">Your Information</p>
+
+              <div className="mx-4 md:mx-0 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <MenuItem
+                  icon={<CartIcon />}
+                  label="Your Cart"
+                  onClick={() => navigate("Helpaana Cart")}
+                />
+                <MenuItem
+                  icon={<MessageIcon />}
+                  label="Help & Support"
+                  onClick={() => navigate("HelpSupport")}
+                />
+                <MenuItem
+                  icon={<LocationIcon />}
+                  label="Saved Addresses"
+                  onClick={() => navigate("AddressPage")}
+                />
+                <MenuItem
+                  icon={<PersonOutline />}
+                  label="Profile"
+                  onClick={() => navigate("ProfilePage")}
+                />
+                <MenuItem
+                  icon={<GiftIcon />}
+                  label="Refer A Friend"
+                  onClick={() => navigate("Rewards")}
+                />
+                <MenuItem
+                  icon={<CardIcon />}
+                  label="Helpana MemberShip"
+                  onClick={() => navigate("Membership")}
+                  isLast
+                />
+              </div>
+            </div>
+
+            {/* ── Other Information (Logout) ── */}
+            {isLoggedIn && (
+              <div className="mt-2">
+                <p className="text-base font-bold text-gray-400 uppercase tracking-wider px-5 py-4 text-xs">Other Information</p>
+
+                <div className="mx-4 md:mx-0 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                  <button
+                    onClick={showLogoutModal}
+                    className="w-full flex items-center justify-between px-4 py-5 bg-white hover:bg-red-50 active:bg-red-100 transition-colors duration-150"
+                  >
+                    <div className="flex items-center gap-4">
+                      <LogoutIcon />
+                      <span className="text-base font-bold text-[#E53935]">Logout</span>
+                    </div>
+                    <span className="text-gray-400">
+                      <ChevronRight />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -175,7 +175,7 @@ const Footer = () => {
                   </div>
                   <div>
                     <span className="block text-xs text-gray-400 uppercase font-bold mb-1">Office Location</span>
-                    <span className="text-sm">B-25, 2nd floor, Sector 2 Noida - 201301</span>
+                    <span className="text-sm">NX One T3 - B111, Noida Extension - 201318</span>
                   </div>
                 </div>
                 

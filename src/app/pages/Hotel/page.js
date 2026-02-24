@@ -41,7 +41,7 @@ function HotelDetail({ hotel, onBack }) {
   const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(null), 2500); };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100dvh", backgroundColor: "#f1f5f9", fontFamily: "'Segoe UI', system-ui, sans-serif", overflow: "hidden" }}>
+      <div className="hotel-detail-container" style={{ display: "flex", flexDirection: "column", height: "100dvh", backgroundColor: "#f1f5f9", fontFamily: "'Segoe UI', system-ui, sans-serif", overflow: "hidden" }}>
       {toast && (
         <div style={{ position: "fixed", top: 16, left: "50%", transform: "translateX(-50%)", backgroundColor: "#10b981", color: "#fff", padding: "10px 20px", borderRadius: 10, fontSize: 13, fontWeight: 600, zIndex: 9999, boxShadow: "0 4px 16px rgba(0,0,0,0.15)", animation: "fadeDown 0.25s ease" }}>
           {toast}
@@ -56,83 +56,124 @@ function HotelDetail({ hotel, onBack }) {
         <p style={{ fontSize: 18, fontWeight: 800, color: DARK, margin: 0, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{hotel.name}</p>
       </div>
 
-      <div style={{ flex: 1, overflowY: "auto", paddingBottom: 100 }}>
-        {/* Image gallery */}
-        <div style={{ position: "relative", height: 260, backgroundColor: "#f1f5f9" }}>
-          {hotel.images?.[activeImage]?.url ? (
-            <img src={hotel.images[activeImage].url} alt={hotel.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-          ) : (
-            <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontSize: 60 }}>🏨</span>
-            </div>
-          )}
-          {hotel.images?.length > 1 && (
-            <div style={{ position: "absolute", bottom: 12, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 6 }}>
-              {hotel.images.map((_, i) => (
-                <button key={i} onClick={() => setActiveImage(i)} style={{ width: i === activeImage ? 20 : 8, height: 8, borderRadius: 4, backgroundColor: i === activeImage ? "#fff" : "rgba(255,255,255,0.5)", border: "none", cursor: "pointer", padding: 0, transition: "width 0.2s" }} />
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div style={{ padding: 20 }}>
-          {/* Name + Rating */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
-            <p style={{ fontSize: 22, fontWeight: 900, color: DARK, margin: 0, flex: 1 }}>{hotel.name}</p>
-            <div style={{ display: "flex", alignItems: "center", gap: 4, backgroundColor: "#10b981", padding: "4px 10px", borderRadius: 6 }}>
-              <span style={{ color: "#fff", fontSize: 14 }}>★</span>
-              <span style={{ color: "#fff", fontWeight: "bold", fontSize: 14 }}>{hotel.rating ?? "4.5"}</span>
-            </div>
-          </div>
-          <p style={{ fontSize: 14, color: BLUE, fontWeight: 600, margin: "0 0 16px" }}>📍 {hotel.displayLocation}</p>
-
-          {/* Price card */}
-          <div style={{ backgroundColor: "#fff", borderRadius: 12, padding: 16, marginBottom: 16, boxShadow: "0 1px 6px rgba(0,0,0,0.08)" }}>
-            <p style={{ fontSize: 12, color: "#64748b", margin: "0 0 4px" }}>Per Night</p>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 2, marginBottom: 4 }}>
-              <span style={{ fontSize: 16, fontWeight: 700, color: DARK }}>₹</span>
-              <span style={{ fontSize: 28, fontWeight: 900, color: DARK }}>{hotel.pricePerNight?.toLocaleString()}</span>
-            </div>
-            <p style={{ fontSize: 12, color: "#94a3b8", margin: 0 }}>+ ₹{Math.round((hotel.pricePerNight || 0) * 0.12)} taxes & fees</p>
-          </div>
-
-          {/* Amenities */}
-          {hotel.amenities?.length > 0 && (
-            <div style={{ backgroundColor: "#fff", borderRadius: 12, padding: 16, marginBottom: 16, boxShadow: "0 1px 6px rgba(0,0,0,0.08)" }}>
-              <p style={{ fontSize: 16, fontWeight: 700, color: DARK, margin: "0 0 12px" }}>Amenities</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-                {hotel.amenities.map((amt, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, backgroundColor: "#f0fdf4", padding: "6px 12px", borderRadius: 20 }}>
-                    <span style={{ color: "#10b981" }}>✓</span>
-                    <span style={{ fontSize: 13, color: "#475569" }}>{amt}</span>
-                  </div>
+      <div className="hotel-detail-content" style={{ flex: 1, overflowY: "auto", paddingBottom: 100 }}>
+        <div className="hotel-detail-layout">
+          {/* Image gallery */}
+          <div className="hotel-detail-gallery" style={{ position: "relative", height: 350, backgroundColor: "#f1f5f9" }}>
+            {hotel.images?.[activeImage]?.url ? (
+              <img src={hotel.images[activeImage].url} alt={hotel.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            ) : (
+              <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontSize: 60 }}>🏨</span>
+              </div>
+            )}
+            {hotel.images?.length > 1 && (
+              <div style={{ position: "absolute", bottom: 12, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 6 }}>
+                {hotel.images.map((_, i) => (
+                  <button key={i} onClick={() => setActiveImage(i)} style={{ width: i === activeImage ? 20 : 8, height: 8, borderRadius: 4, backgroundColor: i === activeImage ? "#fff" : "rgba(255,255,255,0.5)", border: "none", cursor: "pointer", padding: 0, transition: "width 0.2s" }} />
                 ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
-          {/* Description */}
-          {hotel.description && (
-            <div style={{ backgroundColor: "#fff", borderRadius: 12, padding: 16, marginBottom: 16, boxShadow: "0 1px 6px rgba(0,0,0,0.08)" }}>
-              <p style={{ fontSize: 16, fontWeight: 700, color: DARK, margin: "0 0 8px" }}>About</p>
-              <p style={{ fontSize: 14, color: "#475569", lineHeight: 1.6, margin: 0 }}>{hotel.description}</p>
+          <div className="hotel-detail-info" style={{ padding: 20 }}>
+            {/* Name + Rating */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
+              <p style={{ fontSize: 26, fontWeight: 900, color: DARK, margin: 0, flex: 1 }}>{hotel.name}</p>
+              <div style={{ display: "flex", alignItems: "center", gap: 4, backgroundColor: "#10b981", padding: "4px 10px", borderRadius: 6 }}>
+                <span style={{ color: "#fff", fontSize: 14 }}>★</span>
+                <span style={{ color: "#fff", fontWeight: "bold", fontSize: 14 }}>{hotel.rating ?? "4.5"}</span>
+              </div>
             </div>
-          )}
+            <p style={{ fontSize: 15, color: BLUE, fontWeight: 600, margin: "0 0 20px" }}>📍 {hotel.displayLocation}</p>
+
+            {/* Price card */}
+            <div style={{ backgroundColor: "#fff", borderRadius: 12, padding: 20, marginBottom: 20, boxShadow: "0 1px 6px rgba(0,0,0,0.08)" }}>
+              <p style={{ fontSize: 13, color: "#64748b", margin: "0 0 4px" }}>Per Night</p>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 2, marginBottom: 4 }}>
+                <span style={{ fontSize: 18, fontWeight: 700, color: DARK }}>₹</span>
+                <span style={{ fontSize: 32, fontWeight: 900, color: DARK }}>{hotel.pricePerNight?.toLocaleString()}</span>
+              </div>
+              <p style={{ fontSize: 13, color: "#94a3b8", margin: 0 }}>+ ₹{Math.round((hotel.pricePerNight || 0) * 0.12)} taxes & fees</p>
+            </div>
+
+            {/* Amenities */}
+            {hotel.amenities?.length > 0 && (
+              <div style={{ backgroundColor: "#fff", borderRadius: 12, padding: 20, marginBottom: 20, boxShadow: "0 1px 6px rgba(0,0,0,0.08)" }}>
+                <p style={{ fontSize: 18, fontWeight: 700, color: DARK, margin: "0 0 15px" }}>Amenities</p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                  {hotel.amenities.map((amt, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, backgroundColor: "#f0fdf4", padding: "8px 16px", borderRadius: 20 }}>
+                      <span style={{ color: "#10b981" }}>✓</span>
+                      <span style={{ fontSize: 14, color: "#475569" }}>{amt}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Description */}
+            {hotel.description && (
+              <div style={{ backgroundColor: "#fff", borderRadius: 12, padding: 20, marginBottom: 20, boxShadow: "0 1px 6px rgba(0,0,0,0.08)" }}>
+                <p style={{ fontSize: 18, fontWeight: 700, color: DARK, margin: "0 0 12px" }}>About</p>
+                <p style={{ fontSize: 15, color: "#475569", lineHeight: 1.7, margin: 0 }}>{hotel.description}</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Book Now footer */}
-      <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, backgroundColor: "#fff", borderTop: "1px solid #f1f5f9", padding: "14px 20px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 -4px 20px rgba(0,0,0,0.08)" }}>
-        <div>
-          <p style={{ fontSize: 12, color: "#64748b", margin: 0 }}>Per Night</p>
-          <p style={{ fontSize: 22, fontWeight: 900, color: DARK, margin: "2px 0 0" }}>₹{hotel.pricePerNight?.toLocaleString()}</p>
+      <div className="hotel-detail-footer" style={{ position: "fixed", bottom: 0, left: 0, right: 0, backgroundColor: "#fff", borderTop: "1px solid #f1f5f9", padding: "16px 20px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 -4px 20px rgba(0,0,0,0.08)", zIndex: 100 }}>
+        <div className="footer-price-content">
+          <p style={{ fontSize: 13, color: "#64748b", margin: 0 }}>Per Night</p>
+          <p style={{ fontSize: 26, fontWeight: 900, color: DARK, margin: "2px 0 0" }}>₹{hotel.pricePerNight?.toLocaleString()}</p>
         </div>
-        <button onClick={() => showToast("Booking request sent!")} style={{ backgroundColor: BLUE, color: "#fff", border: "none", borderRadius: 12, padding: "14px 28px", fontSize: 16, fontWeight: 800, cursor: "pointer" }}>
+        <button onClick={() => showToast("Booking request sent!")} style={{ backgroundColor: BLUE, color: "#fff", border: "none", borderRadius: 12, padding: "16px 40px", fontSize: 18, fontWeight: 800, cursor: "pointer" }}>
           Book Now
         </button>
       </div>
 
-      <style>{`@keyframes fadeDown { from { opacity: 0; transform: translateX(-50%) translateY(-8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } } * { box-sizing: border-box; } button { transition: transform 0.1s, opacity 0.1s; } button:active { transform: scale(0.96); opacity: 0.85; }`}</style>
+      <style>{`
+        @keyframes fadeDown { from { opacity: 0; transform: translateX(-50%) translateY(-8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+        * { box-sizing: border-box; }
+        button { transition: transform 0.1s, opacity 0.1s; }
+        button:active { transform: scale(0.96); opacity: 0.85; }
+
+        @media (min-width: 1024px) {
+          .hotel-detail-layout {
+            display: flex;
+            gap: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            min-height: calc(100vh - 150px);
+            border-radius: 20px;
+            margin-top: 20px;
+            overflow: hidden;
+          }
+          .hotel-detail-gallery {
+            flex: 1.2;
+            height: auto !important;
+            min-height: 500px;
+          }
+          .hotel-detail-info {
+            flex: 1;
+            padding: 40px !important;
+            overflow-y: auto;
+            background: #fff;
+          }
+          .hotel-detail-footer {
+            padding: 20px 40px !important;
+            justify-content: center !important;
+            gap: 100px;
+          }
+          .hotel-detail-content {
+            padding: 20px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
@@ -206,28 +247,28 @@ export default function HotelScreen() {
 
       {/* Header */}
       <div style={{ backgroundColor: "#fff", borderBottom: "1px solid #f1f5f9", flexShrink: 0 }}>
-        <div style={{ display: "flex", alignItems: "center", padding: "15px 20px", gap: 15 }}>
+        <div className="header-container" style={{ display: "flex", alignItems: "center", padding: "15px 20px", gap: 15, maxWidth: 1200, margin: "0 auto" }}>
           <button onClick={() => router.back()} style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", color: "#000" }}><IconBack /></button>
           <div style={{ flex: 1 }}>
-            <p style={{ fontSize: 18, fontWeight: 800, color: DARK, margin: 0 }}>Hotels & Homestays</p>
-            <p style={{ fontSize: 12, color: "#64748b", margin: "2px 0 0" }}>{displayedHotels.length} Properties found</p>
+            <p style={{ fontSize: 20, fontWeight: 900, color: DARK, margin: 0 }}>Hotels & Homestays</p>
+            <p style={{ fontSize: 13, color: "#64748b", margin: "2px 0 0" }}>{displayedHotels.length} Properties found</p>
           </div>
-          <button onClick={() => { setShowSearch(s => !s); setSearchQuery(""); }} style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", color: "#000" }}><IconSearch /></button>
+          <button onClick={() => { setShowSearch(s => !s); setSearchQuery(""); }} style={{ background: "none", border: "none", cursor: "pointer", padding: 8, display: "flex", color: BLUE, backgroundColor: "#eff9ff", borderRadius: 12 }}><IconSearch /></button>
         </div>
         {showSearch && (
-          <div style={{ padding: "0 20px 12px" }}>
+          <div style={{ padding: "0 20px 12px", maxWidth: 1200, margin: "0 auto" }}>
             <input autoFocus value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Search hotels or locations..."
-              style={{ width: "100%", padding: "9px 14px", border: `1px solid ${BLUE}`, borderRadius: 10, fontSize: 14, outline: "none", backgroundColor: "#eff9ff", color: "#1f2937", boxSizing: "border-box" }} />
+              style={{ width: "100%", padding: "12px 16px", border: `1px solid ${BLUE}`, borderRadius: 12, fontSize: 15, outline: "none", backgroundColor: "#eff9ff", color: "#1f2937", boxSizing: "border-box", boxShadow: "0 4px 12px rgba(0, 140, 255, 0.1)" }} />
           </div>
         )}
         {/* City tabs */}
-        <div style={{ padding: "12px 0", borderTop: "1px solid #e2e8f0", overflowX: "auto" }}>
-          <div style={{ display: "flex", gap: 12, paddingLeft: 20, paddingRight: 20, width: "max-content" }}>
+        <div style={{ padding: "12px 0", borderTop: "1px solid #e2e8f0", overflowX: "auto", scrollbarWidth: "none" }}>
+          <div style={{ display: "flex", gap: 12, paddingLeft: 20, paddingRight: 20, width: "max-content", margin: "0 auto" }}>
             {locations.map(loc => {
               const active = selectedLocation === loc;
               return (
                 <button key={loc} onClick={() => handleLocationSelect(loc)}
-                  style={{ padding: "8px 16px", borderRadius: 20, backgroundColor: active ? BLUE : "#f8fafc", border: `1px solid ${active ? BLUE : "#e2e8f0"}`, fontSize: 14, fontWeight: 600, color: active ? "#fff" : "#64748b", cursor: "pointer", whiteSpace: "nowrap" }}>
+                  style={{ padding: "10px 20px", borderRadius: 25, backgroundColor: active ? BLUE : "#f8fafc", border: `1px solid ${active ? BLUE : "#e2e8f0"}`, fontSize: 14, fontWeight: 700, color: active ? "#fff" : "#64748b", cursor: "pointer", whiteSpace: "nowrap", transition: "all 0.2s" }}>
                   {loc}
                 </button>
               );
@@ -237,81 +278,108 @@ export default function HotelScreen() {
       </div>
 
       {/* Hotel list */}
-      <div style={{ flex: 1, overflowY: "auto", padding: "16px 16px 100px" }}>
-        {displayedHotels.length > 0 ? displayedHotels.map(hotel => (
-          <div key={hotel._id} onClick={() => setSelectedHotel(hotel)}
-            style={{ backgroundColor: "#fff", borderRadius: 16, marginBottom: 20, overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.10)", cursor: "pointer" }}>
-            {/* Image */}
-            <div style={{ height: 220, position: "relative", backgroundColor: "#f1f5f9" }}>
-              {hotel.images?.[0]?.url ? (
-                <img src={hotel.images[0].url} alt={hotel.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} onError={e => { e.target.onerror = null; e.target.style.display = "none"; }} />
-              ) : (
-                <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: 50 }}>🏨</span>
-                </div>
-              )}
-              <div style={{ position: "absolute", top: 12, left: 12, backgroundColor: "rgba(0,0,0,0.6)", padding: "4px 10px", borderRadius: 4 }}>
-                <span style={{ fontSize: 10, fontWeight: 800, color: "#fff", letterSpacing: 0.5 }}>{hotel.category?.toUpperCase() || "PREMIUM"}</span>
-              </div>
-              <button onClick={e => { e.stopPropagation(); toggleWishlist(hotel._id); showToast(wishlist.includes(hotel._id) ? "Removed from wishlist" : "Added to wishlist"); }}
-                style={{ position: "absolute", top: 12, right: 12, backgroundColor: wishlist.includes(hotel._id) ? "#ef4444" : "rgba(0,0,0,0.3)", border: "none", borderRadius: 25, padding: 8, display: "flex", cursor: "pointer" }}>
-                <IconHeart />
-              </button>
-              <div style={{ position: "absolute", bottom: 12, left: 12, backgroundColor: "#10b981", display: "flex", alignItems: "center", gap: 4, padding: "4px 8px", borderRadius: 4 }}>
-                <IconStar />
-                <span style={{ color: "#fff", fontSize: 12, fontWeight: "bold" }}>{hotel.rating ?? "4.5"}</span>
-              </div>
-            </div>
-            {/* Details */}
-            <div style={{ padding: 15 }}>
-              <p style={{ fontSize: 18, fontWeight: 800, color: DARK, margin: "0 0 6px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{hotel.name}</p>
-              <div style={{ display: "flex", alignItems: "center", gap: 4, marginBottom: 12 }}>
-                <IconLocation />
-                <span style={{ fontSize: 13, color: BLUE, fontWeight: 600 }}>{hotel.displayLocation}</span>
-                <span style={{ width: 3, height: 3, borderRadius: "50%", backgroundColor: "#cbd5e1", margin: "0 8px", flexShrink: 0 }} />
-                <span style={{ fontSize: 13, color: "#64748b" }}>{hotel.city}</span>
-              </div>
-              {hotel.amenities?.length > 0 && (
-                <div style={{ display: "flex", gap: 15, marginBottom: 15 }}>
-                  {hotel.amenities.slice(0, 2).map((amt, idx) => (
-                    <div key={idx} style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                      <span style={{ color: "#10b981", fontSize: 13 }}>✓</span>
-                      <span style={{ fontSize: 12, color: "#475569" }}>{amt}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", borderTop: "1px solid #f1f5f9", paddingTop: 12 }}>
-                <div>
-                  <p style={{ fontSize: 12, color: "#64748b", margin: "0 0 2px" }}>Per Night</p>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: 2 }}>
-                    <span style={{ fontSize: 14, fontWeight: 700, color: DARK }}>₹</span>
-                    <span style={{ fontSize: 22, fontWeight: 900, color: DARK }}>{hotel.pricePerNight?.toLocaleString()}</span>
+      <div className="hotel-list-container" style={{ flex: 1, overflowY: "auto", padding: "20px" }}>
+        <div className="hotel-grid">
+          {displayedHotels.length > 0 ? displayedHotels.map(hotel => (
+            <div key={hotel._id} onClick={() => setSelectedHotel(hotel)} className="hotel-card"
+              style={{ backgroundColor: "#fff", borderRadius: 20, overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.06)", cursor: "pointer", transition: "transform 0.3s, box-shadow 0.3s" }}>
+              {/* Image */}
+              <div style={{ height: 240, position: "relative", backgroundColor: "#f1f5f9" }}>
+                {hotel.images?.[0]?.url ? (
+                  <img src={hotel.images[0].url} alt={hotel.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                ) : (
+                  <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ fontSize: 50 }}>🏨</span>
                   </div>
-                  <p style={{ fontSize: 11, color: "#94a3b8", margin: "2px 0 0" }}>+ ₹{Math.round((hotel.pricePerNight || 0) * 0.12)} taxes & fees</p>
+                )}
+                <div style={{ position: "absolute", top: 12, left: 12, backgroundColor: "rgba(0,0,0,0.7)", padding: "5px 12px", borderRadius: 6, backdropFilter: "blur(4px)" }}>
+                  <span style={{ fontSize: 11, fontWeight: 800, color: "#fff", letterSpacing: 0.8 }}>{hotel.category?.toUpperCase() || "PREMIUM"}</span>
                 </div>
-                <div style={{ backgroundColor: BLUE, padding: "10px 20px", borderRadius: 8 }}>
-                  <span style={{ color: "#fff", fontWeight: 800, fontSize: 14 }}>View Deal</span>
+                <button onClick={e => { e.stopPropagation(); toggleWishlist(hotel._id); showToast(wishlist.includes(hotel._id) ? "Removed from wishlist" : "Added to wishlist"); }}
+                  style={{ position: "absolute", top: 12, right: 12, backgroundColor: wishlist.includes(hotel._id) ? "#ef4444" : "rgba(255,255,255,0.9)", border: "none", borderRadius: 30, padding: 10, display: "flex", cursor: "pointer", boxShadow: "0 4px 10px rgba(0,0,0,0.1)" }}>
+                  <IconHeart />
+                </button>
+                <div style={{ position: "absolute", bottom: 12, left: 12, backgroundColor: "#10b981", display: "flex", alignItems: "center", gap: 5, padding: "5px 10px", borderRadius: 6, boxShadow: "0 4px 8px rgba(0,0,0,0.1)" }}>
+                  <IconStar />
+                  <span style={{ color: "#fff", fontSize: 13, fontWeight: "bold" }}>{hotel.rating ?? "4.5"}</span>
+                </div>
+              </div>
+              {/* Details */}
+              <div style={{ padding: 20 }}>
+                <p style={{ fontSize: 20, fontWeight: 800, color: DARK, margin: "0 0 8px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{hotel.name}</p>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 15 }}>
+                  <IconLocation />
+                  <span style={{ fontSize: 14, color: BLUE, fontWeight: 600 }}>{hotel.displayLocation}</span>
+                </div>
+                {hotel.amenities?.length > 0 && (
+                  <div style={{ display: "flex", gap: 12, marginBottom: 18 }}>
+                    {hotel.amenities.slice(0, 3).map((amt, idx) => (
+                      <div key={idx} style={{ display: "flex", alignItems: "center", gap: 6, backgroundColor: "#f0fdf4", padding: "4px 10px", borderRadius: 8 }}>
+                        <span style={{ color: "#10b981", fontSize: 12 }}>✓</span>
+                        <span style={{ fontSize: 12, color: "#475569", fontWeight: 500 }}>{amt}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", borderTop: "1px solid #f1f5f9", paddingTop: 15 }}>
+                  <div>
+                    <p style={{ fontSize: 13, color: "#64748b", margin: "0 0 2px" }}>Per Night</p>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: 2 }}>
+                      <span style={{ fontSize: 16, fontWeight: 700, color: DARK }}>₹</span>
+                      <span style={{ fontSize: 24, fontWeight: 900, color: DARK }}>{hotel.pricePerNight?.toLocaleString()}</span>
+                    </div>
+                  </div>
+                  <div style={{ backgroundColor: BLUE, padding: "12px 24px", borderRadius: 12, boxShadow: "0 4px 12px rgba(0, 140, 255, 0.2)" }}>
+                    <span style={{ color: "#fff", fontWeight: 800, fontSize: 14 }}>View Deal</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )) : (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 40 }}>
-            <span style={{ fontSize: 60 }}>🏨</span>
-            <p style={{ marginTop: 15, fontSize: 16, color: "#94a3b8", textAlign: "center", fontWeight: 500 }}>No properties found in {selectedLocation}</p>
-          </div>
-        )}
+          )) : (
+            <div style={{ gridColumn: "1 / -1", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 80 }}>
+              <span style={{ fontSize: 80 }}>🏨</span>
+              <p style={{ marginTop: 20, fontSize: 18, color: "#94a3b8", textAlign: "center", fontWeight: 600 }}>No properties found in {selectedLocation}</p>
+            </div>
+          )}
+        </div>
       </div>
 
       <style>{`
         @keyframes fadeDown { from { opacity: 0; transform: translateX(-50%) translateY(-8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
         @keyframes spin { to { transform: rotate(360deg); } }
         * { box-sizing: border-box; }
-        ::-webkit-scrollbar { width: 3px; height: 3px; }
-        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 4px; }
-        button { transition: transform 0.1s, opacity 0.1s; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        button { transition: all 0.2s; }
         button:active { transform: scale(0.96); opacity: 0.85; }
+
+        .hotel-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 25px;
+          max-width: 1400px;
+          margin: 0 auto;
+          width: 100%;
+        }
+
+        .hotel-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 12px 30px rgba(0,0,0,0.12) !important;
+        }
+
+        @media (min-width: 640px) {
+          .hotel-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 1024px) {
+          .hotel-grid { grid-template-columns: repeat(3, 1fr); }
+          .hotel-list-container { padding: 40px !important; }
+        }
+
+        @media (min-width: 1440px) {
+          .hotel-grid { grid-template-columns: repeat(4, 1fr); }
+        }
       `}</style>
     </div>
   );

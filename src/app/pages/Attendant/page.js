@@ -89,10 +89,10 @@ function CartButton({ cartItems, onViewCart }) {
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 pointer-events-none">
       <button
         onClick={onViewCart}
-        className="pointer-events-auto w-full max-w-lg mx-auto flex items-center justify-between bg-violet-600 text-white px-5 py-3 rounded-2xl shadow-2xl shadow-violet-300 active:scale-95 transition-transform"
+        className="pointer-events-auto w-full max-w-4xl mx-auto flex items-center justify-between bg-violet-600 text-white px-5 py-3 active:scale-95 transition-transform"
       >
         <div className="flex items-center gap-2">
-          <span className="bg-white text-violet-600 font-bold text-xs rounded-full w-6 h-6 flex items-center justify-center">
+          <span className="bg-white text-violet-600 font-bold text-xs w-6 h-6 flex items-center justify-center">
             {totalQty}
           </span>
           <span className="font-semibold text-sm">View Cart 🛒</span>
@@ -178,7 +178,7 @@ function SearchOverlay({ services, onClose, onSelectService }) {
             }}
             className="w-full flex items-center gap-3 py-3 border-b border-gray-100 text-left"
           >
-            <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center text-xl flex-shrink-0">
+            <div className="w-10 h-10 bg-violet-50 flex items-center justify-center text-xl flex-shrink-0">
               {item.emoji || getServiceEmoji(item._id)}
             </div>
             <div>
@@ -203,11 +203,11 @@ function ServiceDetailModal({ item, qty, onClose, onAdd, onInc, onDec }) {
       onClick={onClose}
     >
       <div
-        className="bg-white w-full max-w-lg rounded-t-3xl p-6 pb-10 overflow-y-auto"
+        className="bg-white w-full max-w-lg p-6 pb-10 overflow-y-auto"
         style={{ maxHeight: "90vh" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-full aspect-[5/3] bg-violet-50 rounded-2xl flex items-center justify-center mb-4 text-7xl overflow-hidden relative">
+        <div className="w-full aspect-[5/3] bg-violet-50 flex items-center justify-center mb-4 text-7xl overflow-hidden relative">
           {item.emoji || getServiceEmoji(item._id)}
           {(item.images?.[0]?.url || item.image) && (
             <img 
@@ -227,13 +227,13 @@ function ServiceDetailModal({ item, qty, onClose, onAdd, onInc, onDec }) {
             ₹{item.price?.toLocaleString("en-IN")}
           </span>
           {item.time && (
-            <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+            <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1">
               ⏱ {item.time}
             </span>
           )}
         </div>
         {qty > 0 ? (
-          <div className="flex items-center justify-between bg-violet-600 rounded-xl px-4 py-3">
+          <div className="flex items-center justify-between bg-violet-600 px-4 py-3">
             <button
               onClick={onDec}
               className="text-white text-2xl font-bold w-8 h-8 flex items-center justify-center"
@@ -251,7 +251,7 @@ function ServiceDetailModal({ item, qty, onClose, onAdd, onInc, onDec }) {
         ) : (
           <button
             onClick={onAdd}
-            className="w-full bg-violet-600 text-white font-bold py-3 rounded-xl text-sm active:scale-95 transition-transform"
+            className="w-full bg-violet-600 text-white font-bold py-3 text-sm active:scale-95 transition-transform"
           >
             ADD TO CART
           </button>
@@ -392,13 +392,13 @@ function AllCategoryInner() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen max-w-lg mx-auto bg-white relative">
+    <div className="flex flex-col min-h-screen w-full bg-white relative">
       {/* ── HEADER ── */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-100 sticky top-0 z-30">
+      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-100 sticky top-0 z-30 w-full">
         <div className="flex items-center gap-3">
           <button
             onClick={() => router.back()}
-            className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition"
+            className="w-9 h-9 flex items-center justify-center hover:bg-gray-100 transition"
           >
             <svg
               className="w-5 h-5 text-gray-800"
@@ -438,7 +438,7 @@ function AllCategoryInner() {
 
       {/* ── USER BADGE ── */}
       {user && (
-        <div className="mx-4 mt-2 px-3 py-2 bg-violet-50 rounded-xl flex items-center gap-2 text-xs text-violet-700 font-medium">
+        <div className="mx-4 mt-2 px-3 py-2 bg-violet-50 flex items-center gap-2 text-xs text-violet-700 font-medium">
           <span>👤</span>
           <span>Hi, {user.name || user.email || "User"}</span>
         </div>
@@ -456,7 +456,7 @@ function AllCategoryInner() {
           style={{ height: "calc(100vh - 60px)" }}
         >
           {/* ── SIDEBAR ── */}
-          <div className="w-[100px] flex-shrink-0 bg-white border-r border-gray-100 overflow-y-auto">
+          <div className="w-[100px] flex-shrink-0 bg-white border-r border-gray-100 overflow-y-auto lg:w-[150px]">
             {CATEGORIES.map((cat) => {
               const isActive = selectedCategory?.id === cat.id;
               return (
@@ -468,7 +468,7 @@ function AllCategoryInner() {
                   }`}
                 >
                   <div
-                    className={`w-14 h-14 rounded-full flex items-center justify-center text-2xl mb-1.5 border transition-colors ${
+                    className={`w-14 h-14 flex items-center justify-center text-2xl mb-1.5 border transition-colors ${
                       isActive
                         ? "bg-violet-100 border-violet-400"
                         : "bg-gray-50 border-gray-200"
@@ -495,10 +495,10 @@ function AllCategoryInner() {
 
           {/* ── SERVICES GRID ── */}
           <div className="flex-1 bg-gray-50 overflow-y-auto pb-28">
-            <div className="p-2">
+            <div className="max-w-7xl mx-auto p-4 lg:p-6">
               {selectedCategory && (
-                <div className="px-2 py-2 mb-2">
-                  <h2 className="text-sm font-semibold text-gray-700">
+                <div className="px-2 py-2 mb-4">
+                  <h2 className="text-lg font-bold text-gray-800">
                     {selectedCategory.name}
                   </h2>
                   {apiErrors[selectedCategory.id] && (
@@ -523,7 +523,7 @@ function AllCategoryInner() {
                   </button>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                   {currentServices.map((item) => {
                     const qty = getQty(item._id);
                     const emoji = item.emoji || getServiceEmoji(item._id);
@@ -532,11 +532,11 @@ function AllCategoryInner() {
                     return (
                       <div
                         key={item._id}
-                        className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col cursor-pointer active:scale-95 transition-transform"
+                        className="bg-white overflow-hidden border border-gray-100 flex flex-col cursor-pointer active:scale-95 transition-transform"
                         onClick={() => handleServiceClick(item)}
                       >
                         {/* Image / emoji */}
-                        <div className="w-full aspect-[1.2/1] bg-violet-50 flex items-center justify-center overflow-hidden relative text-4xl">
+                        <div className="w-full aspect-square bg-violet-50 flex items-center justify-center overflow-hidden relative text-5xl">
                           {emoji}
                           {imageUrl && (
                             <img
@@ -551,16 +551,16 @@ function AllCategoryInner() {
                         </div>
 
                         {/* Details */}
-                        <div className="p-2 flex flex-col flex-1">
-                          <p className="text-xs font-semibold text-gray-800 leading-tight line-clamp-2 min-h-[2.5rem]">
+                        <div className="p-3 flex flex-col flex-1">
+                          <p className="text-sm font-bold text-gray-800 leading-tight line-clamp-2 min-h-[2.5rem]">
                             {item.name}
                           </p>
-                          <div className="flex items-center justify-between mt-1 mb-2">
-                            <span className="text-sm font-bold text-violet-600">
+                          <div className="flex items-center justify-between mt-2 mb-3">
+                            <span className="text-base font-extrabold text-violet-600">
                               ₹{item.price?.toLocaleString("en-IN")}
                             </span>
                             {item.time && (
-                              <span className="text-[10px] text-gray-400">
+                              <span className="text-xs text-gray-400">
                                 {item.time}
                               </span>
                             )}
@@ -568,21 +568,21 @@ function AllCategoryInner() {
 
                           {qty > 0 ? (
                             <div
-                              className="flex items-center justify-between bg-violet-600 rounded-md px-2 py-1"
+                              className="flex items-center justify-between bg-violet-600 px-3 py-1.5"
                               onClick={(e) => e.stopPropagation()}
                             >
                               <button
                                 onClick={() => decrementQty(item._id)}
-                                className="text-white font-bold text-lg w-6 h-6 flex items-center justify-center"
+                                className="text-white font-bold text-xl w-8 h-8 flex items-center justify-center"
                               >
                                 −
                               </button>
-                              <span className="text-white font-bold text-sm">
+                              <span className="text-white font-bold text-base">
                                 {qty}
                               </span>
                               <button
                                 onClick={() => incrementQty(item._id)}
-                                className="text-white font-bold text-lg w-6 h-6 flex items-center justify-center"
+                                className="text-white font-bold text-xl w-8 h-8 flex items-center justify-center"
                               >
                                 +
                               </button>
@@ -593,9 +593,9 @@ function AllCategoryInner() {
                                 e.stopPropagation();
                                 addToCart(item);
                               }}
-                              className="w-full border border-violet-500 text-violet-600 text-xs font-bold rounded-md py-1.5 hover:bg-violet-50 transition-colors"
+                              className="w-full border-2 border-violet-500 text-violet-600 text-sm font-bold py-2 hover:bg-violet-50 transition-colors"
                             >
-                              ADD
+                              ADD TO CART
                             </button>
                           )}
                         </div>

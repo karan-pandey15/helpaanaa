@@ -15,7 +15,11 @@ export default function Home() {
     const token = typeof window !== 'undefined' ? localStorage.getItem('userToken') : null;
 
     if (hasSeenSplash) {
-      setCurrentScreen('home');
+      if (token) {
+        setCurrentScreen('home');
+      } else {
+        setCurrentScreen('auth');
+      }
     } else {
       setCurrentScreen('splash');
     }
@@ -23,7 +27,12 @@ export default function Home() {
 
   const handleSplashFinish = useCallback(() => {
     sessionStorage.setItem('hasSeenSplash', 'true');
-    setCurrentScreen('home');
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      setCurrentScreen('home');
+    } else {
+      setCurrentScreen('auth');
+    }
   }, []);
 
   const handleAuthSuccess = useCallback(() => {
@@ -47,9 +56,14 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-white pb-24 max-w-md mx-auto shadow-xl relative overflow-x-hidden">
-      <Header />
- 
+    <main className="min-h-screen bg-white pb-24 w-full">
+      {/* Container with responsive max-width and centering */}
+      <div className="w-full max-w-md mx-auto lg:max-w-full">
+        <div className=" ">
+          <Header />
+          {/* Add your other components here */}
+        </div>
+      </div>
     </main>
   );
 }

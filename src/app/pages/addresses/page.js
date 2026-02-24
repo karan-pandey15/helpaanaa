@@ -129,86 +129,90 @@ export default function AddressPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans pb-20">
-      {/* ── Header ── */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 py-4">
-        <div className="max-w-2xl mx-auto flex items-center gap-4">
-          <button onClick={() => router.back()} className="p-2 hover:bg-gray-100 rounded-full transition-all">
-            <ArrowLeft size={24} className="text-gray-800" />
-          </button>
-          <h1 className="text-xl font-black italic tracking-tighter text-gray-900 uppercase">My Addresses</h1>
-        </div>
-      </header>
-
-      <main className="max-w-2xl mx-auto w-full p-4 space-y-6">
-        
-        {/* Add New Button */}
-        <button 
-          onClick={() => { resetForm(); setEditingAddress(null); setShowForm(true); }}
-          className="w-full bg-white p-6 rounded-[32px] shadow-sm border border-dashed border-gray-200 flex items-center justify-between group hover:border-[#457b9d] transition-all"
-        >
+      <div className="max-w-4xl mx-auto w-full bg-white min-h-screen shadow-sm">
+        {/* ── Header ── */}
+        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 py-4">
           <div className="flex items-center gap-4">
-            <div className="bg-[#457b9d]/10 p-3 rounded-2xl text-[#457b9d] group-hover:bg-[#457b9d] group-hover:text-white transition-colors">
-              <Plus size={24} />
-            </div>
-            <span className="font-black italic text-gray-800 uppercase tracking-tight">Add New Address</span>
+            <button onClick={() => router.back()} className="p-2 hover:bg-gray-100 rounded-full transition-all">
+              <ArrowLeft size={24} className="text-gray-800" />
+            </button>
+            <h1 className="text-xl font-black italic tracking-tighter text-gray-900 uppercase">My Addresses</h1>
           </div>
-          <CheckCircle2 size={20} className="text-gray-100 group-hover:text-[#457b9d] transition-colors" />
-        </button>
+        </header>
 
-        {/* Saved Addresses List */}
-        <div className="space-y-4">
-          <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] ml-4">Saved Locations</h3>
+        <main className="w-full p-4 md:p-8 space-y-6">
           
-          {loading ? (
-            <div className="flex flex-col items-center py-20 opacity-20">
-              <Loader2 className="animate-spin mb-4" size={40} />
-              <p className="font-black italic uppercase">Syncing Addresses...</p>
+          {/* Add New Button */}
+          <button 
+            onClick={() => { resetForm(); setEditingAddress(null); setShowForm(true); }}
+            className="w-full bg-white p-6 rounded-[32px] shadow-sm border border-dashed border-gray-200 flex items-center justify-between group hover:border-[#457b9d] transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <div className="bg-[#457b9d]/10 p-3 rounded-2xl text-[#457b9d] group-hover:bg-[#457b9d] group-hover:text-white transition-colors">
+                <Plus size={24} />
+              </div>
+              <span className="font-black italic text-gray-800 uppercase tracking-tight">Add New Address</span>
             </div>
-          ) : addresses.length === 0 ? (
-            <div className="text-center py-20 bg-white rounded-[40px] border border-gray-100">
-              <MapPin size={48} className="mx-auto text-gray-200 mb-4" />
-              <p className="text-gray-400 font-bold uppercase italic">No addresses found</p>
-            </div>
-          ) : (
-            addresses.map((addr) => (
-              <motion.div 
-                layout
-                key={addr._id}
-                className="bg-white p-6 rounded-[32px] shadow-sm border border-gray-100 flex items-start gap-4 group"
-              >
-                <div className="bg-gray-50 p-4 rounded-2xl text-gray-400 group-hover:bg-[#457b9d]/10 group-hover:text-[#457b9d] transition-colors">
-                  {addr.label === 'Work' ? <Briefcase size={24} /> : <Home size={24} />}
-                </div>
-                
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-black italic text-gray-800 uppercase text-sm tracking-tight">{addr.label || 'Home'}</span>
-                    {addr.isDefault && <span className="text-[8px] font-black bg-green-100 text-green-600 px-2 py-0.5 rounded tracking-widest">DEFAULT</span>}
-                  </div>
-                  <p className="text-xs font-medium text-gray-400 leading-relaxed truncate-2">
-                    {addr.houseNo}, {addr.street}, {addr.city}, {addr.state} - {addr.pincode}
-                  </p>
-                  
-                  <div className="flex gap-4 mt-4">
-                    <button 
-                      onClick={() => startEdit(addr)}
-                      className="text-[10px] font-black uppercase text-[#457b9d] flex items-center gap-1 hover:opacity-70"
-                    >
-                      <Edit3 size={12} /> Edit
-                    </button>
-                    <button 
-                      onClick={() => handleDelete(addr._id)}
-                      className="text-[10px] font-black uppercase text-red-400 flex items-center gap-1 hover:opacity-70"
-                    >
-                      <Trash2 size={12} /> Delete
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))
-          )}
-        </div>
-      </main>
+            <CheckCircle2 size={20} className="text-gray-100 group-hover:text-[#457b9d] transition-colors" />
+          </button>
+
+          {/* Saved Addresses List */}
+          <div className="space-y-4">
+            <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] ml-4">Saved Locations</h3>
+            
+            {loading ? (
+              <div className="flex flex-col items-center py-20 opacity-20">
+                <Loader2 className="animate-spin mb-4" size={40} />
+                <p className="font-black italic uppercase">Syncing Addresses...</p>
+              </div>
+            ) : addresses.length === 0 ? (
+              <div className="text-center py-20 bg-white rounded-[40px] border border-gray-100">
+                <MapPin size={48} className="mx-auto text-gray-200 mb-4" />
+                <p className="text-gray-400 font-bold uppercase italic">No addresses found</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {addresses.map((addr) => (
+                  <motion.div 
+                    layout
+                    key={addr._id}
+                    className="bg-white p-6 rounded-[32px] shadow-sm border border-gray-100 flex items-start gap-4 group hover:shadow-md transition-shadow"
+                  >
+                    <div className="bg-gray-50 p-4 rounded-2xl text-gray-400 group-hover:bg-[#457b9d]/10 group-hover:text-[#457b9d] transition-colors">
+                      {addr.label === 'Work' ? <Briefcase size={24} /> : <Home size={24} />}
+                    </div>
+                    
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-black italic text-gray-800 uppercase text-sm tracking-tight">{addr.label || 'Home'}</span>
+                        {addr.isDefault && <span className="text-[8px] font-black bg-green-100 text-green-600 px-2 py-0.5 rounded tracking-widest">DEFAULT</span>}
+                      </div>
+                      <p className="text-xs font-medium text-gray-400 leading-relaxed line-clamp-2">
+                        {addr.houseNo}, {addr.street}, {addr.city}, {addr.state} - {addr.pincode}
+                      </p>
+                      
+                      <div className="flex gap-4 mt-4">
+                        <button 
+                          onClick={() => startEdit(addr)}
+                          className="text-[10px] font-black uppercase text-[#457b9d] flex items-center gap-1 hover:opacity-70"
+                        >
+                          <Edit3 size={12} /> Edit
+                        </button>
+                        <button 
+                          onClick={() => handleDelete(addr._id)}
+                          className="text-[10px] font-black uppercase text-red-400 flex items-center gap-1 hover:opacity-70"
+                        >
+                          <Trash2 size={12} /> Delete
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </div>
+        </main>
+      </div>
 
       {/* ── Add/Edit Modal ── */}
       <AnimatePresence>

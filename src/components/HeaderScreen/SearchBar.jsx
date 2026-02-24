@@ -31,17 +31,17 @@ export default function SearchBar({ onAdPress }) {
   }, []);
 
   return (
-    <div className="bg-[#457b9d] pl-4">
-      <div className="flex items-center">
+    <div className="w-full">
+      <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 w-full">
         {/* Search Box */}
         <button
           onClick={() => router.push("/pages/SearchScreen")}
-          className="flex-1 flex items-center bg-white px-4 py-[10px] rounded-full mr-3 mb-2
+          className="flex-1 w-full sm:flex-1 flex items-center bg-white px-4 py-2.5 sm:py-2 rounded-full
                      shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer"
         >
-          <Search size={22} color="#666" className="mr-3 shrink-0" />
+          <Search size={20} color="#666" className="mr-2 sm:mr-3 shrink-0" />
           <span
-            className="text-[15px] text-[#888] font-normal text-left truncate transition-opacity duration-200"
+            className="text-sm sm:text-[15px] text-[#888] font-normal text-left truncate transition-opacity duration-200"
             style={{ opacity: visible ? 1 : 0 }}
           >
             Search for &ldquo;{placeholderItems[index]}&rdquo;
@@ -49,21 +49,21 @@ export default function SearchBar({ onAdPress }) {
         </button>
 
         {/* Ad / Shop Fresh Now */}
-        <button
+        {/* <button
           onClick={onAdPress}
-          className="flex items-center bg-white pl-3 py-[10px] rounded-tl-xl rounded-bl-xl
-                     rounded-tr-none rounded-br-none shadow-md hover:shadow-lg transition-shadow duration-200"
+          className="flex items-center bg-white px-3 py-2.5 sm:py-2 rounded-tl-xl rounded-bl-xl
+                     rounded-tr-none rounded-br-none shadow-md hover:shadow-lg transition-shadow duration-200 whitespace-nowrap"
         >
           <div className="mr-2">
-            <p className="text-[13px] font-bold text-[#1E88E5] leading-4">Shop</p>
-            <p className="text-[13px] font-bold text-[#1E88E5] leading-4">Fresh Now</p>
+            <p className="text-xs sm:text-[13px] font-bold text-[#1E88E5] leading-3 sm:leading-4">Shop</p>
+            <p className="text-xs sm:text-[13px] font-bold text-[#1E88E5] leading-3 sm:leading-4">Fresh Now</p>
           </div>
-          <div className="flex items-center gap-1 pr-3">
-            <div className="w-6 h-6 rounded bg-[#1E88E5] flex items-center justify-center shrink-0">
-              <ShoppingCart size={14} color="#FFF" />
+          <div className="flex items-center gap-1 pr-2 sm:pr-3">
+            <div className="w-5 sm:w-6 h-5 sm:h-6 rounded bg-[#1E88E5] flex items-center justify-center shrink-0">
+              <ShoppingCart size={12} className="sm:w-3.5 sm:h-3.5" color="#FFF" />
             </div>
           </div>
-        </button>
+        </button> */}
       </div>
     </div>
   );

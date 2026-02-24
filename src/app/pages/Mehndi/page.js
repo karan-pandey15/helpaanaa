@@ -164,13 +164,14 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
   };
 
   return (
-    <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif", backgroundColor: "#f4f7fa", minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
+    <div className="mehndi-detail-container" style={{ fontFamily: "'Segoe UI', system-ui, sans-serif", backgroundColor: "#f4f7fa", minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
       {/* Detail Header */}
-      <div style={{
+      <div className="mehndi-detail-header" style={{
         backgroundColor: "#457B9D", height: 200,
         borderBottomLeftRadius: 35, borderBottomRightRadius: 35,
         display: "flex", flexDirection: "column", alignItems: "center",
         justifyContent: "center", position: "relative", flexShrink: 0,
+        zIndex: 10,
       }}>
         <button onClick={onBack}
           style={{
@@ -188,170 +189,241 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
           display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 10,
         }}><IconBrush /></div>
 
-        <p style={{ fontSize: 22, fontWeight: 800, color: "#fff", margin: 0 }}>{artist.name}</p>
-        <p style={{ fontSize: 14, color: "rgba(255,255,255,0.85)", fontWeight: 600, margin: "4px 0 0" }}>{artist.description}</p>
+        <p style={{ fontSize: 24, fontWeight: 800, color: "#fff", margin: 0 }}>{artist.name}</p>
+        <p style={{ fontSize: 15, color: "rgba(255,255,255,0.9)", fontWeight: 600, margin: "4px 0 0" }}>{artist.description}</p>
       </div>
 
       {/* Detail Body */}
-      <div style={{ flex: 1, overflowY: "auto", padding: "0 16px 120px", marginTop: -20 }}>
-        {/* People Count */}
-        <div style={{
-          backgroundColor: "#fff", borderRadius: 18, border: "1px solid #f1f5f9",
-          boxShadow: "0 2px 10px rgba(69,123,157,0.08)",
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          padding: "16px 18px", marginBottom: 20, marginTop: 8,
-        }}>
-          <div>
-            <p style={{ fontSize: 16, fontWeight: 800, color: "#1e293b", margin: 0 }}>Number of People</p>
-            <p style={{ fontSize: 11, color: "#64748b", margin: "2px 0 0" }}>How many individuals?</p>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", backgroundColor: "#f1f5f9", borderRadius: 12, padding: 4, gap: 4 }}>
-            <button onClick={() => peopleCount > 1 && setPeopleCount(c => c - 1)}
-              style={{ width: 32, height: 32, borderRadius: 10, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 18, fontWeight: 700, color: "#457B9D" }}>−</button>
-            <span style={{ fontSize: 16, fontWeight: 800, color: "#1e293b", minWidth: 28, textAlign: "center" }}>{peopleCount}</span>
-            <button onClick={() => setPeopleCount(c => c + 1)}
-              style={{ width: 32, height: 32, borderRadius: 10, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 18, fontWeight: 700, color: "#457B9D" }}>+</button>
-          </div>
-        </div>
-
-        {/* Hand Selection */}
-        <div style={{ marginBottom: 20 }}>
-          <p style={{ fontSize: 16, fontWeight: 800, color: "#1e293b", margin: "0 0 12px" }}>Select Hands</p>
-          <div style={{ display: "flex", gap: 10 }}>
-            {[{ hands: 1, label: "1 Hand" }, { hands: 2, label: "2 Hands" }].map(opt => {
-              const active = selectedHands === opt.hands;
-              return (
-                <button key={opt.hands} onClick={() => setSelectedHands(opt.hands)}
-                  style={{
-                    flex: 1, padding: "12px 8px",
-                    backgroundColor: active ? "#457B9D" : "#fff",
-                    border: `1px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                    borderRadius: 16, cursor: "pointer",
-                    display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
-                    boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
-                  }}>
-                  <div style={{ display: "flex" }}>
-                    <IconHandRight color={active ? "#fff" : "#457B9D"} />
-                    {opt.hands === 2 && <IconHandRight color={active ? "#fff" : "#457B9D"} />}
-                  </div>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: active ? "#fff" : "#475569" }}>{opt.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Package Selection */}
-        <div style={{ marginBottom: 20 }}>
-          <p style={{ fontSize: 16, fontWeight: 800, color: "#1e293b", margin: "0 0 12px" }}>Select Package</p>
-          {PACKAGES.map(pkg => {
-            const active = selectedPackage === pkg.name;
-            return (
-              <button key={pkg.name} onClick={() => setSelectedPackage(pkg.name)}
-                style={{
-                  width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center",
-                  padding: "12px 16px", marginBottom: 8,
-                  backgroundColor: active ? "#eef6fa" : "#fff",
-                  border: `1px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                  borderRadius: 16, cursor: "pointer", textAlign: "left",
-                }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  {active ? <IconRadioOn /> : <IconRadioOff />}
-                  <div>
-                    <p style={{ fontSize: 14, fontWeight: 700, color: active ? "#457B9D" : "#334155", margin: 0 }}>{pkg.name}</p>
-                    <p style={{ fontSize: 11, color: "#64748b", margin: "1px 0 0" }}>{pkg.desc}</p>
-                  </div>
+      <div className="mehndi-detail-content" style={{ flex: 1, overflowY: "auto", padding: "0 16px 140px", marginTop: -25 }}>
+        <div className="mehndi-detail-layout">
+          {/* Left Column (Image & Description) - Visible on Desktop */}
+          <div className="mehndi-detail-media">
+            <div style={{ width: "100%", borderRadius: 24, overflow: "hidden", boxShadow: "0 8px 30px rgba(0,0,0,0.12)", marginBottom: 20 }}>
+              <img src={artist.image} alt={artist.name} style={{ width: "100%", height: "auto", display: "block" }} />
+            </div>
+            <div style={{ backgroundColor: "#fff", padding: 24, borderRadius: 24, boxShadow: "0 4px 15px rgba(0,0,0,0.05)" }}>
+              <h3 style={{ margin: "0 0 10px", color: "#1e293b" }}>Service Details</h3>
+              <p style={{ margin: 0, color: "#64748b", lineHeight: 1.6 }}>{artist.description}</p>
+              <div style={{ display: "flex", gap: 20, marginTop: 15 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                   <span style={{ color: "#457B9D", fontWeight: 700 }}>Time:</span>
+                   <span style={{ color: "#1e293b" }}>{artist.time}</span>
                 </div>
-                <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#457B9D" : "#475569" }}>+₹{pkg.priceAdd * selectedHands}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Date Selection */}
-        <div style={{ marginBottom: 20 }}>
-          <p style={{ fontSize: 16, fontWeight: 800, color: "#1e293b", margin: "0 0 12px" }}>Select Date</p>
-          <div style={{ display: "flex", gap: 10, overflowX: "auto", paddingBottom: 5 }}>
-            {DATES.map((item, i) => {
-              const active = selectedDate === item.full;
-              return (
-                <button key={i} onClick={() => setSelectedDate(item.full)}
-                  style={{
-                    minWidth: 65, height: 80, flexShrink: 0,
-                    backgroundColor: active ? "#457B9D" : "#fff",
-                    border: `1px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                    borderRadius: 16, cursor: "pointer",
-                    display: "flex", flexDirection: "column",
-                    alignItems: "center", justifyContent: "center", gap: 1,
-                  }}>
-                  <span style={{ fontSize: 10, fontWeight: 600, color: active ? "rgba(255,255,255,0.85)" : "#64748b" }}>{item.day}</span>
-                  <span style={{ fontSize: 18, fontWeight: 800, color: active ? "#fff" : "#1e293b" }}>{item.date}</span>
-                  <span style={{ fontSize: 10, fontWeight: 600, color: active ? "rgba(255,255,255,0.85)" : "#64748b" }}>{item.month}</span>
-                </button>
-              );
-            })}
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                   <span style={{ color: "#457B9D", fontWeight: 700 }}>Base Price:</span>
+                   <span style={{ color: "#1e293b" }}>₹{artist.price}</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Time Selection */}
-        <div style={{ marginBottom: 20 }}>
-          <p style={{ fontSize: 16, fontWeight: 800, color: "#1e293b", margin: "0 0 12px" }}>Select Time</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-            {TIMES.map((time, i) => {
-              const active = selectedTime === time;
-              return (
-                <button key={i} onClick={() => setSelectedTime(time)}
-                  style={{
-                    width: "calc(33.33% - 6px)", padding: "10px 0",
-                    backgroundColor: active ? "#457B9D" : "#fff",
-                    border: `1px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                    borderRadius: 10, cursor: "pointer",
-                    fontSize: 11, fontWeight: 700, color: active ? "#fff" : "#1e293b",
-                  }}>
-                  {time}
-                </button>
-              );
-            })}
+          {/* Right Column (Booking Options) */}
+          <div className="mehndi-detail-options">
+            {/* People Count */}
+            <div style={{
+              backgroundColor: "#fff", borderRadius: 20, border: "1px solid #f1f5f9",
+              boxShadow: "0 4px 15px rgba(69,123,157,0.08)",
+              display: "flex", justifyContent: "space-between", alignItems: "center",
+              padding: "20px 24px", marginBottom: 24,
+            }}>
+              <div>
+                <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: 0 }}>Number of People</p>
+                <p style={{ fontSize: 12, color: "#64748b", margin: "2px 0 0" }}>How many individuals?</p>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", backgroundColor: "#f1f5f9", borderRadius: 14, padding: 6, gap: 6 }}>
+                <button onClick={() => peopleCount > 1 && setPeopleCount(c => c - 1)}
+                  style={{ width: 36, height: 36, borderRadius: 10, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 20, fontWeight: 700, color: "#457B9D", display: "flex", alignItems: "center", justifyContent: "center" }}>−</button>
+                <span style={{ fontSize: 18, fontWeight: 800, color: "#1e293b", minWidth: 32, textAlign: "center" }}>{peopleCount}</span>
+                <button onClick={() => setPeopleCount(c => c + 1)}
+                  style={{ width: 36, height: 36, borderRadius: 10, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 20, fontWeight: 700, color: "#457B9D", display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
+              </div>
+            </div>
+
+            {/* Hand Selection */}
+            <div style={{ marginBottom: 24 }}>
+              <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: "0 0 14px" }}>Select Hands</p>
+              <div style={{ display: "flex", gap: 12 }}>
+                {[{ hands: 1, label: "1 Hand" }, { hands: 2, label: "2 Hands" }].map(opt => {
+                  const active = selectedHands === opt.hands;
+                  return (
+                    <button key={opt.hands} onClick={() => setSelectedHands(opt.hands)}
+                      style={{
+                        flex: 1, padding: "16px 12px",
+                        backgroundColor: active ? "#457B9D" : "#fff",
+                        border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
+                        borderRadius: 20, cursor: "pointer",
+                        display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+                        boxShadow: active ? "0 8px 20px rgba(69,123,157,0.2)" : "0 4px 10px rgba(0,0,0,0.04)",
+                        transition: "all 0.2s",
+                      }}>
+                      <div style={{ display: "flex" }}>
+                        <IconHandRight color={active ? "#fff" : "#457B9D"} />
+                        {opt.hands === 2 && <IconHandRight color={active ? "#fff" : "#457B9D"} />}
+                      </div>
+                      <span style={{ fontSize: 15, fontWeight: 700, color: active ? "#fff" : "#475569" }}>{opt.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Package Selection */}
+            <div style={{ marginBottom: 24 }}>
+              <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: "0 0 14px" }}>Select Package</p>
+              {PACKAGES.map(pkg => {
+                const active = selectedPackage === pkg.name;
+                return (
+                  <button key={pkg.name} onClick={() => setSelectedPackage(pkg.name)}
+                    style={{
+                      width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center",
+                      padding: "16px 20px", marginBottom: 10,
+                      backgroundColor: active ? "#eef6fa" : "#fff",
+                      border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
+                      borderRadius: 20, cursor: "pointer", textAlign: "left",
+                      boxShadow: active ? "0 6px 15px rgba(69,123,157,0.15)" : "0 2px 6px rgba(0,0,0,0.02)",
+                      transition: "all 0.2s",
+                    }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                      {active ? <IconRadioOn /> : <IconRadioOff />}
+                      <div>
+                        <p style={{ fontSize: 15, fontWeight: 700, color: active ? "#457B9D" : "#334155", margin: 0 }}>{pkg.name}</p>
+                        <p style={{ fontSize: 12, color: "#64748b", margin: "1px 0 0" }}>{pkg.desc}</p>
+                      </div>
+                    </div>
+                    <span style={{ fontSize: 16, fontWeight: 800, color: active ? "#457B9D" : "#475569" }}>+₹{pkg.priceAdd * selectedHands}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Date Selection */}
+            <div style={{ marginBottom: 24 }}>
+              <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: "0 0 14px" }}>Select Date</p>
+              <div style={{ display: "flex", gap: 12, overflowX: "auto", paddingBottom: 10, scrollbarWidth: "none" }}>
+                {DATES.map((item, i) => {
+                  const active = selectedDate === item.full;
+                  return (
+                    <button key={i} onClick={() => setSelectedDate(item.full)}
+                      style={{
+                        minWidth: 75, height: 95, flexShrink: 0,
+                        backgroundColor: active ? "#457B9D" : "#fff",
+                        border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
+                        borderRadius: 20, cursor: "pointer",
+                        display: "flex", flexDirection: "column",
+                        alignItems: "center", justifyContent: "center", gap: 2,
+                        boxShadow: active ? "0 6px 15px rgba(69,123,157,0.2)" : "0 4px 10px rgba(0,0,0,0.04)",
+                        transition: "all 0.2s",
+                      }}>
+                      <span style={{ fontSize: 11, fontWeight: 600, color: active ? "rgba(255,255,255,0.85)" : "#64748b" }}>{item.day}</span>
+                      <span style={{ fontSize: 22, fontWeight: 800, color: active ? "#fff" : "#1e293b" }}>{item.date}</span>
+                      <span style={{ fontSize: 11, fontWeight: 600, color: active ? "rgba(255,255,255,0.85)" : "#64748b" }}>{item.month}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Time Selection */}
+            <div style={{ marginBottom: 24 }}>
+              <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: "0 0 14px" }}>Select Time</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                {TIMES.map((time, i) => {
+                  const active = selectedTime === time;
+                  return (
+                    <button key={i} onClick={() => setSelectedTime(time)}
+                      style={{
+                        flex: "0 0 calc(33.33% - 7px)", padding: "12px 0",
+                        backgroundColor: active ? "#457B9D" : "#fff",
+                        border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
+                        borderRadius: 14, cursor: "pointer",
+                        fontSize: 13, fontWeight: 700, color: active ? "#fff" : "#1e293b",
+                        boxShadow: active ? "0 4px 10px rgba(69,123,157,0.15)" : "0 2px 5px rgba(0,0,0,0.02)",
+                        transition: "all 0.2s",
+                      }}>
+                      {time}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Instructions */}
+            <div style={{ marginBottom: 24 }}>
+              <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: "0 0 14px" }}>Instructions</p>
+              <textarea
+                value={instructions} onChange={e => setInstructions(e.target.value)}
+                placeholder="Any specific design request or landmark..."
+                style={{
+                  width: "100%", height: 100, backgroundColor: "#fff", borderRadius: 20,
+                  border: "2px solid #f1f5f9", padding: "16px 20px",
+                  fontSize: 15, color: "#1e293b", resize: "none", outline: "none", boxSizing: "border-box",
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.02)",
+                }}
+              />
+            </div>
           </div>
-        </div>
-
-        {/* Instructions */}
-        <div style={{ marginBottom: 20 }}>
-          <p style={{ fontSize: 16, fontWeight: 800, color: "#1e293b", margin: "0 0 12px" }}>Special Instructions</p>
-          <textarea
-            value={instructions} onChange={e => setInstructions(e.target.value)}
-            placeholder="Any specific design request or landmark..."
-            style={{
-              width: "100%", height: 80, backgroundColor: "#fff", borderRadius: 16,
-              border: "1px solid #f1f5f9", padding: "12px 14px",
-              fontSize: 13, color: "#1e293b", resize: "none", outline: "none", boxSizing: "border-box",
-            }}
-          />
         </div>
       </div>
 
       {/* Detail Footer */}
-      <div style={{
+      <div className="mehndi-detail-footer" style={{
         position: "fixed", bottom: 0, left: 0, right: 0, backgroundColor: "#fff",
-        borderTopLeftRadius: 24, borderTopRightRadius: 24,
-        boxShadow: "0 -4px 20px rgba(0,0,0,0.08)",
-        padding: "14px 20px 24px",
+        borderTopLeftRadius: 28, borderTopRightRadius: 28,
+        boxShadow: "0 -8px 30px rgba(0,0,0,0.1)",
+        padding: "20px 24px 32px",
         display: "flex", justifyContent: "space-between", alignItems: "center",
+        zIndex: 100,
       }}>
-        <div>
-          <p style={{ fontSize: 11, color: "#64748b", fontWeight: 600, margin: 0 }}>Total Amount</p>
-          <p style={{ fontSize: 22, fontWeight: 800, color: "#457B9D", margin: "2px 0 0" }}>₹{totalPrice.toLocaleString()}</p>
+        <div className="footer-price">
+          <p style={{ fontSize: 13, color: "#64748b", fontWeight: 600, margin: 0 }}>Total Amount</p>
+          <p style={{ fontSize: 28, fontWeight: 800, color: "#457B9D", margin: "2px 0 0" }}>₹{totalPrice.toLocaleString()}</p>
         </div>
         <button onClick={handleBooking}
           style={{
             backgroundColor: "#457B9D", color: "#fff", border: "none",
-            borderRadius: 12, padding: "12px 20px",
-            display: "flex", alignItems: "center", gap: 6,
-            fontSize: 14, fontWeight: 800, cursor: "pointer",
+            borderRadius: 16, padding: "16px 40px",
+            display: "flex", alignItems: "center", gap: 10,
+            fontSize: 18, fontWeight: 800, cursor: "pointer",
+            boxShadow: "0 6px 20px rgba(69,123,157,0.3)",
           }}>
           Confirm Booking <IconArrow />
         </button>
       </div>
+      
+      <style>{`
+        .mehndi-detail-media { display: none; }
+        .mehndi-detail-layout { max-width: 100%; }
+        
+        @media (min-width: 1024px) {
+          .mehndi-detail-header { height: 150px; border-radius: 0; }
+          .mehndi-detail-content { padding: 40px !important; margin-top: 0 !important; }
+          .mehndi-detail-layout {
+            display: flex;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+          .mehndi-detail-media {
+            display: block;
+            flex: 1;
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+          }
+          .mehndi-detail-options {
+            flex: 1.2;
+            background: #fff;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+          }
+          .mehndi-detail-footer {
+            padding: 24px 60px !important;
+            justify-content: center !important;
+            gap: 150px;
+          }
+        }
+      `}</style>
     </div>
   );
 }
@@ -416,25 +488,25 @@ export default function MehndiArtist() {
       )}
 
       {/* Header */}
-      <div style={{ backgroundColor: "#fff", borderBottom: "1px solid #f3f4f6", padding: "14px 16px", display: "flex", flexDirection: "column", gap: 10, flexShrink: 0 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+      <div style={{ backgroundColor: "#fff", borderBottom: "1px solid #f3f4f6", flexShrink: 0 }}>
+        <div className="header-container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 20px", maxWidth: 1200, margin: "0 auto", width: "100%" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 15 }}>
             <button onClick={() => router.back()}
-              style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center", color: "#000" }}>
+              style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", alignItems: "center", color: "#000" }}>
               <IconBack />
             </button>
-            <span style={{ fontSize: 18, fontWeight: 600, color: "#000" }}>Mehndi Artists</span>
+            <span style={{ fontSize: 22, fontWeight: 800, color: "#1e293b" }}>Mehndi Artists</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 15 }}>
             <button onClick={() => { setShowSearch(s => !s); setSearchQuery(""); }}
-              style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", color: "#000" }}>
+              style={{ background: "#f1f5f9", border: "none", cursor: "pointer", padding: 10, borderRadius: 12, display: "flex", color: "#475569" }}>
               <IconSearch />
             </button>
             <button onClick={() => router.push("/cart")}
-              style={{ position: "relative", backgroundColor: ACCENT, border: "none", borderRadius: 10, padding: "6px 10px", cursor: "pointer", display: "flex", color: "#fff" }}>
+              style={{ position: "relative", backgroundColor: ACCENT, border: "none", borderRadius: 12, padding: "10px 14px", cursor: "pointer", display: "flex", color: "#fff", boxShadow: "0 4px 12px rgba(69,123,157,0.2)" }}>
               <IconCart />
               {totalCartQty > 0 && (
-                <span style={{ position: "absolute", top: -6, right: -6, backgroundColor: "#ef4444", color: "#fff", borderRadius: "50%", width: 18, height: 18, fontSize: 10, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ position: "absolute", top: -8, right: -8, backgroundColor: "#ef4444", color: "#fff", border: "2px solid #fff", borderRadius: "50%", width: 22, height: 22, fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {totalCartQty}
                 </span>
               )}
@@ -442,27 +514,29 @@ export default function MehndiArtist() {
           </div>
         </div>
         {showSearch && (
-          <input autoFocus value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search mehndi services..."
-            style={{ width: "100%", padding: "9px 14px", border: `1px solid ${ACCENT}`, borderRadius: 10, fontSize: 14, outline: "none", backgroundColor: "#f0f7f9", color: "#1f2937", boxSizing: "border-box" }}
-          />
+          <div style={{ padding: "0 20px 16px", maxWidth: 800, margin: "0 auto" }}>
+            <input autoFocus value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
+              placeholder="Search mehndi services..."
+              style={{ width: "100%", padding: "12px 18px", border: `2px solid ${ACCENT}`, borderRadius: 14, fontSize: 16, outline: "none", backgroundColor: "#f0f7f9", color: "#1f2937", boxSizing: "border-box", boxShadow: "0 4px 15px rgba(69,123,157,0.1)" }}
+            />
+          </div>
         )}
       </div>
 
       {/* Body */}
-      <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
+      <div className="main-content-wrapper" style={{ flex: 1, display: "flex", overflow: "hidden", maxWidth: 1400, margin: "0 auto", width: "100%" }}>
 
         {/* Sidebar */}
-        <div style={{ width: 100, backgroundColor: "#fff", borderRight: "1px solid #f3f4f6", overflowY: "auto", flexShrink: 0 }}>
+        <div className="mehndi-sidebar" style={{ width: 120, backgroundColor: "#fff", borderRight: "1px solid #f3f4f6", overflowY: "auto", flexShrink: 0, scrollbarWidth: "none" }}>
           {CATEGORIES.map(cat => {
             const active = selectedCategory.id === cat.id;
             return (
               <button key={cat.id} onClick={() => setSelectedCategory(cat)}
-                style={{ width: "100%", padding: "12px 4px", display: "flex", flexDirection: "column", alignItems: "center", gap: 6, backgroundColor: active ? "#eef6fa" : "#fff", border: "none", cursor: "pointer", borderRight: active ? `3px solid ${ACCENT}` : "3px solid transparent" }}>
-                <div style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: active ? "#e0eff5" : "#f9fafb", border: `1px solid ${active ? ACCENT : "#e5e7eb"}`, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                  <img src={cat.icon} alt={cat.name} style={{ width: 35, height: 35, objectFit: "contain" }} onError={e => { e.target.onerror = null; e.target.src = "/image/mehndi.png"; }} />
+                style={{ width: "100%", padding: "18px 8px", display: "flex", flexDirection: "column", alignItems: "center", gap: 10, backgroundColor: active ? "#eef6fa" : "#fff", border: "none", cursor: "pointer", borderRight: active ? `4px solid ${ACCENT}` : "4px solid transparent", transition: "all 0.2s" }}>
+                <div style={{ width: 70, height: 70, borderRadius: 35, backgroundColor: active ? "#e0eff5" : "#f9fafb", border: `2px solid ${active ? ACCENT : "#f1f5f9"}`, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", boxShadow: active ? "0 4px 12px rgba(69,123,157,0.15)" : "none" }}>
+                  <img src={cat.icon} alt={cat.name} style={{ width: 40, height: 40, objectFit: "contain" }} onError={e => { e.target.onerror = null; e.target.src = "/image/mehndi.png"; }} />
                 </div>
-                <span style={{ fontSize: 10, textAlign: "center", fontWeight: 500, color: active ? ACCENT : "#374151", lineHeight: 1.3, padding: "0 2px" }}>
+                <span style={{ fontSize: 12, textAlign: "center", fontWeight: active ? 700 : 500, color: active ? ACCENT : "#64748b", lineHeight: 1.3, padding: "0 4px" }}>
                   {cat.name}
                 </span>
               </button>
@@ -470,32 +544,33 @@ export default function MehndiArtist() {
           })}
         </div>
 
-        {/* Grid */}
-        <div style={{ flex: 1, backgroundColor: "#f9fafb", overflowY: "auto", padding: 8 }}>
+        {/* Grid Container */}
+        <div style={{ flex: 1, backgroundColor: "#f8fafc", overflowY: "auto", padding: 20 }}>
           {filteredServices.length === 0 ? (
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", flexDirection: "column", gap: 8 }}>
-              <span style={{ fontSize: 40 }}>🪷</span>
-              <p style={{ color: "#6b7280", fontSize: 14, margin: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", flexDirection: "column", gap: 12 }}>
+              <span style={{ fontSize: 60 }}>🪷</span>
+              <p style={{ color: "#94a3b8", fontSize: 18, fontWeight: 600, margin: 0 }}>
                 {showSearch && searchQuery ? "No results found" : "No services available"}
               </p>
             </div>
           ) : (
-            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "10px 0" }}>
+            <div className="mehndi-grid">
               {filteredServices.map(item => (
-                <div key={item._id} style={{ width: "49%", backgroundColor: "#fff", borderRadius: 12, overflow: "hidden", boxShadow: "0 1px 6px rgba(0,0,0,0.08)", cursor: "pointer" }}
+                <div key={item._id} className="mehndi-card"
+                  style={{ backgroundColor: "#fff", borderRadius: 20, overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.05)", cursor: "pointer", transition: "all 0.3s" }}
                   onClick={() => handleArtistClick(item)}>
-                  <div style={{ width: "100%", aspectRatio: "1.2", backgroundColor: "#f3f4f6", overflow: "hidden" }}>
-                    <img src={item.image} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} onError={e => { e.target.onerror = null; e.target.src = "/image/mehndi.png"; }} />
+                  <div style={{ width: "100%", aspectRatio: "1.2", backgroundColor: "#f1f5f9", overflow: "hidden" }}>
+                    <img src={item.image} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                   </div>
-                  <div style={{ padding: 8 }}>
-                    <p style={{ fontSize: 13, fontWeight: 600, color: "#1f2937", margin: "0 0 4px", height: 36, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
+                  <div style={{ padding: 18 }}>
+                    <p style={{ fontSize: 16, fontWeight: 700, color: "#1e293b", margin: "0 0 6px", height: 44, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", lineHeight: 1.4 }}>
                       {item.name}
                     </p>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                      <span style={{ fontSize: 14, fontWeight: "bold", color: ACCENT }}>₹{item.price}</span>
-                      {item.time && <span style={{ fontSize: 10, color: "#6b7280" }}>{item.time}</span>}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 15 }}>
+                      <span style={{ fontSize: 18, fontWeight: 800, color: ACCENT }}>₹{item.price}</span>
+                      {item.time && <span style={{ fontSize: 12, color: "#94a3b8", fontWeight: 600 }}>{item.time}</span>}
                     </div>
-                    <button style={{ width: "100%", backgroundColor: "#fff", border: `1px solid ${ACCENT}`, borderRadius: 6, padding: "6px 0", fontSize: 12, fontWeight: "bold", color: ACCENT, cursor: "pointer" }}>
+                    <button className="book-btn" style={{ width: "100%", backgroundColor: "#fff", border: `2px solid ${ACCENT}`, borderRadius: 12, padding: "10px 0", fontSize: 14, fontWeight: 800, color: ACCENT, cursor: "pointer", transition: "all 0.2s" }}>
                       VIEW & BOOK
                     </button>
                   </div>
@@ -512,10 +587,34 @@ export default function MehndiArtist() {
           to   { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
         * { box-sizing: border-box; }
-        ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 4px; }
-        button { transition: transform 0.1s, opacity 0.1s; }
-        button:active { transform: scale(0.96); opacity: 0.85; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        
+        .mehndi-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+        
+        .mehndi-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 12px 30px rgba(0,0,0,0.1) !important;
+        }
+        
+        .mehndi-card:hover .book-btn {
+          background-color: ${ACCENT} !important;
+          color: #fff !important;
+        }
+
+        @media (min-width: 768px) {
+          .mehndi-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        }
+
+        @media (min-width: 1280px) {
+          .mehndi-grid { grid-template-columns: repeat(4, 1fr); }
+          .mehndi-sidebar { width: 150px; }
+        }
       `}</style>
     </div>
   );

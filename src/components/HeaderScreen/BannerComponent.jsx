@@ -87,7 +87,7 @@ export default function BannerComponent() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden bg-gray-100 sm:rounded-[40px] shadow-lg group aspect-[4/3] sm:aspect-[21/9] h-[350px] sm:h-auto">
+    <div className="relative w-full h-[60vh] overflow-hidden bg-gray-100 shadow-lg group">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
