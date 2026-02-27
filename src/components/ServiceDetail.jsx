@@ -274,7 +274,7 @@ const ServiceDetail = ({
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <InputField label="Preferred Gender" value={gender} onChange={setGender} placeholder="Male / Female / Any" />
-                  <InputField label="Religion" value={religion} onChange={setReligion} placeholder="e.g. Hindu, Muslim" />
+                  <InputField label="Religion Reference (if any)" value={religion} onChange={setReligion} placeholder="Enter religion reference or reasoning" />
                   <InputField label="Pickup Address" value={pickup} onChange={setPickup} placeholder="Where to pick up?" />
                   <InputField label="Destination" value={drop} onChange={setDrop} placeholder="Where to go?" />
                 </div>

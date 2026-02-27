@@ -28,8 +28,8 @@ const STATIC_SERVICES = {
       name: "Book Traveling Attendant",  
       price: 999,
       description:
-        "Professional attendant for traveling needs. Includes support for gender, religion, and location selection.",
-      emoji: "🧳",
+        "Professional attendant for traveling needs. Includes support for gender, religion reference, and location selection.",
+      emoji: "/image/femaleone.png",
       isTraveling: true,
     },
     {
@@ -38,7 +38,7 @@ const STATIC_SERVICES = {
       price: 2499,
       description:
         "Professional attendant for traveling with vehicle. Support for Two Wheeler and Four Wheeler.",
-      emoji: "🚗",
+      emoji: "/image/femaletwo.png",
       isTraveling: true,
       withVehicle: true,
     },
@@ -78,6 +78,23 @@ function getServiceEmoji(id) {
   for (let i = 0; i < id.length; i++)
     hash = (hash * 31 + id.charCodeAt(i)) % SERVICE_EMOJIS.length;
   return SERVICE_EMOJIS[Math.abs(hash) % SERVICE_EMOJIS.length];
+}
+
+function renderEmojiOrImage(emoji, id, className = "") {
+  if (!emoji) emoji = getServiceEmoji(id);
+  if (emoji?.startsWith("/")) {
+    return (
+      <img 
+        src={emoji} 
+        alt="service" 
+        className={className}
+        onError={(e) => {
+          e.currentTarget.style.display = "none";
+        }}
+      />
+    );
+  }
+  return <span className={className}>{emoji}</span>;
 }
 
 // ─── CART BUTTON ─────────────────────────────────────────────────────────────
@@ -178,8 +195,8 @@ function SearchOverlay({ services, onClose, onSelectService }) {
             }}
             className="w-full flex items-center gap-3 py-3 border-b border-gray-100 text-left"
           >
-            <div className="w-10 h-10 bg-violet-50 flex items-center justify-center text-xl flex-shrink-0">
-              {item.emoji || getServiceEmoji(item._id)}
+            <div className="w-10 h-10 bg-violet-50 flex items-center justify-center text-xl flex-shrink-0 overflow-hidden">
+              {renderEmojiOrImage(item.emoji, item._id, "w-full h-full object-cover")}
             </div>
             <div>
               <p className="text-sm font-semibold text-gray-800">{item.name}</p>
@@ -208,7 +225,7 @@ function ServiceDetailModal({ item, qty, onClose, onAdd, onInc, onDec }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-full aspect-[5/3] bg-violet-50 flex items-center justify-center mb-4 text-7xl overflow-hidden relative">
-          {item.emoji || getServiceEmoji(item._id)}
+          {renderEmojiOrImage(item.emoji, item._id, "w-full h-full object-cover absolute inset-0")}
           {(item.images?.[0]?.url || item.image) && (
             <img 
               src={item.images?.[0]?.url || item.image} 
@@ -526,7 +543,6 @@ function AllCategoryInner() {
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                   {currentServices.map((item) => {
                     const qty = getQty(item._id);
-                    const emoji = item.emoji || getServiceEmoji(item._id);
                     const imageUrl = item.images?.[0]?.url || null;
 
                     return (
@@ -537,7 +553,7 @@ function AllCategoryInner() {
                       >
                         {/* Image / emoji */}
                         <div className="w-full aspect-square bg-violet-50 flex items-center justify-center overflow-hidden relative text-5xl">
-                          {emoji}
+                          {renderEmojiOrImage(item.emoji, item._id, "w-full h-full object-cover absolute inset-0")}
                           {imageUrl && (
                             <img
                               src={imageUrl}
