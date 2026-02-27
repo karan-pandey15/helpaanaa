@@ -9,31 +9,31 @@ import Categories from '@/components/Categories';
 export default function Home() {
   const [currentScreen, setCurrentScreen] = useState('loading');
 
-  useEffect(() => {
-    // Check storage only after mounting to avoid hydration mismatch
-    const hasSeenSplash = typeof window !== 'undefined' ? sessionStorage.getItem('hasSeenSplash') : null;
-    const token = typeof window !== 'undefined' ? localStorage.getItem('userToken') : null;
+  // useEffect(() => {
+  //   // Check storage only after mounting to avoid hydration mismatch
+  //   const hasSeenSplash = typeof window !== 'undefined' ? sessionStorage.getItem('hasSeenSplash') : null;
+  //   const token = typeof window !== 'undefined' ? localStorage.getItem('userToken') : null;
 
-    if (hasSeenSplash) {
-      if (token) {
-        setCurrentScreen('home');
-      } else {
-        setCurrentScreen('auth');
-      }
-    } else {
-      setCurrentScreen('splash');
-    }
-  }, []);
+  //   if (hasSeenSplash) {
+  //     if (token) {
+  //       setCurrentScreen('home');
+  //     } else {
+  //       setCurrentScreen('auth');
+  //     }
+  //   } else {
+  //     setCurrentScreen('splash');
+  //   }
+  // }, []);
 
-  const handleSplashFinish = useCallback(() => {
-    sessionStorage.setItem('hasSeenSplash', 'true');
-    const token = localStorage.getItem('userToken');
-    if (token) {
-      setCurrentScreen('home');
-    } else {
-      setCurrentScreen('auth');
-    }
-  }, []);
+  // const handleSplashFinish = useCallback(() => {
+  //   sessionStorage.setItem('hasSeenSplash', 'true');
+  //   const token = localStorage.getItem('userToken');
+  //   if (token) {
+  //     setCurrentScreen('home');
+  //   } else {
+  //     setCurrentScreen('auth');
+  //   }
+  // }, []);
 
   const handleAuthSuccess = useCallback(() => {
     setCurrentScreen('home');
@@ -43,17 +43,17 @@ export default function Home() {
     setCurrentScreen('home');
   }, []);
 
-  if (currentScreen === 'loading') {
-    return null; // Or a simple spinner
-  }
+  // if (currentScreen === 'loading') {
+  //   return null; // Or a simple spinner
+  // }
 
-  if (currentScreen === 'splash') {
-    return <SplashScreen onFinish={handleSplashFinish} />;
-  }
+  // if (currentScreen === 'splash') {
+  //   return <SplashScreen onFinish={handleSplashFinish} />;
+  // }
 
-  if (currentScreen === 'auth') {
-    return <Auth onAuthSuccess={handleAuthSuccess} onSkip={handleSkip} />;
-  }
+  // if (currentScreen === 'auth') {
+  //   return <Auth onAuthSuccess={handleAuthSuccess} onSkip={handleSkip} />;
+  // }
 
   return (
     <main className="min-h-screen bg-white pb-24 w-full">

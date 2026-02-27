@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight } from 'lucide-react';
 
@@ -10,6 +10,37 @@ const Auth = ({ onAuthSuccess, onSkip }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', body: '' });
+
+  useEffect(() => {
+    const state = { page: 'auth', timestamp: Date.now() };
+    window.history.pushState(state, '', window.location.href);
+    
+    const handlePopState = (event) => {
+      const newState = { page: 'auth', timestamp: Date.now() };
+      window.history.pushState(newState, '', window.location.href);
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      if (modalVisible) {
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [modalVisible]);
 
   // Form states
   const [loginPhone, setLoginPhone] = useState('');
