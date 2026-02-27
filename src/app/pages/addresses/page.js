@@ -29,6 +29,7 @@ export default function AddressPage() {
   const [submitting, setSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [editingAddress, setEditingAddress] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   
   // Form State
   const [formData, setFormData] = useState({
@@ -43,7 +44,13 @@ export default function AddressPage() {
   });
 
   useEffect(() => {
-    fetchAddresses();
+    const token = typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
+    setIsAuthenticated(!!token);
+    if (token) {
+      fetchAddresses();
+    } else {
+      setLoading(false);
+    }
   }, []);
 
   const fetchAddresses = async () => {
@@ -51,7 +58,7 @@ export default function AddressPage() {
       setLoading(true);
       const token = localStorage.getItem("userToken");
       if (!token) {
-        router.push("/pages/profile");
+        setLoading(false);
         return;
       }
 
@@ -126,6 +133,34 @@ export default function AddressPage() {
     setFormData({ ...addr });
     setShowForm(true);
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+        <div className="max-w-4xl mx-auto w-full bg-white min-h-screen shadow-sm">
+          <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 py-4">
+            <div className="flex items-center gap-4">
+              <button onClick={() => router.back()} className="p-2 hover:bg-gray-100 rounded-full transition-all">
+                <ArrowLeft size={24} className="text-gray-800" />
+              </button>
+              <h1 className="text-xl font-black italic tracking-tighter text-gray-900 uppercase">My Addresses</h1>
+            </div>
+          </header>
+          <div className="flex flex-col items-center justify-center py-20 px-6">
+            <MapPin size={64} className="text-gray-300 mb-4" />
+            <h2 className="text-xl font-bold text-gray-800 mb-2">Login Required</h2>
+            <p className="text-gray-500 text-center mb-6">Please login to view your saved addresses</p>
+            <button 
+              onClick={() => window.location.href = "/"}
+              className="bg-[#457b9d] text-white px-8 py-3 rounded-full font-bold hover:bg-[#1d4e6e] transition-colors"
+            >
+              Login Now
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans pb-20">

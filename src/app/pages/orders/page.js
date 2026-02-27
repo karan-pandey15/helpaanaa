@@ -26,7 +26,16 @@ const YourOrders = () => {
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [cancelling, setCancelling] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const socketRef = useRef(null);
+
+  useEffect(() => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
+    setIsAuthenticated(!!token);
+    if (!token) {
+      setLoading(false);
+    }
+  }, []);
 
   const fetchOrders = async (socketId = null) => {
     try {
@@ -242,6 +251,30 @@ const YourOrders = () => {
       </div>
     );
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-white font-sans">
+        <div className="flex items-center px-4 py-4 border-b border-gray-100 sticky top-0 bg-white z-20">
+          <button onClick={() => router.back()} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <ArrowLeft size={24} className="text-black" />
+          </button>
+          <h1 className="text-xl font-bold text-black ml-4 flex-1">Your Orders</h1>
+        </div>
+        <div className="flex flex-col items-center justify-center h-[70vh] p-8 text-center">
+          <ShoppingCart size={80} className="text-gray-300 mb-4" />
+          <h2 className="text-xl font-bold text-gray-800 mb-2">Login Required</h2>
+          <p className="text-gray-500 text-center mb-6">Please login to view your orders</p>
+          <button 
+            onClick={() => window.location.href = "/"}
+            className="bg-[#ff3162] text-white px-8 py-3 rounded-xl font-bold hover:opacity-90 transition-all active:scale-95"
+          >
+            Login Now
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white font-sans">

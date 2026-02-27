@@ -25,6 +25,11 @@ const CartPage = () => {
   const { items, totalAmount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const router = useRouter();
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleAddItem = (item) => {
     dispatch(addToCart(item));
