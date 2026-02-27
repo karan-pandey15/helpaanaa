@@ -23,6 +23,18 @@ const categories = [
     iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
     accent: '#e8922a',
     emoji: '👶',
+  }
+  ,
+  {
+    id: 'petWalker',
+    name: 'Pet Walker',
+    image: '/image/dog.png',
+    screen: '/pages/petwalker',
+    params: { categoryId: 'petWalker' },
+    iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
+    accent: '#e8922a',
+    emoji: '',
+    
   },
   {
     id: 'pandit',
@@ -33,16 +45,15 @@ const categories = [
     iconBg: 'linear-gradient(135deg, #FFD6C8 0%, #ffb8a0 100%)',
     accent: '#e05c3a',
     emoji: '🪔',
-  },
-  {
-    id: 'hotel',
-    name: 'Hotel & Resort Booking',
-    image: '/image/hotelcat.png',
-    screen: '/pages/Hotel',
+  }, {
+    id: 'mehndi',
+    name: 'Mehndi Artist',
+    image: '/image/mehndi3.png',
+    screen: '/pages/Mehndi',
     params: {},
-    iconBg: 'linear-gradient(135deg, #C8F5E0 0%, #96e8c4 100%)',
-    accent: '#1daa6a',
-    emoji: '🏨',
+    iconBg: 'linear-gradient(135deg, #FFE8C0 0%, #ffd28a 100%)',
+    accent: '#d4820a',
+    emoji: '🌿',
   },
   {
     id: 'school',
@@ -55,9 +66,29 @@ const categories = [
     emoji: '🏫',
   },
   {
+    id: 'groceries',
+    name: 'Healthy Food',
+    image: '/image/healthyfoodd.png',
+    screen: '/pages/Groceries',
+    params: {},
+    iconBg: 'linear-gradient(135deg, #C8F2D4 0%, #96e4aa 100%)',
+    accent: '#27a74a',
+    emoji: '🛒',
+  },
+  
+  {
+    id: 'hotel',
+    name: 'Hotel & Resort Booking',
+    image: '/image/hotelcat.png',
+    screen: '/pages/Hotel',
+    params: {},
+    iconBg: 'linear-gradient(135deg, #C8F5E0 0%, #96e8c4 100%)',
+    accent: '#1daa6a',
+    emoji: '🏨',
+  },  {
     id: 'cosmetic',
     name: 'Cosmetic',
-    image: '/image/cosmeticcat.png',
+    image: '/image/cosmeticcimage.png',
     screen: '/pages/Cosmetic',
     params: {},
     iconBg: 'linear-gradient(135deg, #FFD0EC 0%, #ffaad8 100%)',
@@ -65,7 +96,42 @@ const categories = [
     emoji: '💄',
   },
   {
-    id: 'groceries',
+    id: 'Nurse',
+    name: 'Nurse For First Aid',
+    image: '/image/nurse.png',
+    screen: '/pages/nurse',
+    params: { categoryId: 'Nurse' },
+    iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
+    accent: '#e8922a',
+    emoji: '',
+      },
+
+      
+  {
+    id: 'Gym',
+    name: 'Gym MemberShip',
+    image: '/image/Gym.png',
+    screen: '/pages/Gym',
+    params: { categoryId: 'Gym' },
+    iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
+    accent: '#e8922a',
+    emoji: '',
+      },
+
+      
+  {
+    id: 'Tiffin Service',
+    name: 'Tiffin Service',
+    image: '/image/tiffinservice.png',
+    screen: '/pages/tiffinservice',
+    params: { categoryId: 'Nurse' },
+    iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
+    accent: '#e8922a',
+    emoji: '',
+      } , 
+  
+  {
+    id: 'groceries2',
     name: 'Groceries',
     image: '/image/grocerycat.png',
     screen: '/pages/Groceries',
@@ -73,16 +139,6 @@ const categories = [
     iconBg: 'linear-gradient(135deg, #C8F2D4 0%, #96e4aa 100%)',
     accent: '#27a74a',
     emoji: '🛒',
-  },
-  {
-    id: 'mehndi',
-    name: 'Mehndi Artist',
-    image: '/image/mehndi3.png',
-    screen: '/pages/Mehndi',
-    params: {},
-    iconBg: 'linear-gradient(135deg, #FFE8C0 0%, #ffd28a 100%)',
-    accent: '#d4820a',
-    emoji: '🌿',
   },
 ];
 
@@ -343,137 +399,34 @@ export default function CategoryScreen() {
           transform: translateX(0);
         }
 
-        /* Active dot */
-        .active-dot {
-          position: absolute;
-          top: 12px;
-          right: 12px;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
+        /* ── Responsive ── */
+        @media (max-width: 1200px) {
+          .grid { grid-template-columns: repeat(3, 1fr); }
         }
 
-        /* ── Responsive: Large laptop (1200-1600px) ── */
-        @media (min-width: 1200px) {
-          .grid {
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-          }
-          .category-container {
-            padding: 48px 60px 60px;
-          }
+        @media (max-width: 900px) {
+          .grid { grid-template-columns: repeat(2, 1fr); }
+          .category-container { padding: 32px 24px; }
         }
 
-        /* ── Responsive: Medium laptop (901-1199px) ── */
-        @media (max-width: 1199px) and (min-width: 901px) {
-          .grid {
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-          }
-          .category-container {
-            padding: 36px 36px 44px;
-          }
-          .icon-wrap {
-            width: 72px;
-            height: 72px;
-          }
-        }
-
-        /* ── Responsive: Tablet (641-900px) ── */
-        @media (max-width: 900px) and (min-width: 641px) {
-          .grid {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-          }
-          .category-container {
-            padding: 28px 24px 36px;
-          }
-          .icon-wrap {
-            width: 68px;
-            height: 68px;
-          }
-          .card {
-            min-height: 170px;
-            padding: 22px 12px 18px;
-          }
-        }
-
-        /* ── Responsive: Phone (max 640px) ── */
-        @media (max-width: 640px) {
-          .category-container {
-            padding: 20px 14px 28px;
-          }
-
-          .header {
-            margin-bottom: 24px;
-          }
-
-          .header-tag {
-            font-size: 10px;
-            padding: 3px 10px;
-            letter-spacing: 2px;
-          }
-
-          .subtitle {
-            font-size: 13px;
-          }
-
-          .grid {
+        @media (max-width: 600px) {
+          .grid { 
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
           }
-
-          .card {
+          .category-container { padding: 20px 16px; }
+          .card { 
+            padding: 20px 12px 16px;
+            min-height: 160px;
             border-radius: 16px;
-            padding: 20px 10px 16px;
-            min-height: 155px;
-            gap: 10px;
           }
-
           .icon-wrap {
-            width: 62px;
-            height: 62px;
+            width: 60px;
+            height: 60px;
           }
-
-          .label {
-            font-size: 12px;
-          }
-
-          .arrow-wrap {
-            display: none;
-          }
-
-          /* On mobile, show hover effect as tap */
-          .card:active {
-            transform: scale(0.97);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            border-color: var(--accent);
-          }
-        }
-
-        /* ── Responsive: Very small phones (max 375px) ── */
-        @media (max-width: 375px) {
-          .category-container {
-            padding: 16px 10px 24px;
-          }
-
-          .grid {
-            gap: 10px;
-          }
-
-          .card {
-            min-height: 140px;
-            padding: 16px 8px 14px;
-          }
-
-          .icon-wrap {
-            width: 54px;
-            height: 54px;
-          }
-
-          .label {
-            font-size: 11px;
-          }
+          .emoji-fallback { font-size: 28px; }
+          .label { font-size: 12px; }
+          .title { margin-bottom: 24px; }
         }
       `}</style>
     </div>

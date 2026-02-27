@@ -15,15 +15,18 @@ import Logo from "./Logo.jsx";
 
 const Footer = () => {
   const serviceLinks = [
-    { name: "Book a Attendant For Your Parents", href: "/pages/Attendant" },
-    { name: "Book Guardian For Your Kids", href: "/pages/GuardianKids" },
-    { name: "Book a Attendant For Physically Challenged Kids",  href: "/pages/GuardianKids"},
-    { name: "Book a Female Attendant For Droping Airport", href: "/pages/Attendant" },
-    { name: "Book a Pandit Ji", href: "/pages/Pandit" },
+    { name: "Attended For Parents", href: "/pages/Attendant" },
+    { name: "Guardian For Kids", href: "/pages/GuardianKids" },
+    { name: "Pet Walker", href: "/pages/petwalker" },
+    { name: "Booking for Pandit Ji", href: "/pages/Pandit" },
     { name: "Mehndi Artist", href: "/pages/Mehndi" },
-    { name: "Resort Booking For Wedding & Function", href: "/pages/Hotel" }, 
-    { name: "School Uniform & Accessories", href: "/pages/School" },
+    { name: "School", href: "/pages/School" },
+    { name: "Healthy Food", href: "/pages/Groceries" },
+    { name: "Hotel & Resort Booking", href: "/pages/Hotel" },
     { name: "Cosmetic", href: "/pages/Cosmetic" },
+    { name: "Nurse For First Aid", href: "/pages/nurse" },
+    { name: "Gym MemberShip", href: "/pages/Gym" },
+    { name: "Tiffin Service", href: "/pages/tiffinservice" },
     { name: "Groceries", href: "/pages/Groceries" },
   ];
 

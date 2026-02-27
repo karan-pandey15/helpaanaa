@@ -5,10 +5,7 @@ import { useRouter } from 'next/navigation';
 
 // --- DUMMY DATA ---
 const SCHOOLS = [
-  { id: '1', name: 'Delhi Public School', address: 'Sector 45, Gurgaon, Haryana' },
-  { id: '2', name: 'Pratapgarh Public School', address: 'Jagwanti Petrol pump, pratapgarh, UttarPradesh' },
-  { id: '3', name: 'Heritage International School', address: 'DLF Phase 5, Gurgaon' },
-  { id: '4', name: 'Ryan International School', address: 'Vasant Kunj, New Delhi' },
+  { id: '1', name: 'ST Boston EdTech', address: 'Khasua Bhaluwan, Tehsil Bansgaon, Kauriram, Gorakhpur' },
 ];
 
 const CATEGORIES = [

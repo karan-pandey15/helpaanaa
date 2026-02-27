@@ -18,32 +18,38 @@ const bannerData = [
     route: "/pages/Attendant",
     title: "Professional Attendants" 
   },
-   
   { 
     id: 3, 
-    image: "/image/pandiit.png", 
-    route: "/pages/Pandit",
-    title: "Expert Pandit Ji" 
+    image: "/image/Helpaana.png", 
+    route: "https://play.google.com/store/apps/details?id=com.marasappnew&hl=en_IN",
+    title: "Download Helpaana App" 
   },
   { 
     id: 4, 
-    image: "/image/firwtgrocery.png", 
-    route: "/pages/Groceries",
-    title: "Fresh Groceries" 
-  }, 
-  { 
-    id: 5, 
     image: "/image/pandiit.png", 
     route: "/pages/Pandit",
     title: "Expert Pandit Ji" 
   }, 
-   
+  { 
+    id: 6, 
+    image: "/image/pandiit.png", 
+    route: "/pages/Pandit",
+    title: "Expert Pandit Ji" 
+  }, 
 ];
 
 export default function BannerComponent() {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+
+  const handleBannerClick = (route) => {
+    if (route.startsWith("http")) {
+      window.open(route, "_blank");
+    } else {
+      router.push(route);
+    }
+  };
 
   const slideNext = useCallback(() => {
     setDirection(1);
@@ -87,7 +93,7 @@ export default function BannerComponent() {
   };
 
   return (
-    <div className="relative w-full h-[60vh] overflow-hidden bg-gray-100 shadow-lg group">
+    <div className="relative w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden bg-gray-100 shadow-lg group">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
@@ -97,13 +103,13 @@ export default function BannerComponent() {
           animate="center"
           exit="exit"
           className="absolute inset-0 cursor-pointer"
-          onClick={() => router.push(bannerData[currentIndex].route)}
+          onClick={() => handleBannerClick(bannerData[currentIndex].route)}
         >
           {/* Main Banner Image */}
           <img
             src={bannerData[currentIndex].image}
             alt={bannerData[currentIndex].title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-fill sm:object-cover"
             onError={(e) => {
               e.currentTarget.src = "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200";
             }}
