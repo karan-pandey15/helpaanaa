@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 const categories = [
   {
     id: 'Attendant',
-    name: 'Attended For Parents',
+    name: 'Attendant For Parents',
     image: '/image/attendantcat.png',
     screen: '/pages/Attendant',
     iconBg: 'linear-gradient(135deg, #D6E4FF 0%, #b0ccff 100%)',
@@ -57,7 +57,7 @@ const categories = [
   },
   {
     id: 'school',
-    name: 'School',
+    name: 'School Uniform & Accessories',
     image: '/image/schoolcat.png',
     screen: '/pages/School',
     params: {},

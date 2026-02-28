@@ -15,7 +15,7 @@ import Logo from "./Logo.jsx";
 
 const Footer = () => {
   const serviceLinks = [
-    { name: "Attended For Parents", href: "/pages/Attendant" },
+    { name: "Attendant For Parents", href: "/pages/Attendant" },
     { name: "Guardian For Kids", href: "/pages/GuardianKids" },
     { name: "Pet Walker", href: "/pages/petwalker" },
     { name: "Booking for Pandit Ji", href: "/pages/Pandit" },

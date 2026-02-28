@@ -77,7 +77,7 @@ const STATIC_SERVICES = {
     {
       _id: "dressing_minor",
       name: "Wound Dressing",
-      price: 200,
+      price: 350,
       time: "30 mins",
       description: "Professional wound cleaning and dressing service.",
       image: "/image/nurse.png",
@@ -97,7 +97,7 @@ const STATIC_SERVICES = {
     {
       _id: "bp_sugar_check",
       name: "BP & Sugar Check",
-      price: 100,
+      price: 350,
       time: "10 mins",
       description: "Quick home visit for blood pressure and blood sugar monitoring.",
       image: "/image/nurse.png",

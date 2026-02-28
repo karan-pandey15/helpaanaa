@@ -2,7 +2,7 @@
 import React from 'react';
 
 const trendingCategories = [
-  { id: 1, name: "Attended For Parents", icon: "/images/parents.png" },
+  { id: 1, name: "Attendant For Parents", icon: "/images/parents.png" },
   { id: 2, name: "Gaurdian For Kids", icon: "/images/kids.png" },
   { id: 3, name: "Booking for Pandit Ji", icon: "/images/pandit_booking.png" },
   { id: 4, name: "Hotel & Resort", icon: "/images/hotel_resort.png" },

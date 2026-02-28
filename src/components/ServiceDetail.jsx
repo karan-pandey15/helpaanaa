@@ -15,7 +15,8 @@ import {
   Star,
   Users,
   ShieldCheck,
-  Zap
+  Zap,
+  Car
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -40,12 +41,14 @@ const ServiceDetail = ({
     time: searchParams.get('duration') || '1-2 Hours',
     hour: searchParams.get('hours') || '9 AM - 6 PM',
     isTraveling: searchParams.get('isTraveling') === 'true',
+    withVehicle: searchParams.get('withVehicle') === 'true',
     suggestion: searchParams.get('suggestion') || 'Highly recommended for quality results.'
   };
 
   const [selectedDate, setSelectedDate] = useState(0);
   const [selectedTime, setSelectedTime] = useState(null);
   const [hours, setHours] = useState(1);
+  const [quantity, setQuantity] = useState(1);
   const [description, setDescription] = useState(item.description || '');
   const [dates, setDates] = useState([]);
 
@@ -55,6 +58,10 @@ const ServiceDetail = ({
   const [location, setLocation] = useState('');
   const [pickup, setPickup] = useState('');
   const [drop, setDrop] = useState('');
+  
+  // Vehicle Details
+  const [vehicleType, setVehicleType] = useState('Four Wheeler');
+  const [vehicleNumber, setVehicleNumber] = useState('');
 
   const timeSlots = [
     '09:00 AM', '11:00 AM', '01:00 PM',
@@ -97,14 +104,17 @@ const ServiceDetail = ({
       hours: hours,
       description,
       price: basePrice,
-      totalPrice: basePrice * hours,
-      quantity: 1,
+      totalPrice: basePrice * hours * quantity,
+      quantity: quantity,
       gender,
       religion,
       location,
       pickup,
       drop,
-      isTraveling: item.isTraveling
+      vehicleType: item.withVehicle ? vehicleType : null,
+      vehicleNumber: item.withVehicle ? vehicleNumber : null,
+      isTraveling: item.isTraveling,
+      withVehicle: item.withVehicle
     };
 
     dispatch(addToCart(serviceItem));
@@ -281,6 +291,55 @@ const ServiceDetail = ({
               </motion.section>
             )}
 
+            {/* Vehicle Section */}
+            {item.withVehicle && (
+              <motion.section 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                className="space-y-4 pt-4 border-t-2 border-gray-100"
+              >
+                <h3 className="text-base font-black italic text-gray-900 uppercase flex items-center gap-2">
+                  <Car size={18} />
+                  Vehicle Details
+                </h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-2 block">Vehicle Type</label>
+                    <select 
+                      className="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-[#457b9d] focus:border-[#457b9d] outline-none transition-all"
+                      value={vehicleType}
+                      onChange={(e) => setVehicleType(e.target.value)}
+                    >
+                      <option value="Two Wheeler">Two Wheeler</option>
+                      <option value="Four Wheeler">Four Wheeler</option>
+                    </select>
+                  </div>
+                  <InputField label="Vehicle Number (Optional)" value={vehicleNumber} onChange={setVehicleNumber} placeholder="e.g. MH 12 AB 1234" />
+                </div>
+              </motion.section>
+            )}
+
+            {/* Quantity Selector */}
+            <section className="pt-4 border-t-2 border-gray-100">
+              <h3 className="text-xs font-black text-gray-500 uppercase tracking-widest mb-3">Number of Persons / Services</h3>
+              <div className="flex items-center gap-4">
+                <button 
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-xl font-black text-xl hover:bg-gray-200 transition-colors"
+                >
+                  −
+                </button>
+                <span className="text-xl font-black w-8 text-center">{quantity}</span>
+                <button 
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="w-12 h-12 flex items-center justify-center bg-gray-900 text-white rounded-xl font-black text-xl hover:bg-black transition-colors"
+                >
+                  +
+                </button>
+              </div>
+            </section>
+
             {/* Requirements */}
             <section>
               <h3 className="text-xs font-black text-gray-500 uppercase tracking-widest mb-3">Special Requests</h3>
@@ -301,7 +360,7 @@ const ServiceDetail = ({
         <div className="max-w-full mx-auto flex items-center justify-between gap-4 lg:gap-6">
           <div className="flex flex-col">
             <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Total Pay</span>
-            <span className="text-2xl lg:text-3xl font-black text-gray-900 tracking-tighter">₹{basePrice * hours}</span>
+            <span className="text-2xl lg:text-3xl font-black text-gray-900 tracking-tighter">₹{basePrice * hours * quantity}</span>
           </div>
           <button 
             onClick={handleAddToCart}

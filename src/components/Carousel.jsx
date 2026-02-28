@@ -7,7 +7,7 @@ const banners = [
 ];
 
 const categories = [
-  { id: 1, name: "Attended", icon: "/images/attended.png" },
+  { id: 1, name: "Attendant", icon: "/images/attended.png" },
   { id: 2, name: "Pandit Ji", icon: "/images/pandit.png" },
   { id: 3, name: "Hotel Resort", icon: "/images/hotel.png" },
   { id: 4, name: "Groceries", icon: "/images/groceries.png" },

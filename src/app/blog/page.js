@@ -50,7 +50,7 @@ export default function BlogPage() {
       description: "Connect with certified priests for all religious rituals."
     },
     { 
-      name: "School", 
+      name: "School Uniform & Accessories ", 
       href: "/pages/School", 
       image: "/image/school.jpg",
       description: "Academic support and schooling assistance for every grade."

@@ -394,14 +394,21 @@ function AllCategoryInner() {
     : [];
 
   const handleServiceClick = (item) => {
-    const imageUrl = item.images?.[0]?.url || item.image || "https://images.unsplash.com/photo-1584512603392-f0c3d99c1ce0?q=80&w=800";
-    const emoji = item.emoji || getServiceEmoji(item._id);
+    let imageUrl = item.images?.[0]?.url || item.image;
+    if (!imageUrl && item.emoji?.startsWith("/")) {
+      imageUrl = item.emoji;
+    }
+    if (!imageUrl) {
+      imageUrl = "https://images.unsplash.com/photo-1584512603392-f0c3d99c1ce0?q=80&w=800";
+    }
+    const emoji = (item.emoji && !item.emoji.startsWith("/")) ? item.emoji : getServiceEmoji(item._id);
     const params = new URLSearchParams({
       title: item.name,
       price: item.price,
       description: item.description || "",
       category: selectedCategory?.name || "Service",
       isTraveling: item.isTraveling ? "true" : "false",
+      withVehicle: item.withVehicle ? "true" : "false",
       image: imageUrl,
       emoji: emoji,
     });
@@ -568,18 +575,26 @@ function AllCategoryInner() {
 
                         {/* Details */}
                         <div className="p-3 flex flex-col flex-1">
-                          <p className="text-sm font-bold text-gray-800 leading-tight line-clamp-2 min-h-[2.5rem]">
+                          <p className="text-sm font-bold text-gray-900 leading-snug mb-1 min-h-[1.5rem]">
                             {item.name}
                           </p>
-                          <div className="flex items-center justify-between mt-2 mb-3">
-                            <span className="text-base font-extrabold text-violet-600">
-                              ₹{item.price?.toLocaleString("en-IN")}
-                            </span>
-                            {item.time && (
-                              <span className="text-xs text-gray-400">
-                                {item.time}
+                          {/* {item.description && (
+                            <p className="text-[10px] text-gray-500 line-clamp-2 mb-2 leading-tight">
+                              {item.description}
+                            </p>
+                          )} */}
+                          <div className="flex flex-col gap-1 mt-auto mb-3">
+                            <div className="flex items-center justify-between">
+                              <span className="text-base font-black text-violet-600">
+                                ₹{item.price?.toLocaleString("en-IN")}
                               </span>
-                            )}
+                              {item.time && (
+                                <span className="text-[10px] font-medium text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">
+                                  ⏱ {item.time}
+                                </span>
+                              )}
+                            </div>
+                            
                           </div>
 
                           {qty > 0 ? (

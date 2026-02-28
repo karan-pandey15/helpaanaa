@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 const categories = [
   {
     id: 'Attendant',
-    name: 'Attended For Parents',
+    name: 'Attendant For Parents',
     image: '/image/attendantcat.png',
     screen: '/pages/Attendant',
     iconBg: 'linear-gradient(135deg, #D6E4FF 0%, #b0ccff 100%)',
@@ -59,7 +59,7 @@ const categories = [
   },
   {
     id: 'school',
-    name: 'School',
+    name: 'School Uniform & Accessories ',
     image: '/image/schoolcat.png',
     screen: '/pages/School',
     params: {},
@@ -154,8 +154,8 @@ export default function CategorySlider() {
   };
 
   return (
-    <div className="bg-white py-[10px] shadow-sm">
-      <div className="flex flex-row overflow-x-auto no-scrollbar scroll-smooth gap-4 px-[15px]">
+    <div className="bg-white py-4 shadow-sm overflow-hidden">
+      <div className="flex flex-row overflow-x-auto no-scrollbar scroll-smooth gap-4 px-4 pb-2 pt-2">
         {categories.map((category) => {
           const isActive = activeCategory === category.id;
 
@@ -163,30 +163,30 @@ export default function CategorySlider() {
             <button
               key={category.id}
               onClick={() => handleCategoryPress(category.screen, category.id)}
-              className="flex-shrink-0 flex flex-col items-center w-[20%] min-w-[70px]"
+              className="flex-none flex flex-col items-center w-[85px] sm:w-[100px]"
             >
               {/* Circular Image Container */}
               <div 
-                className={`w-[60px] h-[60px] rounded-full overflow-hidden flex items-center justify-center mb-1 border-2 transition-all ${
-                  isActive ? 'border-[#457b9d] scale-110' : 'border-transparent'
+                className={`w-[55px] h-[55px] sm:w-[65px] sm:h-[65px] rounded-full overflow-hidden flex items-center justify-center mb-2 border-2 transition-all duration-300 ${
+                  isActive ? 'border-[#457b9d] scale-110 shadow-md' : 'border-transparent hover:border-gray-200'
                 }`}
                 style={{ background: category.iconBg }}
               >
                 <Image
                   src={category.image}
                   alt={category.name}
-                  width={60}
-                  height={60}
+                  width={80}
+                  height={80}
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     e.currentTarget.src =
-                      'https://via.placeholder.com/60?text=?';
+                      'https://via.placeholder.com/65?text=?';
                   }}
                 />
               </div>
 
               {/* Category Name */}
-              <span className={`text-[10px] text-center font-semibold leading-tight line-clamp-2 ${
+              <span className={`text-[11px] sm:text-[12px] text-center font-bold leading-tight line-clamp-2 transition-colors duration-300 ${
                 isActive ? 'text-[#457b9d]' : 'text-gray-600'
               }`}>
                 {category.name}
