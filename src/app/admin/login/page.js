@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import SimpleHeader from '@/components/SimpleHeader';
 import { Lock } from 'lucide-react';

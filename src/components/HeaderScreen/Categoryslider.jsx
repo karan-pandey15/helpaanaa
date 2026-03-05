@@ -113,7 +113,7 @@ const categories = [
     id: 'Gym',
     name: 'Gym MemberShip',
     image: '/image/Gym.png',
-    screen: '/pages/Gym',
+    screen: '/pages/gym',
     params: { categoryId: 'Gym' },
     iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
     accent: '#e8922a',
@@ -141,6 +141,16 @@ const categories = [
     iconBg: 'linear-gradient(135deg, #C8F2D4 0%, #96e4aa 100%)',
     accent: '#27a74a',
     emoji: '🛒',
+  },
+  {
+    id: 'Physiotherapist',
+    name: 'Physiotherapist',
+    image: '/image/physiotherapist.png',
+    screen: '/pages/physiotherapist',
+    params: {},
+    iconBg: 'linear-gradient(135deg, #C8F2D4 0%, #96e4aa 100%)',
+    accent: '#27a74a',
+    emoji: '',
   },
 ];
 
