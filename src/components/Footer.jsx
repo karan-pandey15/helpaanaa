@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { 
   Facebook, 
@@ -8,216 +9,179 @@ import {
   Mail, 
   Phone, 
   MapPin,
-  ArrowRight
+  ChevronRight
 } from "lucide-react";
-import { FaGooglePlay } from "react-icons/fa";
-import Logo from "./Logo.jsx";
+import Logo from "./Logo";
 
-const Footer = () => {
-  const serviceLinks = [
-    { name: "Attendant For Parents", href: "/pages/Attendant" },
-    { name: "Guardian For Kids", href: "/pages/GuardianKids" },
-    { name: "Pet Walker", href: "/pages/petwalker" },
-    { name: "Booking for Pandit Ji", href: "/pages/Pandit" },
-    { name: "Mehndi Artist", href: "/pages/Mehndi" },
-    { name: "School", href: "/pages/School" },
-    { name: "Healthy Food", href: "/pages/Groceries" },
-    { name: "Hotel & Resort Booking", href: "/pages/Hotel" },
-    { name: "Cosmetic", href: "/pages/Cosmetic" },
-    { name: "Nurse For First Aid", href: "/pages/nurse" },
-    { name: "Gym MemberShip", href: "/pages/Gym" },
-    { name: "Tiffin Service", href: "/pages/tiffinservice" },
-    { name: "Groceries", href: "/pages/Groceries" },
-  ];
+const categories = [
+  { name: "Attendant For Parents", path: "/pages/Attendant" },
+  { name: "Guardian For Kids", path: "/pages/GuardianKids" },
+  { name: "Pet Walker", path: "/pages/petwalker" },
+  { name: "Booking for Pandit Ji", path: "/pages/Pandit" },
+  { name: "Mehndi Artist", path: "/pages/Mehndi" },
+  { name: "School Uniform & Accessories", path: "/pages/School" },
+  { name: "Healthy Food", path: "/pages/Groceries" },
+  { name: "Resort & Farmhouse Booking", path: "/pages/Hotel" },
+  { name: "Cosmetic", path: "/pages/Cosmetic" },
+  { name: "Nurse For First Aid", path: "/pages/nurse" },
+  { name: "Premium Gym MemberShip", path: "/pages/Gym" },
+  { name: "Food For Patient & Tiffin Service", path: "/pages/tiffinservice" },
+  { name: "Physiotherapist", path: "/pages/physiotherapist" },
+  { name: "Groceries", path: "/pages/Groceries" },
+];
 
-  const companyLinks = [
-    { name: "About Us", href: "/about" },  
-    { name: "For Business Collaboration", href: "#" },
-    { name: "For Investors", href: "#" },
-    { name: "Become a Partner", href: "#" },  
-    { name: "Join Us (Career)", href: "/career" },
-    { name: "Contact Us", href: "/contact" },
-    { name: "Privacy Policy", href: "/privacy-policy" },
-    { name: "Terms & Conditions", href: "/terms" }, 
-  ];
+const companyLinks = [
+  { name: "About Us", path: "/about" },
+  { name: "For Business Collaboration", path: "/collaboration" },
+  { name: "For Investors", path: "/investors" },
+  { name: "Become a Partner", path: "/partner" },
+  { name: "Join Us (Career)", path: "/career" },
+  { name: "Contact Us", path: "/contact" },
+  { name: "Privacy Policy", path: "/privacy-policy" },
+  { name: "Terms & Conditions", path: "/terms" },
+];
 
-  const otherLinks = [
-    { name: "Blog", href: "/blog" },
-    { name: "Admin Login", href: "/admin/login" },
-    { name: "Partner Login", href: "/admin/login" },
-    { name: "Achievements & Appearances", href: "#" },
-    { name: "Our Official Business Partner", href: "#" },
-  ];
+const otherLinks = [
+  { name: "Blog", path: "/blog" },
+  { name: "Admin Login", path: "/admin/login" },
+  { name: "Partner Login", path: "/partner/login" },
+  { name: "Achievements & Appearances", path: "/achievements" },
+  { name: "Our Official Business Partner", path: "/official-partner" },
+];
 
+export default function Footer() {
   return (
-    <footer className="relative bg-gradient-to-b from-[#1d4e6e] to-[#0f2a3c] text-white pt-16 pb-8 px-4 md:px-8 overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 opacity-50" />
-      <div className="absolute -top-24 -right-24 w-64 h-64 bg-yellow-400/10 rounded-full blur-3xl" />
-      <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl" />
-
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-12 border-b border-white/10">
-          {/* Brand & App Downloads Section */}
-          <div className="lg:col-span-4 space-y-8">
-            <Logo size="lg" light={true} />
-            <p className="text-gray-300 text-sm leading-relaxed max-w-sm">
-              Helpaana is your trusted partner for premium doorstep services. From caregiving to professional artistry, we bring convenience to your home.
+    <footer className="bg-[#0f4a56] text-white pt-16 pb-8">
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-12 mb-12">
+          
+          {/* Column 1: About */}
+          <div className="space-y-6">
+            <Logo size="md" className="brightness-110" />
+            <p className="text-white/70 text-sm leading-relaxed">
+              Helpaana Premium Services is India's leading doorstep service provider, 
+              connecting households with verified professionals for over 10+ services. 
+              Quality, trust, and convenience at your fingertips.
             </p>
-            
-            <div className="space-y-4">
-              <h4 className="text-yellow-400 font-bold uppercase tracking-wider text-xs">Experience our App</h4>
-              <div className="flex flex-col sm:flex-row gap-4">
-                {/* Helpaana App Badge */}
-                <Link 
-                  href="https://play.google.com/store/apps/details?id=com.marasappnew&hl=en_IN" 
-                  target="_blank"
-                  className="flex items-center gap-3 bg-black/40 hover:bg-black/60 border border-white/10 p-3 rounded-xl transition-all group"
-                >
-                  <FaGooglePlay className="text-3xl text-green-400 group-hover:scale-110 transition-transform" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] uppercase font-medium text-gray-400">Get it on</span>
-                    <span className="text-sm font-bold">Helpaana App</span>
-                  </div>
+            <div className="flex gap-4">
+              {[Facebook, Instagram, Youtube].map((Icon, idx) => (
+                <Link key={idx} href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#F5A623] hover:text-[#1B6B7B] transition-all">
+                  <Icon size={20} />
                 </Link>
-
-                {/* Partner App Badge */}
-                <Link 
-                  href="https://play.google.com/store/apps/details?id=com.Helpaana &hl=en_IN" 
-                  target="_blank"
-                  className="flex items-center gap-3 bg-black/40 hover:bg-black/60 border border-white/10 p-3 rounded-xl transition-all group"
-                >
-                  <FaGooglePlay className="text-3xl text-blue-400 group-hover:scale-110 transition-transform" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] uppercase font-medium text-gray-400">Download Partner</span>
-                    <span className="text-sm font-bold">Helpaana Partner</span>
-                  </div>
-                </Link>
-              </div>
+              ))}
             </div>
+          </div>
 
-            <div className="space-y-4">
-              <h4 className="text-yellow-400 font-bold uppercase tracking-wider text-xs">Follow Our Journey</h4>
-              <div className="flex gap-4">
-                {[
-                  { icon: Facebook, href: "https://facebook.com/helpaana", color: "hover:bg-blue-600" },
-                  { icon: Instagram, href: "https://www.instagram.com/helpaana?utm_source=qr&igsh=MXE3ZWt2dHUycjZpNw%3D%3D", color: "hover:bg-pink-600" },
-                  { icon: Youtube, href: "https://www.youtube.com/@helpaana?si=try2DdrCGa4JpNfl", color: "hover:bg-red-600" }
-                ].map((social, i) => (
-                  <Link key={i} href={social.href} className={`w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 transition-all ${social.color}`}>
-                    <social.icon className="w-5 h-5" />
+          {/* Column 2: Services */}
+          <div>
+            <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+              Our Services
+              <span className="w-8 h-1 bg-[#F5A623] rounded-full" />
+            </h3>
+            <ul className="grid grid-cols-1 gap-3">
+              {categories.map((cat, idx) => (
+                <li key={idx}>
+                  <Link 
+                    href={cat.path} 
+                    className="text-white/70 hover:text-[#F5A623] text-sm flex items-center gap-2 transition-colors group"
+                  >
+                    <ChevronRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                    {cat.name}
                   </Link>
-                ))}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Company */}
+          <div>
+            <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+              Company
+              <span className="w-8 h-1 bg-[#F5A623] rounded-full" />
+            </h3>
+            <ul className="space-y-4">
+              {companyLinks.map((link, idx) => (
+                <li key={idx}>
+                  <Link 
+                    href={link.path} 
+                    className="text-white/70 hover:text-[#F5A623] text-sm transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Other Links */}
+          <div>
+            <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+              Other Links
+              <span className="w-8 h-1 bg-[#F5A623] rounded-full" />
+            </h3>
+            <ul className="space-y-4">
+              {otherLinks.map((link, idx) => (
+                <li key={idx}>
+                  <Link 
+                    href={link.path} 
+                    className="text-white/70 hover:text-[#F5A623] text-sm transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 5: Contact */}
+          <div className="space-y-6">
+            <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+              Contact Us
+              <span className="w-8 h-1 bg-[#F5A623] rounded-full" />
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-[#F5A623]/20 flex items-center justify-center text-[#F5A623] shrink-0">
+                  <MapPin size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-white/50 uppercase">OFFICE</p>
+                  <p className="text-sm text-white/80">NX One T3 - B111, Noida Extension - 201318</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-[#F5A623]/20 flex items-center justify-center text-[#F5A623] shrink-0">
+                  <Phone size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-white/50 uppercase">HELPLINE</p>
+                  <p className="text-sm text-white/80">+91 8887796224</p>
+                  <p className="text-sm text-white/80">0120 - 4978652</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-[#F5A623]/20 flex items-center justify-center text-[#F5A623] shrink-0">
+                  <Mail size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-white/50 uppercase">EMAIL</p>
+                  <p className="text-sm text-white/80">support@helpaana.com</p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Links Sections */}
-          <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2">
-                Services
-                <div className="h-1 w-6 bg-yellow-400 rounded-full" />
-              </h3>
-              <ul className="space-y-3">
-                {serviceLinks.map((link) => (
-                  <li key={link.name}>
-                    <Link href={link.href} className="text-gray-400 hover:text-yellow-400 text-sm transition-colors flex items-center group">
-                      <ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2">
-                Company
-                <div className="h-1 w-6 bg-yellow-400 rounded-full" />
-              </h3>
-              <ul className="space-y-3">
-                {companyLinks.map((link) => (
-                  <li key={link.name}>
-                    <Link href={link.href} className="text-gray-400 hover:text-yellow-400 text-sm transition-colors flex items-center group">
-                      <ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="col-span-2 sm:col-span-1">
-              <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2">
-                Other Links
-                <div className="h-1 w-6 bg-yellow-400 rounded-full" />
-              </h3>
-              <ul className="space-y-3">
-                {otherLinks.map((link) => (
-                  <li key={link.name}>
-                    <Link href={link.href} className="text-gray-400 hover:text-yellow-400 text-sm transition-colors flex items-center group">
-                      <ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Contact Details Section */}
-          <div className="lg:col-span-3 space-y-8">
-            <div>
-              <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2">
-                Contact Us
-                <div className="h-1 w-6 bg-yellow-400 rounded-full" />
-              </h3>
-              <div className="space-y-4">
-                <div className="flex items-start gap-4 p-3 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-all">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-yellow-400 text-black shrink-0 shadow-lg shadow-yellow-400/20">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="block text-xs text-gray-400 uppercase font-bold mb-1">Office Location</span>
-                    <span className="text-sm">NX One T3 - B111, Noida Extension - 201318</span>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4 p-3 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-all">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-orange-500 text-white shrink-0 shadow-lg shadow-orange-500/20">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="block text-xs text-gray-400 uppercase font-bold mb-1">Helpline</span>
-                    <a href="tel:+918887796224" className="text-sm block hover:text-yellow-400">+91 8887796224</a>
-                    <a href="tel:01204978652" className="text-sm block hover:text-yellow-400">0120 - 4978652</a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 p-3 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-all">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-500 text-white shrink-0 shadow-lg shadow-blue-500/20">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="block text-xs text-gray-400 uppercase font-bold mb-1">Email Support</span>
-                    <a href="mailto:support@helpaana.com" className="text-sm hover:text-yellow-400">support@helpaana.com</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 text-xs">
-          <p>&copy; {new Date().getFullYear()} Helpaana Services. All rights reserved.</p>
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-white/40 text-xs">
+          <p>© {new Date().getFullYear()} HELPAANA PREMIUM SERVICES. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/terms" className="hover:text-yellow-400">Terms of Use</Link>
-            <Link href="/privacy-policy" className="hover:text-yellow-400">Privacy Policy</Link>
-            <Link href="/cookies" className="hover:text-yellow-400">Cookies Policy</Link>
+            <Link href="#" className="hover:text-white transition-colors">Facebook</Link>
+            <Link href="#" className="hover:text-white transition-colors">Instagram</Link>
+            <Link href="#" className="hover:text-white transition-colors">Twitter</Link>
           </div>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

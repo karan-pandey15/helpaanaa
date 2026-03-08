@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const bannerData = [
-    { 
+  { 
     id: 1, 
     image: "/image/gauurdianforkids.png", 
     route: "/pages/GuardianKids",
@@ -70,12 +70,10 @@ export default function BannerComponent() {
     enter: (direction) => ({
       x: direction > 0 ? "100%" : "-100%",
       opacity: 0,
-      scale: 1.1,
     }),
     center: {
       x: 0,
       opacity: 1,
-      scale: 1,
       transition: {
         x: { type: "spring", stiffness: 300, damping: 30 },
         opacity: { duration: 0.5 },
@@ -84,7 +82,6 @@ export default function BannerComponent() {
     exit: (direction) => ({
       x: direction < 0 ? "100%" : "-100%",
       opacity: 0,
-      scale: 0.9,
       transition: {
         x: { type: "spring", stiffness: 300, damping: 30 },
         opacity: { duration: 0.5 },
@@ -93,7 +90,7 @@ export default function BannerComponent() {
   };
 
   return (
-    <div className="relative w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden bg-gray-100 shadow-lg group">
+    <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] lg:aspect-[3/1] overflow-hidden bg-gray-50 group">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
@@ -105,39 +102,35 @@ export default function BannerComponent() {
           className="absolute inset-0 cursor-pointer"
           onClick={() => handleBannerClick(bannerData[currentIndex].route)}
         >
-          {/* Main Banner Image */}
           <img
             src={bannerData[currentIndex].image}
             alt={bannerData[currentIndex].title}
-            className="w-full h-full object-fill sm:object-cover"
+            className="w-full h-full object-cover lg:object-fill"
             onError={(e) => {
               e.currentTarget.src = "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200";
             }}
           />
-          
-          {/* Gradient Overlay for Text Visibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent hidden sm:block" />
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation Arrows (Visible on Hover) */}
-      <div className="absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+      {/* Navigation Arrows */}
+      <div className="absolute inset-0 flex items-center justify-between px-2 sm:px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
         <button
           onClick={(e) => { e.stopPropagation(); slidePrev(); }}
-          className="p-2 bg-white/20 backdrop-blur-md rounded-full text-white pointer-events-auto hover:bg-white/40 transition-colors"
+          className="p-1.5 sm:p-3 bg-black/30 backdrop-blur-sm rounded-full text-white pointer-events-auto hover:bg-black/50 transition-all transform hover:scale-110"
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
         <button
           onClick={(e) => { e.stopPropagation(); slideNext(); }}
-          className="p-2 bg-white/20 backdrop-blur-md rounded-full text-white pointer-events-auto hover:bg-white/40 transition-colors"
+          className="p-1.5 sm:p-3 bg-black/30 backdrop-blur-sm rounded-full text-white pointer-events-auto hover:bg-black/50 transition-all transform hover:scale-110"
         >
-          <ChevronRight size={24} />
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
       </div>
 
       {/* Pagination Indicators */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+      <div className="absolute bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2.5 z-10">
         {bannerData.map((_, idx) => (
           <button
             key={idx}
@@ -146,17 +139,17 @@ export default function BannerComponent() {
               setDirection(idx > currentIndex ? 1 : -1);
               setCurrentIndex(idx);
             }}
-            className={`transition-all duration-300 rounded-full h-1.5 ${
-              idx === currentIndex ? "w-8 bg-white shadow-md" : "w-1.5 bg-white/50"
+            className={`transition-all duration-300 rounded-full h-1.5 sm:h-2 ${
+              idx === currentIndex ? "w-6 sm:w-10 bg-white shadow-lg" : "w-1.5 sm:w-2 bg-white/40 hover:bg-white/60"
             }`}
           />
         ))}
       </div>
 
-      {/* 16-min Quick Delivery Badge (Helpaana Theme) */}
-      <div className="absolute top-4 right-4 bg-yellow-400 px-3 py-1 rounded-full shadow-lg z-20 hidden sm:flex items-center gap-1.5">
-        <div className="w-1.5 h-1.5 bg-[#1d4e6e] rounded-full animate-pulse" />
-        <span className="text-[10px] font-black text-[#1d4e6e] uppercase tracking-wider">Fast Delivery</span>
+      {/* Delivery Badge */}
+      <div className="absolute top-3 right-3 sm:top-6 sm:right-6 bg-yellow-400 px-2.5 py-1 sm:px-4 sm:py-1.5 rounded-full shadow-xl z-20 flex items-center gap-1.5 sm:gap-2">
+        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#1d4e6e] rounded-full animate-pulse" />
+        <span className="text-[9px] sm:text-xs font-black text-[#1d4e6e] uppercase tracking-widest">Fast Delivery</span>
       </div>
     </div>
   );

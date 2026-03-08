@@ -23,8 +23,7 @@ const categories = [
     iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
     accent: '#e8922a',
     emoji: '👶',
-  }
-  ,
+  },
   {
     id: 'petWalker',
     name: 'Pet Walker',
@@ -34,7 +33,6 @@ const categories = [
     iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
     accent: '#e8922a',
     emoji: '',
-    
   },
   {
     id: 'pandit',
@@ -45,7 +43,8 @@ const categories = [
     iconBg: 'linear-gradient(135deg, #FFD6C8 0%, #ffb8a0 100%)',
     accent: '#e05c3a',
     emoji: '🪔',
-  }, {
+  },
+  {
     id: 'mehndi',
     name: 'Mehndi Artist',
     image: '/image/mehndi3.png',
@@ -75,7 +74,6 @@ const categories = [
     accent: '#27a74a',
     emoji: '🛒',
   },
-  
   {
     id: 'hotel',
     name: 'Hotel & Resort Booking',
@@ -85,7 +83,8 @@ const categories = [
     iconBg: 'linear-gradient(135deg, #C8F5E0 0%, #96e8c4 100%)',
     accent: '#1daa6a',
     emoji: '🏨',
-  },  {
+  },
+  {
     id: 'cosmetic',
     name: 'Cosmetic',
     image: '/image/cosmeticcimage.png',
@@ -104,32 +103,37 @@ const categories = [
     iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
     accent: '#e8922a',
     emoji: '',
-      },
-
-      
+  },
   {
     id: 'Gym',
-    name: 'Gym MemberShip',
+    name: 'Premium Gym MemberShip',
     image: '/image/Gym.png',
     screen: '/pages/Gym',
     params: { categoryId: 'Gym' },
     iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
     accent: '#e8922a',
     emoji: '',
-      },
-
-      
+  },
   {
     id: 'Tiffin Service',
-    name: 'Tiffin Service',
+    name: 'Food For Patient & Tiffin Service',
     image: '/image/tiffinservice.png',
     screen: '/pages/tiffinservice',
     params: { categoryId: 'Nurse' },
     iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
     accent: '#e8922a',
     emoji: '',
-      } , 
-  
+  },
+   {
+    id: 'Physiotherapist',
+    name: 'Physiotherapist',
+    image: '/image/tiffinserviced.png',
+    screen: '/pages/physiotherapist',
+    params: { categoryId: 'Nurse' },
+    iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
+    accent: '#e8922a',
+    emoji: '',
+  },
   {
     id: 'groceries2',
     name: 'Groceries',
@@ -159,13 +163,10 @@ export default function CategoryScreen() {
   return (
     <div className="category-wrapper">
       <div className="category-container">
-        {/* Header */}
         <div className="header">
-           
-          <h2 className="title">Trending Categories</h2> 
+          <h2 className="title">Trending Categories</h2>
         </div>
 
-        {/* Grid */}
         <div className="grid">
           {categories.map((item, index) => {
             const isActive = activeCategory === item.id;
@@ -178,38 +179,34 @@ export default function CategoryScreen() {
                 onMouseEnter={() => setHoveredCategory(item.id)}
                 onMouseLeave={() => setHoveredCategory(null)}
                 className={`card ${isActive ? 'card-active' : ''} ${isHovered ? 'card-hovered' : ''}`}
-                style={{ '--accent': item.accent, '--delay': `${index * 60}ms` }}
+                style={{ '--accent': item.accent, '--delay': `${index * 50}ms` }}
               >
-                {/* Glow blob on hover */}
                 <div className="card-glow" style={{ background: item.accent }} />
 
-                {/* Icon */}
                 <div className="icon-wrap" style={{ background: item.iconBg }}>
                   <Image
                     src={item.image}
                     alt={item.name}
-                    width={64}
-                    height={64}
+                    width={80}
+                    height={80}
                     className="icon-image"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
-                      e.currentTarget.parentElement.querySelector('.emoji-fallback').style.display = 'flex';
+                      const fallback = e.currentTarget.parentElement.querySelector('.emoji-fallback');
+                      if (fallback) fallback.style.display = 'flex';
                     }}
                   />
                   <span className="emoji-fallback">{item.emoji}</span>
                 </div>
 
-                {/* Label */}
                 <span className="label">{item.name}</span>
 
-                {/* Arrow */}
                 <div className="arrow-wrap" style={{ color: item.accent }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </div>
 
-                {/* Active dot */}
                 {isActive && <div className="active-dot" style={{ background: item.accent }} />}
               </button>
             );
@@ -220,178 +217,102 @@ export default function CategoryScreen() {
       <style jsx>{`
         .category-wrapper {
           width: 100%;
-          background: linear-gradient(160deg, #f8faff 0%, #ffffff 50%, #fff8f5 100%);
-          min-height: 100%;
-          padding: 0;
+          background: #ffffff;
+          padding: 24px 0;
         }
 
         .category-container {
           width: 100%;
-          max-width: 1600px;
+          max-width: 1400px;
           margin: 0 auto;
-          padding: 40px 48px 48px;
-          box-sizing: border-box;
+          padding: 0 16px;
         }
 
-        /* ── Header ── */
         .header {
-          margin-bottom: 36px;
-        }
-
-        .header-tag {
-          display: inline-block;
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 2.5px;
-          text-transform: uppercase;
-          color: #e05c3a;
-          background: #fff3f0;
-          border: 1px solid #ffd5cc;
-          border-radius: 20px;
-          padding: 4px 14px;
-          margin-bottom: 12px;
+          margin-bottom: 24px;
+          text-align: left;
         }
 
         .title {
-          font-family: 'Georgia', 'Times New Roman', serif;
-          font-size: clamp(26px, 3.5vw, 42px);
-          font-weight: 900;
-          color: #0f172a;
-          margin: 0 0 10px;
-          line-height: 1.15;
-          letter-spacing: -1px;
+          font-size: 24px;
+          font-weight: 800;
+          color: #1e293b;
+          letter-spacing: -0.02em;
         }
 
-        .subtitle {
-          font-size: clamp(13px, 1.5vw, 16px);
-          color: #64748b;
-          margin: 0;
-          font-weight: 400;
-        }
-
-        /* ── Grid ── */
         .grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 20px;
-          width: 100%;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
         }
 
-        /* ── Card ── */
         .card {
           position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: flex-start;
           gap: 12px;
-          background: #ffffff;
-          border-radius: 20px;
-          padding: 28px 16px 22px;
+          background: #f8fafc;
+          border-radius: 16px;
+          padding: 24px 12px;
           cursor: pointer;
-          border: 1.5px solid #eef0f6;
-          box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-          transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                      box-shadow 0.25s ease,
-                      border-color 0.2s ease;
-          outline: none;
+          border: 1px solid #f1f5f9;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           width: 100%;
-          min-height: 185px;
+          min-height: 150px;
           overflow: hidden;
-          animation: fadeSlideUp 0.5s ease both;
-          animation-delay: var(--delay);
-        }
-
-        @keyframes fadeSlideUp {
-          from { opacity: 0; transform: translateY(18px); }
-          to   { opacity: 1; transform: translateY(0); }
         }
 
         .card-hovered {
-          transform: translateY(-6px) scale(1.02);
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+          transform: translateY(-4px);
+          background: #ffffff;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
           border-color: var(--accent);
         }
 
-        .card-active {
-          border-color: var(--accent);
-          background: linear-gradient(160deg, #fff 60%, #f9f9ff 100%);
-          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
-        }
-
-        /* Glow */
-        .card-glow {
-          position: absolute;
-          top: -30px;
-          right: -30px;
-          width: 90px;
-          height: 90px;
-          border-radius: 50%;
-          opacity: 0;
-          filter: blur(30px);
-          transition: opacity 0.3s ease;
-          pointer-events: none;
-        }
-
-        .card-hovered .card-glow {
-          opacity: 0.18;
-        }
-
-        /* Icon */
         .icon-wrap {
-          width: 80px;
-          height: 80px;
+          width: 64px;
+          height: 64px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           overflow: hidden;
-          flex-shrink: 0;
-          transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+          transition: transform 0.3s ease;
         }
 
         .card-hovered .icon-wrap {
-          transform: scale(1.08) rotate(-2deg);
+          transform: scale(1.1);
         }
 
         .icon-image {
-          width: 100% !important;
-          height: 100% !important;
-          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          padding: 8px;
         }
 
         .emoji-fallback {
           display: none;
-          font-size: 34px;
-          align-items: center;
-          justify-content: center;
+          font-size: 28px;
         }
 
-        /* Label */
         .label {
-          font-family: 'Georgia', 'Times New Roman', serif;
-          font-size: 13.5px;
-          font-weight: 700;
-          color: #1e293b;
+          font-size: 13px;
+          font-weight: 600;
+          color: #334155;
           text-align: center;
-          line-height: 1.45;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
+          line-height: 1.2;
           max-width: 90%;
-          letter-spacing: -0.2px;
         }
 
-        /* Arrow */
         .arrow-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          position: absolute;
+          bottom: 12px;
+          right: 12px;
           opacity: 0;
-          transform: translateX(-6px);
-          transition: opacity 0.2s ease, transform 0.25s ease;
+          transform: translateX(-4px);
+          transition: all 0.2s ease;
         }
 
         .card-hovered .arrow-wrap {
@@ -399,34 +320,36 @@ export default function CategoryScreen() {
           transform: translateX(0);
         }
 
-        /* ── Responsive ── */
-        @media (max-width: 1200px) {
-          .grid { grid-template-columns: repeat(3, 1fr); }
+        .active-dot {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
         }
 
-        @media (max-width: 900px) {
-          .grid { grid-template-columns: repeat(2, 1fr); }
-          .category-container { padding: 32px 24px; }
+        @media (min-width: 640px) {
+          .category-container { padding: 0 24px; }
+          .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+          .title { font-size: 28px; }
+          .card { padding: 32px 16px; min-height: 180px; }
+          .icon-wrap { width: 80px; height: 80px; }
+          .label { font-size: 14px; }
         }
 
-        @media (max-width: 600px) {
-          .grid { 
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-          }
-          .category-container { padding: 20px 16px; }
-          .card { 
-            padding: 20px 12px 16px;
-            min-height: 160px;
-            border-radius: 16px;
-          }
-          .icon-wrap {
-            width: 60px;
-            height: 60px;
-          }
-          .emoji-fallback { font-size: 28px; }
-          .label { font-size: 12px; }
-          .title { margin-bottom: 24px; }
+        @media (min-width: 1024px) {
+          .grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+          .title { font-size: 32px; }
+          .label { font-size: 15px; }
+        }
+
+        @media (min-width: 1280px) {
+          .grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+        @media (min-width: 1536px) {
+          .grid { grid-template-columns: repeat(6, 1fr); }
         }
       `}</style>
     </div>

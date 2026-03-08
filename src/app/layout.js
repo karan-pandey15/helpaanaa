@@ -1,30 +1,27 @@
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReduxProvider } from "@/redux/provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata = {
-  title: "Helpaana",
-  description: "Helpaana - Your complete solution platform.",
+  title: "HELPAANA PREMIUM SERVICES",
+  description: "Helpaana - Your complete solution platform for premium services.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${inter.variable} font-sans antialiased min-h-screen flex flex-col bg-[#F8F9FA]`}
       >
         <ReduxProvider>
+          <Header />
           <main className="flex-grow">
             {children}
           </main>

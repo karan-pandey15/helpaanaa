@@ -23,34 +23,32 @@ const Logo = ({ className = "", size = "md", light = true }) => {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <motion.div 
-        whileHover={{ scale: 1.02 }}
+        whileHover={{ scale: 1.05 }}
         className="relative"
       >
         <div className={`
           ${containerSizes[size]} 
-          bg-gradient-to-br from-[#FF9D00] to-[#FF4D00] 
-          rounded-2xl shadow-xl flex items-center justify-center
-          border-2 border-white/20
+          bg-[#F5A623] 
+          rounded-full shadow-md flex items-center justify-center
         `}>
-          <span className={`font-serif font-bold text-white leading-none ${size === 'lg' ? 'text-4xl' : size === 'md' ? 'text-2xl' : 'text-xl'}`}>H</span>
+          <span className={`font-bold text-white leading-none ${size === 'lg' ? 'text-2xl' : size === 'md' ? 'text-xl' : 'text-lg'}`}>H</span>
         </div>
       </motion.div>
       
       <div className="flex flex-col justify-center">
         <h1 className={`
-          font-serif font-black italic tracking-tight leading-none
+          font-bold tracking-tight leading-none
           ${sizeClasses[size]} 
-          ${light ? 'text-white' : 'text-[#1d4e6e]'}
+          text-white
         `}>
-          HELP<span className="text-[#FFC107]">AANA</span>
+          HELP<span className="text-[#F5A623]">AANA</span>
         </h1>
-        <div className="flex items-center gap-2 mt-1">
-          <div className="h-[3px] w-8 bg-[#FFC107] rounded-full" />
+        <div className="mt-0.5">
           <span className={`
-            text-[10px] uppercase tracking-[0.1em] font-black
-            ${light ? 'text-white' : 'text-slate-600'}
+            text-[8px] sm:text-[10px] uppercase tracking-[0.15em] font-bold
+            text-white/90
           `}>
-            Premium Services
+            PREMIUM SERVICES
           </span>
         </div>
       </div>
