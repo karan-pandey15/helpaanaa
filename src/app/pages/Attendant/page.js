@@ -18,6 +18,12 @@ const CATEGORIES = [
     name: "Book a Female Attendant For Traveling Airport",
     emoji: "✈️",
   },
+  {
+    id: "Gym",
+    name: "Book Gym",
+    endpoint: "https://api.marasimpex.com/api/gym/all",
+    emoji: "🏋️",
+  },
 ];
 
 // ─── STATIC SERVICE DATA ─────────────────────────────────────────────────────
@@ -333,8 +339,14 @@ function AllCategoryInner() {
             const data = await res.json();
             const list = Array.isArray(data)
               ? data
-              : data.services || data.data || [];
-            return { id: cat.id, services: list };
+              : data.services || data.data || data.gyms || [];
+            
+            // Map price if missing (e.g., Gym has monthlyPrice)
+            const mappedList = list.map(item => ({
+              ...item,
+              price: item.price || item.monthlyPrice || 0
+            }));
+            return { id: cat.id, services: mappedList };
           } catch (err) {
             errors[cat.id] = err.message;
             return { id: cat.id, services: [] };
@@ -394,7 +406,13 @@ function AllCategoryInner() {
     : [];
 
   const handleServiceClick = (item) => {
-    let imageUrl = item.images?.[0]?.url || item.image;
+    let imageUrl = null;
+    if (Array.isArray(item.images) && item.images.length > 0) {
+      imageUrl = typeof item.images[0] === 'string' ? item.images[0] : item.images[0].url;
+    } else {
+      imageUrl = item.image || item.images?.[0]?.url || item.images?.[0];
+    }
+
     if (!imageUrl && item.emoji?.startsWith("/")) {
       imageUrl = item.emoji;
     }
@@ -402,6 +420,13 @@ function AllCategoryInner() {
       imageUrl = "https://images.unsplash.com/photo-1584512603392-f0c3d99c1ce0?q=80&w=800";
     }
     const emoji = (item.emoji && !item.emoji.startsWith("/")) ? item.emoji : getServiceEmoji(item._id);
+    
+    // Prepare working hours for Gym
+    let hours = item.time || "9 AM - 6 PM";
+    if (item.workingHours) {
+      hours = `${item.workingHours.from} - ${item.workingHours.to}`;
+    }
+
     const params = new URLSearchParams({
       title: item.name,
       price: item.price,
@@ -411,6 +436,8 @@ function AllCategoryInner() {
       withVehicle: item.withVehicle ? "true" : "false",
       image: imageUrl,
       emoji: emoji,
+      hours: hours,
+      duration: item.monthlyPrice ? "Monthly" : (item.time || "1 Hour"),
     });
     router.push(`/pages/ServiceDetail?${params.toString()}`);
   };
@@ -550,7 +577,12 @@ function AllCategoryInner() {
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                   {currentServices.map((item) => {
                     const qty = getQty(item._id);
-                    const imageUrl = item.images?.[0]?.url || null;
+                    let imageUrl = null;
+                    if (Array.isArray(item.images) && item.images.length > 0) {
+                      imageUrl = typeof item.images[0] === 'string' ? item.images[0] : item.images[0].url;
+                    } else {
+                      imageUrl = item.image || item.images?.[0]?.url || item.images?.[0];
+                    }
 
                     return (
                       <div
