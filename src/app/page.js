@@ -54,7 +54,7 @@ export default function Home() {
                 Get the{" "}
                 <span className="text-yellow-400">Helpaana</span> Experience —{" "}
                 <br className="hidden md:block" />
-                On Any Device
+                On Android
               </h2>
 
               <p className="text-white/75 text-base md:text-lg mb-7 leading-relaxed font-medium">
