@@ -47,26 +47,25 @@ export default function Home() {
               {/* badge */}
               <span className="mb-5 self-center md:self-start inline-flex items-center gap-1.5 bg-yellow-400 text-[#1B6B7B] text-[11px] font-black px-4 py-1.5 rounded-full shadow">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#1B6B7B] animate-pulse" />
-                NOW AVAILABLE ON GOOGLE PLAY
+                ANDROID APP IS LIVE • IOS USERS USE WEB
               </span>
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
                 Get the{" "}
-                <span className="text-yellow-400">Helpaana</span> App —{" "}
+                <span className="text-yellow-400">Helpaana</span> Experience —{" "}
                 <br className="hidden md:block" />
-                Services at Your Fingertips
+                On Any Device
               </h2>
 
               <p className="text-white/75 text-base md:text-lg mb-7 leading-relaxed font-medium">
                 Book attendants, pandits, pet walkers, nurses &amp; 10+ premium
-                services in under 30 seconds&nbsp;
-                happy
-                households across India.
+                services in under 30 seconds. Download our Android app or use our 
+                seamless mobile website for iOS.
               </p>
 
               {/* feature pills */}
               <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-8">
-                {["Free to Download", "Instant Booking", "Live Tracking", "24/7 Support"].map((f) => (
+                {["Free Download", "iOS Web Support", "Instant Booking", "24/7 Support"].map((f) => (
                   <span
                     key={f}
                     className="bg-white/10 border border-white/20 backdrop-blur-sm text-white/90 text-xs font-semibold px-3 py-1 rounded-full"
@@ -76,45 +75,60 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* ── Google Play button ── */}
-              <a
-                href={PLAY_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 bg-black hover:bg-gray-900 active:scale-95 text-white px-6 py-3.5 rounded-2xl shadow-2xl transition-all duration-200 hover:scale-105 w-fit"
-              >
-                {/* Google Play icon */}
-                <svg viewBox="0 0 512 512" className="w-8 h-8 flex-shrink-0">
-                  <linearGradient id="gp1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#00C6FF"/>
-                    <stop offset="100%" stopColor="#0072FF"/>
-                  </linearGradient>
-                  <linearGradient id="gp2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FFD200"/>
-                    <stop offset="100%" stopColor="#F7971E"/>
-                  </linearGradient>
-                  <linearGradient id="gp3" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FF416C"/>
-                    <stop offset="100%" stopColor="#FF4B2B"/>
-                  </linearGradient>
-                  <linearGradient id="gp4" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#56AB2F"/>
-                    <stop offset="100%" stopColor="#A8E063"/>
-                  </linearGradient>
-                  <path fill="url(#gp4)" d="M64 32C46.3 32 32 46.3 32 64v176l220-208L64 32Z"/>
-                  <path fill="url(#gp1)" d="M32 240v208c0 17.7 14.3 32 32 32l188-240L32 240Z"/>
-                  <path fill="url(#gp3)" d="M420 224l-68-40-120 56 120 56 68-40c19-11 19-21 0-32Z"/>
-                  <path fill="url(#gp2)" d="M252 280 64 480h188l68-40 68-40-128-120Z"/>
-                  <path fill="url(#gp1)" d="M252 232 64 32l188 0 128 120-128 80Z"/>
-                </svg>
-                <div className="flex flex-col leading-tight text-left">
-                  <span className="text-[10px] text-gray-400 font-normal uppercase tracking-wider">Get it on</span>
-                  <span className="text-[18px] font-bold tracking-wide">Google Play</span>
-                </div>
-              </a>
+              <div className="flex flex-col sm:flex-row items-center gap-6">
+                {/* ── Google Play button ── */}
+                <a
+                  href={PLAY_STORE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-3 bg-black hover:bg-gray-900 active:scale-95 text-white px-6 py-3.5 rounded-2xl shadow-2xl transition-all duration-200 hover:scale-105 w-fit"
+                >
+                  <svg viewBox="0 0 512 512" className="w-8 h-8 flex-shrink-0">
+                    <linearGradient id="gp1" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#00C6FF"/>
+                      <stop offset="100%" stopColor="#0072FF"/>
+                    </linearGradient>
+                    <linearGradient id="gp2" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#FFD200"/>
+                      <stop offset="100%" stopColor="#F7971E"/>
+                    </linearGradient>
+                    <linearGradient id="gp3" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#FF416C"/>
+                      <stop offset="100%" stopColor="#FF4B2B"/>
+                    </linearGradient>
+                    <linearGradient id="gp4" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#56AB2F"/>
+                      <stop offset="100%" stopColor="#A8E063"/>
+                    </linearGradient>
+                    <path fill="url(#gp4)" d="M64 32C46.3 32 32 46.3 32 64v176l220-208L64 32Z"/>
+                    <path fill="url(#gp1)" d="M32 240v208c0 17.7 14.3 32 32 32l188-240L32 240Z"/>
+                    <path fill="url(#gp3)" d="M420 224l-68-40-120 56 120 56 68-40c19-11 19-21 0-32Z"/>
+                    <path fill="url(#gp2)" d="M252 280 64 480h188l68-40 68-40-128-120Z"/>
+                    <path fill="url(#gp1)" d="M252 232 64 32l188 0 128 120-128 80Z"/>
+                  </svg>
+                  <div className="flex flex-col leading-tight text-left">
+                    <span className="text-[10px] text-gray-400 font-normal uppercase tracking-wider">Get it on</span>
+                    <span className="text-[18px] font-bold tracking-wide">Google Play</span>
+                  </div>
+                </a>
 
-              <p className="mt-4 text-white/40 text-xs">
-                Free · Android 5.0+ · Rated 4.8 ★ by real users
+                <div className="hidden sm:block w-px h-12 bg-white/20" />
+
+                {/* ── iOS / Web Link ── */}
+                <div className="flex flex-col items-center md:items-start">
+                  <span className="text-white/50 text-[10px] uppercase tracking-wider font-bold mb-1">For iOS Users</span>
+                  <a 
+                    href="https://helpaana.com" 
+                    className="group flex items-center gap-2 text-white hover:text-yellow-400 transition-colors"
+                  >
+                    <span className="text-lg font-bold">Visit Helpaana.com</span>
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </a>
+                </div>
+              </div>
+
+              <p className="mt-6 text-white/40 text-[10px] uppercase tracking-widest font-bold">
+                Android 5.0+ · iOS via Browser · Secure & Encrypted
               </p>
             </div>
 

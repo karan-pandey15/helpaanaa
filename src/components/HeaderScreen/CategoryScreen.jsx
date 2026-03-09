@@ -76,7 +76,7 @@ const categories = [
   },
   {
     id: 'hotel',
-    name: 'Hotel & Resort Booking',
+    name: 'Resort & Farmhouse Booking',
     image: '/image/hotelcat.png',
     screen: '/pages/Hotel',
     params: {},

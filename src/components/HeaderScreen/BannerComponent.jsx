@@ -90,7 +90,7 @@ export default function BannerComponent() {
   };
 
   return (
-    <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] lg:aspect-[3/1] overflow-hidden bg-gray-50 group">
+    <div className="relative w-full aspect-[16/9] md:aspect-[21/9] lg:aspect-[3/1] overflow-hidden bg-white group">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
@@ -99,13 +99,13 @@ export default function BannerComponent() {
           initial="enter"
           animate="center"
           exit="exit"
-          className="absolute inset-0 cursor-pointer"
+          className="absolute inset-0 cursor-pointer flex items-center justify-center"
           onClick={() => handleBannerClick(bannerData[currentIndex].route)}
         >
           <img
             src={bannerData[currentIndex].image}
             alt={bannerData[currentIndex].title}
-            className="w-full h-full object-cover lg:object-fill"
+            className="max-w-full max-h-full w-full h-full object-contain"
             onError={(e) => {
               e.currentTarget.src = "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200";
             }}

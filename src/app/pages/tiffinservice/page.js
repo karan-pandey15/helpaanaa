@@ -17,6 +17,11 @@ const CATEGORIES = [
     name: "Big Lunch",
     emoji: "🥘",
   },
+  {
+    id: "FoodForPatient",
+    name: "Food For Patient",
+    emoji: "🍲",
+  },
 ];
 
 // ─── STATIC SERVICE DATA ─────────────────────────────────────────────────────
@@ -56,6 +61,33 @@ const STATIC_SERVICES = {
       emoji: "🍛",
       image: "/image/tiffinservice.png"
     }
+  ],
+  FoodForPatient: [
+    {
+      _id: "patient_food_1",
+      name: "Special Kichdi",
+      price: 70,
+      description: "Light and nutritious Moong Dal Kichdi, easy to digest for patients.",
+      emoji: "🍲",
+      image: "/image/tiffinservice.png"
+    },
+    {
+      _id: "patient_food_2",
+      name: "Simple Daal Chawal",
+      price: 65,
+      description: "Simple steamed rice with light yellow dal, minimal spices for patient recovery.",
+      emoji: "🍛",
+      image: "/image/tiffinservice.png"
+    },
+    {
+      _id: "patient_food_3",
+      name: "Vegetable Dalia",
+      price: 75,
+      description: "Broken wheat cooked with mild vegetables, high in fiber and nutrition.",
+      emoji: "🥣",
+      image: "/image/tiffinservice.png"
+    },
+    
   ],
 };
 
