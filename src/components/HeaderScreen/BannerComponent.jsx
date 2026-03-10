@@ -8,13 +8,13 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const bannerData = [
   { 
     id: 1, 
-    image: "/image/gauurdianforkids.png", 
+    image: "/image/two.png", 
     route: "/pages/GuardianKids",
     title: "Book Gaurdian For Kids" 
   },
   { 
     id: 2, 
-    image: "/image/attendant.png", 
+    image: "/image/one.png", 
     route: "/pages/Attendant",
     title: "Professional Attendants" 
   },
@@ -26,15 +26,15 @@ const bannerData = [
   // },
   { 
     id: 4, 
-    image: "/image/pandiit.png", 
+    image: "/image/four.png", 
     route: "/pages/Pandit",
     title: "Expert Pandit Ji" 
   }, 
   { 
     id: 6, 
-    image: "/image/pandiit.png", 
-    route: "/pages/Pandit",
-    title: "Expert Pandit Ji" 
+    image: "/image/three.png", 
+    route: "/pages/gym",
+    title: "Premium Gym Service" 
   }, 
 ];
 
