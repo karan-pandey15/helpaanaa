@@ -123,16 +123,6 @@ const categories = [
     accent: '#e8922a',
     emoji: '',
   },
-  //  {
-  //   id: 'Physiotherapist',
-  //   name: 'Physiotherapist',
-  //   image: '/image/tiffinserviced.png',
-  //   screen: '/pages/physiotherapist',
-  //   params: { categoryId: 'Nurse' },
-  //   iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
-  //   accent: '#e8922a',
-  //   emoji: '',
-  // },
   {
     id: 'groceries2',
     name: 'Groceries',
@@ -143,8 +133,6 @@ const categories = [
     accent: '#27a74a',
     emoji: '🛒',
   },
-
-
   {
     id: 'physiotherapist',
     name: 'Physiotherapist',
@@ -236,7 +224,7 @@ export default function CategoryScreen() {
           width: 100%;
           max-width: 1400px;
           margin: 0 auto;
-          padding: 0 16px;
+          padding: 0 12px;
         }
 
         .header {
@@ -245,7 +233,7 @@ export default function CategoryScreen() {
         }
 
         .title {
-          font-size: 24px;
+          font-size: 20px;
           font-weight: 800;
           color: #1e293b;
           letter-spacing: -0.02em;
@@ -253,8 +241,8 @@ export default function CategoryScreen() {
 
         .grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 12px;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 8px;
         }
 
         .card {
@@ -262,15 +250,15 @@ export default function CategoryScreen() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 12px;
+          gap: 8px;
           background: #f8fafc;
-          border-radius: 16px;
-          padding: 24px 12px;
+          border-radius: 12px;
+          padding: 16px 8px;
           cursor: pointer;
           border: 1px solid #f1f5f9;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           width: 100%;
-          min-height: 150px;
+          min-height: 120px;
           overflow: hidden;
         }
 
@@ -282,8 +270,8 @@ export default function CategoryScreen() {
         }
 
         .icon-wrap {
-          width: 64px;
-          height: 64px;
+          width: 50px;
+          height: 50px;
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -300,27 +288,27 @@ export default function CategoryScreen() {
           width: 100%;
           height: 100%;
           object-fit: contain;
-          padding: 8px;
+          padding: 6px;
         }
 
         .emoji-fallback {
           display: none;
-          font-size: 28px;
+          font-size: 24px;
         }
 
         .label {
-          font-size: 13px;
+          font-size: 11px;
           font-weight: 600;
           color: #334155;
           text-align: center;
           line-height: 1.2;
-          max-width: 90%;
+          max-width: 95%;
         }
 
         .arrow-wrap {
           position: absolute;
-          bottom: 12px;
-          right: 12px;
+          bottom: 8px;
+          right: 8px;
           opacity: 0;
           transform: translateX(-4px);
           transition: all 0.2s ease;
@@ -333,10 +321,10 @@ export default function CategoryScreen() {
 
         .active-dot {
           position: absolute;
-          top: 12px;
-          right: 12px;
-          width: 6px;
-          height: 6px;
+          top: 8px;
+          right: 8px;
+          width: 4px;
+          height: 4px;
           border-radius: 50%;
         }
 
@@ -344,9 +332,12 @@ export default function CategoryScreen() {
           .category-container { padding: 0 24px; }
           .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
           .title { font-size: 28px; }
-          .card { padding: 32px 16px; min-height: 180px; }
+          .card { padding: 32px 16px; min-height: 180px; border-radius: 16px; gap: 12px; }
           .icon-wrap { width: 80px; height: 80px; }
           .label { font-size: 14px; }
+          .arrow-wrap { bottom: 12px; right: 12px; }
+          .active-dot { top: 12px; right: 12px; width: 6px; height: 6px; }
+          .icon-image { padding: 8px; }
         }
 
         @media (min-width: 1024px) {

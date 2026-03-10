@@ -17,7 +17,7 @@ const categories = [
   { id: 'Nurse',         name: 'Nurse For First Aid',         image: '/image/nurse.png',           screen: '/pages/nurse',          params: { categoryId: 'Nurse' },        iconBg: 'linear-gradient(135deg,#FEE2E2,#fca5a5)', emoji: '🏥' },
   { id: 'Gym',           name: 'Gym MemberShip',              image: '/image/Gym.png',             screen: '/pages/Gym',            params: { categoryId: 'Gym' },          iconBg: 'linear-gradient(135deg,#E0F2FE,#7dd3fc)', emoji: '💪' },
   { id: 'TiffinService', name: 'Tiffin Service',              image: '/image/tiffinservice.png',   screen: '/pages/tiffinservice',  iconBg: 'linear-gradient(135deg,#FEF9C3,#fde047)', emoji: '🍱' },
-  { id: 'physiotherapist', name: 'physiotherapist',              image: '/image/tiffinservice',   screen: '/pages/physiotherapist',  iconBg: 'linear-gradient(135deg,#FEF9C3,#fde047)', emoji: '🍱' },
+  { id: 'physiotherapist', name: 'physiotherapist',              image: '/image/physiotherapist.png',   screen: '/pages/physiotherapist',  iconBg: 'linear-gradient(135deg,#FEF9C3,#fde047)', emoji: '🍱' },
   { id: 'groceries2',    name: 'Groceries',                   image: '/image/grocerycat.png',      screen: '/pages/Groceries',      iconBg: 'linear-gradient(135deg,#C8F2D4,#96e4aa)', emoji: '🛒' },
 ];
 

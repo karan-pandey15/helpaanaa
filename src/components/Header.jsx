@@ -76,6 +76,7 @@ export default function Header() {
               className="w-full bg-white text-gray-800 h-10 px-10 rounded-full text-sm outline-none focus:ring-2 focus:ring-[#F5A623] transition-all"
             />
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+            
           </div>
 
           {/* Right Actions */}
@@ -107,16 +108,23 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Search Bar (Only on Mobile) */}
-        <div className="md:hidden px-4 pb-3">
-          <div className="relative">
+        {/* Mobile Search Bar & Deal of the Day (Only on Mobile) */}
+        <div className="md:hidden px-4 pb-4 flex items-center gap-3 bg-[#1B6B7B]">
+          <div className="relative flex-[1.4] shadow-sm">
             <input 
               type="text" 
               placeholder={`Search for "${categories[placeholderIndex].name}"`}
-              className="w-full bg-white text-gray-800 h-10 px-10 rounded-full text-sm outline-none"
+              className="w-full bg-white text-gray-800 h-11 pl-11 pr-4 rounded-full text-[13px] font-medium outline-none shadow-inner border border-white/20"
             />
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
           </div>
+          <Link 
+            href="/pages/ShopFresh" 
+            className="flex-1 bg-[#F5A623] text-[#1B6B7B] font-extrabold h-11 px-2 rounded-full text-[10px] leading-tight flex flex-col items-center justify-center shadow-lg active:scale-95 transition-all border-b-2 border-black/10"
+          >
+            <span className="uppercase tracking-tight">Deal of</span>
+            <span className="text-[11px] uppercase">the day</span>
+          </Link>
         </div>
       </header>
 

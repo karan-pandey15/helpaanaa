@@ -18,12 +18,12 @@ const bannerData = [
     route: "/pages/Attendant",
     title: "Professional Attendants" 
   },
-  { 
-    id: 3, 
-    image: "/image/Helpaana.png", 
-    route: "https://play.google.com/store/apps/details?id=com.marasappnew&hl=en_IN",
-    title: "Download Helpaana App" 
-  },
+  // { 
+  //   id: 3, 
+  //   image: "/image/Helpaana.png", 
+  //   route: "https://play.google.com/store/apps/details?id=com.marasappnew&hl=en_IN",
+  //   title: "Download Helpaana App" 
+  // },
   { 
     id: 4, 
     image: "/image/pandiit.png", 
@@ -90,7 +90,7 @@ export default function BannerComponent() {
   };
 
   return (
-    <div className="relative w-full aspect-[16/9] md:aspect-[21/9] lg:aspect-[3/1] overflow-hidden bg-white group">
+    <div className="relative w-full aspect-[4/3] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-white group">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
@@ -105,7 +105,7 @@ export default function BannerComponent() {
           <img
             src={bannerData[currentIndex].image}
             alt={bannerData[currentIndex].title}
-            className="max-w-full max-h-full w-full h-full object-contain"
+            className="w-full h-full object-cover object-top"
             onError={(e) => {
               e.currentTarget.src = "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200";
             }}
@@ -144,12 +144,6 @@ export default function BannerComponent() {
             }`}
           />
         ))}
-      </div>
-
-      {/* Delivery Badge */}
-      <div className="absolute top-3 right-3 sm:top-6 sm:right-6 bg-yellow-400 px-2.5 py-1 sm:px-4 sm:py-1.5 rounded-full shadow-xl z-20 flex items-center gap-1.5 sm:gap-2">
-        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#1d4e6e] rounded-full animate-pulse" />
-        <span className="text-[9px] sm:text-xs font-black text-[#1d4e6e] uppercase tracking-widest">Fast Delivery</span>
       </div>
     </div>
   );
