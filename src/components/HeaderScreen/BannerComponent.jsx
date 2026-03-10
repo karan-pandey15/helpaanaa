@@ -90,7 +90,7 @@ export default function BannerComponent() {
   };
 
   return (
-    <div className="relative w-full aspect-[4/3] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-white group">
+    <div className="relative w-full aspect-[5/3] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-white group">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
@@ -105,7 +105,7 @@ export default function BannerComponent() {
           <img
             src={bannerData[currentIndex].image}
             alt={bannerData[currentIndex].title}
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-contain"
             onError={(e) => {
               e.currentTarget.src = "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200";
             }}
