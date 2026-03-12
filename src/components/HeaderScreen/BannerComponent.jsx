@@ -30,6 +30,78 @@ const bannerData = [
     route: "/pages/gym",
     title: "Premium Gym Service",
   },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  {
+    id: 1,
+    image: "/image/five.png", route: "#",
+
+    title: "",
+  },
+  {
+    id: 2,
+    image: "/image/six.png", route: "#",
+
+    title: "",
+  },
+  {
+    id: 4,
+    image: "/image/seven.png",
+    route: "/pages/Pandit",
+    title: "Expert Pandit Ji",
+  },
+  {
+    id: 6,
+    image: "/image/eight.png", route: "#",
+
+    title: "",
+  },
+
+  
+
+  {
+    id: 4,
+    image: "/image/nine.png", route: "#",
+
+    title: "",
+  },
+  {
+    id: 6,
+    image: "/image/ten.png", route: "#",
+
+    title: "",
+  },
+
+  {
+    id: 6,
+    image: "/image/eleven.png",
+    route: "#",
+
+    title: "",
+  },
+  
 ];
 
 export default function BannerComponent() {
