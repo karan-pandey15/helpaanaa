@@ -15,7 +15,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-bold">Privacy Matters</h2>
           </div>
           <p className="text-gray-600 text-sm leading-relaxed">
-            Last updated: February 16, 2024. Your privacy is important to us. It is Helpaana&apos;s policy to respect your privacy regarding any information we may collect from you across our website.
+            Last updated: February 1, 2026. Your privacy is important to us. It is Helpaana&apos;s policy to respect your privacy regarding any information we may collect from you across our website.
           </p>
         </section>
 

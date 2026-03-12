@@ -167,51 +167,51 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
     <div className="mehndi-detail-container" style={{ fontFamily: "'Segoe UI', system-ui, sans-serif", backgroundColor: "#f4f7fa", minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
       {/* Detail Header */}
       <div className="mehndi-detail-header" style={{
-        backgroundColor: "#457B9D", height: 200,
-        borderBottomLeftRadius: 35, borderBottomRightRadius: 35,
+        backgroundColor: "#457B9D", height: 160,
+        borderBottomLeftRadius: 30, borderBottomRightRadius: 30,
         display: "flex", flexDirection: "column", alignItems: "center",
         justifyContent: "center", position: "relative", flexShrink: 0,
         zIndex: 10,
       }}>
         <button onClick={onBack}
           style={{
-            position: "absolute", top: 18, left: 18,
+            position: "absolute", top: 15, left: 15,
             backgroundColor: "rgba(255,255,255,0.2)", border: "none",
-            borderRadius: 12, width: 40, height: 40,
+            borderRadius: 10, width: 36, height: 36,
             display: "flex", alignItems: "center", justifyContent: "center",
             cursor: "pointer", color: "#fff",
           }}><IconBack /></button>
 
-        <div style={{
-          width: 70, height: 70, borderRadius: 35,
+        <div className="header-icon-container" style={{
+          width: 50, height: 50, borderRadius: 25,
           backgroundColor: "rgba(255,255,255,0.15)",
           border: "2px solid rgba(255,255,255,0.3)",
-          display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 10,
+          display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 8,
         }}><IconBrush /></div>
 
-        <p style={{ fontSize: 24, fontWeight: 800, color: "#fff", margin: 0 }}>{artist.name}</p>
-        <p style={{ fontSize: 15, color: "rgba(255,255,255,0.9)", fontWeight: 600, margin: "4px 0 0" }}>{artist.description}</p>
+        <p className="header-title" style={{ fontSize: 18, fontWeight: 800, color: "#fff", margin: 0 }}>{artist.name}</p>
+        <p className="header-desc" style={{ fontSize: 13, color: "rgba(255,255,255,0.9)", fontWeight: 500, margin: "2px 0 0", textAlign: "center", padding: "0 20px" }}>{artist.description}</p>
       </div>
 
       {/* Detail Body */}
-      <div className="mehndi-detail-content" style={{ flex: 1, overflowY: "auto", padding: "0 16px 140px", marginTop: -25 }}>
+      <div className="mehndi-detail-content" style={{ flex: 1, overflowY: "auto", padding: "16px 16px 140px", marginTop: 0 }}>
         <div className="mehndi-detail-layout">
-          {/* Left Column (Image & Description) - Visible on Desktop */}
+          {/* Left Column (Image & Description) */}
           <div className="mehndi-detail-media">
-            <div style={{ width: "100%", borderRadius: 24, overflow: "hidden", boxShadow: "0 8px 30px rgba(0,0,0,0.12)", marginBottom: 20 }}>
-              <img src={artist.image} alt={artist.name} style={{ width: "100%", height: "auto", display: "block" }} />
+            <div style={{ width: "100%", borderRadius: 20, overflow: "hidden", boxShadow: "0 6px 20px rgba(0,0,0,0.1)", marginBottom: 16 }}>
+              <img src={artist.image} alt={artist.name} style={{ width: "100%", height: "200px", objectFit: "cover", display: "block" }} />
             </div>
-            <div style={{ backgroundColor: "#fff", padding: 24, borderRadius: 24, boxShadow: "0 4px 15px rgba(0,0,0,0.05)" }}>
-              <h3 style={{ margin: "0 0 10px", color: "#1e293b" }}>Service Details</h3>
-              <p style={{ margin: 0, color: "#64748b", lineHeight: 1.6 }}>{artist.description}</p>
-              <div style={{ display: "flex", gap: 20, marginTop: 15 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                   <span style={{ color: "#457B9D", fontWeight: 700 }}>Time:</span>
-                   <span style={{ color: "#1e293b" }}>{artist.time}</span>
+            <div className="service-info-card" style={{ backgroundColor: "#fff", padding: 16, borderRadius: 20, boxShadow: "0 4px 15px rgba(0,0,0,0.05)", marginBottom: 20 }}>
+              <h3 style={{ margin: "0 0 8px", color: "#1e293b", fontSize: 16 }}>Service Details</h3>
+              <p style={{ margin: 0, color: "#64748b", lineHeight: 1.5, fontSize: 13 }}>{artist.description}</p>
+              <div style={{ display: "flex", gap: 15, marginTop: 12 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                   <span style={{ color: "#457B9D", fontWeight: 700, fontSize: 13 }}>Time:</span>
+                   <span style={{ color: "#1e293b", fontSize: 13 }}>{artist.time}</span>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                   <span style={{ color: "#457B9D", fontWeight: 700 }}>Base Price:</span>
-                   <span style={{ color: "#1e293b" }}>₹{artist.price}</span>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                   <span style={{ color: "#457B9D", fontWeight: 700, fontSize: 13 }}>Base:</span>
+                   <span style={{ color: "#1e293b", fontSize: 13 }}>₹{artist.price}</span>
                 </div>
               </div>
             </div>
@@ -221,46 +221,46 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
           <div className="mehndi-detail-options">
             {/* People Count */}
             <div style={{
-              backgroundColor: "#fff", borderRadius: 20, border: "1px solid #f1f5f9",
-              boxShadow: "0 4px 15px rgba(69,123,157,0.08)",
+              backgroundColor: "#fff", borderRadius: 16, border: "1px solid #f1f5f9",
+              boxShadow: "0 4px 12px rgba(69,123,157,0.06)",
               display: "flex", justifyContent: "space-between", alignItems: "center",
-              padding: "20px 24px", marginBottom: 24,
+              padding: "16px 20px", marginBottom: 20,
             }}>
               <div>
-                <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: 0 }}>Number of People</p>
-                <p style={{ fontSize: 12, color: "#64748b", margin: "2px 0 0" }}>How many individuals?</p>
+                <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: 0 }}>Number of People</p>
+                <p style={{ fontSize: 11, color: "#64748b", margin: "1px 0 0" }}>How many individuals?</p>
               </div>
-              <div style={{ display: "flex", alignItems: "center", backgroundColor: "#f1f5f9", borderRadius: 14, padding: 6, gap: 6 }}>
+              <div style={{ display: "flex", alignItems: "center", backgroundColor: "#f1f5f9", borderRadius: 12, padding: 4, gap: 4 }}>
                 <button onClick={() => peopleCount > 1 && setPeopleCount(c => c - 1)}
-                  style={{ width: 36, height: 36, borderRadius: 10, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 20, fontWeight: 700, color: "#457B9D", display: "flex", alignItems: "center", justifyContent: "center" }}>−</button>
-                <span style={{ fontSize: 18, fontWeight: 800, color: "#1e293b", minWidth: 32, textAlign: "center" }}>{peopleCount}</span>
+                  style={{ width: 32, height: 32, borderRadius: 8, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 18, fontWeight: 700, color: "#457B9D", display: "flex", alignItems: "center", justifyContent: "center" }}>−</button>
+                <span style={{ fontSize: 16, fontWeight: 800, color: "#1e293b", minWidth: 28, textAlign: "center" }}>{peopleCount}</span>
                 <button onClick={() => setPeopleCount(c => c + 1)}
-                  style={{ width: 36, height: 36, borderRadius: 10, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 20, fontWeight: 700, color: "#457B9D", display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
+                  style={{ width: 32, height: 32, borderRadius: 8, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 18, fontWeight: 700, color: "#457B9D", display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
               </div>
             </div>
 
             {/* Hand Selection */}
-            <div style={{ marginBottom: 24 }}>
-              <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: "0 0 14px" }}>Select Hands</p>
-              <div style={{ display: "flex", gap: 12 }}>
+            <div style={{ marginBottom: 20 }}>
+              <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: "0 0 10px" }}>Select Hands</p>
+              <div style={{ display: "flex", gap: 10 }}>
                 {[{ hands: 1, label: "1 Hand" }, { hands: 2, label: "2 Hands" }].map(opt => {
                   const active = selectedHands === opt.hands;
                   return (
                     <button key={opt.hands} onClick={() => setSelectedHands(opt.hands)}
                       style={{
-                        flex: 1, padding: "16px 12px",
+                        flex: 1, padding: "12px 8px",
                         backgroundColor: active ? "#457B9D" : "#fff",
                         border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                        borderRadius: 20, cursor: "pointer",
-                        display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
-                        boxShadow: active ? "0 8px 20px rgba(69,123,157,0.2)" : "0 4px 10px rgba(0,0,0,0.04)",
+                        borderRadius: 16, cursor: "pointer",
+                        display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
+                        boxShadow: active ? "0 6px 15px rgba(69,123,157,0.15)" : "0 3px 8px rgba(0,0,0,0.03)",
                         transition: "all 0.2s",
                       }}>
-                      <div style={{ display: "flex" }}>
+                      <div style={{ display: "flex", transform: "scale(0.85)" }}>
                         <IconHandRight color={active ? "#fff" : "#457B9D"} />
                         {opt.hands === 2 && <IconHandRight color={active ? "#fff" : "#457B9D"} />}
                       </div>
-                      <span style={{ fontSize: 15, fontWeight: 700, color: active ? "#fff" : "#475569" }}>{opt.label}</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: active ? "#fff" : "#475569" }}>{opt.label}</span>
                     </button>
                   );
                 })}
@@ -268,55 +268,55 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
             </div>
 
             {/* Package Selection */}
-            <div style={{ marginBottom: 24 }}>
-              <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: "0 0 14px" }}>Select Package</p>
+            <div style={{ marginBottom: 20 }}>
+              <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: "0 0 10px" }}>Select Package</p>
               {PACKAGES.map(pkg => {
                 const active = selectedPackage === pkg.name;
                 return (
                   <button key={pkg.name} onClick={() => setSelectedPackage(pkg.name)}
                     style={{
                       width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center",
-                      padding: "16px 20px", marginBottom: 10,
+                      padding: "12px 16px", marginBottom: 8,
                       backgroundColor: active ? "#eef6fa" : "#fff",
                       border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                      borderRadius: 20, cursor: "pointer", textAlign: "left",
-                      boxShadow: active ? "0 6px 15px rgba(69,123,157,0.15)" : "0 2px 6px rgba(0,0,0,0.02)",
+                      borderRadius: 16, cursor: "pointer", textAlign: "left",
+                      boxShadow: active ? "0 4px 12px rgba(69,123,157,0.1)" : "0 2px 4px rgba(0,0,0,0.01)",
                       transition: "all 0.2s",
                     }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                      {active ? <IconRadioOn /> : <IconRadioOff />}
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <div style={{ transform: "scale(0.85)" }}>{active ? <IconRadioOn /> : <IconRadioOff />}</div>
                       <div>
-                        <p style={{ fontSize: 15, fontWeight: 700, color: active ? "#457B9D" : "#334155", margin: 0 }}>{pkg.name}</p>
-                        <p style={{ fontSize: 12, color: "#64748b", margin: "1px 0 0" }}>{pkg.desc}</p>
+                        <p style={{ fontSize: 13, fontWeight: 700, color: active ? "#457B9D" : "#334155", margin: 0 }}>{pkg.name}</p>
+                        <p style={{ fontSize: 11, color: "#64748b", margin: "1px 0 0" }}>{pkg.desc}</p>
                       </div>
                     </div>
-                    <span style={{ fontSize: 16, fontWeight: 800, color: active ? "#457B9D" : "#475569" }}>+₹{pkg.priceAdd * selectedHands}</span>
+                    <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#457B9D" : "#475569" }}>+₹{pkg.priceAdd * selectedHands}</span>
                   </button>
                 );
               })}
             </div>
 
             {/* Date Selection */}
-            <div style={{ marginBottom: 24 }}>
-              <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: "0 0 14px" }}>Select Date</p>
-              <div style={{ display: "flex", gap: 12, overflowX: "auto", paddingBottom: 10, scrollbarWidth: "none" }}>
+            <div style={{ marginBottom: 20 }}>
+              <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: "0 0 10px" }}>Select Date</p>
+              <div className="date-scroll" style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 8, scrollbarWidth: "none" }}>
                 {DATES.map((item, i) => {
                   const active = selectedDate === item.full;
                   return (
                     <button key={i} onClick={() => setSelectedDate(item.full)}
                       style={{
-                        minWidth: 75, height: 95, flexShrink: 0,
+                        minWidth: 65, height: 80, flexShrink: 0,
                         backgroundColor: active ? "#457B9D" : "#fff",
                         border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                        borderRadius: 20, cursor: "pointer",
+                        borderRadius: 16, cursor: "pointer",
                         display: "flex", flexDirection: "column",
-                        alignItems: "center", justifyContent: "center", gap: 2,
-                        boxShadow: active ? "0 6px 15px rgba(69,123,157,0.2)" : "0 4px 10px rgba(0,0,0,0.04)",
+                        alignItems: "center", justifyContent: "center", gap: 0,
+                        boxShadow: active ? "0 4px 12px rgba(69,123,157,0.15)" : "0 2px 6px rgba(0,0,0,0.03)",
                         transition: "all 0.2s",
                       }}>
-                      <span style={{ fontSize: 11, fontWeight: 600, color: active ? "rgba(255,255,255,0.85)" : "#64748b" }}>{item.day}</span>
-                      <span style={{ fontSize: 22, fontWeight: 800, color: active ? "#fff" : "#1e293b" }}>{item.date}</span>
-                      <span style={{ fontSize: 11, fontWeight: 600, color: active ? "rgba(255,255,255,0.85)" : "#64748b" }}>{item.month}</span>
+                      <span style={{ fontSize: 10, fontWeight: 600, color: active ? "rgba(255,255,255,0.8)" : "#64748b" }}>{item.day}</span>
+                      <span style={{ fontSize: 18, fontWeight: 800, color: active ? "#fff" : "#1e293b" }}>{item.date}</span>
+                      <span style={{ fontSize: 10, fontWeight: 600, color: active ? "rgba(255,255,255,0.8)" : "#64748b" }}>{item.month}</span>
                     </button>
                   );
                 })}
@@ -324,20 +324,20 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
             </div>
 
             {/* Time Selection */}
-            <div style={{ marginBottom: 24 }}>
-              <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: "0 0 14px" }}>Select Time</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            <div style={{ marginBottom: 20 }}>
+              <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: "0 0 10px" }}>Select Time</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {TIMES.map((time, i) => {
                   const active = selectedTime === time;
                   return (
                     <button key={i} onClick={() => setSelectedTime(time)}
                       style={{
-                        flex: "0 0 calc(33.33% - 7px)", padding: "12px 0",
+                        flex: "0 0 calc(33.33% - 6px)", padding: "10px 0",
                         backgroundColor: active ? "#457B9D" : "#fff",
                         border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                        borderRadius: 14, cursor: "pointer",
-                        fontSize: 13, fontWeight: 700, color: active ? "#fff" : "#1e293b",
-                        boxShadow: active ? "0 4px 10px rgba(69,123,157,0.15)" : "0 2px 5px rgba(0,0,0,0.02)",
+                        borderRadius: 12, cursor: "pointer",
+                        fontSize: 12, fontWeight: 700, color: active ? "#fff" : "#1e293b",
+                        boxShadow: active ? "0 4px 10px rgba(69,123,157,0.12)" : "0 2px 4px rgba(0,0,0,0.01)",
                         transition: "all 0.2s",
                       }}>
                       {time}
@@ -348,15 +348,15 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
             </div>
 
             {/* Instructions */}
-            <div style={{ marginBottom: 24 }}>
-              <p style={{ fontSize: 17, fontWeight: 800, color: "#1e293b", margin: "0 0 14px" }}>Instructions</p>
+            <div style={{ marginBottom: 20 }}>
+              <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: "0 0 10px" }}>Instructions</p>
               <textarea
                 value={instructions} onChange={e => setInstructions(e.target.value)}
                 placeholder="Any specific design request or landmark..."
                 style={{
-                  width: "100%", height: 100, backgroundColor: "#fff", borderRadius: 20,
-                  border: "2px solid #f1f5f9", padding: "16px 20px",
-                  fontSize: 15, color: "#1e293b", resize: "none", outline: "none", boxSizing: "border-box",
+                  width: "100%", height: 80, backgroundColor: "#fff", borderRadius: 16,
+                  border: "2px solid #f1f5f9", padding: "12px 16px",
+                  fontSize: 13, color: "#1e293b", resize: "none", outline: "none", boxSizing: "border-box",
                   boxShadow: "0 4px 10px rgba(0,0,0,0.02)",
                 }}
               />
@@ -368,34 +368,39 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
       {/* Detail Footer */}
       <div className="mehndi-detail-footer" style={{
         position: "fixed", bottom: 0, left: 0, right: 0, backgroundColor: "#fff",
-        borderTopLeftRadius: 28, borderTopRightRadius: 28,
-        boxShadow: "0 -8px 30px rgba(0,0,0,0.1)",
-        padding: "20px 24px 32px",
+        borderTopLeftRadius: 24, borderTopRightRadius: 24,
+        boxShadow: "0 -6px 25px rgba(0,0,0,0.08)",
+        padding: "16px 20px 24px",
         display: "flex", justifyContent: "space-between", alignItems: "center",
         zIndex: 100,
       }}>
         <div className="footer-price">
-          <p style={{ fontSize: 13, color: "#64748b", fontWeight: 600, margin: 0 }}>Total Amount</p>
-          <p style={{ fontSize: 28, fontWeight: 800, color: "#457B9D", margin: "2px 0 0" }}>₹{totalPrice.toLocaleString()}</p>
+          <p style={{ fontSize: 11, color: "#64748b", fontWeight: 600, margin: 0 }}>Total Amount</p>
+          <p style={{ fontSize: 22, fontWeight: 800, color: "#457B9D", margin: "1px 0 0" }}>₹{totalPrice.toLocaleString()}</p>
         </div>
         <button onClick={handleBooking}
           style={{
             backgroundColor: "#457B9D", color: "#fff", border: "none",
-            borderRadius: 16, padding: "16px 40px",
-            display: "flex", alignItems: "center", gap: 10,
-            fontSize: 18, fontWeight: 800, cursor: "pointer",
-            boxShadow: "0 6px 20px rgba(69,123,157,0.3)",
+            borderRadius: 14, padding: "12px 24px",
+            display: "flex", alignItems: "center", gap: 8,
+            fontSize: 15, fontWeight: 800, cursor: "pointer",
+            boxShadow: "0 4px 15px rgba(69,123,157,0.25)",
           }}>
-          Confirm Booking <IconArrow />
+          Confirm <IconArrow />
         </button>
       </div>
-      
+
       <style>{`
-        .mehndi-detail-media { display: none; }
+        .mehndi-detail-media { display: block; }
         .mehndi-detail-layout { max-width: 100%; }
+        .date-scroll::-webkit-scrollbar { display: none; }
         
         @media (min-width: 1024px) {
-          .mehndi-detail-header { height: 150px; border-radius: 0; }
+          .mehndi-detail-header { height: 180px; border-radius: 0 0 40px 40px; }
+          .header-title { font-size: 28px !important; }
+          .header-desc { font-size: 16px !important; }
+          .header-icon-container { width: 70px !important; height: 70px !important; margin-bottom: 12px !important; }
+          
           .mehndi-detail-content { padding: 40px !important; margin-top: 0 !important; }
           .mehndi-detail-layout {
             display: flex;
@@ -404,12 +409,12 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
             margin: 0 auto;
           }
           .mehndi-detail-media {
-            display: block;
             flex: 1;
             position: sticky;
             top: 40px;
             height: fit-content;
           }
+          .mehndi-detail-media img { height: 400px !important; }
           .mehndi-detail-options {
             flex: 1.2;
             background: #fff;
@@ -422,6 +427,8 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
             justify-content: center !important;
             gap: 150px;
           }
+          .footer-price p:last-child { font-size: 32px !important; }
+          .mehndi-detail-footer button { padding: 18px 50px !important; font-size: 20px !important; }
         }
       `}</style>
     </div>
@@ -490,12 +497,12 @@ export default function MehndiArtist() {
       {/* Header */}
       <div style={{ backgroundColor: "#fff", borderBottom: "1px solid #f3f4f6", flexShrink: 0 }}>
         <div className="header-container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 20px", maxWidth: 1200, margin: "0 auto", width: "100%" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 15 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <button onClick={() => router.back()}
               style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", alignItems: "center", color: "#000" }}>
               <IconBack />
             </button>
-            <span style={{ fontSize: 22, fontWeight: 800, color: "#1e293b" }}>Mehndi Artists</span>
+            <span className="main-header-title" style={{ fontSize: 18, fontWeight: 800, color: "#1e293b" }}>Mehndi Artists</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 15 }}>
             <button onClick={() => { setShowSearch(s => !s); setSearchQuery(""); }}
@@ -545,11 +552,11 @@ export default function MehndiArtist() {
         </div>
 
         {/* Grid Container */}
-        <div style={{ flex: 1, backgroundColor: "#f8fafc", overflowY: "auto", padding: 20 }}>
+        <div className="grid-container" style={{ flex: 1, backgroundColor: "#f8fafc", overflowY: "auto", padding: 12 }}>
           {filteredServices.length === 0 ? (
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", flexDirection: "column", gap: 12 }}>
-              <span style={{ fontSize: 60 }}>🪷</span>
-              <p style={{ color: "#94a3b8", fontSize: 18, fontWeight: 600, margin: 0 }}>
+              <span style={{ fontSize: 40 }}>🪷</span>
+              <p style={{ color: "#94a3b8", fontSize: 14, fontWeight: 600, margin: 0 }}>
                 {showSearch && searchQuery ? "No results found" : "No services available"}
               </p>
             </div>
@@ -557,20 +564,20 @@ export default function MehndiArtist() {
             <div className="mehndi-grid">
               {filteredServices.map(item => (
                 <div key={item._id} className="mehndi-card"
-                  style={{ backgroundColor: "#fff", borderRadius: 20, overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.05)", cursor: "pointer", transition: "all 0.3s" }}
+                  style={{ backgroundColor: "#fff", borderRadius: 16, overflow: "hidden", boxShadow: "0 4px 12px rgba(0,0,0,0.04)", cursor: "pointer", transition: "all 0.3s" }}
                   onClick={() => handleArtistClick(item)}>
-                  <div style={{ width: "100%", aspectRatio: "1.2", backgroundColor: "#f1f5f9", overflow: "hidden" }}>
+                  <div style={{ width: "100%", aspectRatio: "1", backgroundColor: "#f1f5f9", overflow: "hidden" }}>
                     <img src={item.image} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                   </div>
-                  <div style={{ padding: 18 }}>
-                    <p style={{ fontSize: 16, fontWeight: 700, color: "#1e293b", margin: "0 0 6px", height: 44, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", lineHeight: 1.4 }}>
+                  <div style={{ padding: 12 }}>
+                    <p className="card-title" style={{ fontSize: 14, fontWeight: 700, color: "#1e293b", margin: "0 0 4px", height: 38, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", lineHeight: 1.3 }}>
                       {item.name}
                     </p>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 15 }}>
-                      <span style={{ fontSize: 18, fontWeight: 800, color: ACCENT }}>₹{item.price}</span>
-                      {item.time && <span style={{ fontSize: 12, color: "#94a3b8", fontWeight: 600 }}>{item.time}</span>}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                      <span className="card-price" style={{ fontSize: 16, fontWeight: 800, color: ACCENT }}>₹{item.price}</span>
+                      {item.time && <span style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600 }}>{item.time}</span>}
                     </div>
-                    <button className="book-btn" style={{ width: "100%", backgroundColor: "#fff", border: `2px solid ${ACCENT}`, borderRadius: 12, padding: "10px 0", fontSize: 14, fontWeight: 800, color: ACCENT, cursor: "pointer", transition: "all 0.2s" }}>
+                    <button className="book-btn" style={{ width: "100%", backgroundColor: "#fff", border: `1.5px solid ${ACCENT}`, borderRadius: 10, padding: "8px 0", fontSize: 12, fontWeight: 800, color: ACCENT, cursor: "pointer", transition: "all 0.2s" }}>
                       VIEW & BOOK
                     </button>
                   </div>
@@ -587,19 +594,20 @@ export default function MehndiArtist() {
           to   { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
         * { box-sizing: border-box; }
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         
+        .mehndi-sidebar { width: 70px !important; }
         .mehndi-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 16px;
+          gap: 12px;
         }
         
         .mehndi-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 12px 30px rgba(0,0,0,0.1) !important;
+          transform: translateY(-4px);
+          box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
         }
         
         .mehndi-card:hover .book-btn {
@@ -608,12 +616,19 @@ export default function MehndiArtist() {
         }
 
         @media (min-width: 768px) {
-          .mehndi-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+          .mehndi-sidebar { width: 90px !important; }
+          .grid-container { padding: 20px !important; }
+          .mehndi-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+          .main-header-title { font-size: 22px !important; }
+          .card-title { font-size: 16px !important; height: 44px !important; line-height: 1.4 !important; }
+          .card-price { font-size: 18px !important; }
+          .book-btn { font-size: 14px !important; padding: 10px 0 !important; }
         }
 
         @media (min-width: 1280px) {
-          .mehndi-grid { grid-template-columns: repeat(4, 1fr); }
-          .mehndi-sidebar { width: 150px; }
+          .mehndi-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+          .mehndi-sidebar { width: 140px !important; }
+          .mehndi-sidebar span { font-size: 11px !important; }
         }
       `}</style>
     </div>
