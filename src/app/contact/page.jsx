@@ -34,7 +34,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-bold text-gray-800">Our Office</h3>
-                <p className="text-sm text-gray-600">B-25, 2nd floor, Sector 2 Noida - 201301</p>
+                <p className="text-sm text-gray-600">NX One T3 - B111, Noida Extension - 201318</p>
               </div>
             </div>
 
@@ -44,7 +44,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-bold text-gray-800">Call Us</h3>
-                <p className="text-sm text-gray-600">+91 9717699144</p>
+                <p className="text-sm text-gray-600">+91 8887796224</p>
                 <p className="text-sm text-gray-600">0120 - 4978652</p>
               </div>
             </div>
@@ -55,7 +55,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-bold text-gray-800">Email Us</h3>
-                <p className="text-sm text-gray-600">support@helpaana.com</p>
+                <p className="text-sm text-gray-600">helpaanaworld@gmail.com</p>
               </div>
             </div>
           </div>

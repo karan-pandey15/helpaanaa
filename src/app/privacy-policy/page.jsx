@@ -58,6 +58,18 @@ export default function PrivacyPolicyPage() {
           </p>
         </section>
 
+        <section className="bg-gray-800 text-white p-6 rounded-3xl space-y-3">
+          <h3 className="font-bold text-lg">Contact Us</h3>
+          <p className="text-sm text-gray-300">
+            If you have any questions about our Privacy Policy, please contact us:
+          </p>
+          <div className="space-y-2 text-sm text-gray-300">
+            <p><strong>OFFICE:</strong> NX One T3 - B111, Noida Extension - 201318</p>
+            <p><strong>HELPLINE:</strong> +91 8887796224, 0120 - 4978652</p>
+            <p><strong>EMAIL:</strong> helpaanaworld@gmail.com</p>
+          </div>
+        </section>
+
         <p className="text-xs text-gray-400 text-center italic">
           Your continued use of our website will be regarded as acceptance of our practices around privacy and personal information.
         </p>
