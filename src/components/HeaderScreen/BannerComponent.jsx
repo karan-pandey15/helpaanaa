@@ -25,6 +25,13 @@ const bannerData = [
     title: "Expert Pandit Ji",
   },
   {
+    id: 4,
+    image: "/image/prasadseva.png",
+    route: "/pages/Pandit",
+    title: "Prasad Seva",
+  },
+  
+  {
     id: 6,
     image: "/image/three.png",
     route: "/pages/gym",
