@@ -497,23 +497,23 @@ export default function PanditPage() {
   };
 
   const renderPoojaGrid = () => (
-    <div className="flex flex-col gap-4 p-4 md:p-8 pb-24">
-      <h2 className="text-xl md:text-2xl font-bold text-gray-800">Select Pooja</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">
+    <div className="flex flex-col gap-4 p-2 sm:p-4 md:p-8 pb-24">
+      <h2 className="text-lg md:text-2xl font-bold text-gray-800">Select Pooja</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 md:gap-6">
         {POOJAS.map((item) => (
           <div key={item.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
             <img 
               src={item.image} 
-              className="h-28 md:h-40 w-full object-cover cursor-pointer hover:opacity-90 transition-opacity" 
+              className="h-24 sm:h-28 md:h-40 w-full object-contain cursor-pointer hover:opacity-90 transition-opacity bg-gray-50" 
               alt={item.title} 
               onClick={() => handleServiceClick(item, "Pooja")}
             />
-            <div className="p-3 md:p-4 flex flex-col flex-1">
-              <h3 className="text-sm md:text-base font-bold text-gray-800 line-clamp-1">{item.title}</h3>
-              <p className="text-[#457B9D] font-bold text-sm md:text-base mt-1">₹{item.price}</p>
+            <div className="p-2 sm:p-3 md:p-4 flex flex-col flex-1">
+              <h3 className="text-[11px] sm:text-sm md:text-base font-bold text-gray-800 line-clamp-1">{item.title}</h3>
+              <p className="text-[#457B9D] font-bold text-xs sm:text-sm md:text-base mt-1">₹{item.price}</p>
               <button 
                 onClick={() => handleServiceClick(item, "Pooja")}
-                className="mt-2 md:mt-4 w-full py-1.5 md:py-2.5 bg-blue-50 text-[#457B9D] rounded-lg text-xs md:text-sm font-bold border border-blue-100 hover:bg-[#457B9D] hover:text-white transition-colors"
+                className="mt-2 md:mt-4 w-full py-1.5 md:py-2.5 bg-blue-50 text-[#457B9D] rounded-lg text-[10px] sm:text-xs md:text-sm font-bold border border-blue-100 hover:bg-[#457B9D] hover:text-white transition-colors"
               >
                 Book Now
               </button>
@@ -574,42 +574,42 @@ export default function PanditPage() {
   );
 
   const renderPrasadGrid = () => (
-    <div className="flex flex-col gap-6 p-4 md:p-8 pb-24">
+    <div className="flex flex-col gap-4 p-2 sm:p-4 md:p-8 pb-24">
       <div className="flex flex-col gap-1">
-        <h2 className="text-2xl md:text-3xl font-black italic tracking-tighter text-gray-900 uppercase">Select Sacred Destination</h2>
-        <p className="text-xs md:text-sm font-bold text-gray-400 uppercase tracking-widest">Select a temple to offer Prasad</p>
+        <h2 className="text-lg md:text-3xl font-black italic tracking-tighter text-gray-900 uppercase">Select Sacred Destination</h2>
+        <p className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest">Select a temple to offer Prasad</p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 md:gap-6">
         {TEMPLES_DATA.map((item) => (
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             key={item.id} 
-            className="bg-white rounded-[24px] shadow-sm border border-gray-100 overflow-hidden flex flex-col group hover:shadow-lg transition-all duration-300"
+            className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col group hover:shadow-lg transition-all duration-300"
           >
             <div 
               onClick={() => { setSelectedTemple(item); setPrasadMode('form'); }}
-              className="relative h-32 md:h-48 w-full overflow-hidden cursor-pointer"
+              className="relative h-24 sm:h-32 md:h-48 w-full overflow-hidden cursor-pointer bg-gray-50"
             >
               <img 
                 src={item.image} 
-                className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                className="h-full w-full object-contain group-hover:scale-105 transition-transform duration-700" 
                 alt={item.name} 
               />
             </div>
 
-            <div className="p-3 md:p-5 flex flex-col flex-1">
-              <h3 className="text-[13px] md:text-base font-black text-gray-800 leading-tight mb-2 line-clamp-2 min-h-[32px] md:min-h-[48px]">{item.name}</h3>
+            <div className="p-2 sm:p-3 md:p-5 flex flex-col flex-1">
+              <h3 className="text-[11px] sm:text-sm md:text-base font-black text-gray-800 leading-tight mb-1 sm:mb-2 line-clamp-2 min-h-[32px] md:min-h-[48px]">{item.name}</h3>
               
-              <div className="flex items-center gap-1 text-[#457B9D] mb-3">
+              <div className="flex items-center gap-1 text-[#457B9D] mb-2 sm:mb-3">
                 <MapPin size={10} className="fill-[#457B9D]/10 md:size-4" />
                 <span className="text-[10px] md:text-xs font-bold">{item.location.split(',')[0]}</span>
               </div>
-              <p className='mb-2 text-sm md:text-base' ><b>Price -</b> ₹1100</p>
+              <p className='mb-2 text-[11px] sm:text-sm md:text-base' ><b>Price -</b> ₹1100</p>
               <button 
                 onClick={() => { setSelectedTemple(item); setPrasadMode('form'); }}
-                className="w-full py-2.5 md:py-3.5 bg-[#457B9D] text-white rounded-xl text-[10px] md:text-xs font-bold transition-all active:scale-95 hover:bg-[#355f79]"
+                className="w-full py-2 md:py-3.5 bg-[#457B9D] text-white rounded-lg text-[10px] md:text-xs font-bold transition-all active:scale-95 hover:bg-[#355f79]"
               >
                 Select Temple
               </button>
@@ -734,25 +734,25 @@ export default function PanditPage() {
   );
 
   const renderPanditList = () => (
-    <div className="flex flex-col gap-4 p-4 md:p-8 pb-24">
-      <h2 className="text-xl md:text-2xl font-bold text-gray-800">{selectedService} Experts</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+    <div className="flex flex-col gap-4 p-2 sm:p-4 md:p-8 pb-24">
+      <h2 className="text-lg md:text-2xl font-bold text-gray-800">{selectedService} Experts</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
         {getFilteredPandits().map((p) => (
           <div 
             key={p.id} 
             onClick={() => handleServiceClick(p, "Pandit")}
-            className="bg-white p-3 md:p-5 rounded-2xl border border-gray-100 shadow-sm flex gap-4 cursor-pointer active:scale-[0.98] hover:shadow-md transition-all"
+            className="bg-white p-2 sm:p-3 md:p-5 rounded-xl border border-gray-100 shadow-sm flex gap-3 sm:gap-4 cursor-pointer active:scale-[0.98] hover:shadow-md transition-all"
           >
-            <img src={p.image} className="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover" alt="" />
+            <img src={p.image} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-lg object-contain bg-gray-50" alt="" />
             <div className="flex-1">
-              <h3 className="font-bold text-gray-800 md:text-lg">{p.name}</h3>
-              <p className="text-[11px] md:text-xs text-gray-500 font-medium">{p.specialization}</p>
+              <h3 className="font-bold text-gray-800 text-xs sm:text-sm md:text-lg">{p.name}</h3>
+              <p className="text-[10px] sm:text-[11px] md:text-xs text-gray-500 font-medium">{p.specialization}</p>
               <div className="flex items-center gap-2 mt-2 md:mt-4">
-                <div className="flex items-center gap-1 px-1.5 py-0.5 bg-yellow-50 rounded-lg">
+                <div className="flex items-center gap-1 px-1 py-0.5 bg-yellow-50 rounded-lg">
                   <StarIcon />
-                  <span className="text-[10px] md:text-xs font-bold text-yellow-700">{p.rating}</span>
+                  <span className="text-[9px] sm:text-[10px] md:text-xs font-bold text-yellow-700">{p.rating}</span>
                 </div>
-                <span className="text-sm md:text-base font-black text-[#457B9D]">₹{p.price}</span>
+                <span className="text-xs sm:text-sm md:text-base font-black text-[#457B9D]">₹{p.price}</span>
               </div>
             </div>
           </div>
@@ -842,7 +842,7 @@ export default function PanditPage() {
       <div className="flex flex-1 overflow-hidden">
         {/* SIDEBAR */}
         {!(selectedService === 'Online Prasad Seva' && prasadMode === 'form') && (
-          <div className="w-24 md:w-32 lg:w-40 border-r border-gray-50 overflow-y-auto bg-white scrollbar-hide">
+          <div className="w-20 sm:w-24 md:w-32 border-r border-gray-50 overflow-y-auto bg-white scrollbar-hide">
             {SERVICES.map((s) => (
               <button
                 key={s.id}
@@ -851,10 +851,10 @@ export default function PanditPage() {
                   if (s.key === 'Pooja Booking') setPoojaMode('grid');
                   if (s.key === 'Online Prasad Seva') setPrasadMode('grid');
                 }}
-                className={`w-full py-5 md:py-8 flex flex-col items-center gap-2 border-b border-gray-50 transition-all ${selectedService === s.key ? 'bg-blue-50 border-r-4 border-[#457B9D]' : 'hover:bg-gray-50'}`}
+                className={`w-full py-4 md:py-8 flex flex-col items-center gap-1 md:gap-2 border-b border-gray-50 transition-all ${selectedService === s.key ? 'bg-blue-50 border-r-4 border-[#457B9D]' : 'hover:bg-gray-50'}`}
               >
-                <span className="text-2xl md:text-3xl">{s.icon}</span>
-                <span className={`text-[9px] md:text-[11px] font-black text-center px-1 uppercase leading-tight ${selectedService === s.key ? 'text-[#457B9D]' : 'text-gray-400'}`}>
+                <span className="text-xl md:text-3xl">{s.icon}</span>
+                <span className={`text-[8px] sm:text-[9px] md:text-[11px] font-black text-center px-1 uppercase leading-tight ${selectedService === s.key ? 'text-[#457B9D]' : 'text-gray-400'}`}>
                   {s.name}
                 </span>
               </button>
@@ -875,18 +875,18 @@ export default function PanditPage() {
 
       {/* FLOATING CART SUMMARY */}
       {cart.length > 0 && (
-        <div className="fixed bottom-6 right-6 left-6 md:left-auto md:w-96 z-[100]">
+        <div className="fixed bottom-4 right-4 left-4 md:left-auto md:w-80 z-[100]">
           <button 
             onClick={() => router.push('/cart')}
-            className="w-full bg-[#457B9D] text-white rounded-2xl py-4 md:py-5 px-6 flex items-center justify-between shadow-2xl shadow-blue-200 animate-in fade-in slide-in-from-bottom-4 hover:scale-[1.02] transition-transform"
+            className="w-full bg-[#457B9D] text-white rounded-xl py-3 md:py-4 px-4 md:px-6 flex items-center justify-between shadow-2xl shadow-blue-200 animate-in fade-in slide-in-from-bottom-4 hover:scale-[1.02] transition-transform"
           >
             <div className="flex flex-col items-start">
-              <span className="text-[10px] md:text-xs font-black uppercase opacity-70 tracking-widest">{cart.length} ITEMS</span>
-              <span className="text-lg md:text-xl font-black tracking-tight">₹{cartTotal}</span>
+              <span className="text-[9px] md:text-xs font-black uppercase opacity-70 tracking-widest">{cart.length} ITEMS</span>
+              <span className="text-base md:text-xl font-black tracking-tight">₹{cartTotal}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-black text-sm md:text-base tracking-widest">VIEW CART</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6" viewBox="0 0 20 20" fill="currentColor">
+              <span className="font-black text-xs md:text-base tracking-widest uppercase">VIEW CART</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-6 md:w-6" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
             </div>

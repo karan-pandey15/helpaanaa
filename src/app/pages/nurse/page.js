@@ -112,18 +112,18 @@ function CartButton({ cartItems, onViewCart }) {
   const totalAmt = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
   if (totalQty === 0) return null;
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 pointer-events-none">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-2 sm:p-4 pointer-events-none">
       <button
         onClick={onViewCart}
-        className="pointer-events-auto w-full max-w-4xl mx-auto flex items-center justify-between bg-violet-600 text-white px-5 py-3 active:scale-95 transition-transform rounded-lg shadow-lg"
+        className="pointer-events-auto w-full max-w-4xl mx-auto flex items-center justify-between bg-violet-600 text-white px-3 sm:px-5 py-2 sm:py-3 active:scale-95 transition-transform rounded-lg shadow-lg"
       >
         <div className="flex items-center gap-2">
-          <span className="bg-white text-violet-600 font-bold text-xs w-6 h-6 flex items-center justify-center rounded-full">
+          <span className="bg-white text-violet-600 font-bold text-[10px] sm:text-xs w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full">
             {totalQty}
           </span>
-          <span className="font-semibold text-sm">View Cart 🛒</span>
+          <span className="font-semibold text-xs sm:text-sm">View Cart 🛒</span>
         </div>
-        <span className="font-bold text-sm">
+        <span className="font-bold text-xs sm:text-sm">
           ₹{totalAmt.toLocaleString("en-IN")}
         </span>
       </button>
@@ -275,25 +275,25 @@ function NurseInner() {
 
       <div className="flex flex-1 overflow-hidden">
         {/* ── SIDEBAR ── */}
-        <div className="w-[100px] flex-shrink-0 bg-white border-r border-gray-100 overflow-y-auto pt-2">
+        <div className="w-20 sm:w-[100px] flex-shrink-0 bg-white border-r border-gray-100 overflow-y-auto pt-2 lg:w-[150px]">
           {CATEGORIES.map((cat) => {
             const isActive = selectedCategory?.id === cat.id;
             return (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat)}
-                className={`w-full flex flex-col items-center py-4 px-1 transition-all ${
+                className={`w-full flex flex-col items-center py-3 sm:py-4 px-1 transition-all ${
                   isActive ? "bg-violet-50" : "hover:bg-gray-50"
                 }`}
               >
                 <div
-                  className={`w-16 h-16 flex items-center justify-center rounded-full border transition-all overflow-hidden mb-2 ${
+                  className={`w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full border transition-all overflow-hidden mb-1.5 sm:mb-2 ${
                     isActive ? "bg-violet-100 border-violet-400" : "bg-gray-50 border-gray-200"
                   }`}
                 >
-                  <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" />
+                  <img src={cat.image} alt={cat.name} className="w-full h-full object-contain" />
                 </div>
-                <span className={`text-[10px] text-center font-bold px-1 ${
+                <span className={`text-[9px] sm:text-[10px] text-center font-bold px-0.5 sm:px-1 ${
                   isActive ? "text-violet-700" : "text-gray-500"
                 }`}>
                   {cat.name}
@@ -305,34 +305,34 @@ function NurseInner() {
 
         {/* ── SERVICES GRID ── */}
         <div className="flex-1 bg-white overflow-y-auto pb-24">
-          <div className="p-4 grid grid-cols-2 gap-4">
+          <div className="p-2 sm:p-4 grid grid-cols-2 gap-2 sm:gap-4">
             {STATIC_SERVICES[selectedCategory.id].map((item) => {
               const qty = getQty(item._id);
               return (
                 <div
                   key={item._id}
-                  className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden flex flex-col p-2 transition-transform active:scale-[0.98]"
+                  className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden flex flex-col p-1.5 sm:p-2 transition-transform active:scale-[0.98]"
                   onClick={() => handleServiceClick(item)}
                 >
-                  <div className="w-full aspect-square rounded-lg overflow-hidden mb-2 relative">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                    <div className="absolute top-1 right-1 bg-white/80 rounded-full w-6 h-6 flex items-center justify-center text-xs">
+                  <div className="w-full aspect-square rounded-lg overflow-hidden mb-1.5 sm:mb-2 relative">
+                    <img src={item.image} alt={item.name} className="w-full h-full object-contain" />
+                    <div className="absolute top-1 right-1 bg-white/80 rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-[10px] sm:text-xs">
                       {item.emoji}
                     </div>
                   </div>
-                  <h3 className="text-[13px] font-bold text-gray-800 leading-tight mb-1 min-h-[2.5rem]">{item.name}</h3>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-extrabold text-violet-600">₹{item.price}</span>
-                    <span className="text-[9px] text-gray-400 font-medium">{item.time}</span>
+                  <h3 className="text-[11px] sm:text-[13px] font-bold text-gray-800 leading-tight mb-1 min-h-[2.2rem] sm:min-h-[2.5rem] line-clamp-2">{item.name}</h3>
+                  <div className="flex items-center justify-between mb-2 sm:mb-3">
+                    <span className="text-xs sm:text-sm font-extrabold text-violet-600">₹{item.price}</span>
+                    <span className="text-[8px] sm:text-[9px] text-gray-400 font-medium">{item.time}</span>
                   </div>
 
                   {qty > 0 ? (
                     <div className="flex items-center justify-between bg-violet-600 rounded-md overflow-hidden" onClick={(e) => e.stopPropagation()}>
-                      <button onClick={() => decrementQty(item._id)} className="text-white font-bold text-base w-8 h-8 flex items-center justify-center hover:bg-violet-700 transition-colors">
+                      <button onClick={() => decrementQty(item._id)} className="text-white font-bold text-base w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center hover:bg-violet-700 transition-colors">
                         −
                       </button>
-                      <span className="text-white font-bold text-xs">{qty}</span>
-                      <button onClick={() => incrementQty(item._id)} className="text-white font-bold text-base w-8 h-8 flex items-center justify-center hover:bg-violet-700 transition-colors">
+                      <span className="text-white font-bold text-[10px] sm:text-xs">{qty}</span>
+                      <button onClick={() => incrementQty(item._id)} className="text-white font-bold text-base w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center hover:bg-violet-700 transition-colors">
                         +
                       </button>
                     </div>
@@ -342,7 +342,7 @@ function NurseInner() {
                         e.stopPropagation();
                         addToCart(item);
                       }}
-                      className="w-full border border-violet-500 text-violet-600 text-[11px] font-bold py-2 rounded-md hover:bg-violet-50 transition-all uppercase"
+                      className="w-full border border-violet-500 text-violet-600 text-[10px] sm:text-[11px] font-bold py-1.5 sm:py-2 rounded-md hover:bg-violet-50 transition-all uppercase"
                     >
                       Add
                     </button>

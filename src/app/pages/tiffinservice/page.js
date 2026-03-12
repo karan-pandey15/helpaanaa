@@ -106,20 +106,25 @@ function CartButton({ cartItems, onViewCart }) {
   const totalAmt = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
   if (totalQty === 0) return null;
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 pointer-events-none">
+    <div className="fixed bottom-4 left-4 right-4 z-50 pointer-events-none">
       <button
         onClick={onViewCart}
-        className="pointer-events-auto w-full max-w-4xl mx-auto flex items-center justify-between bg-violet-600 text-white px-5 py-3 active:scale-95 transition-transform rounded-lg shadow-xl"
+        className="pointer-events-auto w-full max-w-lg mx-auto flex items-center justify-between bg-violet-600 text-white px-4 sm:px-6 py-3 sm:py-4 active:scale-95 transition-transform rounded-xl shadow-2xl"
       >
-        <div className="flex items-center gap-2">
-          <span className="bg-white text-violet-600 font-bold text-xs w-6 h-6 flex items-center justify-center rounded-full">
-            {totalQty}
+        <div className="flex flex-col items-start">
+          <span className="text-[9px] sm:text-xs font-black uppercase opacity-70 tracking-widest">
+            {totalQty} ITEMS
           </span>
-          <span className="font-semibold text-sm">View Cart 🛒</span>
+          <span className="font-bold text-sm sm:text-xl tracking-tight">
+            ₹{totalAmt.toLocaleString("en-IN")}
+          </span>
         </div>
-        <span className="font-bold text-sm">
-          ₹{totalAmt.toLocaleString("en-IN")}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="font-black text-xs sm:text-base tracking-widest uppercase">VIEW CART</span>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-6 sm:h-6" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+          </svg>
+        </div>
       </button>
     </div>
   );
@@ -276,25 +281,25 @@ function TiffinServiceInner() {
 
       <div className="flex flex-1 overflow-hidden" style={{ height: "calc(100vh - 60px)" }}>
         {/* ── SIDEBAR ── */}
-        <div className="w-[100px] flex-shrink-0 bg-white border-r border-gray-100 overflow-y-auto lg:w-[150px]">
+        <div className="w-20 sm:w-24 flex-shrink-0 bg-white border-r border-gray-100 overflow-y-auto">
           {CATEGORIES.map((cat) => {
             const isActive = selectedCategory?.id === cat.id;
             return (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat)}
-                className={`w-full flex flex-col items-center py-3 px-1 transition-colors ${
+                className={`w-full flex flex-col items-center py-2.5 sm:py-3 px-1 transition-colors ${
                   isActive ? "bg-violet-50" : "hover:bg-gray-50"
                 }`}
               >
                 <div
-                  className={`w-14 h-14 flex items-center justify-center text-2xl mb-1.5 border transition-colors ${
+                  className={`w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center text-lg sm:text-2xl mb-1 border transition-colors rounded-lg ${
                     isActive ? "bg-violet-100 border-violet-400" : "bg-gray-50 border-gray-200"
                   }`}
                 >
                   {cat.emoji}
                 </div>
-                <span className={`text-[10px] text-center font-medium leading-tight px-1 ${
+                <span className={`text-[9px] sm:text-[10px] text-center font-bold leading-tight px-0.5 sm:px-1 uppercase tracking-tighter ${
                   isActive ? "text-violet-700" : "text-gray-600"
                 }`}>
                   {cat.name}
@@ -306,14 +311,14 @@ function TiffinServiceInner() {
 
         {/* ── SERVICES GRID ── */}
         <div className="flex-1 bg-gray-50 overflow-y-auto pb-28">
-          <div className="max-w-7xl mx-auto p-4 lg:p-6">
+          <div className="max-w-7xl mx-auto p-2 sm:p-4 lg:p-6">
             {selectedCategory && (
-              <div className="px-2 py-2 mb-4">
-                <h2 className="text-lg font-bold text-gray-800">{selectedCategory.name}</h2>
+              <div className="px-2 py-1 sm:py-2 mb-2 sm:mb-4">
+                <h2 className="text-base sm:text-lg font-bold text-gray-800">{selectedCategory.name}</h2>
               </div>
             )}
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 md:gap-6">
               {currentServices.map((item) => {
                 const qty = getQty(item._id);
                 const emoji = item.emoji || getServiceEmoji(item._id);
@@ -325,41 +330,41 @@ function TiffinServiceInner() {
                     className="bg-white overflow-hidden border border-gray-100 flex flex-col cursor-pointer active:scale-95 transition-transform rounded-xl shadow-sm"
                     onClick={() => handleServiceClick(item)}
                   >
-                    <div className="w-full aspect-square bg-violet-50 flex items-center justify-center overflow-hidden relative text-5xl">
+                    <div className="w-full aspect-square bg-violet-50 flex items-center justify-center overflow-hidden relative text-3xl sm:text-5xl">
                       {emoji}
                       <img
                         src={imageUrl}
                         alt={item.name}
-                        className="w-full h-full object-cover absolute inset-0"
+                        className="w-full h-full object-contain absolute inset-0"
                         onError={(e) => { e.currentTarget.style.display = "none"; }}
                       />
                     </div>
 
-                    <div className="p-3 flex flex-col flex-1">
-                      <p className="text-sm font-bold text-gray-800 leading-tight line-clamp-2 min-h-[2.5rem]">
+                    <div className="p-2 sm:p-3 flex flex-col flex-1">
+                      <p className="text-[11px] sm:text-sm font-bold text-gray-800 leading-tight line-clamp-2 min-h-[2.2rem] sm:min-h-[2.5rem]">
                         {item.name}
                       </p>
-                      <div className="flex items-center justify-between mt-2 mb-3">
-                        <span className="text-base font-extrabold text-violet-600">
+                      <div className="flex items-center justify-between mt-2 mb-2 sm:mb-3">
+                        <span className="text-sm sm:text-base font-extrabold text-violet-600">
                           ₹{item.price?.toLocaleString("en-IN")}
                         </span>
                       </div>
 
                       {qty > 0 ? (
                         <div
-                          className="flex items-center justify-between bg-violet-600 px-3 py-1.5 rounded-lg"
+                          className="flex items-center justify-between bg-violet-600 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <button
                             onClick={() => decrementQty(item._id)}
-                            className="text-white font-bold text-xl w-8 h-8 flex items-center justify-center"
+                            className="text-white font-bold text-lg sm:text-xl w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center"
                           >
                             −
                           </button>
-                          <span className="text-white font-bold text-base">{qty}</span>
+                          <span className="text-white font-bold text-sm sm:text-base">{qty}</span>
                           <button
                             onClick={() => incrementQty(item._id)}
-                            className="text-white font-bold text-xl w-8 h-8 flex items-center justify-center"
+                            className="text-white font-bold text-lg sm:text-xl w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center"
                           >
                             +
                           </button>
@@ -370,7 +375,7 @@ function TiffinServiceInner() {
                             e.stopPropagation();
                             addToCart(item);
                           }}
-                          className="w-full border-2 border-violet-500 text-violet-600 text-sm font-bold py-2 hover:bg-violet-50 transition-colors rounded-lg"
+                          className="w-full border-2 border-violet-500 text-violet-600 text-[10px] sm:text-sm font-bold py-1.5 sm:py-2 hover:bg-violet-50 transition-colors rounded-lg"
                         >
                           ADD TO CART
                         </button>

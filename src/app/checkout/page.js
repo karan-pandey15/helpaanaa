@@ -126,6 +126,8 @@ export default function CheckoutPage() {
           description: item.description || null,
           category: item.category || null,
           devoteeName: item.devoteeName || null,
+          studentName: item.studentName || null,
+          studentClass: item.studentClass || null,
           instructions: item.instructions || null,
           package: item.package || null,
           hands: item.hands || null

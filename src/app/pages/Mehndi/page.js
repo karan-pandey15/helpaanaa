@@ -527,16 +527,16 @@ export default function MehndiArtist() {
       <div className="main-content-wrapper" style={{ flex: 1, display: "flex", overflow: "hidden", maxWidth: 1400, margin: "0 auto", width: "100%" }}>
 
         {/* Sidebar */}
-        <div className="mehndi-sidebar" style={{ width: 120, backgroundColor: "#fff", borderRight: "1px solid #f3f4f6", overflowY: "auto", flexShrink: 0, scrollbarWidth: "none" }}>
+        <div className="mehndi-sidebar" style={{ width: 80, backgroundColor: "#fff", borderRight: "1px solid #f3f4f6", overflowY: "auto", flexShrink: 0, scrollbarWidth: "none" }}>
           {CATEGORIES.map(cat => {
             const active = selectedCategory.id === cat.id;
             return (
               <button key={cat.id} onClick={() => setSelectedCategory(cat)}
-                style={{ width: "100%", padding: "18px 8px", display: "flex", flexDirection: "column", alignItems: "center", gap: 10, backgroundColor: active ? "#eef6fa" : "#fff", border: "none", cursor: "pointer", borderRight: active ? `4px solid ${ACCENT}` : "4px solid transparent", transition: "all 0.2s" }}>
-                <div style={{ width: 70, height: 70, borderRadius: 35, backgroundColor: active ? "#e0eff5" : "#f9fafb", border: `2px solid ${active ? ACCENT : "#f1f5f9"}`, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", boxShadow: active ? "0 4px 12px rgba(69,123,157,0.15)" : "none" }}>
-                  <img src={cat.icon} alt={cat.name} style={{ width: 40, height: 40, objectFit: "contain" }} onError={e => { e.target.onerror = null; e.target.src = "/image/mehndi.png"; }} />
+                style={{ width: "100%", padding: "12px 4px", display: "flex", flexDirection: "column", alignItems: "center", gap: 6, backgroundColor: active ? "#eef6fa" : "#fff", border: "none", cursor: "pointer", borderRight: active ? `3px solid ${ACCENT}` : "3px solid transparent", transition: "all 0.2s" }}>
+                <div style={{ width: 50, height: 50, borderRadius: 25, backgroundColor: active ? "#e0eff5" : "#f9fafb", border: `2px solid ${active ? ACCENT : "#f1f5f9"}`, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", boxShadow: active ? "0 4px 12px rgba(69,123,157,0.1)" : "none" }}>
+                  <img src={cat.icon} alt={cat.name} style={{ width: 30, height: 30, objectFit: "contain" }} onError={e => { e.target.onerror = null; e.target.src = "/image/mehndi.png"; }} />
                 </div>
-                <span style={{ fontSize: 12, textAlign: "center", fontWeight: active ? 700 : 500, color: active ? ACCENT : "#64748b", lineHeight: 1.3, padding: "0 4px" }}>
+                <span style={{ fontSize: 9, textAlign: "center", fontWeight: 800, color: active ? ACCENT : "#64748b", lineHeight: 1.2, padding: "0 2px", textTransform: "uppercase", letterSpacing: "-0.01em" }}>
                   {cat.name}
                 </span>
               </button>

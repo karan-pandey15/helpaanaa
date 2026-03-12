@@ -53,6 +53,7 @@ function GymPageInner() {
       const mappedList = list.map(item => ({
         ...item,
         price: item.monthlyPrice || 0,
+        isAC: item._id ? (item._id.charCodeAt(item._id.length - 1) % 2 === 0) : Math.random() > 0.5,
       }));
 
       setAllGyms(mappedList);
@@ -123,6 +124,7 @@ function GymPageInner() {
       image: imageUrl.startsWith("data:") ? "base64" : imageUrl, // Flag for base64
       hours: hours,
       duration: "Monthly",
+      isAC: (!!item.isAC).toString(),
     });
     router.push(`/pages/gymdetails?${params.toString()}`);
   };
@@ -131,8 +133,9 @@ function GymPageInner() {
   const incrementQty = (item) => {
     dispatch(addToCartRedux({
       id: item._id,
-      name: item.name,
+      name: `${item.name} (${item.isAC ? 'AC' : 'Non-AC'})`,
       price: item.price,
+      isAC: item.isAC
     }));
   };
 
@@ -171,19 +174,19 @@ function GymPageInner() {
 
       <div className="flex flex-1 overflow-hidden">
         {/* ── CITY SIDEBAR (Line by line tabs) ── */}
-        <div className="w-24 md:w-32 bg-white border-r border-gray-100 overflow-y-auto flex flex-col pt-4">
-          <span className="px-3 text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Cities</span>
+        <div className="w-20 sm:w-24 md:w-32 bg-white border-r border-gray-100 overflow-y-auto flex flex-col pt-4">
+          <span className="px-2 sm:px-3 text-[8px] sm:text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Cities</span>
           {cities.map((city) => (
             <button
               key={city}
               onClick={() => setSelectedCity(city)}
-              className={`py-4 px-3 text-left transition-all relative ${
+              className={`py-3 sm:py-4 px-2 sm:px-3 text-left transition-all relative ${
                 selectedCity === city 
                   ? "text-violet-600 font-bold bg-violet-50" 
                   : "text-gray-500 hover:bg-gray-50"
               }`}
             >
-              <span className="text-xs md:text-sm block truncate">{city}</span>
+              <span className="text-[10px] sm:text-xs md:text-sm block truncate uppercase tracking-tighter">{city}</span>
               {selectedCity === city && (
                 <div className="absolute right-0 top-0 bottom-0 w-1 bg-violet-600 rounded-l" />
               )}
@@ -233,54 +236,59 @@ function GymPageInner() {
                     return (
                       <div 
                         key={item._id} 
-                        className="bg-white rounded-[24px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-50 flex flex-col group"
+                        className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col group"
                         onClick={() => handleServiceClick(item)}
                       >
                         {imageUrl && (
-                          <div className="w-full aspect-[16/9] overflow-hidden relative">
+                          <div className="w-full aspect-video overflow-hidden relative bg-gray-50">
                             <img 
                               src={imageUrl} 
                               alt={item.name} 
-                              className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+                              className="w-full h-full object-contain group-hover:scale-105 transition duration-700"
                               onError={(e) => { e.currentTarget.style.display = "none"; }} 
                             />
-                            <div className="absolute top-4 left-4">
-                              <span className="bg-black/60 backdrop-blur-md text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-tighter">
+                            <div className="absolute top-2 left-2">
+                              <span className="bg-black/60 backdrop-blur-md text-white text-[8px] sm:text-[10px] font-black px-2 py-1 rounded-full uppercase tracking-tighter">
                                 {item.address?.city}
                               </span>
                             </div>
-                            <div className="absolute bottom-4 right-4">
-                              <span className="bg-green-500 text-white text-[9px] font-black px-2 py-1 rounded shadow-lg uppercase">
+                            <div className="absolute bottom-2 right-2">
+                              <span className="bg-green-500 text-white text-[8px] font-black px-1.5 py-0.5 rounded shadow-lg uppercase">
                                 Verified
                               </span>
                             </div>
                           </div>
                         )}
                         
-                        <div className="p-5 flex flex-col flex-1">
-                          <h3 className="text-lg font-black text-gray-900 leading-tight mb-1 group-hover:text-violet-600 transition">{item.name}</h3>
-                          <p className="text-xs text-gray-400 font-medium mb-3 italic">📍 {item.address?.landmark || item.address?.street}</p>
+                        <div className="p-3 sm:p-5 flex flex-col flex-1">
+                          <h3 className="text-sm sm:text-lg font-black text-gray-900 leading-tight mb-1 group-hover:text-violet-600 transition">{item.name}</h3>
+                          <p className="text-[10px] sm:text-xs text-gray-400 font-medium mb-2 sm:mb-3 italic">📍 {item.address?.landmark || item.address?.street}</p>
                           
-                          <p className="text-xs text-gray-500 line-clamp-2 mb-4 leading-relaxed">{item.description}</p>
+                          <p className="text-[10px] sm:text-xs text-gray-500 line-clamp-2 mb-3 sm:mb-4 leading-relaxed">{item.description}</p>
                           
-                          <div className="flex items-center justify-between mt-auto bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                          <div className="flex items-center justify-between mt-auto bg-gray-50 p-2 sm:p-3 rounded-xl border border-gray-100">
                             <div>
-                              <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Monthly</p>
-                              <span className="text-xl font-black text-violet-600">₹{item.price?.toLocaleString("en-IN")}</span>
+                              <div className="flex items-center gap-1 mb-0.5">
+                                <p className="text-[8px] sm:text-[10px] text-gray-400 font-black uppercase tracking-widest">Monthly</p>
+                                <span className={`text-[7px] sm:text-[8px] font-black px-1 sm:px-1.5 py-0.5 rounded uppercase tracking-tighter ${item.isAC ? 'bg-blue-100 text-blue-600' : 'bg-orange-100 text-orange-600'}`}>
+                                  {item.isAC ? 'AC' : 'Non AC'}
+                                </span>
+                              </div>
+                              <span className="text-sm sm:text-xl font-black text-violet-600">₹{item.price?.toLocaleString("en-IN")}</span>
                             </div>
                             
                             {qty > 0 ? (
-                              <div className="flex items-center gap-4 bg-violet-600 rounded-xl px-3 py-2 shadow-lg shadow-violet-200" onClick={(e) => e.stopPropagation()}>
-                                <button onClick={() => decrementQty(item._id)} className="text-white font-bold text-xl">−</button>
-                                <span className="text-white font-bold">{qty}</span>
-                                <button onClick={() => incrementQty(item)} className="text-white font-bold text-xl">+</button>
+                              <div className="flex items-center gap-2 sm:gap-4 bg-violet-600 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1 sm:py-2 shadow-lg shadow-violet-200" onClick={(e) => e.stopPropagation()}>
+                                <button onClick={() => decrementQty(item._id)} className="text-white font-bold text-lg sm:text-xl">−</button>
+                                <span className="text-white font-bold text-xs sm:text-base">{qty}</span>
+                                <button onClick={() => incrementQty(item)} className="text-white font-bold text-lg sm:text-xl">+</button>
                               </div>
                             ) : (
                               <button 
                                 onClick={(e) => { e.stopPropagation(); handleServiceClick(item); }}
-                                className="bg-gray-900 text-white text-xs font-black px-5 py-3 rounded-xl hover:bg-violet-600 transition shadow-lg active:scale-95"
+                                className="bg-gray-900 text-white text-[10px] sm:text-xs font-black px-3 sm:px-5 py-2 sm:py-3 rounded-lg sm:rounded-xl hover:bg-violet-600 transition shadow-lg active:scale-95 uppercase"
                               >
-                                SELECT
+                                Select
                               </button>
                             )}
                           </div>

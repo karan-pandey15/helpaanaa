@@ -160,7 +160,7 @@ const ServiceDetail = ({
             <img 
               src={image} 
               alt={title}
-              className="absolute inset-0 w-full h-full object-cover z-10"
+              className="absolute inset-0 w-full h-full object-contain z-10"
             />
             
             {/* Gradient Overlay */}
@@ -176,7 +176,7 @@ const ServiceDetail = ({
                 <span className="px-3 py-1.5 bg-yellow-400 text-black text-[10px] font-black uppercase mb-3 inline-block rounded shadow-lg">
                   {item.category}
                 </span>
-                <h2 className="text-3xl md:text-5xl lg:text-6xl font-black italic tracking-tighter text-white leading-[0.95] uppercase drop-shadow-2xl">
+                <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black italic tracking-tighter text-white leading-[0.95] uppercase drop-shadow-2xl">
                   {title}
                 </h2>
               </motion.div>
@@ -207,7 +207,7 @@ const ServiceDetail = ({
                 <div>
                   <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1">Total Pricing</p>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-4xl lg:text-5xl font-black text-gray-900">₹{basePrice}</span>
+                    <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900">₹{basePrice}</span>
                     <span className="text-xs font-bold text-gray-500">/ service</span>
                   </div>
                 </div>
@@ -364,7 +364,7 @@ const ServiceDetail = ({
           </div>
           <button 
             onClick={handleAddToCart}
-            className="flex-1 bg-gradient-to-r from-[#457b9d] to-[#1d3557] text-white py-4 px-6 rounded-xl font-black text-base lg:text-lg active:scale-95 transition-all flex items-center justify-center gap-2 group italic uppercase shadow-lg hover:shadow-xl"
+            className="flex-1 bg-gradient-to-r from-[#457b9d] to-[#1d3557] text-white py-3.5 sm:py-4 px-4 sm:px-6 rounded-xl font-black text-sm sm:text-base lg:text-lg active:scale-95 transition-all flex items-center justify-center gap-2 group italic uppercase shadow-lg hover:shadow-xl"
           >
             Confirm Booking
             <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />

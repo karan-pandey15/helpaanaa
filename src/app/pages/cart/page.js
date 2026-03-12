@@ -186,6 +186,11 @@ const CartPage = () => {
                                 <User size={12} className="text-[#457b9d]" /> {item.devoteeName}
                               </div>
                             )}
+                            {item.studentName && (
+                              <div className="flex items-center gap-1.5 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-tighter">
+                                <User size={12} className="text-[#457b9d]" /> {item.studentName} {item.studentClass ? `(${item.studentClass})` : ''}
+                              </div>
+                            )}
                           </div>
                         </div>
 

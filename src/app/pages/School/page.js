@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, removeFromCart } from '@/redux/cartSlice';
 
 // --- DUMMY DATA ---
 const SCHOOLS = [
@@ -76,6 +78,10 @@ const Icon = ({ name, className = "w-6 h-6", color = "currentColor" }) => {
 
 export default function SchoolPage() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const reduxCartItems = useSelector((state) => state.cart.items);
+  const reduxTotalAmount = useSelector((state) => state.cart.totalAmount);
+
   // --- STATE ---
   const [view, setView] = useState('schoolList'); // schoolList, schoolDetail, categoryProducts, productDetail
   const [selectedSchool, setSelectedSchool] = useState(null);
@@ -86,19 +92,8 @@ export default function SchoolPage() {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedShoeSize, setSelectedShoeSize] = useState(null);
-
-  const [cart, setCart] = useState([]);
-
-  // Load cart from local storage
-  useEffect(() => {
-    const savedCart = localStorage.getItem('school_cart');
-    if (savedCart) setCart(JSON.parse(savedCart));
-  }, []);
-
-  // Save cart to local storage
-  useEffect(() => {
-    localStorage.setItem('school_cart', JSON.stringify(cart));
-  }, [cart]);
+  const [studentName, setStudentName] = useState('');
+  const [studentClass, setStudentClass] = useState('');
 
   // --- LOGIC ---
   const filteredSchools = SCHOOLS.filter(school =>
@@ -113,6 +108,8 @@ export default function SchoolPage() {
       setSelectedSize(null);
       setSelectedColor(null);
       setSelectedShoeSize(null);
+      setStudentName('');
+      setStudentClass('');
     } else if (view === 'categoryProducts') {
       setView('schoolDetail');
       setSelectedCategory(null);
@@ -125,13 +122,18 @@ export default function SchoolPage() {
   };
 
   const getItemQuantity = (productId) => {
-    const item = cart.find(i => i.id === productId);
+    const item = reduxCartItems.find(i => i.productId === productId);
     return item ? item.quantity : 0;
   };
 
   const handleAddToCart = (product) => {
+    if ((product.category === 'boys' || product.category === 'girls' || product.category === 'shoes') && (!studentName || !studentClass)) {
+      alert('Please enter student name and class');
+      return;
+    }
     const newItem = {
-      id: product.id,
+      id: product.id + (selectedSize || '') + (selectedColor || '') + (selectedShoeSize || ''),
+      productId: product.id,
       name: product.name,
       price: product.price,
       image: null,
@@ -139,18 +141,26 @@ export default function SchoolPage() {
       selectedSize,
       selectedColor,
       selectedShoeSize,
+      studentName,
+      studentClass,
+      category: product.category,
     };
-    setCart([...cart, newItem]);
+    dispatch(addToCart(newItem));
   };
 
   const updateQuantity = (productId, delta) => {
-    setCart(prev => prev.map(item => 
-      item.id === productId ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
-    ).filter(item => item.quantity > 0));
+    const item = reduxCartItems.find(i => i.productId === productId);
+    if (!item) return;
+
+    if (delta > 0) {
+      dispatch(addToCart(item));
+    } else {
+      dispatch(removeFromCart(item.id));
+    }
   };
 
-  const cartCount = cart.reduce((acc, curr) => acc + curr.quantity, 0);
-  const cartTotal = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
+  const cartCount = reduxCartItems.length;
+  const cartTotal = reduxTotalAmount;
 
   // --- VIEWS ---
 
@@ -170,13 +180,16 @@ export default function SchoolPage() {
     if (cartCount === 0) return null;
     return (
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md z-50">
-        <button className="w-full bg-blue-600 text-white rounded-2xl p-4 flex items-center justify-between shadow-xl shadow-blue-200 animate-in fade-in slide-in-from-bottom-4">
+        <button 
+          onClick={() => router.push('/cart')}
+          className="w-full bg-blue-600 text-white rounded-2xl p-4 flex items-center justify-between shadow-xl shadow-blue-200 animate-in fade-in slide-in-from-bottom-4 active:scale-95 transition-all"
+        >
           <div className="flex flex-col items-start">
             <span className="text-[10px] font-bold uppercase tracking-wider opacity-80">{cartCount} ITEMS</span>
             <span className="text-lg font-bold">₹{cartTotal}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="font-bold">VIEW CART</span>
+            <span className="font-bold uppercase italic">View Cart</span>
             <Icon name="cart" className="w-5 h-5" color="white" />
           </div>
         </button>
@@ -394,6 +407,35 @@ export default function SchoolPage() {
                         {s}
                       </button>
                     ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Student Details for Uniforms and Shoes */}
+              {(selectedProduct.category === 'boys' || selectedProduct.category === 'girls' || selectedProduct.category === 'shoes') && (
+                <div className="space-y-4 pt-4 border-t border-slate-100">
+                  <h4 className="text-sm font-bold text-slate-800">Student Details</h4>
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">Student Name</label>
+                      <input 
+                        type="text" 
+                        placeholder="Enter Student Name"
+                        value={studentName}
+                        onChange={(e) => setStudentName(e.target.value)}
+                        className="w-full h-12 px-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm font-medium"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">Class / Section</label>
+                      <input 
+                        type="text" 
+                        placeholder="e.g. 5th - B"
+                        value={studentClass}
+                        onChange={(e) => setStudentClass(e.target.value)}
+                        className="w-full h-12 px-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm font-medium"
+                      />
+                    </div>
                   </div>
                 </div>
               )}

@@ -31,6 +31,7 @@ const GymDetails = () => {
   const description = searchParams.get('description') || '';
   const hours = searchParams.get('hours') || '6 AM - 10 PM';
   const gymId = searchParams.get('id') || `gym_${Date.now()}`;
+  const isAC = searchParams.get('isAC') === 'true';
 
   // 2. State Management
   const [gymImage, setGymImage] = useState('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800');
@@ -93,7 +94,7 @@ const GymDetails = () => {
     
     dispatch(addToCart({
       id: `${gymId}_${selectedMonth}_${selectedTimeSlot}_${planType}_${duration}`,
-      name: `${title} (${displayDuration})`,
+      name: `${title} (${isAC ? 'AC' : 'Non-AC'}) (${displayDuration})`,
       image: gymImage,
       price: basePrice,
       totalPrice: totalPrice,
@@ -105,7 +106,8 @@ const GymDetails = () => {
       timeSlot: selectedTimeSlot,
       planType,
       monthCount: planType === 'Yearly' ? 12 : duration,
-      isGym: true
+      isGym: true,
+      isAC: isAC
     }));
     router.push('/cart');
   };
@@ -128,7 +130,12 @@ const GymDetails = () => {
           <img src={gymImage} alt={title} className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
           <div className="absolute bottom-10 left-8 right-8 text-white">
-            <span className="px-3 py-1 bg-violet-600 text-[10px] font-black uppercase rounded mb-3 inline-block">Verified Facility</span>
+            <div className="flex gap-2 mb-3">
+              <span className="px-3 py-1 bg-violet-600 text-[10px] font-black uppercase rounded inline-block">Verified Facility</span>
+              <span className={`px-3 py-1 text-[10px] font-black uppercase rounded inline-block ${isAC ? 'bg-blue-600' : 'bg-orange-600'}`}>
+                {isAC ? 'AC' : 'Non AC'}
+              </span>
+            </div>
             <h2 className="text-4xl md:text-6xl font-black leading-none uppercase tracking-tighter italic">{title}</h2>
           </div>
         </div>
@@ -262,6 +269,11 @@ const GymDetails = () => {
             <ul className="space-y-3 text-xs font-bold text-gray-700">
               <li className="flex items-center gap-3"><CheckCircle2 size={16} className="text-green-500" /> Starts: {dates[selectedDate]?.dateNum} {selectedMonth}</li>
               <li className="flex items-center gap-3"><Clock size={16} className="text-violet-500" /> Time: {selectedTime} ({selectedTimeSlot})</li>
+              <li className="flex items-center gap-3">
+                <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${isAC ? 'bg-blue-100 text-blue-600' : 'bg-orange-100 text-orange-600'}`}>
+                  {isAC ? 'AC' : 'Non-AC'} Facility
+                </span>
+              </li>
             </ul>
           </section>
         </div>

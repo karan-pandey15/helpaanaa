@@ -71,18 +71,18 @@ function CartButton({ cartItems, onViewCart }) {
   const totalAmt = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
   if (totalQty === 0) return null;
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-8 pointer-events-none flex justify-center md:justify-end">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-2 sm:p-4 pointer-events-none flex justify-center md:justify-end">
       <button
         onClick={onViewCart}
-        className="pointer-events-auto w-full max-w-lg md:w-96 flex items-center justify-between bg-violet-600 text-white px-5 md:px-8 py-3 md:py-5 rounded-2xl md:rounded-3xl shadow-2xl shadow-violet-300 active:scale-95 transition-transform"
+        className="pointer-events-auto w-full max-w-lg md:w-96 flex items-center justify-between bg-violet-600 text-white px-3 sm:px-5 md:px-8 py-2 sm:py-3 md:py-5 rounded-xl sm:rounded-2xl md:rounded-3xl shadow-2xl shadow-violet-300 active:scale-95 transition-transform"
       >
         <div className="flex items-center gap-2 md:gap-4">
-          <span className="bg-white text-violet-600 font-bold text-xs md:text-sm rounded-full w-6 h-6 md:w-8 md:h-8 flex items-center justify-center">
+          <span className="bg-white text-violet-600 font-bold text-[10px] sm:text-xs md:text-sm rounded-full w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex items-center justify-center">
             {totalQty}
           </span>
-          <span className="font-bold text-sm md:text-lg">View Cart 🛒</span>
+          <span className="font-bold text-xs sm:text-sm md:text-lg">View Cart 🛒</span>
         </div>
-        <span className="font-black text-sm md:text-xl">
+        <span className="font-black text-xs sm:text-sm md:text-xl">
           ₹{totalAmt.toLocaleString("en-IN")}
         </span>
       </button>
@@ -192,13 +192,13 @@ function ServiceDetailModal({ item, qty, onClose, onAdd, onInc, onDec }) {
       >
         <div className="flex flex-col md:flex-row gap-8 md:gap-12">
           {/* Left: Image */}
-          <div className="w-full md:w-1/2 aspect-square md:aspect-auto md:h-[400px] bg-violet-50 rounded-2xl flex items-center justify-center text-7xl overflow-hidden relative shadow-inner">
+          <div className="w-full md:w-1/2 aspect-square md:aspect-auto md:h-[400px] bg-violet-50 rounded-2xl flex items-center justify-center text-5xl sm:text-7xl overflow-hidden relative shadow-inner">
             
             {(item.images?.[0]?.url || item.image) && (
               <img 
                 src={item.images?.[0]?.url || item.image} 
                 alt={item.name}
-                className="w-full h-full object-cover absolute inset-0"
+                className="w-full h-full object-contain absolute inset-0"
                 onError={(e) => {
                   e.currentTarget.style.display = "none";
                 }}
@@ -449,19 +449,19 @@ function AllCategoryInner() {
           style={{ height: "calc(100vh - 60px)" }}
         >
           {/* ── SIDEBAR ── */}
-          <div className="w-[100px] md:w-[160px] flex-shrink-0 bg-white border-r border-gray-100 overflow-y-auto scrollbar-hide">
+          <div className="w-20 sm:w-[100px] md:w-[160px] flex-shrink-0 bg-white border-r border-gray-100 overflow-y-auto scrollbar-hide">
             {CATEGORIES.map((cat) => {
               const isActive = selectedCategory?.id === cat.id;
               return (
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`w-full flex flex-col items-center py-4 md:py-8 px-1 transition-colors ${
+                  className={`w-full flex flex-col items-center py-3 sm:py-4 md:py-8 px-1 transition-colors ${
                     isActive ? "bg-violet-50 border-r-4 border-violet-600" : "hover:bg-gray-50"
                   }`}
                 >
                   <div
-                    className={`w-14 h-14 md:w-20 md:h-20 rounded-full flex items-center justify-center text-2xl md:text-4xl mb-1.5 border transition-colors ${
+                    className={`w-11 h-11 sm:w-14 sm:h-14 md:w-20 md:h-20 rounded-full flex items-center justify-center text-xl sm:text-2xl md:text-4xl mb-1.5 border transition-colors ${
                       isActive
                         ? "bg-violet-100 border-violet-400"
                         : "bg-gray-50 border-gray-200"
@@ -470,14 +470,14 @@ function AllCategoryInner() {
                     {cat.emoji}
                   </div>
                   <span
-                    className={`text-[10px] md:text-sm text-center font-bold leading-tight px-1 uppercase tracking-tight ${
+                    className={`text-[9px] sm:text-[10px] md:text-sm text-center font-bold leading-tight px-0.5 sm:px-1 uppercase tracking-tight ${
                       isActive ? "text-violet-700" : "text-gray-600"
                     }`}
                   >
                     {cat.name}
                   </span>
                   {apiErrors[cat.id] && (
-                    <span className="text-[9px] md:text-xs text-red-400 mt-0.5">
+                    <span className="text-[8px] sm:text-[9px] md:text-xs text-red-400 mt-0.5">
                       ⚠ no data
                     </span>
                   )}
@@ -488,14 +488,14 @@ function AllCategoryInner() {
 
           {/* ── SERVICES GRID ── */}
           <div className="flex-1 bg-gray-50 overflow-y-auto pb-28 scrollbar-hide">
-            <div className="p-2 md:p-8">
+            <div className="p-2 sm:p-4 md:p-8">
               {selectedCategory && (
-                <div className="px-2 py-2 mb-2 md:mb-6">
-                  <h2 className="text-sm md:text-2xl font-bold text-gray-700">
+                <div className="px-2 py-1 sm:py-2 mb-2 md:mb-6">
+                  <h2 className="text-base sm:text-lg md:text-2xl font-bold text-gray-700">
                     {selectedCategory.name}
                   </h2>
                   {apiErrors[selectedCategory.id] && (
-                    <p className="text-xs md:text-sm text-red-400 mt-0.5">
+                    <p className="text-[10px] sm:text-xs md:text-sm text-red-400 mt-0.5">
                       ⚠ Could not load from server.
                     </p>
                   )}
@@ -504,19 +504,19 @@ function AllCategoryInner() {
 
               {currentServices.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 md:py-32 text-center">
-                  <div className="text-5xl md:text-8xl mb-3">📭</div>
-                  <p className="text-gray-400 text-sm md:text-lg">
+                  <div className="text-4xl sm:text-5xl md:text-8xl mb-3">📭</div>
+                  <p className="text-gray-400 text-xs sm:text-sm md:text-lg">
                     No services available in this category
                   </p>
                   <button
                     onClick={fetchAllServices}
-                    className="mt-4 text-violet-600 text-xs md:text-sm font-medium underline"
+                    className="mt-4 text-violet-600 text-[10px] sm:text-xs md:text-sm font-medium underline"
                   >
                     Retry
                   </button>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 md:gap-6">
                   {currentServices.map((item) => {
                     const qty = getQty(item._id);
                     const emoji = item.emoji || getServiceEmoji(item._id);
@@ -529,31 +529,31 @@ function AllCategoryInner() {
                         onClick={() => handleServiceClick(item)}
                       >
                         {/* Image / emoji */}
-                        <div className="w-full aspect-[1.2/1] bg-violet-50 flex items-center justify-center overflow-hidden relative">
+                        <div className="w-full aspect-square bg-violet-50 flex items-center justify-center overflow-hidden relative">
                           {imageUrl && (
                             <img
                               src={imageUrl}
                               alt={item.name}
-                              className="w-full h-full object-cover absolute inset-0"
+                              className="w-full h-full object-contain absolute inset-0"
                               onError={(e) => {
                                 e.currentTarget.style.display = "none";
                               }}
                             />
                           )}
-                          <span className="text-4xl md:text-6xl z-0">{emoji}</span>
+                          <span className="text-3xl sm:text-4xl md:text-6xl z-0">{emoji}</span>
                         </div>
 
                         {/* Details */}
-                        <div className="p-3 md:p-5 flex flex-col flex-1">
-                          <p className="text-xs md:text-base font-bold text-gray-800 leading-tight line-clamp-2 min-h-[2.5rem] md:min-h-[3rem]">
+                        <div className="p-2 sm:p-3 md:p-5 flex flex-col flex-1">
+                          <p className="text-[11px] sm:text-sm md:text-base font-bold text-gray-800 leading-tight line-clamp-2 min-h-[2.2rem] sm:min-h-[2.5rem] md:min-h-[3rem]">
                             {item.name}
                           </p>
-                          <div className="flex items-center justify-between mt-1 mb-3">
-                            <span className="text-sm md:text-xl font-black text-violet-600">
+                          <div className="flex items-center justify-between mt-1 mb-2 sm:mb-3">
+                            <span className="text-sm sm:text-base md:text-xl font-black text-violet-600">
                               ₹{item.price?.toLocaleString("en-IN")}
                             </span>
                             {item.time && (
-                              <span className="text-[10px] md:text-xs text-gray-400 font-medium bg-gray-50 px-2 py-0.5 rounded-full">
+                              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-400 font-medium bg-gray-50 px-1.5 sm:px-2 py-0.5 rounded-full">
                                 {item.time}
                               </span>
                             )}
@@ -570,7 +570,7 @@ function AllCategoryInner() {
                               >
                                 −
                               </button>
-                              <span className="text-white font-bold text-sm md:text-lg">
+                              <span className="text-white font-bold text-xs sm:text-sm md:text-lg">
                                 {qty}
                               </span>
                               <button
@@ -586,7 +586,7 @@ function AllCategoryInner() {
                                 e.stopPropagation();
                                 addToCart(item);
                               }}
-                              className="w-full border-2 border-violet-500 text-violet-600 text-xs md:text-sm font-black rounded-lg md:rounded-xl py-2 md:py-3 hover:bg-violet-600 hover:text-white transition-all active:scale-95"
+                              className="w-full border-2 border-violet-500 text-violet-600 text-[10px] sm:text-xs md:text-sm font-black rounded-lg md:rounded-xl py-1.5 sm:py-2 md:py-3 hover:bg-violet-600 hover:text-white transition-all active:scale-95"
                             >
                               ADD TO CART
                             </button>
