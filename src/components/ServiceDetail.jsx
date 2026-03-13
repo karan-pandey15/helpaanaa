@@ -16,14 +16,16 @@ import {
   Users,
   ShieldCheck,
   Zap,
-  Car
+  Car,
+  MessageSquare,
+  Send
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ServiceDetail = ({ 
   title: propTitle, 
   image: propImage, 
-  basePrice: propBasePrice = 299, 
+  basePrice: propBasePrice, 
   item: propItem = null 
 }) => {
   const router = useRouter();
@@ -63,6 +65,12 @@ const ServiceDetail = ({
   const [vehicleType, setVehicleType] = useState('Four Wheeler');
   const [vehicleNumber, setVehicleNumber] = useState('');
 
+  // Rating & Review State
+  const [reviews, setReviews] = useState([]);
+  const [userRating, setUserRating] = useState(5);
+  const [userReview, setUserReview] = useState('');
+  const [showReviewForm, setShowReviewForm] = useState(false);
+
   const timeSlots = [
     '09:00 AM', '11:00 AM', '01:00 PM',
     '03:00 PM', '05:00 PM', '07:00 PM',
@@ -70,7 +78,16 @@ const ServiceDetail = ({
 
   useEffect(() => {
     generateDates();
-  }, []);
+    // Load reviews
+    const savedReviews = localStorage.getItem(`reviews_${title}`);
+    if (savedReviews) {
+      setReviews(JSON.parse(savedReviews));
+    }
+  }, [title]);
+
+  const avgRating = reviews.length > 0 
+    ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
+    : "4.9";
 
   const generateDates = () => {
     const today = new Date();
@@ -89,6 +106,23 @@ const ServiceDetail = ({
       });
     }
     setDates(nextDates);
+  };
+
+  const handleSubmitReview = () => {
+    if (!userReview.trim()) return alert('Please write a review');
+    const newReview = {
+      id: Date.now(),
+      rating: userRating,
+      comment: userReview,
+      date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+      userName: 'Guest User'
+    };
+    const updatedReviews = [newReview, ...reviews];
+    setReviews(updatedReviews);
+    localStorage.setItem(`reviews_${title}`, JSON.stringify(updatedReviews));
+    setUserReview('');
+    setUserRating(5);
+    setShowReviewForm(false);
   };
 
   const handleAddToCart = () => {
@@ -122,7 +156,7 @@ const ServiceDetail = ({
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white font-sans overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-white font-sans">
       {/* ── Fixed Navbar ── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-xl border-b border-gray-200/50 px-6 py-4 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3">
@@ -141,7 +175,7 @@ const ServiceDetail = ({
       </nav>
 
       {/* ── Main Container: Side-by-Side on Desktop ── */}
-      <div className="flex-1 flex flex-col lg:flex-row pt-16 lg:pt-20">
+      <div className="flex-1 flex flex-col lg:flex-row pt-20 lg:pt-24">
         
         {/* ── LEFT SIDE: Image Section ── */}
         <motion.div 
@@ -195,7 +229,7 @@ const ServiceDetail = ({
             
             {/* Stats Row */}
             <div className="grid grid-cols-4 gap-3">
-              <StatCard icon={Star} value="4.9" label="Rating" color="text-yellow-500" />
+              <StatCard icon={Star} value={avgRating} label="Rating" color="text-yellow-500" />
               <StatCard icon={Users} value="500+" label="Booked" color="text-[#457b9d]" />
               <StatCard icon={ShieldCheck} value="Safe" label="Verified" color="text-green-500" />
               <StatCard icon={Clock} value={item.time} label="Duration" color="text-blue-500" />
@@ -350,6 +384,100 @@ const ServiceDetail = ({
                 onChange={(e) => setDescription(e.target.value)}
                 rows={4}
               />
+            </section>
+
+            {/* Ratings & Reviews Section */}
+            <section className="pt-8 border-t-2 border-gray-100">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-base font-black italic text-gray-900 uppercase flex items-center gap-2">
+                  <Star size={18} className="text-yellow-500 fill-current" />
+                  Ratings & Reviews
+                </h3>
+                <button 
+                  onClick={() => setShowReviewForm(!showReviewForm)}
+                  className="text-[10px] font-black text-[#457b9d] uppercase tracking-wider bg-[#457b9d]/10 px-4 py-2 rounded-full hover:bg-[#457b9d]/20 transition-all"
+                >
+                  {showReviewForm ? 'Cancel' : 'Write a Review'}
+                </button>
+              </div>
+
+              <AnimatePresence>
+                {showReviewForm && (
+                  <motion.div 
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="bg-gray-50 rounded-2xl p-6 mb-8 border-2 border-dashed border-gray-200"
+                  >
+                    <div className="flex items-center gap-2 mb-4">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button 
+                          key={star}
+                          onClick={() => setUserRating(star)}
+                          className="focus:outline-none transition-transform active:scale-90"
+                        >
+                          <Star 
+                            size={24} 
+                            className={`${star <= userRating ? 'text-yellow-500 fill-current' : 'text-gray-300'}`} 
+                          />
+                        </button>
+                      ))}
+                      <span className="ml-2 text-sm font-black text-gray-600">{userRating}/5</span>
+                    </div>
+                    <textarea 
+                      className="w-full bg-white border-2 border-gray-200 rounded-xl p-4 text-sm font-medium focus:ring-2 focus:ring-[#457b9d] focus:border-[#457b9d] outline-none transition-all resize-none mb-4"
+                      placeholder="Share your experience with this service..."
+                      value={userReview}
+                      onChange={(e) => setUserReview(e.target.value)}
+                      rows={3}
+                    />
+                    <button 
+                      onClick={handleSubmitReview}
+                      className="w-full bg-[#457b9d] text-white py-3 rounded-xl font-black text-sm uppercase flex items-center justify-center gap-2 hover:bg-[#1d3557] transition-all"
+                    >
+                      Post Review
+                      <Send size={16} />
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <div className="space-y-6">
+                {reviews.length > 0 ? (
+                  reviews.map((review) => (
+                    <div key={review.id} className="bg-white border-b border-gray-100 pb-6 last:border-0">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center font-black text-[10px] text-[#457b9d]">
+                            {review.userName.split(' ').map(n => n[0]).join('')}
+                          </div>
+                          <div>
+                            <h4 className="text-sm font-black text-gray-900">{review.userName}</h4>
+                            <div className="flex gap-0.5">
+                              {[...Array(5)].map((_, i) => (
+                                <Star 
+                                  key={i} 
+                                  size={10} 
+                                  className={`${i < review.rating ? 'text-yellow-500 fill-current' : 'text-gray-300'}`} 
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                        <span className="text-[10px] font-bold text-gray-400">{review.date}</span>
+                      </div>
+                      <p className="text-sm text-gray-600 leading-relaxed pl-10">
+                        {review.comment}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-10 bg-gray-50 rounded-2xl border-2 border-dotted border-gray-200">
+                    <MessageSquare size={32} className="mx-auto text-gray-300 mb-2" />
+                    <p className="text-sm font-bold text-gray-400 italic">No reviews yet. Be the first to share your experience!</p>
+                  </div>
+                )}
+              </div>
             </section>
           </div>
         </motion.div>

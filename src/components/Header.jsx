@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import { 
   Menu, 
@@ -36,6 +36,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const router = useRouter();
+  const pathname = usePathname();
   const cartItems = useSelector((state) => state.cart.items);
   const cartCount = cartItems.length;
 
@@ -45,6 +46,10 @@ export default function Header() {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  if (pathname.includes("/pages/ServiceDetail")) {
+    return null;
+  }
 
   return (
     <>

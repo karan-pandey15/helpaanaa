@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { 
   Facebook, 
   Instagram, 
@@ -50,6 +51,11 @@ const otherLinks = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.includes("/pages/ServiceDetail")) {
+    return null;
+  }
   return (
     <footer className="bg-[#0f4a56] text-white pt-16 pb-8">
       <div className="max-w-[1280px] mx-auto px-4 md:px-8">
