@@ -9,7 +9,7 @@ import { addToCart as addToCartRedux, removeFromCart as removeFromCartRedux } fr
 const CATEGORIES = [
   {
     id: "Attendant",
-    name: "Attendant For Your Parents",
+    name: "Gaurdian For Your Kids",
     endpoint: "https://api.marasimpex.com/api/services/category/GaurdianKids",
     emoji: "🧓",
   }, 
