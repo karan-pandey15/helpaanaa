@@ -33,6 +33,9 @@ export default function CheckoutPage() {
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [selectedPayment, setSelectedPayment] = useState("cod");
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("success");
 
   // Load initial data
   useEffect(() => {
@@ -233,7 +236,7 @@ export default function CheckoutPage() {
           const verifyData = await verifyRes.json();
           if (verifyRes.ok) {
             dispatch(clearCart());
-            router.push("/pages/profile?view=orders&success=true");
+            router.push("/");
           } else {
             alert(verifyData.message || "Payment verification failed");
           }
