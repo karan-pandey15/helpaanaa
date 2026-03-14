@@ -116,7 +116,7 @@ export default function Header() {
               )}
             </Link>
 
-            <Link href={isLoggedIn ? "/pages/profile" : "/pages/profile"} className="p-2 hover:bg-white/10 rounded-full transition-colors">
+            <Link href="/pages/profile" className="p-2 hover:bg-white/10 rounded-full transition-colors">
               <User size={22} />
             </Link>
 
