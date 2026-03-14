@@ -178,7 +178,13 @@ export default function CheckoutPage() {
       if (response.ok) {
         if (selectedPayment === "cod") {
           dispatch(clearCart());
-          router.push("/pages/profile?view=orders&success=true");
+          setToastMessage("Order successfully placed!");
+          setToastType("success");
+          setShowToast(true);
+          
+          setTimeout(() => {
+            router.push("/");
+          }, 2000);
         } else {
           // Trigger Online Payment Logic (Razorpay)
           handleRazorpay(data);
@@ -236,7 +242,13 @@ export default function CheckoutPage() {
           const verifyData = await verifyRes.json();
           if (verifyRes.ok) {
             dispatch(clearCart());
-            router.push("/");
+            setToastMessage("Payment verified successfully!");
+            setToastType("success");
+            setShowToast(true);
+            
+            setTimeout(() => {
+              router.push("/");
+            }, 2000);
           } else {
             alert(verifyData.message || "Payment verification failed");
           }
@@ -277,6 +289,24 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-40 font-sans">
+      <AnimatePresence>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 20 }}
+            exit={{ opacity: 0, y: -50 }}
+            className={`fixed top-0 left-1/2 -translate-x-1/2 z-[100] px-6 py-4 rounded-3xl shadow-2xl flex items-center gap-3 min-w-[320px] border-2 ${
+              toastType === "success" 
+                ? "bg-white border-green-500 text-green-700" 
+                : "bg-white border-red-500 text-red-700"
+            }`}
+          >
+            {toastType === "success" ? <CheckCircle2 size={24} /> : <Info size={24} />}
+            <span className="font-black italic uppercase tracking-tighter">{toastMessage}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* ── Header ── */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 py-4">
         <div className="max-w-4xl mx-auto flex items-center gap-4">
