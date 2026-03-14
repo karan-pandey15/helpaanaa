@@ -88,9 +88,10 @@ export default function CheckoutPage() {
     const itemTotal = totalAmount;
     const deliveryFee = itemTotal >= 500 ? 0 : 40;
     const platformFee = 5;
-    const totalPayable = itemTotal + deliveryFee + platformFee;
+    const discount = 0; // RN discount from route.params
+    const totalPayable = itemTotal + deliveryFee + platformFee - discount;
 
-    return { itemTotal, deliveryFee, platformFee, totalPayable };
+    return { itemTotal, deliveryFee, platformFee, totalPayable, discount };
   }, [totalAmount]);
 
   const computeExpectedTime = () => {
@@ -117,14 +118,19 @@ export default function CheckoutPage() {
           quantity: item.quantity,
           unitPrice: item.price,
           finalPrice: item.price,
-          discount: 0,
+          discount: Math.max(0, (item.originalPrice || item.price) - item.price),
           image: typeof item.image === 'string' ? item.image : (item.image?.uri || ""),
-          // Service specific fields
-          date: item.date || null,
+          // RN specific fields
           time: item.time || null,
-          hours: item.hours || null,
-          description: item.description || null,
+          date: item.date || null,
+          suggestion: item.suggestion || null,
           category: item.category || null,
+          hour: item.hour || null,
+          checkIn: item.checkIn || null,
+          checkOut: item.checkOut || null,
+          guests: item.guests || null,
+          // Extra Web fields
+          description: item.description || null,
           devoteeName: item.devoteeName || null,
           studentName: item.studentName || null,
           studentClass: item.studentClass || null,
@@ -135,6 +141,8 @@ export default function CheckoutPage() {
         pricing: {
           subtotal: billDetails.itemTotal,
           deliveryFee: billDetails.deliveryFee,
+          couponDiscount: billDetails.discount,
+          tax: 0,
           platformFee: billDetails.platformFee,
           grandTotal: billDetails.totalPayable
         },
@@ -149,10 +157,11 @@ export default function CheckoutPage() {
           contactPhone: profile?.phone || '',
         },
         addressId: selectedAddressId,
+        couponCode: null,
         payment: { method: selectedPayment }
       };
 
-      const response = await fetch(`${BASE_URL}/api/orders/create`, {
+      const response = await fetch(`${BASE_URL}/payments/create`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -188,27 +197,27 @@ export default function CheckoutPage() {
       return;
     }
 
-    const { order, razorpayOrder, razorpayKeyId } = data;
-    const rzpOrder = razorpayOrder || order?.razorpayOrder;
-    const rzpKey = razorpayKeyId || order?.razorpayKeyId;
+    // Matching RN response structure
+    const createdOrder = data.order || data;
+    const { razorpayOrder, razorpayKeyId } = createdOrder;
 
-    if (!rzpOrder || !rzpKey) {
+    if (!razorpayOrder || !razorpayKeyId) {
       alert("Razorpay order details not available");
       return;
     }
 
     const options = {
-      key: rzpKey,
-      amount: rzpOrder.amount,
-      currency: rzpOrder.currency,
+      key: razorpayKeyId,
+      amount: razorpayOrder.amount,
+      currency: razorpayOrder.currency,
       name: "Helpaana",
       description: "Service Booking Payment",
-      order_id: rzpOrder.id,
+      order_id: razorpayOrder.id,
       handler: async function (response) {
         setLoading(true);
         try {
           const token = localStorage.getItem("userToken");
-          const verifyRes = await fetch(`${BASE_URL}/orders/verify`, {
+          const verifyRes = await fetch(`${BASE_URL}/payments/verify`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
