@@ -42,6 +42,13 @@ const bannerData = [
 
 
 
+  {
+    id: 6,
+    image: "/image/pp.png",
+    route: "",
+    title: "Premium Gym Service",
+  },
+
 
 
 

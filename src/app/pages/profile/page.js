@@ -241,7 +241,7 @@ export default function Profile() {
               </div>
               {!isLoggedIn && (
                 <button 
-                  onClick={() => window.location.href = "/"}
+                  onClick={router.push("/pages/auth")}
                   className="bg-[#457b9d] text-white px-6 py-2 rounded-full font-bold shadow-md hover:bg-[#1d4e6e] transition-colors"
                 >
                   Login

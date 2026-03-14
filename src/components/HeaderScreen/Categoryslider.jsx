@@ -11,7 +11,7 @@ const categories = [
   { id: 'pandit', name: 'Booking for Pandit Ji', image: '/image/panditcat.png', screen: '/pages/Pandit', iconBg: 'linear-gradient(135deg,#FFD6C8,#ffb8a0)', emoji: '🪔' },
   { id: 'mehndi', name: 'Mehndi Artist', image: '/image/mehndi3.png', screen: '/pages/Mehndi', iconBg: 'linear-gradient(135deg,#FFE8C0,#ffd28a)', emoji: '🌿' },
   { id: 'school', name: 'School Uniform', image: '/image/schoolcat.png', screen: '/pages/School', iconBg: 'linear-gradient(135deg,#DDD0FF,#bfaaff)', emoji: '🏫' },
-  { id: 'groceries', name: 'Healthy Food', image: '/image/', screen: '/pages/Groceries', iconBg: 'linear-gradient(135deg,#C8F2D4,#96e4aa)', emoji: '🥗' },
+  { id: 'groceries', name: 'Healthy Food', image: '/image/groceri.jfif', screen: '/pages/Groceries', iconBg: 'linear-gradient(135deg,#C8F2D4,#96e4aa)', emoji: '🥗' },
   { id: 'hotel', name: 'Resort & Farmhouse Booking', image: '/image/hotelcat.png', screen: '/pages/Hotel', iconBg: 'linear-gradient(135deg,#C8F5E0,#96e8c4)', emoji: '🏨' },
   { id: 'cosmetic', name: 'Cosmetic', image: '/image/cosmeticcimage.png', screen: '/pages/Cosmetic', iconBg: 'linear-gradient(135deg,#FFD0EC,#ffaad8)', emoji: '💄' },
   { id: 'Nurse', name: 'Nurse For First Aid', image: '/image/nurse.png', screen: '/pages/nurse', params: { categoryId: 'Nurse' }, iconBg: 'linear-gradient(135deg,#FEE2E2,#fca5a5)', emoji: '🏥' },

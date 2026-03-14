@@ -126,7 +126,7 @@ const categories = [
   {
     id: 'groceries2',
     name: 'Groceries',
-    image: '/image/grocerycat.png',
+    image: '/image/groceri.jfif',
     screen: '/pages/Groceries',
     params: {},
     iconBg: 'linear-gradient(135deg, #C8F2D4 0%, #96e4aa 100%)',

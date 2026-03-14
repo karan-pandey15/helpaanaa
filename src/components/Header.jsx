@@ -11,7 +11,9 @@ import {
   User, 
   MapPin, 
   Search, 
-  ChevronDown 
+  ChevronDown,
+  LogOut,
+  LogIn
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "./Logo";
@@ -35,17 +37,32 @@ const categories = [
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const cartItems = useSelector((state) => state.cart.items);
   const cartCount = cartItems.length;
 
   useEffect(() => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
+    setIsLoggedIn(!!token);
+
     const interval = setInterval(() => {
       setPlaceholderIndex((prev) => (prev + 1) % categories.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [pathname]);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setIsLoggedIn(false);
+    router.push("/");
+    router.refresh();
+  };
+
+  const handleLogin = () => {
+    router.push("/pages/auth");
+  };
 
   if (pathname.includes("/pages/ServiceDetail")) {
     return null;
@@ -102,6 +119,24 @@ export default function Header() {
             <Link href="/pages/profile" className="hidden sm:block p-2 hover:bg-white/10 rounded-full transition-colors">
               <User size={22} />
             </Link>
+
+            {isLoggedIn ? (
+              <button 
+                onClick={handleLogout}
+                className="hidden sm:flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold transition-all active:scale-95 shadow-lg"
+              >
+                <LogOut size={16} />
+                Logout
+              </button>
+            ) : (
+              <button 
+                onClick={handleLogin}
+                className="hidden sm:flex items-center gap-2 bg-[#F5A623] text-[#1B6B7B] px-4 py-2 rounded-full text-sm font-bold transition-all active:scale-95 shadow-lg"
+              >
+                <LogIn size={16} />
+                Login
+              </button>
+            )}
 
             {/* Mobile Menu Toggle */}
             <button 
@@ -175,11 +210,11 @@ export default function Header() {
                 </nav>
               </div>
 
-              <div className="pt-6 border-t mt-auto">
+              <div className="pt-6 border-t mt-auto space-y-3">
                 <Link 
                   href="/pages/profile" 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors mb-4"
+                  className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors"
                 >
                   <div className="w-10 h-10 bg-[#1B6B7B] rounded-full flex items-center justify-center text-white">
                     <User size={20} />
@@ -189,7 +224,29 @@ export default function Header() {
                     <p className="text-xs text-gray-500">View & Edit Profile</p>
                   </div>
                 </Link>
-                <button className="w-full bg-[#F5A623] text-[#1B6B7B] font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-transform">
+
+                {isLoggedIn ? (
+                  <button 
+                    onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}
+                    className="w-full flex items-center justify-center gap-2 bg-red-500 text-white font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
+                  >
+                    <LogOut size={18} />
+                    Logout
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => { handleLogin(); setIsMobileMenuOpen(false); }}
+                    className="w-full flex items-center justify-center gap-2 bg-[#F5A623] text-[#1B6B7B] font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
+                  >
+                    <LogIn size={18} />
+                    Login
+                  </button>
+                )}
+
+                <button 
+                  onClick={() => { router.push("/pages/ShopFresh"); setIsMobileMenuOpen(false); }}
+                  className="w-full bg-[#1B6B7B] text-white font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
+                >
                   Shop Fresh Now
                 </button>
               </div>
