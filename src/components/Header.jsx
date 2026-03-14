@@ -116,14 +116,14 @@ export default function Header() {
               )}
             </Link>
 
-            <Link href="/pages/profile" className="p-2 hover:bg-white/10 rounded-full transition-colors">
+            {/* <Link href="/pages/profile" className="p-2 hover:bg-white/10 rounded-full transition-colors">
               <User size={22} />
-            </Link>
+            </Link> */}
 
             {isLoggedIn ? (
               <button 
                 onClick={handleLogout}
-                className="hidden sm:flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold transition-all active:scale-95 shadow-lg"
+                className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold transition-all active:scale-95 shadow-lg"
               >
                 <LogOut size={16} />
                 Logout
@@ -131,7 +131,7 @@ export default function Header() {
             ) : (
               <button 
                 onClick={handleLogin}
-                className="hidden sm:flex items-center gap-2 bg-[#F5A623] text-[#1B6B7B] px-4 py-2 rounded-full text-sm font-bold transition-all active:scale-95 shadow-lg"
+                className="flex items-center gap-2 bg-[#F5A623] text-[#1B6B7B] px-4 py-2 rounded-full text-sm font-bold transition-all active:scale-95 shadow-lg"
               >
                 <LogIn size={16} />
                 Login
