@@ -1,11 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight } from 'lucide-react';
 
 const API_BASE_URL = 'https://api.marasimpex.com/auth';
 
 const Auth = ({ onAuthSuccess, onSkip }) => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('login');
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -79,6 +81,7 @@ const Auth = ({ onAuthSuccess, onSkip }) => {
         localStorage.setItem('userToken', data.token);
         localStorage.setItem('userPhone', loginPhone);
         onAuthSuccess();
+        router.push('/');
       } else {
         alert(data.message || 'Login failed. Please try again.');
       }
@@ -124,6 +127,7 @@ const Auth = ({ onAuthSuccess, onSkip }) => {
         localStorage.setItem('userToken', data.token);
         localStorage.setItem('userPhone', phone);
         onAuthSuccess();
+        router.push('/');
       } else {
         alert(data.message || 'Signup failed. Please try again.');
       }
