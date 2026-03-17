@@ -7,22 +7,18 @@ import { useRouter } from 'next/navigation';
 const categories = [
   {
     id: 'Attendant',
-    name: 'Attendant For Parents',
+    name: 'Book an Attendant',
     image: '/image/attendantcat.png',
     screen: '/pages/Attendant',
-    iconBg: 'linear-gradient(135deg, #D6E4FF 0%, #b0ccff 100%)',
-    accent: '#4a7fd4',
-    emoji: '👴',
+    iconBg: '#E8F0FE',
   },
   {
     id: 'GaurdianKids',
-    name: 'Guardian For Kids',
+    name: 'Book an Guardian',
     image: '/image/helper.png',
     screen: '/pages/GuardianKids',
     params: { categoryId: 'GaurdianKids' },
-    iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
-    accent: '#e8922a',
-    emoji: '👶',
+    iconBg: '#FFF4E5',
   },
   {
     id: 'petWalker',
@@ -30,9 +26,7 @@ const categories = [
     image: '/image/dog.png',
     screen: '/pages/petwalker',
     params: { categoryId: 'petWalker' },
-    iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
-    accent: '#e8922a',
-    emoji: '',
+    iconBg: '#F0FDF4',
   },
   {
     id: 'pandit',
@@ -40,9 +34,7 @@ const categories = [
     image: '/image/panditcat.png',
     screen: '/pages/Pandit',
     params: {},
-    iconBg: 'linear-gradient(135deg, #FFD6C8 0%, #ffb8a0 100%)',
-    accent: '#e05c3a',
-    emoji: '🪔',
+    iconBg: '#FFF1F1',
   },
   {
     id: 'mehndi',
@@ -50,9 +42,7 @@ const categories = [
     image: '/image/mehndi3.png',
     screen: '/pages/Mehndi',
     params: {},
-    iconBg: 'linear-gradient(135deg, #FFE8C0 0%, #ffd28a 100%)',
-    accent: '#d4820a',
-    emoji: '🌿',
+    iconBg: '#FFF8E1',
   },
   {
     id: 'school',
@@ -60,9 +50,7 @@ const categories = [
     image: '/image/schoolcat.png',
     screen: '/pages/School',
     params: {},
-    iconBg: 'linear-gradient(135deg, #DDD0FF 0%, #bfaaff 100%)',
-    accent: '#7c52e8',
-    emoji: '🏫',
+    iconBg: '#F3E5F5',
   },
   {
     id: 'groceries',
@@ -70,9 +58,7 @@ const categories = [
     image: '/image/healthyfoodd.png',
     screen: '/pages/Groceries',
     params: {},
-    iconBg: 'linear-gradient(135deg, #C8F2D4 0%, #96e4aa 100%)',
-    accent: '#27a74a',
-    emoji: '🛒',
+    iconBg: '#E8F5E9',
   },
   {
     id: 'hotel',
@@ -80,9 +66,7 @@ const categories = [
     image: '/image/hotelcat.png',
     screen: '/pages/Hotel',
     params: {},
-    iconBg: 'linear-gradient(135deg, #C8F5E0 0%, #96e8c4 100%)',
-    accent: '#1daa6a',
-    emoji: '🏨',
+    iconBg: '#E0F2F1',
   },
   {
     id: 'cosmetic',
@@ -90,9 +74,7 @@ const categories = [
     image: '/image/cosmeticcimage.png',
     screen: '/pages/Cosmetic',
     params: {},
-    iconBg: 'linear-gradient(135deg, #FFD0EC 0%, #ffaad8 100%)',
-    accent: '#d43a8f',
-    emoji: '💄',
+    iconBg: '#FCE4EC',
   },
   {
     id: 'Nurse',
@@ -100,18 +82,14 @@ const categories = [
     image: '/image/nurse.png',
     screen: '/pages/nurse',
     params: { categoryId: 'Nurse' },
-    iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
-    accent: '#e8922a',
-    emoji: '',
+    iconBg: '#FFF3E0',
   },
   {
     id: 'Gym',
     name: 'Premium Gym MemberShip',
     image: '/image/Gym.png',
-    screen: '/pages/gym', 
-    iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
-    accent: '#e8922a',
-    emoji: '',
+    screen: '/pages/gym',
+    iconBg: '#EFEBE9',
   },
   {
     id: 'Tiffin Service',
@@ -119,9 +97,7 @@ const categories = [
     image: '/image/tiffinservice.png',
     screen: '/pages/tiffinservice',
     params: { categoryId: 'Nurse' },
-    iconBg: 'linear-gradient(135deg, #FFE9CC 0%, #ffd49a 100%)',
-    accent: '#e8922a',
-    emoji: '',
+    iconBg: '#F1F8E9',
   },
   {
     id: 'groceries2',
@@ -129,9 +105,7 @@ const categories = [
     image: '/image/groceri.jfif',
     screen: '/pages/Groceries',
     params: {},
-    iconBg: 'linear-gradient(135deg, #C8F2D4 0%, #96e4aa 100%)',
-    accent: '#27a74a',
-    emoji: '🛒',
+    iconBg: '#E8F5E9',
   },
   {
     id: 'physiotherapist',
@@ -139,16 +113,42 @@ const categories = [
     image: '/image/physiotherapist.png',
     screen: '/pages/physiotherapist',
     params: {},
-    iconBg: 'linear-gradient(135deg, #C8F2D4 0%, #96e4aa 100%)',
-    accent: '#27a74a',
-    emoji: '🛒',
+    iconBg: '#E0F7FA',
   },
+  {
+    id: 'salonMakeup',
+    name: 'Salon and Makeup',
+    image: '/image/salon.png',
+    screen: '/pages/Salon',
+    params: {},
+    iconBg: '#FCE4EC',
+  },
+  {
+    id: 'luxuryProduct',
+    name: 'Luxury Product',
+    image: '/image/lifestyle.png',
+    screen: '/pages/Luxury',
+    params: {},
+    iconBg: '#EDE7F6',
+  },
+];
+
+const categoryGroups = [
+  { title: 'Trending Category', ids: ['Attendant', 'GaurdianKids', 'petWalker'] },
+  { title: 'Spiritual & Remedies', ids: ['pandit'] },
+  { title: 'Find a Doctor', ids: ['physiotherapist', 'Nurse'] },
+  { title: 'Health & Fitness', ids: ['Gym'] },
+  { title: 'Salon & Beauty Wellness', ids: ['mehndi', 'salonMakeup', 'cosmetic'] },
+  { title: 'Lifestyle & Personal Care', ids: ['luxuryProduct'] },
+  { title: 'Food & Beverage', ids: ['Tiffin Service', 'groceries'] },
+  { title: 'E-Commerce', ids: ['school', 'groceries2'] },
+  { title: 'Prime Resort Booking', ids: ['hotel'] },
 ];
 
 export default function CategoryScreen() {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState(null);
-  const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [showAllCategories, setShowAllCategories] = useState(false);
 
   const handleCategoryPress = (item) => {
     setActiveCategory(item.id);
@@ -159,199 +159,249 @@ export default function CategoryScreen() {
     router.push(`${item.screen}${query}`);
   };
 
-  return (
-    <div className="category-wrapper">
-      <div className="category-container">
-        <div className="header">
-          <h2 className="title">Trending Categories</h2>
-        </div>
+  // Helper to determine how many items fit in a single row based on screen width
+  const getItemsInRow = () => {
+    if (typeof window === 'undefined') return 4;
+    const width = window.innerWidth;
+    if (width >= 1280) return 8;
+    if (width >= 1024) return 7;
+    if (width >= 768) return 6;
+    if (width >= 640) return 5;
+    return 4;
+  };
 
-        <div className="grid">
-          {categories.map((item, index) => {
-            const isActive = activeCategory === item.id;
-            const isHovered = hoveredCategory === item.id;
+  const [itemsPerRow, setItemsPerRow] = useState(4);
 
-            return (
-              <button
-                key={item.id}
-                onClick={() => handleCategoryPress(item)}
-                onMouseEnter={() => setHoveredCategory(item.id)}
-                onMouseLeave={() => setHoveredCategory(null)}
-                className={`card ${isActive ? 'card-active' : ''} ${isHovered ? 'card-hovered' : ''}`}
-                style={{ '--accent': item.accent, '--delay': `${index * 50}ms` }}
-              >
-                <div className="card-glow" style={{ background: item.accent }} />
+  // Update itemsPerRow on mount and resize
+  useState(() => {
+    const handleResize = () => setItemsPerRow(getItemsInRow());
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-                <div className="icon-wrap" style={{ background: item.iconBg }}>
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    width={80}
-                    height={80}
-                    className="icon-image"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      const fallback = e.currentTarget.parentElement.querySelector('.emoji-fallback');
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
-                  />
-                  <span className="emoji-fallback">{item.emoji}</span>
-                </div>
-
-                <span className="label">{item.name}</span>
-
-                <div className="arrow-wrap" style={{ color: item.accent }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </div>
-
-                {isActive && <div className="active-dot" style={{ background: item.accent }} />}
-              </button>
-            );
-          })}
-        </div>
+  const renderCategoryCard = (item) => (
+    <button
+      key={item.id}
+      onClick={() => handleCategoryPress(item)}
+      className={`cat-card ${activeCategory === item.id ? 'active' : ''}`}
+    >
+      <div
+        className="circle-wrap"
+        style={{ backgroundColor: item.iconBg }}
+      >
+        <Image
+          src={item.image}
+          alt={item.name}
+          width={64}
+          height={64}
+          className="cat-img"
+        />
       </div>
+      <span className="cat-label">{item.name}</span>
 
       <style jsx>{`
-        .category-wrapper {
-          width: 100%;
-          background: #ffffff;
-          padding: 24px 0;
-        }
-
-        .category-container {
-          width: 100%;
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 0 12px;
-        }
-
-        .header {
-          margin-bottom: 24px;
-          text-align: left;
-        }
-
-        .title {
-          font-size: 20px;
-          font-weight: 800;
-          color: #1e293b;
-          letter-spacing: -0.02em;
-        }
-
-        .grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 8px;
-        }
-
-        .card {
-          position: relative;
+        .cat-card {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 8px;
-          background: #f8fafc;
-          border-radius: 12px;
-          padding: 16px 8px;
+          gap: 10px;
+          background: transparent;
+          border: none;
           cursor: pointer;
-          border: 1px solid #f1f5f9;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          padding: 8px 4px;
+          border-radius: 16px;
+          transition: transform 0.2s ease, background 0.2s ease;
           width: 100%;
-          min-height: 120px;
-          overflow: hidden;
         }
 
-        .card-hovered {
-          transform: translateY(-4px);
-          background: #ffffff;
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-          border-color: var(--accent);
+        .cat-card:hover,
+        .cat-card.active {
+          transform: translateY(-3px);
+          background: #f8faff;
         }
 
-        .icon-wrap {
-          width: 50px;
-          height: 50px;
+        .circle-wrap {
+          width: 72px;
+          height: 72px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           overflow: hidden;
-          transition: transform 0.3s ease;
+          flex-shrink: 0;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .card-hovered .icon-wrap {
-          transform: scale(1.1);
+        .cat-card:hover .circle-wrap {
+          transform: scale(1.06);
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
         }
 
-        .icon-image {
-          width: 100%;
-          height: 100%;
+        .cat-img {
+          width: 58px;
+          height: 58px;
           object-fit: contain;
-          padding: 6px;
         }
 
-        .emoji-fallback {
-          display: none;
-          font-size: 24px;
-        }
-
-        .label {
-          font-size: 11px;
+        .cat-label {
+          font-size: 12px;
           font-weight: 600;
-          color: #334155;
+          color: #374151;
           text-align: center;
-          line-height: 1.2;
-          max-width: 95%;
+          line-height: 1.35;
+          max-width: 90px;
+          display: block;
+          word-break: break-word;
         }
 
-        .arrow-wrap {
-          position: absolute;
-          bottom: 8px;
-          right: 8px;
-          opacity: 0;
-          transform: translateX(-4px);
-          transition: all 0.2s ease;
+        @media (min-width: 480px) {
+          .circle-wrap { width: 80px; height: 80px; }
+          .cat-img { width: 64px; height: 64px; }
+          .cat-label { font-size: 13px; max-width: 100px; }
         }
 
-        .card-hovered .arrow-wrap {
-          opacity: 1;
-          transform: translateX(0);
-        }
-
-        .active-dot {
-          position: absolute;
-          top: 8px;
-          right: 8px;
-          width: 4px;
-          height: 4px;
-          border-radius: 50%;
-        }
-
-        @media (min-width: 640px) {
-          .category-container { padding: 0 24px; }
-          .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-          .title { font-size: 28px; }
-          .card { padding: 32px 16px; min-height: 180px; border-radius: 16px; gap: 12px; }
-          .icon-wrap { width: 80px; height: 80px; }
-          .label { font-size: 14px; }
-          .arrow-wrap { bottom: 12px; right: 12px; }
-          .active-dot { top: 12px; right: 12px; width: 6px; height: 6px; }
-          .icon-image { padding: 8px; }
+        @media (min-width: 768px) {
+          .circle-wrap { width: 90px; height: 90px; }
+          .cat-img { width: 72px; height: 72px; }
+          .cat-label { font-size: 13.5px; max-width: 110px; }
         }
 
         @media (min-width: 1024px) {
-          .grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
-          .title { font-size: 32px; }
-          .label { font-size: 15px; }
+          .circle-wrap { width: 100px; height: 100px; }
+          .cat-img { width: 80px; height: 80px; }
+          .cat-label { font-size: 14px; max-width: 120px; }
+        }
+      `}</style>
+    </button>
+  );
+
+  return (
+    <div className="page-wrapper">
+      <div className="page-container">
+        <div className="groups-stack">
+          {categoryGroups.map((group) => (
+            <div key={group.title} className="group-block">
+              <h3 className="group-heading">{group.title}</h3>
+              <div className="cat-grid">
+                {group.ids.map((id) => {
+                  const item = categories.find((c) => c.id === id);
+                  if (!item) return null;
+                  return renderCategoryCard(item);
+                })}
+              </div>
+            </div>
+          ))}
+
+          <div className="group-block">
+            <div className="group-header">
+              <h3 className="group-heading">All Categories</h3>
+              {!showAllCategories && categories.length > itemsPerRow && (
+                <button 
+                  className="view-all-btn" 
+                  onClick={() => setShowAllCategories(true)}
+                >
+                  View All
+                </button>
+              )}
+            </div>
+            <div className="cat-grid">
+              {categories
+                .slice(0, showAllCategories ? categories.length : itemsPerRow)
+                .map((item) => renderCategoryCard(item))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .group-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-right: 4px;
+        }
+
+        .view-all-btn {
+          font-size: 13px;
+          font-weight: 700;
+          color: #2563eb;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          padding: 4px 8px;
+          border-radius: 6px;
+          transition: background 0.2s ease;
+        }
+
+        .view-all-btn:hover {
+          background: #eff6ff;
+          text-decoration: underline;
+        }
+
+        .page-wrapper {
+          width: 100%;
+          background: #ffffff;
+          padding: 24px 0 48px;
+          min-height: 100vh;
+        }
+
+        .page-container {
+          width: 100%;
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 16px;
+        }
+
+        .groups-stack {
+          display: flex;
+          flex-direction: column;
+          gap: 40px;
+        }
+
+        .group-block {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .group-heading {
+          font-size: 16px;
+          font-weight: 700;
+          color: #111827;
+          letter-spacing: -0.01em;
+          padding-left: 4px;
+        }
+
+        /* Mobile: 4 columns */
+        .cat-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 8px;
+          row-gap: 20px;
+        }
+
+        /* Tablet: 5 columns */
+        @media (min-width: 640px) {
+          .cat-grid { grid-template-columns: repeat(5, 1fr); gap: 12px; row-gap: 24px; }
+          .group-heading { font-size: 18px; }
+        }
+
+        /* Small laptop: 6 columns */
+        @media (min-width: 768px) {
+          .cat-grid { grid-template-columns: repeat(6, 1fr); }
+          .group-heading { font-size: 19px; }
+        }
+
+        /* Desktop: 7–8 columns */
+        @media (min-width: 1024px) {
+          .cat-grid { grid-template-columns: repeat(7, 1fr); gap: 16px; row-gap: 28px; }
+          .group-heading { font-size: 20px; }
+          .page-container { padding: 0 32px; }
         }
 
         @media (min-width: 1280px) {
-          .grid { grid-template-columns: repeat(5, 1fr); }
-        }
-
-        @media (min-width: 1536px) {
-          .grid { grid-template-columns: repeat(6, 1fr); }
+          .cat-grid { grid-template-columns: repeat(8, 1fr); }
         }
       `}</style>
     </div>

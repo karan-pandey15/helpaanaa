@@ -13,7 +13,7 @@ const trendingCategories = [
 const Categories = () => {
   return (
     <div className="px-4 py-4 space-y-4 bg-gray-50">
-      <h2 className="text-xl font-bold text-gray-800">Trending Categories</h2>
+      <h2 className="text-xl font-bold text-gray-800"></h2>
       
       <div className="grid grid-cols-2 gap-4 pb-10">
         {trendingCategories.map((item) => (
