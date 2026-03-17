@@ -27,7 +27,7 @@ const CATEGORIES = [
   }
   ,
   {
-    id: "hair",
+    id: "hairmen",
     name: "Hair Cut For men",
     endpoint: "https://api.marasimpex.com/api/services/category/hairmen",
     emoji: "",
