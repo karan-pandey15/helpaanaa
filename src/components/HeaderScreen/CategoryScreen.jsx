@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -149,6 +149,7 @@ export default function CategoryScreen() {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState(null);
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const [itemsPerRow, setItemsPerRow] = useState(4);
 
   const handleCategoryPress = (item) => {
     setActiveCategory(item.id);
@@ -159,24 +160,27 @@ export default function CategoryScreen() {
     router.push(`${item.screen}${query}`);
   };
 
-  // Helper to determine how many items fit in a single row based on screen width
-  const getItemsInRow = () => { 
-    const width = window.innerWidth;
-    if (width >= 1280) return 8;
-    if (width >= 1024) return 7;
-    if (width >= 768) return 6;
-    if (width >= 640) return 5;
-    return 4;
-  };
+  // Use ResizeObserver on document.documentElement — no window references
+  useEffect(() => {
+    const getItemsInRow = (width) => {
+      if (width >= 1280) return 8;
+      if (width >= 1024) return 7;
+      if (width >= 768) return 6;
+      if (width >= 640) return 5;
+      return 4;
+    };
 
-  const [itemsPerRow, setItemsPerRow] = useState(4);
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setItemsPerRow(getItemsInRow(entry.contentRect.width));
+      }
+    });
 
-  // Update itemsPerRow on mount and resize
-  useState(() => {
-    const handleResize = () => setItemsPerRow(getItemsInRow());
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    observer.observe(document.documentElement);
+    // Set initial value
+    setItemsPerRow(getItemsInRow(document.documentElement.clientWidth));
+
+    return () => observer.disconnect();
   }, []);
 
   const renderCategoryCard = (item) => (
@@ -296,8 +300,8 @@ export default function CategoryScreen() {
             <div className="group-header">
               <h3 className="group-heading">All Categories</h3>
               {!showAllCategories && categories.length > itemsPerRow && (
-                <button 
-                  className="view-all-btn" 
+                <button
+                  className="view-all-btn"
                   onClick={() => setShowAllCategories(true)}
                 >
                   View All
