@@ -70,7 +70,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-[#1B6B7B] text-white shadow-md">
+      <header className="sticky top-0 z-50 w-full bg-[#004090] text-white shadow-md">
         <div className="max-w-[1280px] mx-auto h-[60px] md:h-[70px] px-4 flex items-center justify-between gap-4">
           
           {/* Logo */}
@@ -103,14 +103,14 @@ export default function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-3 sm:gap-6">
-            <Link href="/pages/ShopFresh" className="hidden lg:block bg-[#F5A623] text-[#1B6B7B] font-bold px-6 py-2 rounded-full text-sm hover:scale-105 transition-transform active:scale-95 shadow-lg">
+            <Link href="/pages/ShopFresh" className="hidden lg:block bg-[#F5A623] text-[#004090] font-bold px-6 py-2 rounded-full text-sm hover:scale-105 transition-transform active:scale-95 shadow-lg">
               Deal Of the Day
             </Link>
 
             <Link href="/pages/cart" className="relative p-2 hover:bg-white/10 rounded-full transition-colors">
               <ShoppingCart size={22} />
               {cartCount > 0 && (
-                <span className="absolute top-0 right-0 bg-[#F5A623] text-[#1B6B7B] text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-[#1B6B7B]">
+                <span className="absolute top-0 right-0 bg-[#F5A623] text-[#004090] text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-[#004090]">
                   {cartCount}
                 </span>
               )}
@@ -131,7 +131,7 @@ export default function Header() {
             ) : (
               <button 
                 onClick={handleLogin}
-                className="flex items-center gap-2 bg-[#F5A623] text-[#1B6B7B] px-4 py-2 rounded-full text-sm font-bold transition-all active:scale-95 shadow-lg"
+                className="flex items-center gap-2 bg-[#F5A623] text-[#004090] px-4 py-2 rounded-full text-sm font-bold transition-all active:scale-95 shadow-lg"
               >
                 <LogIn size={16} />
                 Login
@@ -149,7 +149,7 @@ export default function Header() {
         </div>
 
         {/* Mobile Search Bar & Deal of the Day (Only on Mobile) */}
-        <div className="md:hidden px-4 pb-4 flex items-center gap-3 bg-[#1B6B7B]">
+        <div className="md:hidden px-4 pb-4 flex items-center gap-3 bg-[#004090]">
           <div className="relative flex-[1.4] shadow-sm">
             <input 
               type="text" 
@@ -160,7 +160,7 @@ export default function Header() {
           </div>
           <Link 
             href="/pages/ShopFresh" 
-            className="flex-1 bg-[#F5A623] text-[#1B6B7B] font-extrabold h-11 px-2 rounded-full text-[10px] leading-tight flex flex-col items-center justify-center shadow-lg active:scale-95 transition-all border-b-2 border-black/10"
+            className="flex-1 bg-[#F5A623] text-[#004090] font-extrabold h-11 px-2 rounded-full text-[10px] leading-tight flex flex-col items-center justify-center shadow-lg active:scale-95 transition-all border-b-2 border-black/10"
           >
             <span className="uppercase tracking-tight">Deal of</span>
             <span className="text-[11px] uppercase">the day</span>
@@ -201,10 +201,10 @@ export default function Header() {
                       key={idx} 
                       href={cat.path}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="py-3 px-4 rounded-xl text-gray-700 font-medium hover:bg-[#1B6B7B]/10 hover:text-[#1B6B7B] transition-all flex items-center justify-between group"
+                      className="py-3 px-4 rounded-xl text-gray-700 font-medium hover:bg-[#004090]/10 hover:text-[#004090] transition-all flex items-center justify-between group"
                     >
                       {cat.name}
-                      <ChevronDown size={14} className="-rotate-90 text-gray-300 group-hover:text-[#1B6B7B]" />
+                      <ChevronDown size={14} className="-rotate-90 text-gray-300 group-hover:text-[#004090]" />
                     </Link>
                   ))}
                 </nav>
@@ -216,7 +216,7 @@ export default function Header() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors"
                 >
-                  <div className="w-10 h-10 bg-[#1B6B7B] rounded-full flex items-center justify-center text-white">
+                  <div className="w-10 h-10 bg-[#004090] rounded-full flex items-center justify-center text-white">
                     <User size={20} />
                   </div>
                   <div>
@@ -236,7 +236,7 @@ export default function Header() {
                 ) : (
                   <button 
                     onClick={() => { handleLogin(); setIsMobileMenuOpen(false); }}
-                    className="w-full flex items-center justify-center gap-2 bg-[#F5A623] text-[#1B6B7B] font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
+                    className="w-full flex items-center justify-center gap-2 bg-[#F5A623] text-[#004090] font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
                   >
                     <LogIn size={18} />
                     Login
@@ -245,7 +245,7 @@ export default function Header() {
 
                 <button 
                   onClick={() => { router.push("/pages/ShopFresh"); setIsMobileMenuOpen(false); }}
-                  className="w-full bg-[#1B6B7B] text-white font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
+                  className="w-full bg-[#004090] text-white font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
                 >
                   Shop Fresh Now
                 </button>

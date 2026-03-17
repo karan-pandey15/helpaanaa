@@ -16,7 +16,7 @@ export default function HowItWorks() {
         <h2 className="text-3xl font-bold mb-12 text-center text-gray-800">How It Works</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
           {/* Connector Line (Desktop Only) */}
-          <div className="hidden md:block absolute top-[52px] left-0 w-full h-0.5 bg-[#1B6B7B]/10 z-0" />
+          <div className="hidden md:block absolute top-[52px] left-0 w-full h-0.5 bg-[#004090]/10 z-0" />
           
           {steps.map((step, idx) => (
             <motion.div 
@@ -27,7 +27,7 @@ export default function HowItWorks() {
               transition={{ delay: idx * 0.2 }}
               className="relative z-10 flex flex-col items-center text-center space-y-6"
             >
-              <div className="w-24 h-24 rounded-full bg-white shadow-xl flex items-center justify-center text-3xl font-black text-[#1B6B7B] border-4 border-[#F5A623]">
+              <div className="w-24 h-24 rounded-full bg-white shadow-xl flex items-center justify-center text-3xl font-black text-[#004090] border-4 border-[#F5A623]">
                 {step.number}
               </div>
               <div className="space-y-2">

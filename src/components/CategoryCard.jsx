@@ -11,9 +11,9 @@ export default function CategoryCard({ name, icon: Icon, path, emoji, iconBg, va
         <motion.div 
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className={`w-16 h-16 rounded-full ${iconBg || 'bg-[#1B6B7B]/10'} flex items-center justify-center border-2 border-transparent group-hover:border-[#1B6B7B] transition-all`}
+          className={`w-16 h-16 rounded-full ${iconBg || 'bg-[#004090]/10'} flex items-center justify-center border-2 border-transparent group-hover:border-[#004090] transition-all`}
         >
-          {Icon ? <Icon className="text-[#1B6B7B]" size={32} /> : <span className="text-2xl">{emoji}</span>}
+          {Icon ? <Icon className="text-[#004090]" size={32} /> : <span className="text-2xl">{emoji}</span>}
         </motion.div>
         <span className="text-[10px] sm:text-xs font-semibold text-gray-700 text-center line-clamp-2 max-w-[80px]">
           {name}
@@ -33,8 +33,8 @@ export default function CategoryCard({ name, icon: Icon, path, emoji, iconBg, va
           <span className="absolute top-3 right-3 text-sm opacity-80">{emoji}</span>
         )}
         
-        <div className={`w-16 h-16 rounded-2xl ${iconBg || 'bg-gradient-to-br from-[#1B6B7B]/20 to-[#1B6B7B]/5'} flex items-center justify-center transition-transform group-hover:rotate-6`}>
-          {Icon ? <Icon className="text-[#1B6B7B]" size={32} /> : <span className="text-3xl">{name[0]}</span>}
+        <div className={`w-16 h-16 rounded-2xl ${iconBg || 'bg-gradient-to-br from-[#004090]/20 to-[#004090]/5'} flex items-center justify-center transition-transform group-hover:rotate-6`}>
+          {Icon ? <Icon className="text-[#004090]" size={32} /> : <span className="text-3xl">{name[0]}</span>}
         </div>
 
         <h3 className="font-bold text-gray-800 text-center text-sm sm:text-base leading-tight">
@@ -42,7 +42,7 @@ export default function CategoryCard({ name, icon: Icon, path, emoji, iconBg, va
         </h3>
 
         <div className="mt-auto pt-2">
-          <span className="text-[10px] font-bold text-[#1B6B7B] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="text-[10px] font-bold text-[#004090] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">
             Book Now
           </span>
         </div>

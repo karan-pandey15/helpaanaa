@@ -11,7 +11,7 @@ export default function ProviderCard({ name, rating, experience, image }) {
       whileHover={{ y: -10 }}
       className="bg-white p-6 rounded-3xl shadow-lg border border-gray-100 flex flex-col items-center gap-4 transition-all"
     >
-      <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-[#1B6B7B]/10 shadow-lg shadow-[#1B6B7B]/20">
+      <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-[#004090]/10 shadow-lg shadow-[#004090]/20">
         <Image src={image || "https://i.pravatar.cc/150"} alt={name} fill className="object-cover" />
       </div>
       <div className="text-center">
@@ -21,9 +21,9 @@ export default function ProviderCard({ name, rating, experience, image }) {
           <span className="text-sm font-bold text-gray-700">{rating || "4.9"}</span>
           <span className="text-xs text-gray-400 font-medium">(120+ reviews)</span>
         </div>
-        <p className="text-xs font-bold text-[#1B6B7B] uppercase tracking-widest">{experience || "5 Years"} Exp.</p>
+        <p className="text-xs font-bold text-[#004090] uppercase tracking-widest">{experience || "5 Years"} Exp.</p>
       </div>
-      <button className="w-full bg-[#1B6B7B] text-white font-bold py-3 rounded-xl hover:bg-[#F5A623] hover:text-[#1B6B7B] transition-all shadow-md">
+      <button className="w-full bg-[#004090] text-white font-bold py-3 rounded-xl hover:bg-[#F5A623] hover:text-[#004090] transition-all shadow-md">
         Book Now
       </button>
     </motion.div>

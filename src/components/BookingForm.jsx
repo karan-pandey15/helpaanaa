@@ -34,7 +34,7 @@ export default function BookingForm() {
           <label className="block text-xs font-bold text-gray-400 uppercase mb-1">Address</label>
           <textarea placeholder="Your full address..." className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#F5A623] h-24" />
         </div>
-        <button type="submit" className="w-full bg-[#1B6B7B] text-white font-bold py-4 rounded-xl shadow-lg hover:bg-[#0f4a56] active:scale-95 transition-all">
+        <button type="submit" className="w-full bg-[#004090] text-white font-bold py-4 rounded-xl shadow-lg hover:bg-[#0f4a56] active:scale-95 transition-all">
           Confirm Booking
         </button>
       </form>

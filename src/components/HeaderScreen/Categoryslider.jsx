@@ -228,7 +228,7 @@ export default function CategorySlider() {
       }
 
       .icon.active{
-        outline:3px solid #1B6B7B;
+        outline:3px solid #004090;
         transform:scale(1.08);
       }
 

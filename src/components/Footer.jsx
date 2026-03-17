@@ -57,7 +57,7 @@ export default function Footer() {
     return null;
   }
   return (
-    <footer className="bg-[#0f4a56] text-white pt-16 pb-8">
+    <footer className="bg-[#004090] text-white pt-16 pb-8">
       <div className="max-w-[1280px] mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-12 mb-12">
           
@@ -71,7 +71,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               {[Facebook, Instagram, Youtube].map((Icon, idx) => (
-                <Link key={idx} href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#F5A623] hover:text-[#1B6B7B] transition-all">
+                <Link key={idx} href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#F5A623] hover:text-[#004090] transition-all">
                   <Icon size={20} />
                 </Link>
               ))}

@@ -32,7 +32,7 @@ export default function Home() {
           4. APP DOWNLOAD BANNER
       ══════════════════════════════════════════ */}
       <section className="py-10 px-4 md:px-8 max-w-[1400px] mx-auto">
-        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#1B6B7B] via-[#166372] to-[#0f4a56] shadow-2xl">
+        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#004090] via-[#166372] to-[#0f4a56] shadow-2xl">
 
           {/* ── decorative blobs ── */}
           <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-yellow-400/10 blur-3xl" />
@@ -45,8 +45,8 @@ export default function Home() {
             <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-xl w-full">
 
               {/* badge */}
-              <span className="mb-5 self-center md:self-start inline-flex items-center gap-1.5 bg-yellow-400 text-[#1B6B7B] text-[11px] font-black px-4 py-1.5 rounded-full shadow">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#1B6B7B] animate-pulse" />
+              <span className="mb-5 self-center md:self-start inline-flex items-center gap-1.5 bg-yellow-400 text-[#004090] text-[11px] font-black px-4 py-1.5 rounded-full shadow">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#004090] animate-pulse" />
                 ANDROID APP IS LIVE • IOS USERS USE WEB
               </span>
 
@@ -153,7 +153,7 @@ export default function Home() {
 
                   {/* app logo */}
                   <div className="w-14 h-14 bg-white rounded-[1.1rem] flex items-center justify-center shadow-xl">
-                    <span className="text-3xl font-black text-[#1B6B7B]">H</span>
+                    <span className="text-3xl font-black text-[#004090]">H</span>
                   </div>
                   <p className="text-white text-[11px] font-black tracking-[0.2em]">HELPAANA</p>
                   <p className="text-yellow-400 text-[8px] font-bold tracking-widest -mt-1">PREMIUM SERVICES</p>
@@ -182,7 +182,7 @@ export default function Home() {
 
                   {/* mock book button */}
                   <div className="w-full bg-yellow-400 rounded-xl py-2.5 text-center mt-auto shadow">
-                    <span className="text-[#1B6B7B] text-[11px] font-black tracking-wide">BOOK NOW →</span>
+                    <span className="text-[#004090] text-[11px] font-black tracking-wide">BOOK NOW →</span>
                   </div>
                 </div>
 
@@ -233,7 +233,7 @@ export default function Home() {
                 key={title}
                 className="flex flex-col items-center text-center space-y-4 p-6 bg-white rounded-2xl shadow-sm border border-gray-100 transition-all hover:shadow-md"
               >
-                <div className="w-16 h-16 rounded-2xl bg-[#1B6B7B]/10 flex items-center justify-center text-[#1B6B7B]">
+                <div className="w-16 h-16 rounded-2xl bg-[#004090]/10 flex items-center justify-center text-[#004090]">
                   {icon}
                 </div>
                 <h3 className="text-xl font-bold text-gray-800">{title}</h3>
