@@ -111,9 +111,9 @@ function GymPageInner() {
 
     // Since base64 can be too long for URL, we'll store it in sessionStorage temporarily
     // to ensure GymDetails can pick it up if URL truncation occurs.
-    if (typeof window !== "undefined" && imageUrl.startsWith("data:")) {
-      sessionStorage.setItem(`gym_img_${item._id}`, imageUrl);
-    }
+    // if (typeof window !== "undefined" && imageUrl.startsWith("data:")) {
+    //   sessionStorage.setItem(`gym_img_${item._id}`, imageUrl);
+    // }
 
     const params = new URLSearchParams({
       id: item._id,

@@ -81,18 +81,7 @@ const LogoutIconLarge = () => (
 
 // ─── Mock API (replace with your actual API calls) ───────────────────────────
 const getProfile = async () => {
-  if (typeof window !== "undefined") {
-    const token = localStorage.getItem("userToken");
-    if (!token) return { ok: false };
-    
-    const stored = localStorage.getItem("userData");
-    if (stored) {
-      try {
-        const user = JSON.parse(stored);
-        return { ok: true, user };
-      } catch {}
-    }
-  }
+  
   return { ok: false };
 };
 
