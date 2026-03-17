@@ -102,7 +102,7 @@ const categories = [
   {
     id: 'groceries2',
     name: 'Groceries',
-    image: '/image/groceri.jfif',
+    image: '/image/groceri.png',
     screen: '/pages/Groceries',
     params: {},
     iconBg: '#E8F5E9',
