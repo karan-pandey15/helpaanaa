@@ -161,7 +161,7 @@ export default function CategoryScreen() {
 
   // Helper to determine how many items fit in a single row based on screen width
   const getItemsInRow = () => {
-    if (typeof window === 'undefined') return 4;
+    // if (typeof window === 'undefined') return 4;
     const width = window.innerWidth;
     if (width >= 1280) return 8;
     if (width >= 1024) return 7;
