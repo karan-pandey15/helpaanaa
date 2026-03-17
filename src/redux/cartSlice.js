@@ -1,7 +1,7 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
-const isClient = typeof window !== "undefined";
+const isClient = "undefined";
 
 const loadFromLocalStorage = () => {
   if (!isClient) return { items: [], totalAmount: 0 };
