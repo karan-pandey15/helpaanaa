@@ -19,20 +19,25 @@ import { motion, AnimatePresence } from "framer-motion";
 import Logo from "./Logo";
 
 const categories = [
-  { name: "Attendant For Parents", path: "/pages/Attendant" },
-  { name: "Guardian For Kids", path: "/pages/GuardianKids" },
-  { name: "Pet Walker", path: "/pages/petwalker" },
-  { name: "Booking for Pandit Ji", path: "/pages/Pandit" },
-  { name: "Mehndi Artist", path: "/pages/Mehndi" },
-  { name: "School Uniform & Accessories", path: "/pages/School" },
-  { name: "Healthy Food", path: "/pages/Groceries" },
-  { name: "Hotel & Resort Booking", path: "/pages/Hotel" },
-  { name: "Cosmetic", path: "/pages/Cosmetic" },
-  { name: "Nurse For First Aid", path: "/pages/nurse" },
-  { name: "Gym MemberShip", path: "/pages/Gym" },
-  { name: "Tiffin Service", path: "/pages/tiffinservice" },
-  { name: "Groceries", path: "/pages/Groceries" },
-];
+  { name: 'Book an Attendant', path: '/pages/Attendant' },
+  { name: 'Book an Guardian', path: '/pages/GuardianKids' },
+  { name: 'Pet Walker', path: '/pages/petwalker' },
+  { name: 'Booking for Pandit Ji', path: '/pages/Pandit' },
+  { name: 'Mehndi Artist', path: '/pages/Mehndi' },
+  { name: 'School Uniform & Accessories', path: '/pages/School' },
+  { name: 'Healthy Food', path: '/pages/Groceries' },
+  { name: 'Resort & Farmhouse Booking', path: '/pages/Hotel' },
+  { name: 'Cosmetic', path: '/pages/Cosmetic' },
+  { name: 'Nurse For First Aid', path: '/pages/nurse' },
+  { name: 'Premium Gym MemberShip', path: '/pages/gym' },
+  { name: 'Food For Patient & Tiffin Service', path: '/pages/tiffinservice' },
+  { name: 'Groceries', path: '/pages/Groceries' },
+  { name: 'Physiotherapist', path: '/pages/physiotherapist' },
+  { name: 'Salon and Makeup', path: '/pages/Salon' },
+  { name: 'Luxury Product', path: '/pages/Luxury' },
+  { name: 'Ladies Health Issues', path: '/pages/ladies' },
+  
+]
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

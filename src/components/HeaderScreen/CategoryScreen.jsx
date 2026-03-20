@@ -83,6 +83,13 @@ const categories = [
     screen: '/pages/nurse',
     params: { categoryId: 'Nurse' },
     iconBg: '#FFF3E0',
+  },  {
+    id: 'Nursed',
+    name: 'Ladies Health Issues',
+    image: '/image/preg.png',
+    screen: '/pages/ladies',
+    params: { categoryId: 'Nursed' },
+    iconBg: '#FFF3E0',
   },
   {
     id: 'Gym',
@@ -131,12 +138,20 @@ const categories = [
     params: {},
     iconBg: '#EDE7F6',
   },
+    {
+    id: 'ladieshealthissues',
+    name: 'Ladies Health Issues',
+    image: '/image/preg.png',
+    screen: '/pages/ladies',
+    params: {},
+    iconBg: '#EDE7F6',
+  },
 ];
 
 const categoryGroups = [
   { title: 'Trending Category', ids: ['Attendant', 'GaurdianKids', 'petWalker'] },
   { title: 'Spiritual & Remedies', ids: ['pandit'] },
-  { title: 'Find a Doctor', ids: ['physiotherapist', 'Nurse'] },
+  { title: 'Find a Doctor', ids: ['physiotherapist', 'Nurse', 'ladieshealthissues'] },
   { title: 'Health & Fitness', ids: ['Gym'] },
   { title: 'Salon & Beauty Wellness', ids: ['mehndi', 'salonMakeup', 'cosmetic'] },
   { title: 'Lifestyle & Personal Care', ids: ['luxuryProduct'] },

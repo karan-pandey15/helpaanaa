@@ -16,7 +16,8 @@ const CATEGORIES = [
     id: "TravelingAttendant",
     name: "Book a Female Attendant For Traveling Airport",
     emoji: "✈️",
-  },
+  }, 
+  
   // {
   //   id: "Gym",
   //   name: "Book Gym",

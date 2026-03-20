@@ -84,6 +84,14 @@ const categories = [
     params: { categoryId: 'Nurse' },
     iconBg: '#FFF3E0',
   },
+    {
+    id: 'Nursed',
+    name: 'Ladies Health Issues',
+    image: '/image/preg.png',
+    screen: '/pages/ladies',
+    params: { categoryId: 'Nursed' },
+    iconBg: '#FFF3E0',
+  },
   {
     id: 'Gym',
     name: 'Premium Gym MemberShip',

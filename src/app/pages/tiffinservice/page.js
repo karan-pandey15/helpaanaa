@@ -30,7 +30,7 @@ const STATIC_SERVICES = {
     {
       _id: "small_lunch_1",
       name: "Basic Tiffin (Small)",
-      price: 60,
+      price: 149,
       description: "Includes 4 Rotis, 1 Sabzi, Dal, and Rice. Perfect for a light meal.",
       emoji: "🍱",
       image: "/image/tiffinservice.png"
@@ -38,7 +38,7 @@ const STATIC_SERVICES = {
     {
       _id: "small_lunch_2",
       name: "Executive Tiffin (Small)",
-      price: 80,
+      price: 149,
       description: "Includes 4 Rotis, 2 Sabzi, Dal, Rice, and Salad.",
       emoji: "🥗",
       image: "/image/tiffinservice.png"
@@ -48,7 +48,7 @@ const STATIC_SERVICES = {
     {
       _id: "big_lunch_1",
       name: "Premium Tiffin (Big)",
-      price: 120,
+      price: 249,
       description: "Includes 6 Rotis, 2 Special Sabzi, Dal Fry, Jeera Rice, Sweet, and Raita.",
       emoji: "🥘",
       image: "/image/tiffinservice.png"
@@ -56,7 +56,7 @@ const STATIC_SERVICES = {
     {
       _id: "big_lunch_2",
       name: "Deluxe Tiffin (Big)",
-      price: 150,
+      price: 249,
       description: "Full meal with Paneer Sabzi, Seasonal Veg, Dal, Pulao, 6 Butter Rotis, Sweet, and Papad.",
       emoji: "🍛",
       image: "/image/tiffinservice.png"
@@ -66,7 +66,7 @@ const STATIC_SERVICES = {
     {
       _id: "patient_food_1",
       name: "Special Kichdi",
-      price: 70,
+      price: 249,
       description: "Light and nutritious Moong Dal Kichdi, easy to digest for patients.",
       emoji: "🍲",
       image: "/image/tiffinservice.png"
@@ -74,7 +74,7 @@ const STATIC_SERVICES = {
     {
       _id: "patient_food_2",
       name: "Simple Daal Chawal",
-      price: 65,
+      price: 249,
       description: "Simple steamed rice with light yellow dal, minimal spices for patient recovery.",
       emoji: "🍛",
       image: "/image/tiffinservice.png"
@@ -82,7 +82,7 @@ const STATIC_SERVICES = {
     {
       _id: "patient_food_3",
       name: "Vegetable Dalia",
-      price: 75,
+      price: 249,
       description: "Broken wheat cooked with mild vegetables, high in fiber and nutrition.",
       emoji: "🥣",
       image: "/image/tiffinservice.png"
