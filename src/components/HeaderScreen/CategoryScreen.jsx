@@ -85,7 +85,7 @@ const categories = [
     iconBg: '#FFF3E0',
   },  {
     id: 'Nursed',
-    name: 'Ladies Health Issues',
+    name: 'Pregnancy & Ladies Health Issues',
     image: '/image/preg.png',
     screen: '/pages/ladies',
     params: { categoryId: 'Nursed' },
@@ -140,7 +140,7 @@ const categories = [
   },
     {
     id: 'ladieshealthissues',
-    name: 'Ladies Health Issues',
+    name: 'Pregnancy & Ladies Health Issues',
     image: '/image/preg.png',
     screen: '/pages/ladies',
     params: {},
