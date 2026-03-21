@@ -18,7 +18,10 @@ import {
   Zap,
   Car,
   MessageSquare,
-  Send
+  Send,
+  Share2,
+  Heart,
+  ShoppingCart
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -38,8 +41,8 @@ const ServiceDetail = ({
   const basePrice = Number(propBasePrice || searchParams.get('price') || 299);
   
   const item = propItem || {
-    description: searchParams.get('description') || '',
-    category: searchParams.get('category') || 'General',
+    description: searchParams.get('description') || 'Experience professional and high-quality service tailored to your needs. Our experts ensure every detail is handled with care.',
+    category: searchParams.get('category') || 'Premium Service',
     time: searchParams.get('duration') || '1-2 Hours',
     hour: searchParams.get('hours') || '9 AM - 6 PM',
     isTraveling: searchParams.get('isTraveling') === 'true',
@@ -53,6 +56,7 @@ const ServiceDetail = ({
   const [quantity, setQuantity] = useState(1);
   const [description, setDescription] = useState(item.description || '');
   const [dates, setDates] = useState([]);
+  const [additionalRequest, setAdditionalRequest] = useState('');
 
   // Traveling Details
   const [gender, setGender] = useState('');
@@ -65,12 +69,6 @@ const ServiceDetail = ({
   const [vehicleType, setVehicleType] = useState('Four Wheeler');
   const [vehicleNumber, setVehicleNumber] = useState('');
 
-  // Rating & Review State
-  const [reviews, setReviews] = useState([]);
-  const [userRating, setUserRating] = useState(5);
-  const [userReview, setUserReview] = useState('');
-  const [showReviewForm, setShowReviewForm] = useState(false);
-
   const timeSlots = [
     '09:00 AM', '11:00 AM', '01:00 PM',
     '03:00 PM', '05:00 PM', '07:00 PM',
@@ -78,16 +76,7 @@ const ServiceDetail = ({
 
   useEffect(() => {
     generateDates();
-    // Load reviews
-    const savedReviews = localStorage.getItem(`reviews_${title}`);
-    if (savedReviews) {
-      setReviews(JSON.parse(savedReviews));
-    }
   }, [title]);
-
-  const avgRating = reviews.length > 0 
-    ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
-    : "4.9";
 
   const generateDates = () => {
     const today = new Date();
@@ -106,23 +95,6 @@ const ServiceDetail = ({
       });
     }
     setDates(nextDates);
-  };
-
-  const handleSubmitReview = () => {
-    if (!userReview.trim()) return alert('Please write a review');
-    const newReview = {
-      id: Date.now(),
-      rating: userRating,
-      comment: userReview,
-      date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
-      userName: 'Guest User'
-    };
-    const updatedReviews = [newReview, ...reviews];
-    setReviews(updatedReviews);
-    localStorage.setItem(`reviews_${title}`, JSON.stringify(updatedReviews));
-    setUserReview('');
-    setUserRating(5);
-    setShowReviewForm(false);
   };
 
   const handleAddToCart = () => {
@@ -148,7 +120,8 @@ const ServiceDetail = ({
       vehicleType: item.withVehicle ? vehicleType : null,
       vehicleNumber: item.withVehicle ? vehicleNumber : null,
       isTraveling: item.isTraveling,
-      withVehicle: item.withVehicle
+      withVehicle: item.withVehicle,
+      additionalRequest
     };
 
     dispatch(addToCart(serviceItem));
@@ -156,370 +129,248 @@ const ServiceDetail = ({
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white font-sans">
-      {/* ── Fixed Navbar ── */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-xl border-b border-gray-200/50 px-6 py-4 flex items-center justify-between shadow-sm">
-        <div className="flex items-center gap-3">
+    <div className="flex flex-col min-h-screen bg-white text-gray-900 font-sans">
+      {/* ── Top Navbar ── */}
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between shadow-sm">
+        <div className="flex items-center gap-4">
           <button 
             onClick={() => router.back()}
-            className="p-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all active:scale-95 hover:shadow-md"
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
-            <ArrowLeft size={20} className="text-gray-900" />
+            <ArrowLeft size={20} />
           </button>
-          <h1 className="text-sm font-black italic tracking-tighter text-gray-900 uppercase">Service Detail</h1>
+          <div className="hidden sm:flex items-center text-xs text-gray-500 gap-2">
+            <span>Services</span>
+            <ChevronRight size={12} />
+            <span>{item.category}</span>
+            <ChevronRight size={12} />
+            <span className="font-bold text-gray-800">{title}</span>
+          </div>
         </div>
-        <div className="bg-[#457b9d]/10 px-4 py-2 rounded-full flex items-center gap-2">
-          <Zap size={14} className="text-[#457b9d] fill-current" />
-          <span className="text-[10px] font-black text-[#457b9d] uppercase tracking-wider">Quick Book</span>
+        <div className="flex items-center gap-4">
+          <Share2 size={20} className="text-gray-600 cursor-pointer hover:text-[#004090]" />
+          <Heart size={20} className="text-gray-600 cursor-pointer hover:text-red-500" />
+          <button onClick={() => router.push('/cart')} className="relative">
+            <ShoppingCart size={22} className="text-gray-700 hover:text-[#004090]" />
+            <span className="absolute -top-2 -right-2 bg-[#004090] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white">0</span>
+          </button>
         </div>
       </nav>
 
-      {/* ── Main Container: Side-by-Side on Desktop ── */}
-      <div className="flex-1 flex flex-col lg:flex-row pt-20 lg:pt-24">
-        
-        {/* ── LEFT SIDE: Image Section ── */}
-        <motion.div 
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="w-full lg:w-[45%] h-[40vh] lg:h-[calc(100vh-5rem)] lg:sticky lg:top-20 relative bg-gradient-to-br from-violet-50 to-blue-50"
-        >
-          <div className="absolute inset-0 w-full h-full overflow-hidden">
-            {/* Background Emoji */}
-            <div className="absolute inset-0 flex items-center justify-center text-8xl lg:text-9xl z-0 opacity-20">
-              {emoji}
-            </div>
+      {/* ── Main Content Area ── */}
+      <div className="flex-1 max-w-[1500px] mx-auto w-full pt-16 pb-32">
+        <div className="flex flex-col lg:flex-row gap-8 p-4 md:p-6 lg:p-8">
+          
+          {/* ── Left Column: Title & Image Flow ── */}
+          <div className="w-full lg:w-[40%] flex flex-col gap-6">
             
-            {/* Main Image */}
-            <img 
-              src={image} 
-              alt={title}
-              className="absolute inset-0 w-full h-full object-contain z-10"
-            />
-            
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-20" />
-            
-            {/* Title Overlay on Image */}
-            <div className="absolute bottom-8 left-6 right-6 z-30">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <span className="px-3 py-1.5 bg-yellow-400 text-black text-[10px] font-black uppercase mb-3 inline-block rounded shadow-lg">
-                  {item.category}
-                </span>
-                <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black italic tracking-tighter text-white leading-[0.95] uppercase drop-shadow-2xl">
-                  {title}
-                </h2>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* ── RIGHT SIDE: Content Section ── */}
-        <motion.div 
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="w-full lg:w-[55%] bg-white"
-        >
-          <div className="p-6 lg:p-8 space-y-6 lg:space-y-8 pb-32 lg:pb-24">
-            
-            {/* Stats Row */}
-            <div className="grid grid-cols-4 gap-3">
-              <StatCard icon={Star} value={avgRating} label="Rating" color="text-yellow-500" />
-              <StatCard icon={Users} value="500+" label="Booked" color="text-[#457b9d]" />
-              <StatCard icon={ShieldCheck} value="Safe" label="Verified" color="text-green-500" />
-              <StatCard icon={Clock} value={item.time} label="Duration" color="text-blue-500" />
+            {/* 1. Heading (Title) at the Top */}
+            <div className="space-y-2">
+              <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 leading-tight">
+                {title}
+              </h1>
             </div>
 
-            {/* Pricing Card */}
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-2xl border border-gray-200 shadow-sm">
-              <div className="flex items-end justify-between mb-4">
-                <div>
-                  <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1">Total Pricing</p>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900">₹{basePrice}</span>
-                    <span className="text-xs font-bold text-gray-500">/ service</span>
-                  </div>
-                </div>
-                <div className="flex flex-col items-end">
-                  <span className="text-[9px] font-black text-green-600 bg-green-100 px-3 py-1 rounded-full uppercase">Save 10%</span>
-                  <span className="text-sm font-bold text-gray-400 line-through mt-1">₹{Math.round(basePrice * 1.1)}</span>
-                </div>
+            {/* 2. Image below the Heading */}
+            <div className="aspect-square bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+              <img 
+                src={image} 
+                alt={title}
+                className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute top-4 left-4 bg-[#004090] text-white px-2 py-1 text-[10px] font-bold rounded shadow-sm">
+                Top Rated
               </div>
-              
-              <p className="text-sm text-gray-600 font-medium leading-relaxed">
-                Our professionals are highly trained to ensure the best experience. We guarantee 100% satisfaction and timely delivery of services.
+            </div>
+            
+            {/* Gallery Thumbnails */}
+            <div className="flex gap-2 overflow-x-auto">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className={`w-16 h-16 border rounded cursor-pointer p-1 ${i === 1 ? 'border-[#004090] ring-1 ring-[#004090]' : 'border-gray-200 hover:border-[#004090]'}`}>
+                  <img src={image} className="w-full h-full object-contain" />
+                </div>
+              ))}
+            </div>
+
+            {/* 3. Description below the Image */}
+            <div className="border-t border-gray-200 pt-6">
+              <h3 className="text-lg font-bold mb-3 text-gray-900">About this service</h3>
+              <p className="text-sm leading-relaxed text-gray-700 whitespace-pre-line">
+                {item.description}
               </p>
             </div>
 
-            {/* Date Selector */}
-            <section>
-              <h3 className="text-base font-black italic tracking-tight text-gray-900 mb-4 uppercase flex items-center gap-2">
-                <Calendar size={18} />
-                Select Schedule
-              </h3>
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-                {dates.map((date) => (
-                  <button
-                    key={date.id}
-                    onClick={() => setSelectedDate(date.id)}
-                    className={`flex flex-col items-center min-w-[75px] py-4 px-3 rounded-xl border-2 transition-all duration-300 ${
-                      selectedDate === date.id 
-                        ? 'bg-[#457b9d] border-[#457b9d] text-white scale-105 shadow-lg' 
-                        : 'bg-white border-gray-200 text-gray-400 hover:border-gray-300 hover:shadow-md'
-                    }`}
-                  >
-                    <span className="text-[9px] font-black uppercase tracking-wider mb-1">{date.dayName}</span>
-                    <span className="text-2xl font-black">{date.dateNum}</span>
-                    <span className="text-[9px] font-bold mt-0.5 uppercase">{date.monthName}</span>
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            {/* Time Selector */}
-            <section>
-              <h3 className="text-xs font-black text-gray-500 uppercase tracking-widest mb-3 flex items-center gap-2">
-                <Clock size={16} />
-                Pick a Time
-              </h3>
-              <div className="grid grid-cols-3 gap-2.5">
-                {timeSlots.map((time) => (
-                  <button
-                    key={time}
-                    onClick={() => setSelectedTime(time)}
-                    className={`py-3.5 px-2 rounded-lg border-2 font-black text-[11px] transition-all duration-200 ${
-                      selectedTime === time 
-                        ? 'bg-gray-900 border-gray-900 text-white shadow-lg scale-105' 
-                        : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:shadow-md'
-                    }`}
-                  >
-                    {time}
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            {/* Traveling Section */}
-            {item.isTraveling && (
-              <motion.section 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                className="space-y-4 pt-4 border-t-2 border-gray-100"
-              >
-                <h3 className="text-base font-black italic text-gray-900 uppercase flex items-center gap-2">
-                  <Users size={18} />
-                  Passenger Details
-                </h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <InputField label="Preferred Gender" value={gender} onChange={setGender} placeholder="Male / Female / Any" />
-                  <InputField label="Religion Reference (if any)" value={religion} onChange={setReligion} placeholder="Enter religion reference or reasoning" />
-                  <InputField label="Pickup Address" value={pickup} onChange={setPickup} placeholder="Where to pick up?" />
-                  <InputField label="Destination" value={drop} onChange={setDrop} placeholder="Where to go?" />
-                </div>
-              </motion.section>
-            )}
-
-            {/* Vehicle Section */}
-            {item.withVehicle && (
-              <motion.section 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                className="space-y-4 pt-4 border-t-2 border-gray-100"
-              >
-                <h3 className="text-base font-black italic text-gray-900 uppercase flex items-center gap-2">
-                  <Car size={18} />
-                  Vehicle Details
-                </h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-2 block">Vehicle Type</label>
-                    <select 
-                      className="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-[#457b9d] focus:border-[#457b9d] outline-none transition-all"
-                      value={vehicleType}
-                      onChange={(e) => setVehicleType(e.target.value)}
-                    >
-                      <option value="Two Wheeler">Two Wheeler</option>
-                      <option value="Four Wheeler">Four Wheeler</option>
-                    </select>
-                  </div>
-                  <InputField label="Vehicle Number (Optional)" value={vehicleNumber} onChange={setVehicleNumber} placeholder="e.g. MH 12 AB 1234" />
-                </div>
-              </motion.section>
-            )}
-
-            {/* Quantity Selector */}
-            <section className="pt-4 border-t-2 border-gray-100">
-              <h3 className="text-xs font-black text-gray-500 uppercase tracking-widest mb-3">Number of Persons / Services</h3>
-              <div className="flex items-center gap-4">
-                <button 
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-xl font-black text-xl hover:bg-gray-200 transition-colors"
-                >
-                  −
-                </button>
-                <span className="text-xl font-black w-8 text-center">{quantity}</span>
-                <button 
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="w-12 h-12 flex items-center justify-center bg-gray-900 text-white rounded-xl font-black text-xl hover:bg-black transition-colors"
-                >
-                  +
-                </button>
-              </div>
-            </section>
-
-            {/* Requirements */}
-            <section>
-              <h3 className="text-xs font-black text-gray-500 uppercase tracking-widest mb-3">Special Requests</h3>
+            {/* 4. Add more thing section at the last */}
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <h4 className="text-sm font-bold mb-2 flex items-center gap-2">
+                <Info size={16} className="text-[#004090]" />
+                Additional Requests?
+              </h4>
               <textarea 
-                className="w-full bg-gray-50 border-2 border-gray-200 rounded-xl p-4 text-sm font-medium focus:ring-2 focus:ring-[#457b9d] focus:border-[#457b9d] focus:bg-white outline-none transition-all resize-none"
-                placeholder="Tell us more about your specific needs..."
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                rows={4}
+                value={additionalRequest}
+                onChange={(e) => setAdditionalRequest(e.target.value)}
+                placeholder="Need something extra? Let us know here..."
+                className="w-full bg-white border border-gray-300 rounded p-3 text-sm focus:ring-1 focus:ring-[#004090] focus:border-[#004090] outline-none transition-all resize-none"
+                rows={3}
               />
-            </section>
+            </div>
+          </div>
 
-            {/* Ratings & Reviews Section */}
-            <section className="pt-8 border-t-2 border-gray-100">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-base font-black italic text-gray-900 uppercase flex items-center gap-2">
-                  <Star size={18} className="text-yellow-500 fill-current" />
-                  Ratings & Reviews
+          {/* ── Center Column: Info & Details ── */}
+          <div className="w-full lg:w-[35%] space-y-6 border-b lg:border-b-0 pb-8 pt-0 lg:pt-14">
+            <div className="flex items-center gap-2 text-sm">
+              <span className="bg-[#004090] text-white px-2 py-0.5 text-[10px] font-bold rounded">HelpAana Choice</span>
+              <span className="text-gray-500">for "{title}"</span>
+            </div>
+
+            <hr className="border-gray-200" />
+
+            <div className="space-y-1">
+              <div className="flex items-baseline gap-1">
+                <span className="text-2xl font-light text-red-700">-10%</span>
+                <div className="flex items-start">
+                  <span className="text-sm mt-1 font-medium">₹</span>
+                  <span className="text-3xl font-medium">{basePrice}</span>
+                </div>
+              </div>
+              <p className="text-xs text-gray-500">M.R.P.: <span className="line-through">₹{Math.round(basePrice * 1.1)}</span></p>
+              <div className="bg-gray-100 p-2 rounded inline-block text-[11px] font-bold text-gray-700 border border-gray-200">
+                Inclusive of all taxes
+              </div>
+            </div>
+
+            <div className="grid grid-cols-4 gap-2 pt-4">
+              <FeatureItem icon={CheckCircle2} label="Verified" color="text-green-600" />
+              <FeatureItem icon={ShieldCheck} label="Safe" color="text-[#004090]" />
+              <FeatureItem icon={Zap} label="Quick" color="text-yellow-600" />
+              <FeatureItem icon={Clock} label={item.time} color="text-gray-600" />
+            </div>
+
+            <hr className="border-gray-200" />
+
+            <div className="space-y-6">
+              <section>
+                <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+                  <Calendar size={18} />
+                  Choose Date
                 </h3>
+                <div className="flex gap-2 overflow-x-auto pb-2">
+                  {dates.map((date) => (
+                    <button
+                      key={date.id}
+                      onClick={() => setSelectedDate(date.id)}
+                      className={`flex flex-col items-center min-w-[60px] p-2 rounded border transition-all ${
+                        selectedDate === date.id 
+                          ? 'border-[#004090] bg-blue-50 ring-1 ring-[#004090]' 
+                          : 'border-gray-300 bg-white hover:bg-gray-50'
+                      }`}
+                    >
+                      <span className="text-[10px] uppercase text-gray-500 font-bold">{date.dayName}</span>
+                      <span className="text-lg font-bold">{date.dateNum}</span>
+                      <span className="text-[10px] uppercase text-gray-500">{date.monthName}</span>
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              <section>
+                <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+                  <Clock size={18} />
+                  Pick Time
+                </h3>
+                <div className="grid grid-cols-3 gap-2">
+                  {timeSlots.map((time) => (
+                    <button
+                      key={time}
+                      onClick={() => setSelectedTime(time)}
+                      className={`py-2 px-1 rounded border text-xs font-bold transition-all ${
+                        selectedTime === time 
+                          ? 'border-[#004090] bg-blue-50 ring-1 ring-[#004090]' 
+                          : 'border-gray-300 bg-white hover:bg-gray-50'
+                      }`}
+                    >
+                      {time}
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              {(item.isTraveling || item.withVehicle) && (
+                <div className="space-y-4 pt-4 bg-gray-50 p-4 rounded border border-gray-200">
+                  {item.isTraveling && (
+                    <div className="space-y-3">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500">Service Logistics</h4>
+                      <input 
+                        type="text" 
+                        placeholder="Pickup Location" 
+                        className="w-full text-sm p-2 border border-gray-300 rounded"
+                        value={pickup}
+                        onChange={(e) => setPickup(e.target.value)}
+                      />
+                      <input 
+                        type="text" 
+                        placeholder="Drop Location" 
+                        className="w-full text-sm p-2 border border-gray-300 rounded"
+                        value={drop}
+                        onChange={(e) => setDrop(e.target.value)}
+                      />
+                    </div>
+                  )}
+                  {item.withVehicle && (
+                    <div className="space-y-3 pt-2">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500">Vehicle Info</h4>
+                      <select 
+                        className="w-full text-sm p-2 border border-gray-300 rounded"
+                        value={vehicleType}
+                        onChange={(e) => setVehicleType(e.target.value)}
+                      >
+                        <option value="Two Wheeler">Two Wheeler</option>
+                        <option value="Four Wheeler">Four Wheeler</option>
+                      </select>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* ── Right Column: Buy Box ── */}
+          <div className="w-full lg:w-[25%] pt-0 lg:pt-14">
+            <div className="lg:sticky lg:top-24 border border-gray-200 rounded-lg p-4 space-y-4 shadow-sm bg-white">
+              <div className="text-2xl font-medium">₹{basePrice * hours * quantity}</div>
+              
+              <div className="space-y-3 pt-2">
                 <button 
-                  onClick={() => setShowReviewForm(!showReviewForm)}
-                  className="text-[10px] font-black text-[#457b9d] uppercase tracking-wider bg-[#457b9d]/10 px-4 py-2 rounded-full hover:bg-[#457b9d]/20 transition-all"
+                  onClick={handleAddToCart}
+                  className="w-full bg-[#004090] hover:bg-[#003070] text-white py-2.5 rounded-full font-medium text-sm border border-[#004090] shadow-sm transition-all"
                 >
-                  {showReviewForm ? 'Cancel' : 'Write a Review'}
+                  Book Now
                 </button>
               </div>
 
-              <AnimatePresence>
-                {showReviewForm && (
-                  <motion.div 
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="bg-gray-50 rounded-2xl p-6 mb-8 border-2 border-dashed border-gray-200"
-                  >
-                    <div className="flex items-center gap-2 mb-4">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <button 
-                          key={star}
-                          onClick={() => setUserRating(star)}
-                          className="focus:outline-none transition-transform active:scale-90"
-                        >
-                          <Star 
-                            size={24} 
-                            className={`${star <= userRating ? 'text-yellow-500 fill-current' : 'text-gray-300'}`} 
-                          />
-                        </button>
-                      ))}
-                      <span className="ml-2 text-sm font-black text-gray-600">{userRating}/5</span>
-                    </div>
-                    <textarea 
-                      className="w-full bg-white border-2 border-gray-200 rounded-xl p-4 text-sm font-medium focus:ring-2 focus:ring-[#457b9d] focus:border-[#457b9d] outline-none transition-all resize-none mb-4"
-                      placeholder="Share your experience with this service..."
-                      value={userReview}
-                      onChange={(e) => setUserReview(e.target.value)}
-                      rows={3}
-                    />
-                    <button 
-                      onClick={handleSubmitReview}
-                      className="w-full bg-[#457b9d] text-white py-3 rounded-xl font-black text-sm uppercase flex items-center justify-center gap-2 hover:bg-[#1d3557] transition-all"
-                    >
-                      Post Review
-                      <Send size={16} />
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <div className="space-y-6">
-                {reviews.length > 0 ? (
-                  reviews.map((review) => (
-                    <div key={review.id} className="bg-white border-b border-gray-100 pb-6 last:border-0">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center font-black text-[10px] text-[#457b9d]">
-                            {review.userName.split(' ').map(n => n[0]).join('')}
-                          </div>
-                          <div>
-                            <h4 className="text-sm font-black text-gray-900">{review.userName}</h4>
-                            <div className="flex gap-0.5">
-                              {[...Array(5)].map((_, i) => (
-                                <Star 
-                                  key={i} 
-                                  size={10} 
-                                  className={`${i < review.rating ? 'text-yellow-500 fill-current' : 'text-gray-300'}`} 
-                                />
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                        <span className="text-[10px] font-bold text-gray-400">{review.date}</span>
-                      </div>
-                      <p className="text-sm text-gray-600 leading-relaxed pl-10">
-                        {review.comment}
-                      </p>
-                    </div>
-                  ))
-                ) : (
-                  <div className="text-center py-10 bg-gray-50 rounded-2xl border-2 border-dotted border-gray-200">
-                    <MessageSquare size={32} className="mx-auto text-gray-300 mb-2" />
-                    <p className="text-sm font-bold text-gray-400 italic">No reviews yet. Be the first to share your experience!</p>
-                  </div>
-                )}
+              <div className="pt-4 space-y-2">
+                <div className="flex items-center justify-between text-xs text-gray-500">
+                  <span>Service from</span>
+                  <span className="text-[#004090] font-bold">HelpAana</span>
+                </div>
+                <div className="text-[10px] text-gray-400 text-center pt-2">
+                  * 100% Secure Transaction
+                </div>
               </div>
-            </section>
+            </div>
           </div>
-        </motion.div>
-      </div>
-
-      {/* ── Action Footer ── */}
-      <div className="fixed bottom-0 left-0 right-0 lg:left-[45%] bg-white/95 backdrop-blur-xl border-t border-gray-200 p-4 lg:p-6 z-[100] shadow-lg">
-        <div className="max-w-full mx-auto flex items-center justify-between gap-4 lg:gap-6">
-          <div className="flex flex-col">
-            <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Total Pay</span>
-            <span className="text-2xl lg:text-3xl font-black text-gray-900 tracking-tighter">₹{basePrice * hours * quantity}</span>
-          </div>
-          <button 
-            onClick={handleAddToCart}
-            className="flex-1 bg-gradient-to-r from-[#457b9d] to-[#1d3557] text-white py-3.5 sm:py-4 px-4 sm:px-6 rounded-xl font-black text-sm sm:text-base lg:text-lg active:scale-95 transition-all flex items-center justify-center gap-2 group italic uppercase shadow-lg hover:shadow-xl"
-          >
-            Confirm Booking
-            <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
-          </button>
         </div>
       </div>
     </div>
   );
 };
 
-const StatCard = ({ icon: Icon, value, label, color }) => (
-  <div className="flex-1 min-w-0 bg-white p-3 lg:p-4 rounded-xl border border-gray-200 flex flex-col items-center shadow-sm hover:shadow-md transition-shadow">
-    <Icon size={16} className={`${color} mb-1`} />
-    <span className="text-xs lg:text-sm font-black text-gray-900 truncate">{value}</span>
-    <span className="text-[8px] lg:text-[9px] font-bold text-gray-400 uppercase tracking-tighter truncate">{label}</span>
-  </div>
-);
-
-const InputField = ({ label, value, onChange, placeholder }) => (
-  <div>
-    <label className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-2 block">{label}</label>
-    <input 
-      className="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-[#457b9d] focus:border-[#457b9d] outline-none transition-all"
-      placeholder={placeholder}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
+const FeatureItem = ({ icon: Icon, label, color }) => (
+  <div className="flex flex-col items-center gap-1">
+    <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center border border-gray-100">
+      <Icon size={18} className={color} />
+    </div>
+    <span className="text-[10px] text-gray-600 font-medium text-center">{label}</span>
   </div>
 );
 

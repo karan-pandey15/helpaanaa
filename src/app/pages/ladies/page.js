@@ -404,7 +404,7 @@ function AllCategoryInner() {
                       <div className="mt-auto">
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-sm sm:text-lg font-black text-pink-600">
-                            ₹{item.price}
+                            {/* ₹{item.price} */}
                           </span>
                         </div>
 
