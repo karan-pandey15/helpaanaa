@@ -17,13 +17,7 @@ const CATEGORIES = [
     name: "Book a Female Attendant For Traveling Airport",
     emoji: "✈️",
   }, 
-  
-  // {
-  //   id: "Gym",
-  //   name: "Book Gym",
-  //   endpoint: "https://api.marasimpex.com/api/gym/all",
-  //   emoji: "🏋️",
-  // },
+   
 ];
 
 // ─── STATIC SERVICE DATA ─────────────────────────────────────────────────────

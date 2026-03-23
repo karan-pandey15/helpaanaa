@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
@@ -58,6 +57,13 @@ const ServiceDetail = ({
   const [dates, setDates] = useState([]);
   const [additionalRequest, setAdditionalRequest] = useState('');
 
+  // Rating and Review State
+  const [reviews, setReviews] = useState([]);
+  const [newRating, setNewRating] = useState(5);
+  const [newReview, setNewReview] = useState('');
+  const [userName, setUserName] = useState('');
+  const [averageRating, setAverageRating] = useState(5);
+
   // Traveling Details
   const [gender, setGender] = useState('');
   const [religion, setReligion] = useState('');
@@ -76,7 +82,66 @@ const ServiceDetail = ({
 
   useEffect(() => {
     generateDates();
+    loadReviews();
   }, [title]);
+
+  const loadReviews = () => {
+    const savedReviews = localStorage.getItem(`reviews_${title}`);
+    if (savedReviews) {
+      const parsedReviews = JSON.parse(savedReviews);
+      setReviews(parsedReviews);
+      
+      if (parsedReviews.length > 0) {
+        const sum = parsedReviews.reduce((acc, curr) => acc + curr.rating, 0);
+        setAverageRating((sum / parsedReviews.length).toFixed(1));
+      }
+    }
+  };
+
+  const handleSubmitReview = (e) => {
+    e.preventDefault();
+    if (!newReview.trim() || !userName.trim()) return alert('Please provide your name and review');
+
+    const reviewObj = {
+      id: Date.now(),
+      userName,
+      rating: newRating,
+      comment: newReview,
+      date: new Date().toLocaleDateString()
+    };
+
+    const updatedReviews = [reviewObj, ...reviews];
+    setReviews(updatedReviews);
+    localStorage.setItem(`reviews_${title}`, JSON.stringify(updatedReviews));
+    
+    // Update average
+    const sum = updatedReviews.reduce((acc, curr) => acc + curr.rating, 0);
+    setAverageRating((sum / updatedReviews.length).toFixed(1));
+
+    // Reset form
+    setNewReview('');
+    setNewRating(5);
+    setUserName('');
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: `HelpAana - ${title}`,
+      text: `Check out this professional service: ${title}`,
+      url: typeof window !== 'undefined' ? window.location.href : '',
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(shareData.url);
+        alert('Service link copied to clipboard!');
+      }
+    } catch (err) {
+      console.error('Error sharing:', err);
+    }
+  };
 
   const generateDates = () => {
     const today = new Date();
@@ -148,8 +213,13 @@ const ServiceDetail = ({
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <Share2 size={20} className="text-gray-600 cursor-pointer hover:text-[#004090]" />
-          <Heart size={20} className="text-gray-600 cursor-pointer hover:text-red-500" />
+          <Share2 
+            size={20} 
+            className="text-gray-600 cursor-pointer hover:text-[#004090] transition-colors" 
+            onClick={handleShare}
+            title="Share this service"
+          />
+          <Heart size={20} className="text-gray-600 cursor-pointer hover:text-red-500 transition-colors" />
           <button onClick={() => router.push('/cart')} className="relative">
             <ShoppingCart size={22} className="text-gray-700 hover:text-[#004090]" />
             <span className="absolute -top-2 -right-2 bg-[#004090] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white">0</span>
@@ -164,11 +234,23 @@ const ServiceDetail = ({
           {/* ── Left Column: Title & Image Flow ── */}
           <div className="w-full lg:w-[40%] flex flex-col gap-6">
             
-            {/* 1. Heading (Title) at the Top */}
-            <div className="space-y-2">
+            {/* 1. Category and Heading (Title) at the Top */}
+            <div className="space-y-1">
+              <span className="text-xs font-bold text-[#004090] uppercase tracking-wider block">
+                {item.category}
+              </span>
               <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 leading-tight">
                 {title}
               </h1>
+              <div className="flex items-center gap-1 mt-2">
+                <div className="flex text-yellow-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={14} fill={i < Math.floor(averageRating) ? "currentColor" : "none"} />
+                  ))}
+                </div>
+                <span className="text-sm font-bold text-gray-700">{averageRating}</span>
+                <span className="text-xs text-gray-500">({reviews.length} reviews)</span>
+              </div>
             </div>
 
             {/* 2. Image below the Heading */}
@@ -213,6 +295,98 @@ const ServiceDetail = ({
                 className="w-full bg-white border border-gray-300 rounded p-3 text-sm focus:ring-1 focus:ring-[#004090] focus:border-[#004090] outline-none transition-all resize-none"
                 rows={3}
               />
+            </div>
+
+            {/* 5. Rating and Reviews Section */}
+            <div className="border-t border-gray-200 pt-8 mt-4">
+              <h3 className="text-xl font-bold mb-6 text-gray-900 flex items-center gap-2">
+                <MessageSquare size={22} className="text-[#004090]" />
+                Customer Reviews
+              </h3>
+
+              {/* Review Form */}
+              <form onSubmit={handleSubmitReview} className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-8 space-y-4">
+                <h4 className="text-sm font-bold text-gray-800">Write a Review</h4>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Your Name</label>
+                    <input 
+                      type="text"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                      placeholder="Enter your name"
+                      className="w-full p-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#004090]/20 focus:border-[#004090] outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Rating</label>
+                    <div className="flex gap-2 items-center h-[42px]">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setNewRating(star)}
+                          className="hover:scale-110 transition-transform"
+                        >
+                          <Star 
+                            size={24} 
+                            fill={star <= newRating ? "#FACC15" : "none"} 
+                            className={star <= newRating ? "text-yellow-400" : "text-gray-300"}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Your Review</label>
+                  <textarea 
+                    value={newReview}
+                    onChange={(e) => setNewReview(e.target.value)}
+                    placeholder="Share your experience with this service..."
+                    className="w-full p-3 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#004090]/20 focus:border-[#004090] outline-none min-h-[100px]"
+                  />
+                </div>
+
+                <button 
+                  type="submit"
+                  className="bg-[#004090] hover:bg-[#003070] text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all flex items-center gap-2 shadow-md"
+                >
+                  <Send size={16} />
+                  Submit Review
+                </button>
+              </form>
+
+              {/* Reviews List */}
+              <div className="space-y-6">
+                {reviews.length === 0 ? (
+                  <div className="text-center py-10 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                    <MessageSquare size={32} className="mx-auto text-gray-300 mb-2" />
+                    <p className="text-gray-500 text-sm">No reviews yet. Be the first to review!</p>
+                  </div>
+                ) : (
+                  reviews.map((review) => (
+                    <div key={review.id} className="pb-6 border-b border-gray-100 last:border-0">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h5 className="font-bold text-gray-900">{review.userName}</h5>
+                          <div className="flex text-yellow-400 mt-1">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} size={14} fill={i < review.rating ? "currentColor" : "none"} />
+                            ))}
+                          </div>
+                        </div>
+                        <span className="text-xs text-gray-400 font-medium">{review.date}</span>
+                      </div>
+                      <p className="text-sm text-gray-700 leading-relaxed italic">
+                        "{review.comment}"
+                      </p>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           </div>
 
