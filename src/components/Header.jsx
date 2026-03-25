@@ -69,7 +69,11 @@ export default function Header() {
     router.push("/pages/auth");
   };
 
-  if (pathname.includes("/pages/ServiceDetail")) {
+  if (
+    pathname.includes("/pages/ServiceDetail") || 
+    pathname.includes("/pages/ladies") || 
+    pathname.includes("/pages/Mehndi")
+  ) {
     return null;
   }
 

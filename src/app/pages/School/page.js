@@ -7,7 +7,17 @@ import { addToCart, removeFromCart } from '@/redux/cartSlice';
 
 // --- DUMMY DATA ---
 const SCHOOLS = [
-  { id: '1', name: 'ST Boston EdTech', address: 'Khasua Bhaluwan, Tehsil Bansgaon, Kauriram, Gorakhpur' },
+  { 
+    id: '1', 
+    name: 'ST Boston EdTech', 
+    address: 'Khasua Bhaluwan, Tehsil Bansgaon, Kauriram, Gorakhpur',
+    image: '/image/stschool1.jpeg',
+    gallery: [
+      '/image/stschool1.jpeg',
+      '/image/stschool2.jpeg',
+      '/image/stschool3.jpeg'
+    ]
+  },
 ];
 
 const CATEGORIES = [
@@ -233,7 +243,15 @@ export default function SchoolPage() {
                   }}
                 >
                   <div className="h-40 bg-slate-100 flex items-center justify-center relative">
-                    <Icon name="image" className="w-12 h-12 text-slate-300" />
+                    {school.image ? (
+                      <img 
+                        src={school.image} 
+                        alt={school.name} 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Icon name="image" className="w-12 h-12 text-slate-300" />
+                    )}
                     <div className="absolute top-3 right-3 bg-white/90 backdrop-blur p-2 rounded-lg shadow-sm">
                       <Icon name="location" className="w-4 h-4 text-blue-600" />
                     </div>
@@ -258,14 +276,36 @@ export default function SchoolPage() {
           <Header title="School Details" />
           <div className="flex-1 overflow-y-auto pb-24">
             <div className="px-4 py-4">
-              <div className="relative h-56 rounded-3xl overflow-hidden bg-slate-100 mb-6">
-                <div className="absolute inset-0 flex items-center justify-center">
-                   <Icon name="image" className="w-16 h-16 text-slate-300" />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-                  <h2 className="text-2xl font-extrabold text-white">{selectedSchool?.name}</h2>
-                  <p className="text-slate-200 text-sm mt-1">{selectedSchool?.address}</p>
-                </div>
+              {/* Gallery Scroll */}
+              <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-hide snap-x">
+                {selectedSchool?.gallery ? (
+                  selectedSchool.gallery.map((img, index) => (
+                    <div 
+                      key={index} 
+                      className="relative h-56 min-w-[85%] rounded-3xl overflow-hidden bg-slate-100 snap-center shadow-md border border-slate-100"
+                    >
+                      <img 
+                        src={img} 
+                        alt={`${selectedSchool.name} ${index + 1}`} 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-6">
+                        <h2 className="text-xl font-extrabold text-white">{selectedSchool?.name}</h2>
+                        <p className="text-slate-200 text-xs mt-1">{selectedSchool?.address}</p>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="relative h-56 w-full rounded-3xl overflow-hidden bg-slate-100 mb-6">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                       <Icon name="image" className="w-16 h-16 text-slate-300" />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
+                      <h2 className="text-2xl font-extrabold text-white">{selectedSchool?.name}</h2>
+                      <p className="text-slate-200 text-sm mt-1">{selectedSchool?.address}</p>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <h3 className="text-xl font-extrabold text-slate-800 mb-4">Shop By Category</h3>

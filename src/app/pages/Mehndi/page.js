@@ -1,9 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart as addToCartRedux } from "@/redux/cartSlice";
+import { 
+  ArrowLeft, 
+  MapPin, 
+  Clock, 
+  Calendar, 
+  Info, 
+  CheckCircle2,
+  ChevronRight,
+  Star,
+  Users,
+  ShieldCheck,
+  Zap,
+  MessageSquare,
+  Send,
+  Share2,
+  Heart,
+  ShoppingCart
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const ACCENT = "#457B9D";
@@ -131,26 +152,73 @@ const IconRadioOff = () => (
 
 // ─── SUB-COMPONENT: DETAILS ────────────────────────────────────────────────
 function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
+  const router = useRouter();
   const DATES = generateDates();
-  const [selectedDate,    setSelectedDate]    = useState(null);
-  const [selectedTime,    setSelectedTime]    = useState(null);
-  const [peopleCount,     setPeopleCount]     = useState(1);
-  const [selectedHands,   setSelectedHands]   = useState(2);
+  const [selectedDate, setSelectedDate] = useState(0);
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [activeImage, setActiveImage] = useState(artist.image);
+  const [peopleCount, setPeopleCount] = useState(1);
+  const [selectedHands, setSelectedHands] = useState(2);
   const [selectedPackage, setSelectedPackage] = useState("Standard");
-  const [instructions,    setInstructions]    = useState("");
+  const [instructions, setInstructions] = useState("");
 
-  const currentPkg  = PACKAGES.find(p => p.name === selectedPackage);
-  const totalPrice  = (artist.price + (currentPkg?.priceAdd || 0)) * selectedHands * peopleCount;
+  // Rating and Review State
+  const [reviews, setReviews] = useState([]);
+  const [newRating, setNewRating] = useState(5);
+  const [newReview, setNewReview] = useState("");
+  const [userName, setUserName] = useState("");
+  const [averageRating, setAverageRating] = useState(4.8);
+
+  const currentPkg = PACKAGES.find((p) => p.name === selectedPackage);
+  const totalPrice = (artist.price + (currentPkg?.priceAdd || 0)) * selectedHands * peopleCount;
+
+  useEffect(() => {
+    loadReviews();
+  }, [artist.name]);
+
+  const loadReviews = () => {
+    const savedReviews = localStorage.getItem(`reviews_${artist.name}`);
+    if (savedReviews) {
+      const parsedReviews = JSON.parse(savedReviews);
+      setReviews(parsedReviews);
+      if (parsedReviews.length > 0) {
+        const sum = parsedReviews.reduce((acc, curr) => acc + curr.rating, 0);
+        setAverageRating((sum / parsedReviews.length).toFixed(1));
+      }
+    }
+  };
+
+  const handleSubmitReview = (e) => {
+    e.preventDefault();
+    if (!newReview.trim() || !userName.trim()) return alert("Please provide your name and review");
+
+    const reviewObj = {
+      id: Date.now(),
+      userName,
+      rating: newRating,
+      comment: newReview,
+      date: new Date().toLocaleDateString(),
+    };
+
+    const updatedReviews = [reviewObj, ...reviews];
+    setReviews(updatedReviews);
+    localStorage.setItem(`reviews_${artist.name}`, JSON.stringify(updatedReviews));
+    const sum = updatedReviews.reduce((acc, curr) => acc + curr.rating, 0);
+    setAverageRating((sum / updatedReviews.length).toFixed(1));
+    setNewReview("");
+    setNewRating(5);
+    setUserName("");
+  };
 
   const handleBooking = () => {
-    if (!selectedDate) return alert("Please select a date");
+    if (selectedDate === null) return alert("Please select a date");
     if (!selectedTime) return alert("Please select a time slot");
-    const dateObj = DATES.find(d => d.full === selectedDate);
-    
+    const dateObj = DATES[selectedDate];
+
     onAddToCart({
       id: `${artist._id}_${Date.now()}`,
       name: `${artist.name} (${selectedPackage})`,
-      price: (artist.price + (currentPkg?.priceAdd || 0)) * selectedHands,
+      price: artist.price + (currentPkg?.priceAdd || 0) * selectedHands,
       totalPrice,
       quantity: peopleCount,
       hands: selectedHands,
@@ -163,274 +231,339 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
     });
   };
 
+  const handleShare = async () => {
+    const shareData = {
+      title: `HelpAana - ${artist.name}`,
+      text: `Check out this professional mehndi artist: ${artist.name}`,
+      url: typeof window !== "undefined" ? window.location.href : "",
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(shareData.url);
+        alert("Service link copied to clipboard!");
+      }
+    } catch (err) {
+      console.error("Error sharing:", err);
+    }
+  };
+
   return (
-    <div className="mehndi-detail-container" style={{ fontFamily: "'Segoe UI', system-ui, sans-serif", backgroundColor: "#f4f7fa", minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
-      {/* Detail Header */}
-      <div className="mehndi-detail-header" style={{
-        backgroundColor: "#457B9D", height: 160,
-        borderBottomLeftRadius: 30, borderBottomRightRadius: 30,
-        display: "flex", flexDirection: "column", alignItems: "center",
-        justifyContent: "center", position: "relative", flexShrink: 0,
-        zIndex: 10,
-      }}>
-        <button onClick={onBack}
-          style={{
-            position: "absolute", top: 15, left: 15,
-            backgroundColor: "rgba(255,255,255,0.2)", border: "none",
-            borderRadius: 10, width: 36, height: 36,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            cursor: "pointer", color: "#fff",
-          }}><IconBack /></button>
+    <div className="flex flex-col min-h-screen bg-white text-gray-900 font-sans overflow-y-auto">
+      {/* ── Top Navbar ── */}
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between shadow-sm">
+        <div className="flex items-center gap-4">
+          <button onClick={onBack} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <ArrowLeft size={20} />
+          </button>
+          <div className="hidden sm:flex items-center text-xs text-gray-500 gap-2">
+            <span>Mehndi</span>
+            <ChevronRight size={12} />
+            <span>Professional Artist</span>
+            <ChevronRight size={12} />
+            <span className="font-bold text-gray-800">{artist.name}</span>
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <Share2 size={20} className="text-gray-600 cursor-pointer hover:text-[#457B9D] transition-colors" onClick={handleShare} />
+          <Heart size={20} className="text-gray-600 cursor-pointer hover:text-red-500 transition-colors" />
+          <button onClick={() => router.push("/cart")} className="relative">
+            <ShoppingCart size={22} className="text-gray-700 hover:text-[#457B9D]" />
+            <span className="absolute -top-2 -right-2 bg-[#457B9D] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white">
+              0
+            </span>
+          </button>
+        </div>
+      </nav>
 
-        <div className="header-icon-container" style={{
-          width: 50, height: 50, borderRadius: 25,
-          backgroundColor: "rgba(255,255,255,0.15)",
-          border: "2px solid rgba(255,255,255,0.3)",
-          display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 8,
-        }}><IconBrush /></div>
-
-        <p className="header-title" style={{ fontSize: 18, fontWeight: 800, color: "#fff", margin: 0 }}>{artist.name}</p>
-        <p className="header-desc" style={{ fontSize: 13, color: "rgba(255,255,255,0.9)", fontWeight: 500, margin: "2px 0 0", textAlign: "center", padding: "0 20px" }}>{artist.description}</p>
-      </div>
-
-      {/* Detail Body */}
-      <div className="mehndi-detail-content" style={{ flex: 1, overflowY: "auto", padding: "16px 16px 140px", marginTop: 0 }}>
-        <div className="mehndi-detail-layout">
-          {/* Left Column (Image & Description) */}
-          <div className="mehndi-detail-media">
-            <div style={{ width: "100%", borderRadius: 20, overflow: "hidden", boxShadow: "0 6px 20px rgba(0,0,0,0.1)", marginBottom: 16 }}>
-              <img src={artist.image} alt={artist.name} style={{ width: "100%", height: "200px", objectFit: "cover", display: "block" }} />
+      {/* ── Main Content Area ── */}
+      <div className="flex-1 max-w-[1500px] mx-auto w-full pt-16 pb-32">
+        <div className="flex flex-col lg:flex-row gap-8 p-4 md:p-6 lg:p-8">
+          {/* ── Left Column: Title & Image Flow ── */}
+          <div className="w-full lg:w-[40%] flex flex-col gap-6">
+            <div className="space-y-1">
+              <span className="text-xs font-bold text-[#457B9D] uppercase tracking-wider block">Mehndi Artist</span>
+              <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 leading-tight">{artist.name}</h1>
+              <div className="flex items-center gap-1 mt-2">
+                <div className="flex text-yellow-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={14} fill={i < Math.floor(averageRating) ? "currentColor" : "none"} />
+                  ))}
+                </div>
+                <span className="text-sm font-bold text-gray-700">{averageRating}</span>
+                <span className="text-xs text-gray-500">({reviews.length} reviews)</span>
+              </div>
             </div>
-            <div className="service-info-card" style={{ backgroundColor: "#fff", padding: 16, borderRadius: 20, boxShadow: "0 4px 15px rgba(0,0,0,0.05)", marginBottom: 20 }}>
-              <h3 style={{ margin: "0 0 8px", color: "#1e293b", fontSize: 16 }}>Service Details</h3>
-              <p style={{ margin: 0, color: "#64748b", lineHeight: 1.5, fontSize: 13 }}>{artist.description}</p>
-              <div style={{ display: "flex", gap: 15, marginTop: 12 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                   <span style={{ color: "#457B9D", fontWeight: 700, fontSize: 13 }}>Time:</span>
-                   <span style={{ color: "#1e293b", fontSize: 13 }}>{artist.time}</span>
+
+            <div className="aspect-square bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+              <img
+                src={activeImage}
+                alt={artist.name}
+                className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute top-4 left-4 bg-[#457B9D] text-white px-2 py-1 text-[10px] font-bold rounded shadow-sm">
+                Top Rated Artist
+              </div>
+            </div>
+
+            <div className="flex gap-2 overflow-x-auto">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div
+                  key={i}
+                  onClick={() => setActiveImage(artist.image)}
+                  className={`w-16 h-16 border rounded cursor-pointer p-1 transition-all ${
+                    activeImage === artist.image && i === 1 ? "border-[#457B9D] ring-1 ring-[#457B9D]" : "border-gray-200 hover:border-[#457B9D] hover:scale-105"
+                  }`}
+                >
+                  <img src={artist.image} className="w-full h-full object-contain" />
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                   <span style={{ color: "#457B9D", fontWeight: 700, fontSize: 13 }}>Base:</span>
-                   <span style={{ color: "#1e293b", fontSize: 13 }}>₹{artist.price}</span>
+              ))}
+            </div>
+
+            <div className="border-t border-gray-200 pt-6">
+              <h3 className="text-lg font-bold mb-3 text-gray-900">About this service</h3>
+              <p className="text-sm leading-relaxed text-gray-700 whitespace-pre-line">{artist.description}</p>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <h4 className="text-sm font-bold mb-2 flex items-center gap-2">
+                <Info size={16} className="text-[#457B9D]" />
+                Additional Instructions?
+              </h4>
+              <textarea
+                value={instructions}
+                onChange={(e) => setInstructions(e.target.value)}
+                placeholder="Any specific design request or landmark..."
+                className="w-full bg-white border border-gray-300 rounded p-3 text-sm focus:ring-1 focus:ring-[#457B9D] focus:border-[#457B9D] outline-none transition-all resize-none"
+                rows={3}
+              />
+            </div>
+
+            {/* Rating and Reviews Section */}
+            <div className="border-t border-gray-200 pt-8 mt-4">
+              <h3 className="text-xl font-bold mb-6 text-gray-900 flex items-center gap-2">
+                <MessageSquare size={22} className="text-[#457B9D]" />
+                Customer Reviews
+              </h3>
+
+              <form onSubmit={handleSubmitReview} className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-8 space-y-4">
+                <h4 className="text-sm font-bold text-gray-800">Write a Review</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Your Name</label>
+                    <input
+                      type="text"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                      placeholder="Enter your name"
+                      className="w-full p-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#457B9D]/20 focus:border-[#457B9D] outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Rating</label>
+                    <div className="flex gap-2 items-center h-[42px]">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button key={star} type="button" onClick={() => setNewRating(star)} className="hover:scale-110 transition-transform">
+                          <Star
+                            size={24}
+                            fill={star <= newRating ? "#FACC15" : "none"}
+                            className={star <= newRating ? "text-yellow-400" : "text-gray-300"}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Your Review</label>
+                  <textarea
+                    value={newReview}
+                    onChange={(e) => setNewReview(e.target.value)}
+                    placeholder="Share your experience..."
+                    className="w-full p-3 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#457B9D]/20 focus:border-[#457B9D] outline-none min-h-[100px]"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="bg-[#457B9D] hover:bg-[#345d78] text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all flex items-center gap-2 shadow-md"
+                >
+                  <Send size={16} />
+                  Submit Review
+                </button>
+              </form>
+
+              <div className="space-y-6">
+                {reviews.length === 0 ? (
+                  <div className="text-center py-10 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                    <MessageSquare size={32} className="mx-auto text-gray-300 mb-2" />
+                    <p className="text-gray-500 text-sm">No reviews yet. Be the first to review!</p>
+                  </div>
+                ) : (
+                  reviews.map((review) => (
+                    <div key={review.id} className="pb-6 border-b border-gray-100 last:border-0">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h5 className="font-bold text-gray-900">{review.userName}</h5>
+                          <div className="flex text-yellow-400 mt-1">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} size={14} fill={i < review.rating ? "currentColor" : "none"} />
+                            ))}
+                          </div>
+                        </div>
+                        <span className="text-xs text-gray-400 font-medium">{review.date}</span>
+                      </div>
+                      <p className="text-sm text-gray-700 leading-relaxed italic">"{review.comment}"</p>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>
 
-          {/* Right Column (Booking Options) */}
-          <div className="mehndi-detail-options">
-            {/* People Count */}
-            <div style={{
-              backgroundColor: "#fff", borderRadius: 16, border: "1px solid #f1f5f9",
-              boxShadow: "0 4px 12px rgba(69,123,157,0.06)",
-              display: "flex", justifyContent: "space-between", alignItems: "center",
-              padding: "16px 20px", marginBottom: 20,
-            }}>
-              <div>
-                <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: 0 }}>Number of People</p>
-                <p style={{ fontSize: 11, color: "#64748b", margin: "1px 0 0" }}>How many individuals?</p>
+          {/* ── Center Column: Info & Details ── */}
+          <div className="w-full lg:w-[35%] space-y-6 border-b lg:border-b-0 pb-8 pt-0 lg:pt-14">
+            <div className="flex items-center gap-2 text-sm">
+              <span className="bg-[#457B9D] text-white px-2 py-0.5 text-[10px] font-bold rounded">HelpAana Choice</span>
+              <span className="text-gray-500">for "{artist.name}"</span>
+            </div>
+            <hr className="border-gray-200" />
+            <div className="space-y-1">
+              <div className="flex items-baseline gap-1">
+                <span className="text-2xl font-light text-red-700">-10%</span>
+                <div className="flex items-start">
+                  <span className="text-sm mt-1 font-medium">₹</span>
+                  <span className="text-3xl font-medium">{artist.price}</span>
+                </div>
               </div>
-              <div style={{ display: "flex", alignItems: "center", backgroundColor: "#f1f5f9", borderRadius: 12, padding: 4, gap: 4 }}>
-                <button onClick={() => peopleCount > 1 && setPeopleCount(c => c - 1)}
-                  style={{ width: 32, height: 32, borderRadius: 8, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 18, fontWeight: 700, color: "#457B9D", display: "flex", alignItems: "center", justifyContent: "center" }}>−</button>
-                <span style={{ fontSize: 16, fontWeight: 800, color: "#1e293b", minWidth: 28, textAlign: "center" }}>{peopleCount}</span>
-                <button onClick={() => setPeopleCount(c => c + 1)}
-                  style={{ width: 32, height: 32, borderRadius: 8, border: "none", backgroundColor: "#fff", cursor: "pointer", fontSize: 18, fontWeight: 700, color: "#457B9D", display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
+              <p className="text-xs text-gray-500">M.R.P.: <span className="line-through">₹{Math.round(artist.price * 1.1)}</span></p>
+              <div className="bg-gray-100 p-2 rounded inline-block text-[11px] font-bold text-gray-700 border border-gray-200">
+                Inclusive of all taxes
               </div>
             </div>
 
-            {/* Hand Selection */}
-            <div style={{ marginBottom: 20 }}>
-              <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: "0 0 10px" }}>Select Hands</p>
-              <div style={{ display: "flex", gap: 10 }}>
-                {[{ hands: 1, label: "1 Hand" }, { hands: 2, label: "2 Hands" }].map(opt => {
-                  const active = selectedHands === opt.hands;
-                  return (
-                    <button key={opt.hands} onClick={() => setSelectedHands(opt.hands)}
-                      style={{
-                        flex: 1, padding: "12px 8px",
-                        backgroundColor: active ? "#457B9D" : "#fff",
-                        border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                        borderRadius: 16, cursor: "pointer",
-                        display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
-                        boxShadow: active ? "0 6px 15px rgba(69,123,157,0.15)" : "0 3px 8px rgba(0,0,0,0.03)",
-                        transition: "all 0.2s",
-                      }}>
-                      <div style={{ display: "flex", transform: "scale(0.85)" }}>
-                        <IconHandRight color={active ? "#fff" : "#457B9D"} />
-                        {opt.hands === 2 && <IconHandRight color={active ? "#fff" : "#457B9D"} />}
-                      </div>
-                      <span style={{ fontSize: 13, fontWeight: 700, color: active ? "#fff" : "#475569" }}>{opt.label}</span>
+            <div className="grid grid-cols-4 gap-2 pt-4">
+              <FeatureItem icon={CheckCircle2} label="Verified" color="text-green-600" />
+              <FeatureItem icon={ShieldCheck} label="Safe" color="text-[#457B9D]" />
+              <FeatureItem icon={Zap} label="Quick" color="text-yellow-600" />
+              <FeatureItem icon={Clock} label={artist.time} color="text-gray-600" />
+            </div>
+
+            <hr className="border-gray-200" />
+
+            {/* People and Hands Section */}
+            <div className="grid grid-cols-2 gap-4">
+              <section className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                <h3 className="text-[10px] font-bold text-gray-500 uppercase mb-3">Individuals</h3>
+                <div className="flex items-center justify-between">
+                  <button onClick={() => peopleCount > 1 && setPeopleCount(c => c - 1)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center font-bold text-lg text-[#457B9D]">-</button>
+                  <span className="font-bold text-lg">{peopleCount}</span>
+                  <button onClick={() => setPeopleCount(c => c + 1)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center font-bold text-lg text-[#457B9D]">+</button>
+                </div>
+              </section>
+
+              <section className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                <h3 className="text-[10px] font-bold text-gray-500 uppercase mb-3">Hands</h3>
+                <div className="flex gap-2">
+                  {[1, 2].map(h => (
+                    <button key={h} onClick={() => setSelectedHands(h)} className={`flex-1 py-1 px-2 rounded-lg border-2 font-bold text-xs transition-all ${selectedHands === h ? 'border-[#457B9D] bg-white text-[#457B9D]' : 'border-transparent bg-white text-gray-400'}`}>
+                      {h} {h === 1 ? 'Hand' : 'Hands'}
                     </button>
-                  );
-                })}
-              </div>
+                  ))}
+                </div>
+              </section>
             </div>
 
             {/* Package Selection */}
-            <div style={{ marginBottom: 20 }}>
-              <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: "0 0 10px" }}>Select Package</p>
-              {PACKAGES.map(pkg => {
-                const active = selectedPackage === pkg.name;
-                return (
-                  <button key={pkg.name} onClick={() => setSelectedPackage(pkg.name)}
-                    style={{
-                      width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center",
-                      padding: "12px 16px", marginBottom: 8,
-                      backgroundColor: active ? "#eef6fa" : "#fff",
-                      border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                      borderRadius: 16, cursor: "pointer", textAlign: "left",
-                      boxShadow: active ? "0 4px 12px rgba(69,123,157,0.1)" : "0 2px 4px rgba(0,0,0,0.01)",
-                      transition: "all 0.2s",
-                    }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <div style={{ transform: "scale(0.85)" }}>{active ? <IconRadioOn /> : <IconRadioOff />}</div>
-                      <div>
-                        <p style={{ fontSize: 13, fontWeight: 700, color: active ? "#457B9D" : "#334155", margin: 0 }}>{pkg.name}</p>
-                        <p style={{ fontSize: 11, color: "#64748b", margin: "1px 0 0" }}>{pkg.desc}</p>
-                      </div>
+            <section>
+              <h3 className="text-sm font-bold mb-3">Select Package</h3>
+              <div className="space-y-2">
+                {PACKAGES.map(pkg => (
+                  <button key={pkg.name} onClick={() => setSelectedPackage(pkg.name)} className={`w-full flex justify-between items-center p-3 rounded-xl border transition-all ${selectedPackage === pkg.name ? 'border-[#457B9D] bg-blue-50 ring-1 ring-[#457B9D]' : 'border-gray-200 bg-white hover:bg-gray-50'}`}>
+                    <div className="text-left">
+                      <p className={`text-xs font-bold ${selectedPackage === pkg.name ? 'text-[#457B9D]' : 'text-gray-700'}`}>{pkg.name}</p>
+                      <p className="text-[10px] text-gray-500">{pkg.desc}</p>
                     </div>
-                    <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#457B9D" : "#475569" }}>+₹{pkg.priceAdd * selectedHands}</span>
+                    <span className="text-xs font-bold text-[#457B9D]">+₹{pkg.priceAdd * selectedHands}</span>
                   </button>
-                );
-              })}
-            </div>
-
-            {/* Date Selection */}
-            <div style={{ marginBottom: 20 }}>
-              <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: "0 0 10px" }}>Select Date</p>
-              <div className="date-scroll" style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 8, scrollbarWidth: "none" }}>
-                {DATES.map((item, i) => {
-                  const active = selectedDate === item.full;
-                  return (
-                    <button key={i} onClick={() => setSelectedDate(item.full)}
-                      style={{
-                        minWidth: 65, height: 80, flexShrink: 0,
-                        backgroundColor: active ? "#457B9D" : "#fff",
-                        border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                        borderRadius: 16, cursor: "pointer",
-                        display: "flex", flexDirection: "column",
-                        alignItems: "center", justifyContent: "center", gap: 0,
-                        boxShadow: active ? "0 4px 12px rgba(69,123,157,0.15)" : "0 2px 6px rgba(0,0,0,0.03)",
-                        transition: "all 0.2s",
-                      }}>
-                      <span style={{ fontSize: 10, fontWeight: 600, color: active ? "rgba(255,255,255,0.8)" : "#64748b" }}>{item.day}</span>
-                      <span style={{ fontSize: 18, fontWeight: 800, color: active ? "#fff" : "#1e293b" }}>{item.date}</span>
-                      <span style={{ fontSize: 10, fontWeight: 600, color: active ? "rgba(255,255,255,0.8)" : "#64748b" }}>{item.month}</span>
-                    </button>
-                  );
-                })}
+                ))}
               </div>
-            </div>
+            </section>
 
-            {/* Time Selection */}
-            <div style={{ marginBottom: 20 }}>
-              <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: "0 0 10px" }}>Select Time</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                {TIMES.map((time, i) => {
-                  const active = selectedTime === time;
-                  return (
-                    <button key={i} onClick={() => setSelectedTime(time)}
-                      style={{
-                        flex: "0 0 calc(33.33% - 6px)", padding: "10px 0",
-                        backgroundColor: active ? "#457B9D" : "#fff",
-                        border: `2px solid ${active ? "#457B9D" : "#f1f5f9"}`,
-                        borderRadius: 12, cursor: "pointer",
-                        fontSize: 12, fontWeight: 700, color: active ? "#fff" : "#1e293b",
-                        boxShadow: active ? "0 4px 10px rgba(69,123,157,0.12)" : "0 2px 4px rgba(0,0,0,0.01)",
-                        transition: "all 0.2s",
-                      }}>
-                      {time}
-                    </button>
-                  );
-                })}
+            <section>
+              <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+                <Calendar size={18} />
+                Choose Date
+              </h3>
+              <div className="flex gap-2 overflow-x-auto pb-2">
+                {DATES.map((date, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedDate(idx)}
+                    className={`flex flex-col items-center min-w-[60px] p-2 rounded border transition-all ${
+                      selectedDate === idx ? 'border-[#457B9D] bg-blue-50 ring-1 ring-[#457B9D]' : 'border-gray-300 bg-white hover:bg-gray-50'
+                    }`}
+                  >
+                    <span className="text-[10px] uppercase text-gray-500 font-bold">{date.day}</span>
+                    <span className="text-lg font-bold">{date.date}</span>
+                    <span className="text-[10px] uppercase text-gray-500">{date.month}</span>
+                  </button>
+                ))}
               </div>
-            </div>
+            </section>
 
-            {/* Instructions */}
-            <div style={{ marginBottom: 20 }}>
-              <p style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", margin: "0 0 10px" }}>Instructions</p>
-              <textarea
-                value={instructions} onChange={e => setInstructions(e.target.value)}
-                placeholder="Any specific design request or landmark..."
-                style={{
-                  width: "100%", height: 80, backgroundColor: "#fff", borderRadius: 16,
-                  border: "2px solid #f1f5f9", padding: "12px 16px",
-                  fontSize: 13, color: "#1e293b", resize: "none", outline: "none", boxSizing: "border-box",
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.02)",
-                }}
-              />
+            <section>
+              <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+                <Clock size={18} />
+                Pick Time
+              </h3>
+              <div className="grid grid-cols-3 gap-2">
+                {TIMES.map((time) => (
+                  <button
+                    key={time}
+                    onClick={() => setSelectedTime(time)}
+                    className={`py-2 px-1 rounded border text-xs font-bold transition-all ${
+                      selectedTime === time ? 'border-[#457B9D] bg-blue-50 ring-1 ring-[#457B9D]' : 'border-gray-300 bg-white hover:bg-gray-50'
+                    }`}
+                  >
+                    {time}
+                  </button>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          {/* ── Right Column: Buy Box ── */}
+          <div className="w-full lg:w-[25%] pt-0 lg:pt-14">
+            <div className="lg:sticky lg:top-24 border border-gray-200 rounded-lg p-4 space-y-4 shadow-sm bg-white">
+              <div className="text-2xl font-medium">₹{totalPrice}</div>
+              <div className="space-y-3 pt-2">
+                <button onClick={handleBooking} className="w-full bg-[#457B9D] hover:bg-[#345d78] text-white py-2.5 rounded-full font-medium text-sm border border-[#457B9D] shadow-sm transition-all">
+                  Book Now
+                </button>
+              </div>
+              <div className="pt-4 space-y-2">
+                <div className="flex items-center justify-between text-xs text-gray-500">
+                  <span>Artist from</span>
+                  <span className="text-[#457B9D] font-bold">HelpAana</span>
+                </div>
+                <div className="text-[10px] text-gray-400 text-center pt-2">* 100% Secure Transaction</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  );
+}
 
-      {/* Detail Footer */}
-      <div className="mehndi-detail-footer" style={{
-        position: "fixed", bottom: 0, left: 0, right: 0, backgroundColor: "#fff",
-        borderTopLeftRadius: 24, borderTopRightRadius: 24,
-        boxShadow: "0 -6px 25px rgba(0,0,0,0.08)",
-        padding: "16px 20px 24px",
-        display: "flex", justifyContent: "space-between", alignItems: "center",
-        zIndex: 100,
-      }}>
-        <div className="footer-price">
-          <p style={{ fontSize: 11, color: "#64748b", fontWeight: 600, margin: 0 }}>Total Amount</p>
-          <p style={{ fontSize: 22, fontWeight: 800, color: "#457B9D", margin: "1px 0 0" }}>₹{totalPrice.toLocaleString()}</p>
-        </div>
-        <button onClick={handleBooking}
-          style={{
-            backgroundColor: "#457B9D", color: "#fff", border: "none",
-            borderRadius: 14, padding: "12px 24px",
-            display: "flex", alignItems: "center", gap: 8,
-            fontSize: 15, fontWeight: 800, cursor: "pointer",
-            boxShadow: "0 4px 15px rgba(69,123,157,0.25)",
-          }}>
-          Confirm <IconArrow />
-        </button>
+function FeatureItem({ icon: Icon, label, color }) {
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center border border-gray-100">
+        <Icon size={18} className={color} />
       </div>
-
-      <style>{`
-        .mehndi-detail-media { display: block; }
-        .mehndi-detail-layout { max-width: 100%; }
-        .date-scroll::-webkit-scrollbar { display: none; }
-        
-        @media (min-width: 1024px) {
-          .mehndi-detail-header { height: 180px; border-radius: 0 0 40px 40px; }
-          .header-title { font-size: 28px !important; }
-          .header-desc { font-size: 16px !important; }
-          .header-icon-container { width: 70px !important; height: 70px !important; margin-bottom: 12px !important; }
-          
-          .mehndi-detail-content { padding: 40px !important; margin-top: 0 !important; }
-          .mehndi-detail-layout {
-            display: flex;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-          }
-          .mehndi-detail-media {
-            flex: 1;
-            position: sticky;
-            top: 40px;
-            height: fit-content;
-          }
-          .mehndi-detail-media img { height: 400px !important; }
-          .mehndi-detail-options {
-            flex: 1.2;
-            background: #fff;
-            padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-          }
-          .mehndi-detail-footer {
-            padding: 24px 60px !important;
-            justify-content: center !important;
-            gap: 150px;
-          }
-          .footer-price p:last-child { font-size: 32px !important; }
-          .mehndi-detail-footer button { padding: 18px 50px !important; font-size: 20px !important; }
-        }
-      `}</style>
+      <span className="text-[10px] text-gray-600 font-medium text-center">{label}</span>
     </div>
   );
 }

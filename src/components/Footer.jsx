@@ -53,7 +53,11 @@ const otherLinks = [
 export default function Footer() {
   const pathname = usePathname();
 
-  if (pathname.includes("/pages/ServiceDetail")) {
+  if (
+    pathname.includes("/pages/ServiceDetail") || 
+    pathname.includes("/pages/ladies") || 
+    pathname.includes("/pages/Mehndi")
+  ) {
     return null;
   }
   return (
