@@ -10,7 +10,7 @@ export default function PrivacyPolicyPage() {
       
       <div className="p-6 space-y-8 pb-20">
         <section className="space-y-4">
-          <div className="flex items-center gap-3 text-[#457b9d]">
+          <div className="flex items-center gap-3 text-[#004090]">
             <Lock size={28} />
             <h2 className="text-2xl font-bold">Privacy Matters</h2>
           </div>
@@ -21,7 +21,7 @@ export default function PrivacyPolicyPage() {
 
         <section className="space-y-4">
           <div className="flex items-start gap-3">
-            <Eye className="text-[#457b9d] shrink-0" size={24} />
+            <Eye className="text-[#004090] shrink-0" size={24} />
             <div>
               <h3 className="font-bold text-gray-800">1. Information We Collect</h3>
               <p className="text-sm text-gray-600 mt-1">
@@ -31,7 +31,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <div className="flex items-start gap-3">
-            <FileText className="text-[#457b9d] shrink-0" size={24} />
+            <FileText className="text-[#004090] shrink-0" size={24} />
             <div>
               <h3 className="font-bold text-gray-800">2. Use of Information</h3>
               <p className="text-sm text-gray-600 mt-1">
@@ -41,7 +41,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <div className="flex items-start gap-3">
-            <Bell className="text-[#457b9d] shrink-0" size={24} />
+            <Bell className="text-[#004090] shrink-0" size={24} />
             <div>
               <h3 className="font-bold text-gray-800">3. Third-party Sharing</h3>
               <p className="text-sm text-gray-600 mt-1">

@@ -21,10 +21,14 @@ const categories = [
   { name: "Booking for Pandit Ji", path: "/pages/Pandit" },
   { name: "Mehndi Artist", path: "/pages/Mehndi" },
   { name: "School Uniform & Accessories", path: "/pages/School" },
+  { name: "Salon & Makeup", path: "/pages/Salon" }, 
+  
   { name: "Healthy Food", path: "/pages/Groceries" },
   { name: "Resort & Farmhouse Booking", path: "/pages/Hotel" },
   { name: "Cosmetic", path: "/pages/Cosmetic" },
   { name: "Nurse For First Aid", path: "/pages/nurse" },
+  
+  { name: "Pregnancy & Ladies Health Issue", path: "/pages/ladies" },
   { name: "Premium Gym MemberShip", path: "/pages/Gym" },
   { name: "Food For Patient & Tiffin Service", path: "/pages/tiffinservice" },
   { name: "Physiotherapist", path: "/pages/physiotherapist" },
@@ -33,10 +37,10 @@ const categories = [
 
 const companyLinks = [
   { name: "About Us", path: "/about" },
-  { name: "For Business Collaboration", path: "/collaboration" },
-  { name: "For Investors", path: "/investors" },
-  { name: "Become a Partner", path: "/partner" },
-  { name: "Join Us (Career)", path: "/career" },
+  { name: "For Business Collaboration", path: "/pages/collaboration" },
+  { name: "For Investors", path: "/pages/investors" },
+  { name: "Become a Partner", path: "/pages/partner" },
+  { name: "Join Us (Career)", path: "/pages/career" },
   { name: "Contact Us", path: "/contact" },
   { name: "Privacy Policy", path: "/privacy-policy" },
   { name: "Terms & Conditions", path: "/terms" },

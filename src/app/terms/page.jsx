@@ -10,7 +10,7 @@ export default function TermsPage() {
       
       <div className="p-6 space-y-8 pb-20">
         <section className="space-y-4 text-center">
-          <div className="inline-flex items-center justify-center p-4 bg-[#457b9d]/10 rounded-full text-[#457b9d] mb-2">
+          <div className="inline-flex items-center justify-center p-4 bg-[#004090]/10 rounded-full text-[#004090] mb-2">
             <Gavel size={32} />
           </div>
           <h2 className="text-2xl font-bold text-gray-800">Legal Agreement</h2>
@@ -21,7 +21,7 @@ export default function TermsPage() {
 
         <div className="space-y-6">
           <div className="p-5 border border-gray-100 rounded-3xl bg-gray-50 space-y-3">
-            <div className="flex items-center gap-2 text-[#457b9d] font-bold">
+            <div className="flex items-center gap-2 text-[#004090] font-bold">
               <CheckCircle size={18} />
               <h3>1. Acceptance of Terms</h3>
             </div>
@@ -31,7 +31,7 @@ export default function TermsPage() {
           </div>
 
           <div className="p-5 border border-gray-100 rounded-3xl bg-gray-50 space-y-3">
-            <div className="flex items-center gap-2 text-[#457b9d] font-bold">
+            <div className="flex items-center gap-2 text-[#004090] font-bold">
               <CheckCircle size={18} />
               <h3>2. Service Provision</h3>
             </div>
@@ -40,7 +40,7 @@ export default function TermsPage() {
             </p>
           </div>
 
-          <div className="p-5 border border-[#457b9d]/20 rounded-3xl bg-[#457b9d]/5 space-y-3">
+          <div className="p-5 border border-[#004090]/20 rounded-3xl bg-[#004090]/5 space-y-3">
             <div className="flex items-center gap-2 text-amber-600 font-bold">
               <AlertTriangle size={18} />
               <h3>3. User Responsibility</h3>
@@ -51,7 +51,7 @@ export default function TermsPage() {
           </div>
 
           <div className="p-5 border border-gray-100 rounded-3xl bg-gray-50 space-y-3">
-            <div className="flex items-center gap-2 text-[#457b9d] font-bold">
+            <div className="flex items-center gap-2 text-[#004090] font-bold">
               <CheckCircle size={18} />
               <h3>4. Cancellation Policy</h3>
             </div>

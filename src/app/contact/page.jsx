@@ -29,7 +29,7 @@ export default function ContactPage() {
           
           <div className="space-y-4">
             <div className="flex items-start gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
-              <div className="bg-[#457b9d] p-3 rounded-xl text-white">
+              <div className="bg-[#004090] p-3 rounded-xl text-white">
                 <MapPin size={20} />
               </div>
               <div>
@@ -39,7 +39,7 @@ export default function ContactPage() {
             </div>
 
             <div className="flex items-start gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
-              <div className="bg-[#457b9d] p-3 rounded-xl text-white">
+              <div className="bg-[#004090] p-3 rounded-xl text-white">
                 <Phone size={20} />
               </div>
               <div>
@@ -50,7 +50,7 @@ export default function ContactPage() {
             </div>
 
             <div className="flex items-start gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
-              <div className="bg-[#457b9d] p-3 rounded-xl text-white">
+              <div className="bg-[#004090] p-3 rounded-xl text-white">
                 <Mail size={20} />
               </div>
               <div>
@@ -69,7 +69,7 @@ export default function ContactPage() {
               <input 
                 type="text" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#457b9d] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] focus:border-transparent transition-all"
                 placeholder="Enter Full Name"
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -80,7 +80,7 @@ export default function ContactPage() {
               <input 
                 type="email" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#457b9d] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] focus:border-transparent transition-all"
                 placeholder="Enter Email "
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -91,7 +91,7 @@ export default function ContactPage() {
               <input 
                 type="tel" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#457b9d] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] focus:border-transparent transition-all"
                 placeholder="+91 XXXXX XXXXX"
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
@@ -102,7 +102,7 @@ export default function ContactPage() {
               <textarea 
                 rows="4" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#457b9d] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] focus:border-transparent transition-all"
                 placeholder="How can we help you?"
                 value={formData.message}
                 onChange={(e) => setFormData({...formData, message: e.target.value})}
@@ -110,7 +110,7 @@ export default function ContactPage() {
             </div>
             <button 
               type="submit"
-              className="w-full bg-[#457b9d] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#3d6d8c] transition-colors shadow-lg shadow-[#457b9d]/20"
+              className="w-full bg-[#004090] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#003070] transition-colors shadow-lg shadow-[#004090]/20"
             >
               <Send size={18} />
               Send Message

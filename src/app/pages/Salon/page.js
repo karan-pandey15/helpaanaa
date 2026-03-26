@@ -10,27 +10,27 @@ const CATEGORIES = [
     id: "salon",
     name: "Salon For Women",
     endpoint: "https://api.marasimpex.com/api/services/category/salonwomen",
-    emoji: "",
+    emoji: "💆🏻‍♀️",
   },
   {
     id: "hair",
     name: "Hair Studio For Women",
     endpoint: "https://api.marasimpex.com/api/services/category/hairwomen",
-    emoji: "",
+    emoji: "✂",
   },
 
   {
     id: "Salon For Men",
     name: "Salon For Men",
     endpoint: "https://api.marasimpex.com/api/services/category/salonmen",
-    emoji: "",
+    emoji: "✂",
   }
   ,
   {
     id: "hairmen",
     name: "Hair Cut For men",
     endpoint: "https://api.marasimpex.com/api/services/category/hairmen",
-    emoji: "",
+    emoji: "✂",
   },
    
 ];

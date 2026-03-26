@@ -10,7 +10,7 @@ export default function AboutPage() {
       
       <div className="p-6 space-y-8 pb-20">
         <section className="space-y-4">
-          <div className="flex items-center gap-3 text-[#457b9d]">
+          <div className="flex items-center gap-3 text-[#004090]">
             <Info size={28} />
             <h2 className="text-2xl font-bold">Who We Are</h2>
           </div>
@@ -22,7 +22,7 @@ export default function AboutPage() {
         </section>
 
         <section className="space-y-4">
-          <div className="flex items-center gap-3 text-[#457b9d]">
+          <div className="flex items-center gap-3 text-[#004090]">
             <Target size={28} />
             <h2 className="text-2xl font-bold">Our Mission</h2>
           </div>
@@ -35,19 +35,19 @@ export default function AboutPage() {
 
         <div className="grid grid-cols-2 gap-4">
           <div className="p-4 border border-gray-100 rounded-2xl bg-gray-50 text-center space-y-2">
-            <Users className="mx-auto text-[#457b9d]" size={32} />
+            <Users className="mx-auto text-[#004090]" size={32} />
             <h3 className="font-bold text-gray-800">1000+</h3>
             <p className="text-xs text-gray-500">Happy Clients</p>
           </div>
           <div className="p-4 border border-gray-100 rounded-2xl bg-gray-50 text-center space-y-2">
-            <ShieldCheck className="mx-auto text-[#457b9d]" size={32} />
+            <ShieldCheck className="mx-auto text-[#004090]" size={32} />
             <h3 className="font-bold text-gray-800">Verified</h3>
             <p className="text-xs text-gray-500">Service Partners</p>
           </div>
         </div>
 
-        <section className="bg-[#457b9d]/10 p-6 rounded-3xl space-y-3">
-          <h2 className="text-xl font-bold text-[#1d3557]">Our Story</h2>
+        <section className="bg-[#004090]/10 p-6 rounded-3xl space-y-3">
+          <h2 className="text-xl font-bold text-[#004090]">Our Story</h2>
           <p className="text-gray-700 text-sm leading-relaxed">
             Founded with a vision to organize the domestic service sector, Helpaana started 
             as a small initiative to help families find trustworthy attendants. Today, 
