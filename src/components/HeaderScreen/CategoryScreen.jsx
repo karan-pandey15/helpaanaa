@@ -114,6 +114,14 @@ const categories = [
     params: {},
     iconBg: '#E8F5E9',
   },
+   {
+    id: 'ecommerce',
+    name: 'E-commerece',
+    image: '/image/grocery1.png',
+    screen: '/pages/ecommerce',
+    params: {},
+    iconBg: '#E8F5E9',
+  },
   {
     id: 'physiotherapist',
     name: 'Physiotherapist',
