@@ -60,6 +60,15 @@ const categories = [
     params: {},
     iconBg: '#E8F5E9',
   },
+
+    {
+    id: 'ecommerce',
+    name: 'E-commerece',
+    image: '/image/ecommerce.png',
+    screen: '/pages/ecommerce',
+    params: {},
+    iconBg: '#E8F5E9',
+  },
   {
     id: 'hotel',
     name: 'Resort & Farmhouse Booking',
@@ -117,7 +126,7 @@ const categories = [
    {
     id: 'ecommerce',
     name: 'E-commerece',
-    image: '/image/grocery1.png',
+    image: '/image/ecommerce.png',
     screen: '/pages/ecommerce',
     params: {},
     iconBg: '#E8F5E9',
@@ -164,7 +173,7 @@ const categoryGroups = [
   { title: 'Salon & Beauty Wellness', ids: ['mehndi', 'salonMakeup', 'cosmetic'] },
   { title: 'Lifestyle & Personal Care', ids: ['luxuryProduct'] },
   { title: 'Food & Beverage', ids: ['Tiffin Service', 'groceries'] },
-  { title: 'E-Commerce', ids: ['school', 'groceries2'] },
+  { title: 'E-Commerce', ids: ['school', 'groceries2','ecommerce'] },
   { title: 'Prime Resort Booking', ids: ['hotel'] },
 ];
 

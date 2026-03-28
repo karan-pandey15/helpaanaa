@@ -7,7 +7,7 @@ import { addToCart, removeFromCart } from '@/redux/cartSlice';
 
 const THEME_COLOR = "#457B9D";
 
-export default function GroceryPage() {
+export default function EcoomercePage() {
   const router = useRouter();
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
@@ -78,6 +78,23 @@ export default function GroceryPage() {
   // --- FILTERED DATA ---
   const filteredProducts = products.filter((p) => p.sub_category === selectedSubCategory);
 
+  const navigateToDetail = (product) => {
+    const params = new URLSearchParams({
+      id: product._id,
+      name: product.name,
+      price: product.price.selling_price,
+      mrp: product.price.mrp,
+      description: product.description,
+      category: product.category,
+      sub_category: product.sub_category,
+      image: product.images?.[0]?.url || '',
+      images: JSON.stringify(product.images || []),
+      unit: product.quantity_info.unit,
+      size: product.quantity_info.size
+    });
+    router.push(`/pages/ecommerce/details?${params.toString()}`);
+  };
+
   const getSubCategoryImage = (sub) => {
     const p = products.find((prod) => prod.sub_category === sub);
     return p?.images?.[0]?.url || "/image/placeholder.png";
@@ -143,7 +160,10 @@ export default function GroceryPage() {
               return (
                 <div key={item._id} className="bg-white rounded-xl shadow-sm flex flex-col overflow-hidden">
                   {/* Image Container */}
-                  <div className="aspect-square w-full p-4 relative bg-white">
+                  <div 
+                    className="aspect-square w-full p-4 relative bg-white cursor-pointer"
+                    onClick={() => navigateToDetail(item)}
+                  >
                     <img 
                       src={item.images?.[0]?.url} 
                       alt={item.name} 
@@ -162,7 +182,10 @@ export default function GroceryPage() {
                       )}
                     </div>
 
-                    <h3 className="text-xs font-medium text-gray-800 line-clamp-2 mb-1 h-8">
+                    <h3 
+                      className="text-xs font-medium text-gray-800 line-clamp-2 mb-1 h-8 cursor-pointer hover:text-[#457B9D]"
+                      onClick={() => navigateToDetail(item)}
+                    >
                       {item.name}
                     </h3>
 
