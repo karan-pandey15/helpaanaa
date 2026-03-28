@@ -112,7 +112,7 @@ export default function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-3 sm:gap-6">
-            <Link href="/pages/ShopFresh" className="hidden lg:block bg-[#F5A623] text-[#004090] font-bold px-6 py-2 rounded-full text-sm hover:scale-105 transition-transform active:scale-95 shadow-lg">
+            <Link href="/pages/dealday" className="hidden lg:block bg-[#F5A623] text-[#004090] font-bold px-6 py-2 rounded-full text-sm hover:scale-105 transition-transform active:scale-95 shadow-lg">
               Deal Of the Day
             </Link>
 
@@ -168,7 +168,7 @@ export default function Header() {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
           </div>
           <Link 
-            href="/pages/ShopFresh" 
+            href="/pages/dealday" 
             className="flex-1 bg-[#F5A623] text-[#004090] font-extrabold h-11 px-2 rounded-full text-[10px] leading-tight flex flex-col items-center justify-center shadow-lg active:scale-95 transition-all border-b-2 border-black/10"
           >
             <span className="uppercase tracking-tight">Deal of</span>
@@ -253,10 +253,10 @@ export default function Header() {
                 )}
 
                 <button 
-                  onClick={() => { router.push("/pages/ShopFresh"); setIsMobileMenuOpen(false); }}
+                  onClick={() => { router.push("/pages/dealday"); setIsMobileMenuOpen(false); }}
                   className="w-full bg-[#004090] text-white font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
                 >
-                  Shop Fresh Now
+                  Deal Of the Day 
                 </button>
               </div>
             </motion.div>
