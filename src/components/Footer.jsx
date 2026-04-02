@@ -33,6 +33,12 @@ const categories = [
   { name: "Food For Patient & Tiffin Service", path: "/pages/tiffinservice" },
   { name: "Physiotherapist", path: "/pages/physiotherapist" },
   { name: "Groceries", path: "/pages/Groceries" },
+
+
+     { 
+    name: 'E-commerece', 
+    path: '/pages/ecommerce', 
+  },
 ];
 
 const companyLinks = [
