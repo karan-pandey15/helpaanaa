@@ -20,7 +20,8 @@ import {
   Send,
   Share2,
   Heart,
-  ShoppingCart
+  ShoppingCart,
+  Video
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -40,6 +41,7 @@ const ServiceDetail = ({
   const basePrice = Number(propBasePrice || searchParams.get('price') || 299);
   
   const item = propItem || {
+    id: searchParams.get('categoryId') || searchParams.get('id') || (typeof window !== 'undefined' ? localStorage.getItem('selectedCategoryId') : '') || '',
     description: searchParams.get('description') || 'Experience professional and high-quality service tailored to your needs. Our experts ensure every detail is handled with care.',
     category: searchParams.get('category') || 'Premium Service',
     time: searchParams.get('duration') || '1-2 Hours',
@@ -193,6 +195,25 @@ const ServiceDetail = ({
     router.push('/cart');
   };
 
+  const getVideoSource = (category, id) => {
+    const catId = (id || '').toLowerCase();
+
+    if (catId === 'attendant') return 'https://res.cloudinary.com/dkornixrz/video/upload/v1775108793/helpaana1_hswkqc.mp4';
+    if (catId === 'gaurdiankids') return 'https://res.cloudinary.com/dkornixrz/video/upload/v1775108793/helpaana1_hswkqc.mp4';
+    if (catId === 'petwalker') return 'https://res.cloudinary.com/dkornixrz/video/upload/v1775108991/WhatsApp_Video_2026-04-02_at_11.19.23_AM_nwsz98.mp4';
+    if (catId === 'pandit') return '/video/helpaana2.mp4';
+    if (catId === 'mehndi') return 'https://res.cloudinary.com/dkornixrz/video/upload/v1775109134/WhatsApp_Video_2026-04-02_at_11.21.58_AM_nqfs3o.mp4';
+    if (catId === 'school') return 'https://res.cloudinary.com/dkornixrz/video/upload/v1775108926/helpaana03_lu4zut.mp4';
+    if (catId === 'groceries' || catId === 'groceries2') return 'https://res.cloudinary.com/dkornixrz/video/upload/v1775108689/helpaana5_gwyu07.mp4';
+    if (catId === 'hotel') return '/video/helpaana1.mp4';
+    if (catId === 'nurse' || catId === 'nursed' || catId === 'ladieshealthissues') return 'https://res.cloudinary.com/dkornixrz/video/upload/v1775108597/helpaana3_jyoxvk.mp4';
+    if (catId === 'gym') return '/video/helpaana3.mp4';
+    if (catId === 'physiotherapist') return 'https://res.cloudinary.com/dkornixrz/video/upload/v1775108682/helpaana8_nzoj6g.mp4';
+    if (catId === 'salonmakeup' || catId === 'cosmetic') return '/video/helpaana4.mp4';
+    
+    return '/video/helpaana1.mp4'; // Default
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-900 font-sans">
       {/* ── Top Navbar ── */}
@@ -295,6 +316,38 @@ const ServiceDetail = ({
                 className="w-full bg-white border border-gray-300 rounded p-3 text-sm focus:ring-1 focus:ring-[#004090] focus:border-[#004090] outline-none transition-all resize-none"
                 rows={3}
               />
+            </div>
+
+            {/* ── Tutorial Video Section ── */}
+            <div className="border-t border-gray-200 pt-10 mt-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                  <div className="bg-[#004090]/10 p-2 rounded-lg">
+                    <Video size={24} className="text-[#004090]" />
+                  </div>
+                  Service Preview
+                </h3>
+                <span className="text-[10px] font-black bg-[#004090] text-white px-3 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                  Official Tutorial
+                </span>
+              </div>
+              <div className="w-full flex justify-center">
+                <div className="w-full relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,64,144,0.15)] border-4 border-white group transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,64,144,0.25)]">
+                  <video 
+                    key={getVideoSource(item.category, item.id)}
+                    src={getVideoSource(item.category, item.id)}
+                    controls 
+                    className="w-full aspect-[9/16] sm:aspect-video rounded-2xl"
+                    style={{ maxHeight: '750px', objectFit: 'cover' }}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                  <div className="absolute inset-0 pointer-events-none border border-[#004090]/5 rounded-2xl"></div>
+                </div>
+              </div>
+              <p className="text-xs text-gray-500 mt-4 text-center italic">
+                Watch our professional tutorial to understand the service quality and process.
+              </p>
             </div>
 
             {/* 5. Rating and Reviews Section */}

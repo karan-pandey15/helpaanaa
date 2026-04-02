@@ -104,7 +104,7 @@ const categories = [
     id: 'Gym',
     name: 'Premium Gym MemberShip',
     image: '/image/Gym.png',
-    screen: '/pages/gym',
+    screen: '/pages/Gym',
     iconBg: '#EFEBE9',
   },
   {
@@ -185,10 +185,9 @@ export default function CategoryScreen() {
 
   const handleCategoryPress = (item) => {
     setActiveCategory(item.id);
-    const query =
-      item.params && Object.keys(item.params).length > 0
-        ? '?' + new URLSearchParams(item.params).toString()
-        : '';
+    localStorage.setItem('selectedCategoryId', item.id);
+    const params = { ...item.params, categoryId: item.id };
+    const query = '?' + new URLSearchParams(params).toString();
     router.push(`${item.screen}${query}`);
   };
 
