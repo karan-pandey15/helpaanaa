@@ -19,6 +19,7 @@ export default function EcoomercePage() {
   const [products, setProducts] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [selectedSection, setSelectedSection] = useState("Male");
 
   // --- API FETCHING ---
   useEffect(() => {
@@ -76,7 +77,26 @@ export default function EcoomercePage() {
   };
 
   // --- FILTERED DATA ---
-  const filteredProducts = products.filter((p) => p.sub_category === selectedSubCategory);
+  const filteredProducts = products.filter((p) => {
+    const isSubMatch = p.sub_category === selectedSubCategory;
+    if (!isSubMatch) return false;
+
+    // If Fashion & Apparel or Kids is selected, further filter by section/gender
+    const isFashion = selectedSubCategory === "Fashion & Apparel";
+    const isKids = selectedSubCategory === "Kids" || selectedSubCategory === "Kids Wear";
+
+    if (isFashion || isKids) {
+      const productGender = (p.section || p.gender || "").toLowerCase();
+      const sectionToMatch = selectedSection.toLowerCase();
+      
+      if (sectionToMatch === "boy" || sectionToMatch === "girl") {
+         return productGender === sectionToMatch || (p.name && p.name.toLowerCase().includes(sectionToMatch));
+      }
+      
+      return productGender === sectionToMatch;
+    }
+    return true;
+  });
 
   const navigateToDetail = (product) => {
     const params = new URLSearchParams({
@@ -150,8 +170,24 @@ export default function EcoomercePage() {
           ))}
         </aside>
 
-        {/* PRODUCT GRID */}
         <main className="flex-1 overflow-y-auto bg-gray-50/50 p-2 pb-24">
+          {(selectedSubCategory === "Fashion & Apparel" || selectedSubCategory === "Kids" || selectedSubCategory === "Kids Wear") && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {["Male", "Female", "Boy", "Girl"].map((section) => (
+                <button
+                  key={section}
+                  onClick={() => setSelectedSection(section)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${
+                    selectedSection === section
+                      ? "bg-[#457B9D] text-white border-[#457B9D]"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-[#457B9D]"
+                  }`}
+                >
+                  {section}
+                </button>
+              ))}
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-2">
             {filteredProducts.map((item) => {
               const qty = getQuantity(item._id);

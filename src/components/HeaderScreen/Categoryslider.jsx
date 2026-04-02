@@ -164,8 +164,9 @@ export default function CategorySlider() {
 
   const go = (item) => {
     setActive(item.id);
-    const q = item.params && Object.keys(item.params).length > 0
-      ? '?' + new URLSearchParams(item.params).toString() : '';
+    localStorage.setItem('selectedCategoryId', item.id);
+    const params = { ...item.params, categoryId: item.id };
+    const q = '?' + new URLSearchParams(params).toString();
     router.push(`${item.screen}${q}`);
   };
 
