@@ -52,6 +52,16 @@ const categories = [
     params: {},
     iconBg: '#F3E5F5',
   },
+  ,
+
+    {
+    id: 'ecommerce',
+    name: 'E-commerece',
+    image: '/image/ecommerce.png',
+    screen: '/pages/ecommerce',
+    params: {},
+    iconBg: '#E8F5E9',
+  },
   {
     id: 'groceries',
     name: 'Healthy Food',
@@ -96,7 +106,7 @@ const categories = [
     id: 'Gym',
     name: 'Premium Gym MemberShip',
     image: '/image/Gym.png',
-    screen: '/pages/gym',
+    screen: '/pages/Gym',
     iconBg: '#EFEBE9',
   },
   {
