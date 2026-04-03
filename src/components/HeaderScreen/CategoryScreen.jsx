@@ -155,6 +155,14 @@ const categories = [
     params: {},
     iconBg: '#EDE7F6',
   },
+   {
+    id: 'Fashion',
+    name: 'Fashion & LyfeStyle',
+    image: '/image/fashion.png',
+    screen: '/pages/fashion',
+    params: {},
+    iconBg: '#EDE7F6',
+  },
     {
     id: 'ladieshealthissues',
     name: 'Pregnancy & Ladies Health Issues',
@@ -171,7 +179,7 @@ const categoryGroups = [
   { title: 'Find a Doctor', ids: ['physiotherapist', 'Nurse', 'ladieshealthissues'] },
   { title: 'Health & Fitness', ids: ['Gym'] },
   { title: 'Salon & Beauty Wellness', ids: ['mehndi', 'salonMakeup', 'cosmetic'] },
-  { title: 'Lifestyle & Personal Care', ids: ['luxuryProduct'] },
+  { title: 'Lifestyle & Personal Care', ids: ['luxuryProduct','Fashion'] },
   { title: 'Food & Beverage', ids: ['Tiffin Service', 'groceries'] },
   { title: 'E-Commerce', ids: ['school', 'groceries2','ecommerce'] },
   { title: 'Prime Resort Booking', ids: ['hotel'] },

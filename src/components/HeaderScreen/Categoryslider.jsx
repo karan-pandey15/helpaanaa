@@ -149,6 +149,16 @@ const categories = [
     params: {},
     iconBg: '#EDE7F6',
   },
+
+  
+   {
+    id: 'Fashion',
+    name: 'Fashion & LyfeStyle',
+    image: '/image/fashion.png',
+    screen: '/pages/fashion',
+    params: {},
+    iconBg: '#EDE7F6',
+  },
 ];
 
 export default function CategorySlider() {

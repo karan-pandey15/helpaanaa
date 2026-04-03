@@ -35,6 +35,11 @@ const categories = [
   { name: 'Physiotherapist', path: '/pages/physiotherapist' },
   { name: 'Salon and Makeup', path: '/pages/Salon' },
   { name: 'Luxury Product', path: '/pages/Luxury' },
+  
+   {
+    name: 'Fashion & LyfeStyle',
+    path: '/pages/fashion',
+  },
   { name: 'Pregnancy & Ladies Health Issues', path: '/pages/ladies' },
 
 ]
