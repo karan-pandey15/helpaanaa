@@ -131,7 +131,7 @@ export default function EcoomercePage() {
   return (
     <div className="flex flex-col h-screen bg-white font-sans text-gray-900 overflow-hidden">
       {/* HEADER */}
-      <header className="flex items-center justify-between px-4 py-3 border-b border-gray-100 sticky top-0 bg-white z-50">
+      <header className="flex items-center justify-between px-4 py-3 border-b border-gray-100 sticky top-0 bg-white ">
         <div className="flex items-center gap-4">
           <button onClick={() => router.back()} className="p-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
