@@ -11,7 +11,30 @@ const inter = Inter({
 
 export const metadata = {
   title: "HELPAANA PREMIUM SERVICES",
-  description: "Helpaana - Your complete solution platform for premium services.",
+  description: "Helpaana - Your complete solution platform for premium services. Book attendants, pandits, pet walkers, nurses & 10+ premium services in under 30 seconds.",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  keywords: ["premium services", "attendant booking", "noida home services", "helpaana services"],
+  openGraph: {
+    title: "HELPAANA PREMIUM SERVICES",
+    description: "Book premium services in under 30 seconds.",
+    url: "https://helpaana.com",
+    siteName: "Helpaana",
+    images: [
+      {
+        url: "/image/logo.png", // Assuming logo exists
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: "en_IN",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {

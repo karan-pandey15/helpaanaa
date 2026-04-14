@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const categories = [
   {
     id: 'Attendant',
-    name: 'Book an Attendant',
+    name: 'Attendant For Parents',
     image: '/image/attendantcat.png',
     screen: '/pages/Attendant',
     iconBg: '#E8F0FE',
@@ -46,7 +46,7 @@ const categories = [
   },
   {
     id: 'school',
-    name: 'School Uniform & Accessories',
+    name: 'Find Your School',
     image: '/image/schoolcat.png',
     screen: '/pages/School',
     params: {},
@@ -63,7 +63,7 @@ const categories = [
 
     {
     id: 'ecommerce',
-    name: 'E-commerece',
+    name: 'E-commerce',
     image: '/image/ecommerce.png',
     screen: '/pages/ecommerce',
     params: {},
@@ -186,17 +186,19 @@ const categoryGroups = [
 ];
 
 export default function CategoryScreen() {
-  const router = useRouter();
   const [activeCategory, setActiveCategory] = useState(null);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const [itemsPerRow, setItemsPerRow] = useState(4);
 
-  const handleCategoryPress = (item) => {
-    setActiveCategory(item.id);
-    localStorage.setItem('selectedCategoryId', item.id);
+  const getCategoryLink = (item) => {
     const params = { ...item.params, categoryId: item.id };
     const query = '?' + new URLSearchParams(params).toString();
-    router.push(`${item.screen}${query}`);
+    return `${item.screen}${query}`;
+  };
+
+  const handleCategoryClick = (id) => {
+    setActiveCategory(id);
+    localStorage.setItem('selectedCategoryId', id);
   };
 
   // Use ResizeObserver on document.documentElement — no window references
@@ -223,10 +225,13 @@ export default function CategoryScreen() {
   }, []);
 
   const renderCategoryCard = (item) => (
-    <button
+    <Link
       key={item.id}
-      onClick={() => handleCategoryPress(item)}
+      href={getCategoryLink(item)}
+      onClick={() => handleCategoryClick(item.id)}
       className={`cat-card ${activeCategory === item.id ? 'active' : ''}`}
+      title={item.name}
+      itemProp="url"
     >
       <div
         className="circle-wrap"
@@ -240,7 +245,7 @@ export default function CategoryScreen() {
           className="cat-img"
         />
       </div>
-      <span className="cat-label">{item.name}</span>
+      <span className="cat-label" itemProp="name">{item.name}</span>
 
       <style jsx>{`
         .cat-card {
@@ -255,6 +260,7 @@ export default function CategoryScreen() {
           border-radius: 16px;
           transition: transform 0.2s ease, background 0.2s ease;
           width: 100%;
+          text-decoration: none;
         }
 
         .cat-card:hover,
@@ -315,15 +321,51 @@ export default function CategoryScreen() {
           .cat-label { font-size: 14px; max-width: 120px; }
         }
       `}</style>
-    </button>
+    </Link>
   );
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ItemList",
+        "name": "Helpaana Services",
+        "description": "Premium services at Helpaana",
+        "numberOfItems": categories.length,
+        "itemListElement": categories.map((cat, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "name": cat.name,
+          "url": `https://helpaana.com${getCategoryLink(cat)}`
+        }))
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": "Main Categories",
+        "hasPart": categories.slice(0, 8).map(cat => ({
+          "@type": "WebPage",
+          "name": cat.name,
+          "url": `https://helpaana.com${getCategoryLink(cat)}`
+        }))
+      }
+    ]
+  };
 
   return (
     <div className="page-wrapper">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <div className="page-container">
-        <div className="groups-stack">
+        <nav 
+          className="groups-stack" 
+          aria-label="Service Categories"
+          itemScope 
+          itemType="https://schema.org/SiteNavigationElement"
+        >
           {categoryGroups.map((group) => (
-            <div key={group.title} className="group-block">
+            <section key={group.title} className="group-block">
               <h3 className="group-heading">{group.title}</h3>
               <div className="cat-grid">
                 {group.ids.map((id) => {
@@ -332,16 +374,17 @@ export default function CategoryScreen() {
                   return renderCategoryCard(item);
                 })}
               </div>
-            </div>
+            </section>
           ))}
 
-          <div className="group-block">
+          <section className="group-block">
             <div className="group-header">
               <h3 className="group-heading">All Categories</h3>
               {!showAllCategories && categories.length > itemsPerRow && (
                 <button
                   className="view-all-btn"
                   onClick={() => setShowAllCategories(true)}
+                  aria-label="View all service categories"
                 >
                   View All
                 </button>
@@ -352,8 +395,8 @@ export default function CategoryScreen() {
                 .slice(0, showAllCategories ? categories.length : itemsPerRow)
                 .map((item) => renderCategoryCard(item))}
             </div>
-          </div>
-        </div>
+          </section>
+        </nav>
       </div>
 
       <style jsx>{`
