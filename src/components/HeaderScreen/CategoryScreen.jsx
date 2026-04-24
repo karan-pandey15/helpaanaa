@@ -23,7 +23,7 @@ const categories = [
   {
     id: 'Tiffin Service',
     name: 'Food For Patient',
-    image: '/image/categoryimg/foodpatients.png',
+    image: '/image/categoryimg/foodpatientss.png',
     screen: '/pages/tiffinservice',
     params: { categoryId: 'Nurse' },
     iconBg: '#F1F8E9',
