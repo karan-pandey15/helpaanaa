@@ -4,26 +4,49 @@ import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+// salon & servies 
+// food for pateints
+// mehendi artist
+// old age caretakers
+// copassenger for travelling
+
 const categories = [
   {
     id: 'Attendant',
     name: 'Book an Attendant',
-    image: '/image/attendantcat.png',
+    image: '/image/categoryimg/gaurdiankids.png',
     screen: '/pages/Attendant',
     iconBg: '#E8F0FE',
   },
   {
-    id: 'GaurdianKids',
-    name: 'Book an Guardian',
-    image: '/image/helper.png',
-    screen: '/pages/GuardianKids',
-    params: { categoryId: 'GaurdianKids' },
-    iconBg: '#FFF4E5',
+    id: 'mehndi',
+    name: 'Mehndi Artist',
+    image: '/image/categoryimg/mehndi.png',
+    screen: '/pages/Mehndi',
+    params: {},
+    iconBg: '#FFF8E1',
+  },
+  {
+    id: 'Tiffin Service',
+    name: 'Food For Patient',
+    image: '/image/categoryimg/foodpatient.png',
+    screen: '/pages/tiffinservice',
+    params: { categoryId: 'Nurse' },
+    iconBg: '#F1F8E9',
+  },
+
+  {
+    id: 'salonMakeup',
+    name: 'Salon and Makeup',
+    image: '/image/categoryimg/salon.png',
+    screen: '/pages/Salon',
+    params: {},
+    iconBg: '#FCE4EC',
   },
   {
     id: 'petWalker',
     name: 'Pet Walker',
-    image: '/image/dog.png',
+    image: '/image/categoryimg/petwalker.png',
     screen: '/pages/petwalker',
     params: { categoryId: 'petWalker' },
     iconBg: '#F0FDF4',
@@ -31,33 +54,25 @@ const categories = [
   {
     id: 'pandit',
     name: 'Booking for Pandit Ji',
-    image: '/image/panditcat.png',
+    image: '/image/categoryimg/pandit.png',
     screen: '/pages/Pandit',
     params: {},
     iconBg: '#FFF1F1',
   },
   {
-    id: 'mehndi',
-    name: 'Mehndi Artist',
-    image: '/image/mehndi3.png',
-    screen: '/pages/Mehndi',
-    params: {},
-    iconBg: '#FFF8E1',
-  },
-  {
     id: 'school',
     name: 'School Uniform & Accessories',
-    image: '/image/schoolcat.png',
+    image: '/image/categoryimg/school.png',
     screen: '/pages/School',
     params: {},
     iconBg: '#F3E5F5',
   },
   ,
 
-    {
+  {
     id: 'ecommerce',
     name: 'E-commerece',
-    image: '/image/ecommerce.png',
+    image: '/image/categoryimg/school.png',
     screen: '/pages/ecommerce',
     params: {},
     iconBg: '#E8F5E9',
@@ -65,7 +80,7 @@ const categories = [
   {
     id: 'groceries',
     name: 'Healthy Food',
-    image: '/image/healthyfoodd.png',
+    image: '/image/categoryimg/gaurdiankids.png', image: '/image/healthyfoodd.png',
     screen: '/pages/Groceries',
     params: {},
     iconBg: '#E8F5E9',
@@ -73,7 +88,7 @@ const categories = [
   {
     id: 'hotel',
     name: 'Resort & Farmhouse Booking',
-    image: '/image/hotelcat.png',
+    image: '/image/categoryimg/gaurdiankids.png',
     screen: '/pages/Hotel',
     params: {},
     iconBg: '#E0F2F1',
@@ -81,7 +96,7 @@ const categories = [
   {
     id: 'cosmetic',
     name: 'Cosmetic',
-    image: '/image/cosmeticcimage.png',
+    image: '/image/categoryimg/gaurdiankids.png',
     screen: '/pages/Cosmetic',
     params: {},
     iconBg: '#FCE4EC',
@@ -89,15 +104,15 @@ const categories = [
   {
     id: 'Nurse',
     name: 'Nurse For First Aid',
-    image: '/image/nurse.png',
+    image: '/image/categoryimg/nurse.png',
     screen: '/pages/nurse',
     params: { categoryId: 'Nurse' },
     iconBg: '#FFF3E0',
   },
-    {
+  {
     id: 'Nursed',
     name: 'Pregnancy & Ladies Health Issues',
-    image: '/image/preg.png',
+    image: '/image/categoryimg/womenpr.png',
     screen: '/pages/ladies',
     params: { categoryId: 'Nursed' },
     iconBg: '#FFF3E0',
@@ -105,14 +120,14 @@ const categories = [
   {
     id: 'Gym',
     name: 'Premium Gym MemberShip',
-    image: '/image/Gym.png',
+    image: '/image/categoryimg/gym.png',
     screen: '/pages/Gym',
     iconBg: '#EFEBE9',
   },
   {
     id: 'Tiffin Service',
     name: 'Food For Patient & Tiffin Service',
-    image: '/image/tiffinservice.png',
+    image: '/image/categoryimg/foodpatient.png',
     screen: '/pages/tiffinservice',
     params: { categoryId: 'Nurse' },
     iconBg: '#F1F8E9',
@@ -120,7 +135,7 @@ const categories = [
   {
     id: 'groceries2',
     name: 'Groceries',
-    image: '/image/grocery1.png',
+    image: '/image/categoryimg/gaurdiankids.png',
     screen: '/pages/Groceries',
     params: {},
     iconBg: '#E8F5E9',
@@ -128,33 +143,25 @@ const categories = [
   {
     id: 'physiotherapist',
     name: 'Physiotherapist',
-    image: '/image/physiotherapist.png',
+    image: '/image/categoryimg/physo.png',
     screen: '/pages/physiotherapist',
     params: {},
     iconBg: '#E0F7FA',
   },
   {
-    id: 'salonMakeup',
-    name: 'Salon and Makeup',
-    image: '/image/salon.png',
-    screen: '/pages/Salon',
-    params: {},
-    iconBg: '#FCE4EC',
-  },
-  {
     id: 'luxuryProduct',
     name: 'Luxury Product',
-    image: '/image/lifestyle.png',
+    image: '/image/categoryimg/luxury.png',
     screen: '/pages/Luxury',
     params: {},
     iconBg: '#EDE7F6',
   },
 
-  
-   {
+
+  {
     id: 'Fashion',
     name: 'Fashion & LyfeStyle',
-    image: '/image/fashion.png',
+    image: '/image/categoryimg/fashionlifestyle.png',
     screen: '/pages/fashion',
     params: {},
     iconBg: '#EDE7F6',
@@ -313,8 +320,8 @@ export default function CategorySlider() {
                 <Image
                   src={item.image}
                   alt={item.name}
-                  width={60}
-                  height={60}
+                  width={80}
+                  height={80}
                   style={{ objectFit: 'contain', padding: 10 }}
                 />
 
