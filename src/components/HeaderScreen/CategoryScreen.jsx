@@ -12,6 +12,13 @@ const categories = [
     screen: '/pages/Attendant',
     iconBg: '#E8F0FE',
   },
+    {
+    id: 'copessenger',
+    name: 'Co-Pessenger For Travel',
+    image: '/image/categoryimg/copessanger.png',
+    screen: '/pages/Attendant',
+    iconBg: '#E8F0FE',
+  },
   {
     id: 'mehndi',
     name: 'Mehndi Artist',
@@ -62,7 +69,7 @@ const categories = [
   },
   {
     id: 'school',
-    name: 'Find Your School',
+    name: 'School & Uniforms Accessories',
     image: '/image/categoryimg/school.png',
     screen: '/pages/School',
     params: {},
@@ -71,7 +78,7 @@ const categories = [
   {
     id: 'groceries',
     name: 'Healthy Food',
-    image: '/image/categoryimg/weee.png',
+    image: '/image/categoryimg/healthyfood.png',
     screen: '/pages/Groceries',
     params: {},
     iconBg: '#E8F5E9',
@@ -168,7 +175,7 @@ const categories = [
 const trendingIds = ['Attendant', 'mehndi', 'Tiffin Service', 'salonMakeup'];
 
 const categoryGroups = [
-  { title: 'Our Trending Categories', ids: ['Attendant', 'mehndi', 'Tiffin Service', 'salonMakeup'] },
+  { title: 'Our Trending Categories', ids: ['Attendant', 'mehndi', 'Tiffin Service', 'pandit'] },
   { title: 'Spiritual & Remedies', ids: ['pandit'] },
   { title: 'Find a Doctor', ids: ['physiotherapist', 'Nurse', 'ladieshealthissues'] },
   { title: 'Health & Fitness', ids: ['Gym'] },

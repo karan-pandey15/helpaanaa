@@ -34,6 +34,30 @@ const bannerData = [
     route: "/pages/Mehndi",
     title: "Mehndi Artist  ",
   },  
+  
+  {
+    id: 5,
+    mobileImage: "/image/bannerphone/5.png",
+    desktopImage: "/image/banners/5.png",
+    route: "",
+    title: "",
+  },  
+
+  
+  {
+    id: 6,
+    mobileImage: "/image/bannerphone/6.png",
+    desktopImage: "/image/banners/6.png",
+    route: "/",
+    title: " ",
+  },  
+    {
+    id: 6,
+    mobileImage: "/image/bannerphone/6.png",
+    desktopImage: "/image/banners/6.png",
+    route: "/",
+    title: " ",
+  },  
 ];
 
 // ─────────────────────────────────────────────────────────────────

@@ -18,6 +18,13 @@ const categories = [
     screen: '/pages/Attendant',
     iconBg: '#E8F0FE',
   },
+    {
+    id: 'copessenger',
+    name: 'Co-Pessenger For Travel',
+    image: '/image/categoryimg/copessanger.png',
+    screen: '/pages/Attendant',
+    iconBg: '#E8F0FE',
+  },
   {
     id: 'mehndi',
     name: 'Mehndi Artist',
@@ -80,7 +87,7 @@ const categories = [
   {
     id: 'groceries',
     name: 'Healthy Food',
-    image: '/image/categoryimg/gaurdiankids.png', image: '/image/healthyfoodd.png',
+    image: '/image/categoryimg/gaurdiankids.png', image: '/image/healthyfood.png',
     screen: '/pages/Groceries',
     params: {},
     iconBg: '#E8F5E9',
