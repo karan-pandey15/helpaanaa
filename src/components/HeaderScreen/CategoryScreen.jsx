@@ -172,10 +172,10 @@ const categories = [
   },
 ];
 
-const trendingIds = ['Attendant', 'mehndi', 'Tiffin Service', 'salonMakeup'];
+const trendingIds = ['Attendant', 'mehndi', 'Tiffin Service', 'pandit','copessenger'];
 
 const categoryGroups = [
-  { title: 'Our Trending Categories', ids: ['Attendant', 'mehndi', 'Tiffin Service', 'pandit'] },
+  { title: 'Our Trending Categories', ids: ['Attendant', 'mehndi', 'Tiffin Service', 'pandit','copessenger'] },
   { title: 'Spiritual & Remedies', ids: ['pandit'] },
   { title: 'Find a Doctor', ids: ['physiotherapist', 'Nurse', 'ladieshealthissues'] },
   { title: 'Health & Fitness', ids: ['Gym'] },
