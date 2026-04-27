@@ -52,9 +52,9 @@ const bannerData = [
     title: " ",
   },  
     {
-    id: 6,
-    mobileImage: "/image/bannerphone/6.png",
-    desktopImage: "/image/banners/6.png",
+    id: 7,
+    mobileImage: "/image/bannerphone/7.png",
+    desktopImage: "/image/banners/7.png",
     route: "/",
     title: " ",
   },  
