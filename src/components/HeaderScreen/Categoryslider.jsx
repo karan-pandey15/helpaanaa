@@ -53,7 +53,7 @@ const categories = [
   {
     id: 'petWalker',
     name: 'Pet Walker',
-    image: '/image/categoryimg/petwalker.png',
+    image:'/image/categoryimg/petwalker-removebg-preview.png',
     screen: '/pages/petwalker',
     params: { categoryId: 'petWalker' },
     iconBg: '#F0FDF4',
