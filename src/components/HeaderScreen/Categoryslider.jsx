@@ -87,7 +87,7 @@ const categories = [
   {
     id: 'groceries',
     name: 'Healthy Food',
-    image: '/image/categoryimg/gaurdiankids.png', image: '/image/healthyfood.png',
+    image:  '/image/categoryimg/healthyfood.png',
     screen: '/pages/Groceries',
     params: {},
     iconBg: '#E8F5E9',
