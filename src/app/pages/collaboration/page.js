@@ -159,7 +159,7 @@ export default function Collaboration() {
           <h3 className="font-bold text-gray-800 mb-4">Direct Contact</h3>
           <div className="space-y-3">
             <p className="text-sm text-gray-600 flex items-center gap-2">
-              <span className="font-semibold text-[#004090]">Email:</span> helpaanaworld@gmail.com
+              <span className="font-semibold text-[#004090]">Email:</span> helpaana@support.com
             </p>
             <p className="text-sm text-gray-600 flex items-center gap-2">
               <span className="font-semibold text-[#004090]">Call:</span> +91 8887796224

@@ -11,7 +11,7 @@ const CATEGORIES = [
     id: "Physiotherapist",
     name: "Physiotherapist",
     endpoint: "https://api.marasimpex.com/api/services/category/physiotherapist",
-    emoji: "",
+    emoji: "/image/mehndiimage/physiotherapistone.png",
   }, 
 ];
 
@@ -67,7 +67,10 @@ function loadUser() {
 }
 
 // ─── EMOJI HELPER ────────────────────────────────────────────────────────────
-const SERVICE_EMOJIS = ["🙏", "⭐", "🌸", "🪔", "🌺", "🔔", "🕉️", "✨"];
+const SERVICE_EMOJIS = [
+  "/image/mehndiimage/physiotherapistone.png",
+  "/image/mehndiimage/physiotherapisttwo.png",
+];
 function getServiceEmoji(id) {
   let hash = 0;
   for (let i = 0; i < id.length; i++)
@@ -89,7 +92,7 @@ function renderEmojiOrImage(emoji, id, className = "") {
       />
     );
   }
-  return <span className={className}>{emoji}</span>;
+  return null;
 }
 
 // ─── CART BUTTON ─────────────────────────────────────────────────────────────
@@ -225,17 +228,14 @@ function ServiceDetailModal({ item, qty, onClose, onAdd, onInc, onDec }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-full aspect-[5/3] bg-violet-50 flex items-center justify-center mb-4 text-5xl sm:text-7xl overflow-hidden relative">
-          {renderEmojiOrImage(item.emoji, item._id, "w-full h-full object-contain absolute inset-0")}
-          {(item.images?.[0]?.url || item.image) && (
-            <img 
-              src={item.images?.[0]?.url || item.image} 
-              alt={item.name}
-              className="w-full h-full object-contain absolute inset-0"
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
-          )}
+          <img 
+            src={item.image || item.emoji || getServiceEmoji(item._id)} 
+            alt={item.name}
+            className="w-full h-full object-contain absolute inset-0"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
         </div>
         <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">{item.name}</h2>
         <p className="text-xs sm:text-sm text-gray-500 mb-4">{item.description}</p>
@@ -334,7 +334,17 @@ function AllCategoryInner() {
             const list = Array.isArray(data)
               ? data
               : data.services || data.data || [];
-            return { id: cat.id, services: list };
+            const normalizedList = list.map((item, idx) => ({
+              ...item,
+              image:
+                item.image ||
+                SERVICE_EMOJIS[idx % SERVICE_EMOJIS.length],
+              emoji:
+                item.emoji && item.emoji.startsWith("/")
+                  ? item.emoji
+                  : SERVICE_EMOJIS[idx % SERVICE_EMOJIS.length],
+            }));
+            return { id: cat.id, services: normalizedList };
           } catch (err) {
             errors[cat.id] = err.message;
             return { id: cat.id, services: [] };
@@ -394,14 +404,11 @@ function AllCategoryInner() {
     : [];
 
   const handleServiceClick = (item) => {
-    let imageUrl = item.images?.[0]?.url || item.image;
-    if (!imageUrl && item.emoji?.startsWith("/")) {
-      imageUrl = item.emoji;
-    }
+    let imageUrl = item.image || item.emoji;
     if (!imageUrl) {
-      imageUrl = "https://images.unsplash.com/photo-1584512603392-f0c3d99c1ce0?q=80&w=800";
+      imageUrl = getServiceEmoji(item._id);
     }
-    const emoji = (item.emoji && !item.emoji.startsWith("/")) ? item.emoji : getServiceEmoji(item._id);
+    const emoji = item.emoji?.startsWith("/") ? item.emoji : getServiceEmoji(item._id);
     const params = new URLSearchParams({
       title: item.name,
       price: item.price,
@@ -498,7 +505,7 @@ function AllCategoryInner() {
                         : "bg-gray-50 border-gray-200"
                     }`}
                   >
-                    {cat.emoji || "👨‍⚕️"}
+                    {renderEmojiOrImage(cat.emoji, cat.id, "w-full h-full object-contain")}
                   </div>
                   <span
                     className={`text-[9px] sm:text-[10px] text-center font-bold uppercase leading-tight px-0.5 sm:px-1 tracking-tighter ${
@@ -550,7 +557,10 @@ function AllCategoryInner() {
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 md:gap-6">
                   {currentServices.map((item) => {
                     const qty = getQty(item._id);
-                    const imageUrl = item.images?.[0]?.url || null;
+                    const imageUrl =
+                      item.image ||
+                      item.emoji ||
+                      getServiceEmoji(item._id);
 
                     return (
                       <div
@@ -558,9 +568,8 @@ function AllCategoryInner() {
                         className="bg-white overflow-hidden border border-gray-100 flex flex-col cursor-pointer active:scale-95 transition-transform"
                         onClick={() => handleServiceClick(item)}
                       >
-                        {/* Image / emoji */}
+                        {/* Image */}
                         <div className="w-full aspect-square bg-violet-50 flex items-center justify-center overflow-hidden relative text-3xl sm:text-5xl">
-                          {renderEmojiOrImage(item.emoji, item._id, "w-full h-full object-contain absolute inset-0")}
                           {imageUrl && (
                             <img
                               src={imageUrl}

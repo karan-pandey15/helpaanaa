@@ -29,48 +29,104 @@ import Footer from "@/components/Footer";
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const ACCENT = "#457B9D";
 
-const CATEGORIES = [
-  { id: "Bridal",     name: "Bridal Wedding",    icon: "/image/mehndi.png" },
-  { id: "Arabic",     name: "Arabic Mehndi",     icon: "/image/mehnditwo.png" },
-  { id: "Simple",     name: "Simple Mehndi",     icon: "/image/mehndi3.png" },
-  { id: "Group",      name: "For Group",         icon: "/image/mehndi.png" },
-  { id: "KittyParty", name: "For Kitty Party",   icon: "/image/mehndi3.png" },
-  { id: "Corporate",  name: "Corporate Office",  icon: "/image/mehndi.png" },
-  { id: "Individual", name: "Single Individual", icon: "/image/mehnditwo.png" },
+const MEHNDI_IMAGE_FILES = [
+  "arbicmehndi.png",
+  "coprateEventbookingmehndi.png",
+  "fullhandbridalmehndi.png",
+  "groupmehndi.png",
+  "heavyarbicmehndi.png",
+  "kidsmendi.png",
+  "kittipartymehndi.png",
+  "legmehndibridal.png",
+  "minimilaistmehndi.png",
 ];
 
-const MEHNDI_SERVICES = {
-  Bridal: [
-    { _id: "m1", name: "Full Hand Bridal Mehndi", price: 1499, time: "3-4 Hours", image: "/image/mehndi.png",    description: "Intricate full hand design for brides." },
-    { _id: "m2", name: "Leg Mehndi Bridal",        price: 1499, time: "2 Hours",   image: "/image/mehnditwo.png", description: "Traditional bridal patterns for legs." },
-  ],
-  Arabic: [
-    { _id: "m3", name: "Simple Arabic Design",     price: 199,  time: "1 Hour",    image: "/image/mehnditwo.png", description: "Beautiful and quick Arabic patterns." },
-    { _id: "m4", name: "Heavy Arabic Mehndi",      price: 199,  time: "1.5 Hours", image: "/image/mehnditwo.png", description: "Detailed Arabic floral designs." },
-  ],
-  Simple: [
-    { _id: "m5", name: "Minimalist Mehndi",        price: 199,  time: "30 Mins",   image: "/image/mehndi3.png",   description: "Elegant and simple patterns." },
-    { _id: "m6", name: "Kids Mehndi",              price: 199,  time: "20 Mins",   image: "/image/mehndi3.png",   description: "Cute and small designs for children." },
-  ],
-  Group: [
-    { _id: "m7", name: "Family Group (5-10)",      price: 199, time: "4-6 Hours", image: "/image/mehndi.png",    description: "Mehndi for group events and family gatherings." },
-    { _id: "m8", name: "Small Group (3-5)",         price: 199, time: "3 Hours",   image: "/image/mehnditwo.png", description: "Perfect for small get-togethers." },
-  ],
-  KittyParty: [
-    { _id: "m9", name: "Kitty Party Special",      price: 199, time: "2 Hours",   image: "/image/mehndi3.png",   description: "Fast and trendy designs for kitty parties." },
-  ],
-  Corporate: [
-    { _id: "m10", name: "Corporate Event Booking", price: 199, time: "Full Day",  image: "/image/mehndi.png",    description: "Professional mehndi for corporate events." },
-  ],
-  Individual: [
-    { _id: "m11", name: "Single Person Premium",   price: 199, time: "1.5 Hours", image: "/image/mehnditwo.png", description: "Detailed custom design for a single individual." },
-  ],
+const inferCategoryId = (fileName) => {
+  const key = fileName.toLowerCase();
+  if (key.includes("bridal") || key.includes("leg")) return "Bridal";
+  if (key.includes("arbic") || key.includes("arabic")) return "Arabic";
+  if (key.includes("kittiparty")) return "KittyParty";
+  if (key.includes("coprate") || key.includes("corporate") || key.includes("event")) return "Corporate";
+  if (key.includes("group")) return "Group";
+  if (key.includes("kids")) return "Kids";
+  if (key.includes("minimilaist") || key.includes("minimal")) return "Simple";
+  return "Special";
 };
 
+const prettifyNameFromFile = (fileName) =>
+  fileName
+    .replace(/\.png$/i, "")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/(fullhand)/gi, "Full Hand ")
+    .replace(/(kittiparty)/gi, "Kitty Party ")
+    .replace(/(coprate)/gi, "Corporate ")
+    .replace(/(eventbooking)/gi, "Event Booking ")
+    .replace(/(minimilaist)/gi, "Minimalist ")
+    .replace(/(mendi)/gi, "Mehndi")
+    .replace(/(arbic)/gi, "Arabic")
+    .replace(/(mehndi)/gi, " Mehndi")
+    .replace(/(bridal)/gi, "Bridal ")
+    .replace(/(group)/gi, "Group ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (ch) => ch.toUpperCase());
+
+const categoryDisplayName = {
+  Bridal: "Bridal Wedding",
+  Arabic: "Arabic Mehndi",
+  Simple: "Simple Mehndi",
+  Group: "For Group",
+  KittyParty: "For Kitty Party",
+  Corporate: "Corporate Office",
+  Kids: "Kids Mehndi",
+  Special: "Special Designs",
+};
+
+const serviceTimeByCategory = {
+  Bridal: "3-4 Hours",
+  Arabic: "1-2 Hours",
+  Simple: "45-60 Mins",
+  Group: "3-5 Hours",
+  KittyParty: "2 Hours",
+  Corporate: "Full Day",
+  Kids: "30-45 Mins",
+  Special: "1-2 Hours",
+};
+
+const ALL_MEHNDI_SERVICES = MEHNDI_IMAGE_FILES.map((fileName, index) => {
+  const categoryId = inferCategoryId(fileName);
+  const serviceName = prettifyNameFromFile(fileName);
+  return {
+    _id: `m${index + 1}`,
+    categoryId,
+    name: serviceName,
+    price: 1499,
+    time: serviceTimeByCategory[categoryId] || "1-2 Hours",
+    image: `/image/mehndiimage/${fileName}`,
+    description: `${serviceName} design service by professional artist. This style is based on the reference image and customized for your occasion.`,
+  };
+});
+
+const categoryIds = [...new Set(ALL_MEHNDI_SERVICES.map((service) => service.categoryId))];
+
+const CATEGORIES = categoryIds.map((id) => {
+  const firstService = ALL_MEHNDI_SERVICES.find((service) => service.categoryId === id);
+  return {
+    id,
+    name: categoryDisplayName[id] || id,
+    icon: firstService?.image || "/image/mehndi.png",
+  };
+});
+
+const MEHNDI_SERVICES = categoryIds.reduce((acc, id) => {
+  acc[id] = ALL_MEHNDI_SERVICES.filter((service) => service.categoryId === id);
+  return acc;
+}, {});
+
 const PACKAGES = [
-  { name: "Basic",    priceAdd: 0,   desc: "Simple patterns" },
-  { name: "Standard", priceAdd: 100, desc: "Detailed patterns" },
-  { name: "Premium",  priceAdd: 200, desc: "Heavy intricate style" },
+  { name: "Basic",    priceAdd: 0, desc: "Reference image based design" },
+  { name: "Standard", priceAdd: 0, desc: "Reference image based design" },
+  { name: "Premium",  priceAdd: 0, desc: "Reference image based design" },
 ];
 
 const TIMES = [

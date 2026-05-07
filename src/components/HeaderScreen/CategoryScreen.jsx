@@ -8,7 +8,7 @@ const categories = [
   {
     id: 'Attendant',
     name: 'Book an Attendant',
-    image: '/image/categoryimg/attendant.png',
+    image: '/image/categoryimg/gaurdiankids.png',
     screen: '/pages/Attendant',
     iconBg: '#E8F0FE',
   },
@@ -69,8 +69,8 @@ const categories = [
   },
   {
     id: 'school',
-    name: 'School & Uniforms Accessories',
-    image: '/image/categoryimg/school.png',
+    name: 'School Uniform & Accessories',
+    image: '/image/categoryimg/schooluniform.png',
     screen: '/pages/School',
     params: {},
     iconBg: '#F3E5F5',
@@ -85,8 +85,8 @@ const categories = [
   },
   {
     id: 'ecommerce',
-    name: 'E-commerce',
-    image: '/image/ecommerce.png',
+    name: 'E-commerece',
+    image: '/image/categoryimg/school.png',
     screen: '/pages/ecommerce',
     params: {},
     iconBg: '#E8F5E9',
@@ -94,7 +94,7 @@ const categories = [
   {
     id: 'hotel',
     name: 'Resort & Farmhouse Booking',
-    image: '/image/categoryimg/hospital.png',
+    image: '/image/categoryimg/gaurdiankids.png',
     screen: '/pages/Hotel',
     params: {},
     iconBg: '#E0F2F1',
@@ -126,7 +126,7 @@ const categories = [
   {
     id: 'Gym',
     name: 'Premium Gym MemberShip',
-    image: '/image/categoryimg/gymr.png',
+    image: '/image/categoryimg/gym.png',
     screen: '/pages/Gym',
     iconBg: '#EFEBE9',
   },

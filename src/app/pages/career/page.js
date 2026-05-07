@@ -162,7 +162,7 @@ export default function Career() {
         <section className="pt-6 border-t border-gray-100 text-center">
           <p className="text-sm text-gray-500">
             Don't see a relevant role? Send your resume to <br />
-            <span className="font-bold text-[#004090]">helpaanaworld@gmail.com</span>
+            <span className="font-bold text-[#004090]">helpaana@support.com</span>
           </p>
         </section>
       </div>

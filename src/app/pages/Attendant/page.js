@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 import { useState, useEffect, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,7 @@ const CATEGORIES = [
   {
     id: "TravelingAttendant",
     name: "Book a Female Attendant For Traveling Airport",
-    emoji: "✈️",
+    emoji: "/image/categoryimg/travellingattendant.png",
   }, 
    
 ];
@@ -29,7 +29,8 @@ const STATIC_SERVICES = {
       price: 999,
       description:
         "Professional attendant for traveling needs. Includes support for gender, religion reference, and location selection.",
-      emoji: "/image/femaleone.png",
+      emoji: "/image/categoryimg/travellingattendant.png",
+      image: "/image/categoryimg/travellingattendant.png",
       isTraveling: true,
     },
     {
@@ -38,7 +39,8 @@ const STATIC_SERVICES = {
       price: 2499,
       description:
         "Professional attendant for traveling with vehicle. Support for Two Wheeler and Four Wheeler.",
-      emoji: "/image/femaletwo.png",
+      emoji: "/image/categoryimg/travellingattendant.png",
+      image: "/image/categoryimg/travellingattendant.png",
       isTraveling: true,
       withVehicle: true,
     },
@@ -524,7 +526,7 @@ function AllCategoryInner() {
                         : "bg-gray-50 border-gray-200"
                     }`}
                   >
-                    {cat.emoji}
+                    {renderEmojiOrImage(cat.emoji, cat.id, "w-full h-full object-contain")}
                   </div>
                   <span
                     className={`text-[9px] sm:text-[10px] text-center font-bold uppercase leading-tight px-0.5 tracking-tighter ${

@@ -69,7 +69,7 @@ const categories = [
   {
     id: 'school',
     name: 'School Uniform & Accessories',
-    image: '/image/categoryimg/school.png',
+    image: '/image/categoryimg/schooluniform.png',
     screen: '/pages/School',
     params: {},
     iconBg: '#F3E5F5',
@@ -103,7 +103,7 @@ const categories = [
   {
     id: 'cosmetic',
     name: 'Cosmetic',
-    image: '/image/categoryimg/gaurdiankids.png',
+    image: '/image/categoryimg/makeup.png',
     screen: '/pages/Cosmetic',
     params: {},
     iconBg: '#FCE4EC',
@@ -138,15 +138,7 @@ const categories = [
     screen: '/pages/tiffinservice',
     params: { categoryId: 'Nurse' },
     iconBg: '#F1F8E9',
-  },
-  {
-    id: 'groceries2',
-    name: 'Groceries',
-    image: '/image/categoryimg/gaurdiankids.png',
-    screen: '/pages/Groceries',
-    params: {},
-    iconBg: '#E8F5E9',
-  },
+  }, 
   {
     id: 'physiotherapist',
     name: 'Physiotherapist',
@@ -158,7 +150,7 @@ const categories = [
   {
     id: 'luxuryProduct',
     name: 'Luxury Product',
-    image: '/image/categoryimg/luxury.png',
+    image: '/image/categoryimg/luxuryitems.png',
     screen: '/pages/Luxury',
     params: {},
     iconBg: '#EDE7F6',

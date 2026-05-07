@@ -69,7 +69,7 @@ export default function TermsPage() {
           <div className="space-y-2 text-sm text-gray-300">
             <p><strong>OFFICE:</strong> NX One T3 - B111, Noida Extension - 201318</p>
             <p><strong>HELPLINE:</strong> +91 8887796224, 0120 - 4978652</p>
-            <p><strong>EMAIL:</strong> helpaanaworld@gmail.com</p>
+            <p><strong>EMAIL:</strong> helpaana@support.com</p>
           </div>
         </section>
       </div>

@@ -55,7 +55,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-bold text-gray-800">Email Us</h3>
-                <p className="text-sm text-gray-600">helpaanaworld@gmail.com</p>
+                <p className="text-sm text-gray-600">helpaana@support.com</p>
               </div>
             </div>
           </div>

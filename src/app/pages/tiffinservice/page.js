@@ -6,21 +6,47 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart as addToCartRedux, removeFromCart as removeFromCartRedux } from "@/redux/cartSlice";
 
 // ─── CATEGORIES CONFIG ───────────────────────────────────────────────────────
+const TIFFIN_IMAGES = [
+  "/image/tiffinservice/1.png",
+  "/image/tiffinservice/2.png",
+  "/image/tiffinservice/3.png",
+  "/image/tiffinservice/4.png",
+  "/image/tiffinservice/5.png",
+];
+
+function getRandomTiffinImage() {
+  return TIFFIN_IMAGES[Math.floor(Math.random() * TIFFIN_IMAGES.length)];
+}
+
+function getTiffinImageById(id = "") {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash * 31 + id.charCodeAt(i)) % TIFFIN_IMAGES.length;
+  }
+  return TIFFIN_IMAGES[Math.abs(hash) % TIFFIN_IMAGES.length];
+}
+
+const CATEGORY_IMAGES = {
+  SmallLunch: "/image/tiffinservice/1.png",
+  BigLunch: "/image/tiffinservice/3.png",
+  FoodForPatient: "/image/tiffinservice/5.png",
+};
+
 const CATEGORIES = [
   {
     id: "SmallLunch",
     name: "Small Lunch",
-    emoji: "🍱",
+    emoji: CATEGORY_IMAGES.SmallLunch,
   },
   {
     id: "BigLunch",
     name: "Big Lunch",
-    emoji: "🥘",
+    emoji: CATEGORY_IMAGES.BigLunch,
   },
   {
     id: "FoodForPatient",
     name: "Food For Patient",
-    emoji: "🍲",
+    emoji: CATEGORY_IMAGES.FoodForPatient,
   },
 ];
 
@@ -32,16 +58,16 @@ const STATIC_SERVICES = {
       name: "Basic Tiffin (Small)",
       price: 149,
       description: "Includes 4 Rotis, 1 Sabzi, Dal, and Rice. Perfect for a light meal.",
-      emoji: "🍱",
-      image: "/image/tiffinservice.png"
+      emoji: getTiffinImageById("small_lunch_1"),
+      image: "/image/tiffinservice/1.png"
     },
     {
       _id: "small_lunch_2",
       name: "Executive Tiffin (Small)",
       price: 149,
       description: "Includes 4 Rotis, 2 Sabzi, Dal, Rice, and Salad.",
-      emoji: "🥗",
-      image: "/image/tiffinservice.png"
+      emoji: getTiffinImageById("small_lunch_2"),
+      image: "/image/tiffinservice/2.png"
     }
   ],
   BigLunch: [
@@ -50,16 +76,16 @@ const STATIC_SERVICES = {
       name: "Premium Tiffin (Big)",
       price: 249,
       description: "Includes 6 Rotis, 2 Special Sabzi, Dal Fry, Jeera Rice, Sweet, and Raita.",
-      emoji: "🥘",
-      image: "/image/tiffinservice.png"
+      emoji: getTiffinImageById("big_lunch_1"),
+      image: "/image/tiffinservice/3.png"
     },
     {
       _id: "big_lunch_2",
       name: "Deluxe Tiffin (Big)",
       price: 249,
       description: "Full meal with Paneer Sabzi, Seasonal Veg, Dal, Pulao, 6 Butter Rotis, Sweet, and Papad.",
-      emoji: "🍛",
-      image: "/image/tiffinservice.png"
+      emoji: getTiffinImageById("big_lunch_2"),
+      image: "/image/tiffinservice/4.png"
     }
   ],
   FoodForPatient: [
@@ -68,24 +94,24 @@ const STATIC_SERVICES = {
       name: "Special Kichdi",
       price: 249,
       description: "Light and nutritious Moong Dal Kichdi, easy to digest for patients.",
-      emoji: "🍲",
-      image: "/image/tiffinservice.png"
+      emoji: getTiffinImageById("patient_food_1"),
+      image: "/image/tiffinservice/5.png"
     },
     {
       _id: "patient_food_2",
       name: "Simple Daal Chawal",
       price: 249,
       description: "Simple steamed rice with light yellow dal, minimal spices for patient recovery.",
-      emoji: "🍛",
-      image: "/image/tiffinservice.png"
+      emoji: getTiffinImageById("patient_food_2"),
+      image: "/image/tiffinservice/1.png"
     },
     {
       _id: "patient_food_3",
       name: "Vegetable Dalia",
       price: 249,
       description: "Broken wheat cooked with mild vegetables, high in fiber and nutrition.",
-      emoji: "🥣",
-      image: "/image/tiffinservice.png"
+      emoji: getTiffinImageById("patient_food_3"),
+      image: "/image/tiffinservice/2.png"
     },
     
   ],
@@ -220,8 +246,8 @@ function TiffinServiceInner() {
       id: item._id,
       name: item.name,
       price: item.price,
-      image: item.image || "/image/tiffinservice.png",
-      emoji: item.emoji || getServiceEmoji(item._id),
+      image: item.image || getTiffinImageById(item._id),
+      emoji: item.emoji || getTiffinImageById(item._id),
     }));
   };
 
@@ -248,8 +274,8 @@ function TiffinServiceInner() {
       price: item.price,
       description: item.description || "",
       category: selectedCategory?.name || "Tiffin",
-      image: item.image || "/image/tiffinservice.png",
-      emoji: item.emoji || getServiceEmoji(item._id),
+      image: item.image || getTiffinImageById(item._id),
+      emoji: item.emoji || getTiffinImageById(item._id),
     });
     router.push(`/pages/ServiceDetail?${params.toString()}`);
   };
@@ -297,7 +323,18 @@ function TiffinServiceInner() {
                     isActive ? "bg-violet-100 border-violet-400" : "bg-gray-50 border-gray-200"
                   }`}
                 >
-                  {cat.emoji}
+                  {cat.emoji?.startsWith("/") ? (
+                    <img
+                      src={cat.emoji}
+                      alt={cat.name}
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                  ) : (
+                    cat.emoji
+                  )}
                 </div>
                 <span className={`text-[9px] sm:text-[10px] text-center font-bold leading-tight px-0.5 sm:px-1 uppercase tracking-tighter ${
                   isActive ? "text-violet-700" : "text-gray-600"
@@ -321,8 +358,8 @@ function TiffinServiceInner() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 md:gap-6">
               {currentServices.map((item) => {
                 const qty = getQty(item._id);
-                const emoji = item.emoji || getServiceEmoji(item._id);
-                const imageUrl = item.image || "/image/tiffinservice.png";
+                const emoji = item.emoji || getTiffinImageById(item._id);
+                const imageUrl = item.image || getTiffinImageById(item._id);
 
                 return (
                   <div
@@ -331,7 +368,7 @@ function TiffinServiceInner() {
                     onClick={() => handleServiceClick(item)}
                   >
                     <div className="w-full aspect-square bg-violet-50 flex items-center justify-center overflow-hidden relative text-3xl sm:text-5xl">
-                      {emoji}
+                      {emoji?.startsWith("/") ? null : emoji}
                       <img
                         src={imageUrl}
                         alt={item.name}
