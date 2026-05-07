@@ -73,21 +73,16 @@ export default function Header() {
 
           {/* ── Logo ── */}
           <Link href="/" className="flex-shrink-0">
-            <div className="flex flex-col items-center">
+            <div className="flex items-center">
               <Image
                 src="/image/helpaanaremovebglogo.png"
                 alt="HelpAana Logo"
-                width={140}
-                height={55}
+                width={296}
+                height={115}
                 priority
                 className="object-contain"
-                style={{ height: "55px", width: "auto" }}
+                style={{ height: "115px", width: "auto" }}
               />
-              <div className="mt-[-6px] px-3 py-0.5 rounded-full bg-[#001a4d]/5 border border-[#001a4d]/10">
-                <span className="text-[7px] md:text-[8px] font-bold text-[#001a4d] tracking-[0.8px] uppercase whitespace-nowrap">
-                  Where Lifestyle Meets Technology
-                </span>
-              </div>
             </div>
           </Link>
 
@@ -270,21 +265,16 @@ export default function Header() {
               >
                 <div className="flex items-center gap-3">
                   <Link href="/" className="flex-shrink-0">
-                    <div className="flex flex-col items-center">
+                    <div className="flex items-center">
                       <Image
                         src="/image/helpaanaremovebglogo.png"
                         alt="HelpAana Logo"
-                        width={110}
-                        height={45}
+                        width={227}
+                        height={90}
                         priority
                         className="object-contain"
-                        style={{ height: "45px", width: "auto" }}
+                        style={{ height: "90px", width: "auto" }}
                       />
-                      <div className="mt-[-4px] px-2 py-0.5 rounded-full bg-[#001a4d]/5 border border-[#001a4d]/10">
-                        <span className="text-[6.5px] font-black text-[#001a4d] tracking-[0.5px] uppercase whitespace-nowrap">
-                          Where Lifestyle Meets Technology
-                        </span>
-                      </div>
                     </div>
                   </Link>
                 </div>
