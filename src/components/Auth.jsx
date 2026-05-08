@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight } from 'lucide-react';
@@ -12,6 +12,10 @@ const Auth = ({ onAuthSuccess, onSkip }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', body: '' });
+  const [isOtpStep, setIsOtpStep] = useState(false);
+  const [otpValues, setOtpValues] = useState(['', '', '', '', '', '']);
+  const [authError, setAuthError] = useState('');
+  const otpInputRefs = useRef([]);
 
   useEffect(() => {
     const state = { page: 'auth', timestamp: Date.now() };
@@ -57,44 +61,73 @@ const Auth = ({ onAuthSuccess, onSkip }) => {
     pincode: '',
   });
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     if (loginPhone.length !== 10) {
-      alert('Please enter a valid 10-digit phone number');
+      setAuthError('Please enter a valid 10-digit phone number');
+      return;
+    }
+    setAuthError('');
+    setIsOtpStep(true);
+    setOtpValues(['', '', '', '', '', '']);
+    setTimeout(() => otpInputRefs.current[0]?.focus(), 50);
+  };
+
+  const handleOtpChange = (index, value) => {
+    const digit = value.replace(/[^0-9]/g, '').slice(-1);
+    const updatedOtp = [...otpValues];
+    updatedOtp[index] = digit;
+    setOtpValues(updatedOtp);
+    setAuthError('');
+
+    if (digit && index < 5) {
+      otpInputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleOtpKeyDown = (index, e) => {
+    if (e.key === 'Backspace' && !otpValues[index] && index > 0) {
+      otpInputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  const handleOtpPaste = (e) => {
+    e.preventDefault();
+    const pastedValue = e.clipboardData.getData('text').replace(/[^0-9]/g, '').slice(0, 6);
+    if (!pastedValue) return;
+
+    const updatedOtp = [...otpValues];
+    for (let i = 0; i < 6; i++) {
+      updatedOtp[i] = pastedValue[i] || '';
+    }
+    setOtpValues(updatedOtp);
+    const focusIndex = Math.min(pastedValue.length, 5);
+    otpInputRefs.current[focusIndex]?.focus();
+  };
+
+  const handleOtpSubmit = (e) => {
+    e.preventDefault();
+    const enteredOtp = otpValues.join('');
+    if (enteredOtp.length !== 6) {
+      setAuthError('Please enter all 6 OTP digits.');
       return;
     }
 
-    setIsLoading(true);
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: loginPhone }),
-        signal: controller.signal
-      });
-
-      const data = await response.json();
-      if (response.ok && data.token) {
-        localStorage.setItem('userToken', data.token);
-        localStorage.setItem('userPhone', loginPhone);
-        onAuthSuccess();
-        router.push('/');
-      } else {
-        alert(data.message || 'Login failed. Please try again.');
-      }
-    } catch (error) {
-      if (error.name === 'AbortError') {
-        alert('Request timed out. Please try again.');
-      } else {
-        alert('Network error. Please check your connection.');
-      }
-    } finally {
-      clearTimeout(timeoutId);
-      setIsLoading(false);
+    if (enteredOtp !== '151515') {
+      setAuthError('Invalid OTP. Please try again.');
+      return;
     }
+
+    localStorage.setItem('userToken', 'mock-token-151515');
+    localStorage.setItem('userPhone', loginPhone);
+    onAuthSuccess?.();
+    router.push('/');
+  };
+
+  const handleEditPhone = () => {
+    setIsOtpStep(false);
+    setOtpValues(['', '', '', '', '', '']);
+    setAuthError('');
   };
 
   const handleSignup = async (e) => {
@@ -156,6 +189,7 @@ const Auth = ({ onAuthSuccess, onSkip }) => {
   };
 
   const isLoginEnabled = loginPhone.length === 10;
+  const isOtpEnabled = otpValues.every((digit) => digit !== '');
   const isSignupEnabled = 
     signupForm.name && signupForm.email && signupForm.phone.length === 10 &&
     signupForm.houseNo && signupForm.street && signupForm.city && 
@@ -206,28 +240,89 @@ const Auth = ({ onAuthSuccess, onSkip }) => {
       {/* Forms */}
       <div className="flex-1">
         {activeTab === 'login' ? (
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-sm font-semibold">Phone Number</label>
-              <div className="bg-white rounded-2xl flex items-center px-4 h-14 text-gray-800">
-                <span className="font-bold mr-2 text-lg">+91</span>
-                <input 
-                  type="tel"
-                  placeholder="Enter 10-digit number"
-                  className="flex-1 outline-none text-lg bg-transparent"
-                  value={loginPhone}
-                  onChange={(e) => setLoginPhone(e.target.value.replace(/[^0-9]/g, '').slice(0, 10))}
-                  maxLength={10}
-                />
-              </div>
-            </div>
-            <button 
-              type="submit"
-              disabled={!isLoginEnabled || isLoading}
-              className={`w-full h-14 bg-[#FF6B9D] rounded-full font-bold text-xl shadow-lg transition-opacity ${(!isLoginEnabled || isLoading) ? 'opacity-60' : 'opacity-100'}`}
-            >
-              {isLoading ? 'Loading...' : 'Login'}
-            </button>
+          <form onSubmit={isOtpStep ? handleOtpSubmit : handleLogin} className="space-y-6">
+            {!isOtpStep ? (
+              <>
+                <div className="space-y-2">
+                  <label className="text-sm font-semibold">Phone Number</label>
+                  <div className="bg-white rounded-2xl flex items-center px-4 h-14 text-gray-800">
+                    <span className="font-bold mr-2 text-lg">+91</span>
+                    <input 
+                      type="tel"
+                      placeholder="Enter 10-digit number"
+                      className="flex-1 outline-none text-lg bg-transparent"
+                      value={loginPhone}
+                      onChange={(e) => {
+                        setLoginPhone(e.target.value.replace(/[^0-9]/g, '').slice(0, 10));
+                        setAuthError('');
+                      }}
+                      maxLength={10}
+                    />
+                  </div>
+                </div>
+
+                {authError && (
+                  <p className="text-sm text-[#FFD6E3] font-medium">{authError}</p>
+                )}
+
+                <button 
+                  type="submit"
+                  disabled={!isLoginEnabled || isLoading}
+                  className={`w-full h-14 bg-[#FF6B9D] rounded-full font-bold text-xl shadow-lg transition-opacity ${(!isLoginEnabled || isLoading) ? 'opacity-60' : 'opacity-100'}`}
+                >
+                  {isLoading ? 'Loading...' : 'Send OTP'}
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold">OTP Verification</p>
+                  <p className="text-sm text-white/80">
+                    Enter 6-digit OTP sent to <span className="font-bold">+91 {loginPhone}</span>
+                  </p>
+                </div>
+
+                <div className="flex justify-between gap-2">
+                  {otpValues.map((digit, index) => (
+                    <input
+                      key={index}
+                      ref={(el) => {
+                        otpInputRefs.current[index] = el;
+                      }}
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={1}
+                      value={digit}
+                      onChange={(e) => handleOtpChange(index, e.target.value)}
+                      onKeyDown={(e) => handleOtpKeyDown(index, e)}
+                      onPaste={handleOtpPaste}
+                      className="w-12 h-14 rounded-2xl bg-white text-gray-800 text-center text-2xl font-bold outline-none border-2 border-transparent focus:border-[#FF6B9D]"
+                    />
+                  ))}
+                </div>
+
+                {authError && (
+                  <p className="text-sm text-[#FFD6E3] font-medium">{authError}</p>
+                )}
+
+                <button 
+                  type="submit"
+                  disabled={!isOtpEnabled || isLoading}
+                  className={`w-full h-14 bg-[#FF6B9D] rounded-full font-bold text-xl shadow-lg transition-opacity ${(!isOtpEnabled || isLoading) ? 'opacity-60' : 'opacity-100'}`}
+                >
+                  {isLoading ? 'Verifying...' : 'Verify OTP'}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleEditPhone}
+                  className="w-full h-12 border border-white/40 rounded-full font-semibold text-base text-white/90"
+                >
+                  Change Phone Number
+                </button>
+              </>
+            )}
           </form>
         ) : (
           <form onSubmit={handleSignup} className="space-y-4 pb-10">

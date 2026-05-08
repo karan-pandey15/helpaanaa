@@ -7,7 +7,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import {
   Menu, X, ShoppingCart, User, MapPin, Search,
-  ChevronDown, LogOut, LogIn, Zap
+  ChevronDown, LogOut, Zap
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -53,7 +53,7 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.clear();
     setIsLoggedIn(false);
-    router.push("/");
+    router.push("/pages/auth");
     router.refresh();
   };
 
@@ -184,7 +184,7 @@ export default function Header() {
                   color: "#f0800a",
                 }}
               >
-                <LogIn size={15} />
+                <User size={15} />
                 <span className="hidden sm:inline">Login</span>
               </button>
             )}
@@ -347,7 +347,7 @@ export default function Header() {
                       color: "white",
                     }}
                   >
-                    <LogIn size={17} /> Login
+                    <User size={17} /> Login
                   </button>
                 )}
 
