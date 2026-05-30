@@ -3,16 +3,18 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SITE_URL, DEFAULT_DESCRIPTION } from '@/lib/seo';
 
 const categories = [
   {
-    id: 'Attendant',
-    name: 'Book an Attendant',
+    id: 'seniorCareCompanion',
+    name: 'Senior Care Companion',
     image: '/image/categoryimg/gaurdiankids.png',
     screen: '/pages/Attendant',
+    params: { categoryId: 'Attendant' },
     iconBg: '#E8F0FE',
   },
-    {
+  {
     id: 'copessenger',
     name: 'Co-Pessenger For Travel',
     image: '/image/categoryimg/copessanger.png',
@@ -172,29 +174,27 @@ const categories = [
   },
 ];
 
-const trendingIds = ['Attendant', 'mehndi', 'Tiffin Service', 'pandit','copessenger'];
+const trendingIds = ['mehndi', 'seniorCareCompanion'];
 
-const categoryGroups = [
-  { title: 'Our Trending Categories', ids: ['Attendant', 'mehndi', 'Tiffin Service', 'pandit','copessenger'] },
-  { title: 'Spiritual & Remedies', ids: ['pandit'] },
-  { title: 'Find a Doctor', ids: ['physiotherapist', 'Nurse', 'ladieshealthissues'] },
-  { title: 'Health & Fitness', ids: ['Gym'] },
-  { title: 'Salon & Beauty Wellness', ids: ['mehndi', 'salonMakeup', 'cosmetic'] },
-  { title: 'Lifestyle & Personal Care', ids: ['luxuryProduct','Fashion'] },
-  { title: 'Food & Beverage', ids: ['Tiffin Service', 'groceries'] },
-  { title: 'E-Commerce', ids: ['school', 'groceries2','ecommerce'] },
-  { title: 'Prime Resort Booking', ids: ['hotel'] },
-];
+const TRENDING_GROUP = {
+  title: 'Our Trending Categories',
+  ids: ['mehndi', 'seniorCareCompanion'],
+};
 
 export default function CategoryScreen() {
   const [activeCategory, setActiveCategory] = useState(null);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const [itemsPerRow, setItemsPerRow] = useState(4);
 
-  const allCategories = categories.filter(cat => !trendingIds.includes(cat.id));
+  const remainingCategories = categories.filter(
+    (cat) => !trendingIds.includes(cat.id)
+  );
 
   const getCategoryLink = (item) => {
-    const params = { ...item.params, categoryId: item.id };
+    const params = {
+      ...item.params,
+      categoryId: item.params?.categoryId ?? item.id,
+    };
     const query = '?' + new URLSearchParams(params).toString();
     return `${item.screen}${query}`;
   };
@@ -204,7 +204,6 @@ export default function CategoryScreen() {
     localStorage.setItem('selectedCategoryId', id);
   };
 
-  // Use ResizeObserver on document.documentElement — no window references
   useEffect(() => {
     const getItemsInRow = (width) => {
       if (width >= 1280) return 8;
@@ -221,7 +220,6 @@ export default function CategoryScreen() {
     });
 
     observer.observe(document.documentElement);
-    // Set initial value
     setItemsPerRow(getItemsInRow(document.documentElement.clientWidth));
 
     return () => observer.disconnect();
@@ -328,30 +326,30 @@ export default function CategoryScreen() {
   );
 
   const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
+    '@context': 'https://schema.org',
+    '@graph': [
       {
-        "@type": "ItemList",
-        "name": "Helpaana Services",
-        "description": "Premium services at Helpaana",
-        "numberOfItems": categories.length,
-        "itemListElement": categories.map((cat, index) => ({
-          "@type": "ListItem",
-          "position": index + 1,
-          "name": cat.name,
-          "url": `https://helpaana.com${getCategoryLink(cat)}`
-        }))
+        '@type': 'ItemList',
+        name: 'Helpaana Services',
+        description: DEFAULT_DESCRIPTION,
+        numberOfItems: categories.length,
+        itemListElement: categories.map((cat, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: cat.name,
+          url: `${SITE_URL}${getCategoryLink(cat)}`,
+        })),
       },
       {
-        "@type": "SiteNavigationElement",
-        "name": "Main Categories",
-        "hasPart": categories.slice(0, 8).map(cat => ({
-          "@type": "WebPage",
-          "name": cat.name,
-          "url": `https://helpaana.com${getCategoryLink(cat)}`
-        }))
-      }
-    ]
+        '@type': 'SiteNavigationElement',
+        name: 'Main Categories',
+        hasPart: categories.slice(0, 8).map((cat) => ({
+          '@type': 'WebPage',
+          name: cat.name,
+          url: `${SITE_URL}${getCategoryLink(cat)}`,
+        })),
+      },
+    ],
   };
 
   return (
@@ -361,41 +359,47 @@ export default function CategoryScreen() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <div className="page-container">
-        <nav 
-          className="groups-stack" 
+        <nav
+          className="groups-stack"
           aria-label="Service Categories"
-          itemScope 
+          itemScope
           itemType="https://schema.org/SiteNavigationElement"
         >
-          {categoryGroups.map((group) => (
-            <section key={group.title} className="group-block">
-              <h3 className="group-heading">{group.title}</h3>
-              <div className="cat-grid">
-                {group.ids.map((id) => {
-                  const item = categories.find((c) => c.id === id);
-                  if (!item) return null;
-                  return renderCategoryCard(item);
-                })}
-              </div>
-            </section>
-          ))}
+          {/* Trending: only Mehndi Artist + Senior Care Companion */}
+          <section className="group-block">
+            <h3 className="group-heading">{TRENDING_GROUP.title}</h3>
+            <div className="cat-grid trending-grid">
+              {TRENDING_GROUP.ids.map((id) => {
+                const item = categories.find((c) => c.id === id);
+                if (!item) return null;
+                return renderCategoryCard(item);
+              })}
+            </div>
+          </section>
 
+          {/* All remaining categories together */}
           <section className="group-block">
             <div className="group-header">
               <h3 className="group-heading">All Categories</h3>
-              {!showAllCategories && allCategories.length > itemsPerRow && (
-                <button
-                  className="view-all-btn"
-                  onClick={() => setShowAllCategories(true)}
-                  aria-label="View all service categories"
-                >
-                  View All
-                </button>
-              )}
+              {!showAllCategories &&
+                remainingCategories.length > itemsPerRow && (
+                  <button
+                    className="view-all-btn"
+                    onClick={() => setShowAllCategories(true)}
+                    aria-label="View all service categories"
+                  >
+                    View All
+                  </button>
+                )}
             </div>
             <div className="cat-grid">
-              {allCategories
-                .slice(0, showAllCategories ? allCategories.length : itemsPerRow)
+              {remainingCategories
+                .slice(
+                  0,
+                  showAllCategories
+                    ? remainingCategories.length
+                    : itemsPerRow
+                )
                 .map((item) => renderCategoryCard(item))}
             </div>
           </section>
@@ -436,8 +440,12 @@ export default function CategoryScreen() {
           font-size: 18px;
           font-weight: 700;
           color: #111827;
-          margin: 0;
+          margin: 0 0 20px 0;
           position: relative;
+        }
+
+        .group-header .group-heading {
+          margin-bottom: 0;
         }
 
         .view-all-btn {
@@ -463,19 +471,42 @@ export default function CategoryScreen() {
           gap: 12px;
         }
 
+        .trending-grid {
+          grid-template-columns: repeat(2, 1fr);
+          max-width: 520px;
+          gap: 20px;
+        }
+
+        @media (min-width: 480px) {
+          .trending-grid {
+            max-width: 600px;
+            gap: 28px;
+          }
+        }
+
         @media (min-width: 640px) {
           .cat-grid { grid-template-columns: repeat(5, 1fr); gap: 16px; }
           .group-heading { font-size: 20px; }
+          .trending-grid {
+            max-width: 680px;
+          }
         }
 
         @media (min-width: 768px) {
           .cat-grid { grid-template-columns: repeat(6, 1fr); gap: 20px; }
           .page-container { padding: 0 24px; }
+          .trending-grid {
+            max-width: 760px;
+            gap: 32px;
+          }
         }
 
         @media (min-width: 1024px) {
           .cat-grid { grid-template-columns: repeat(7, 1fr); gap: 24px; }
           .group-heading { font-size: 22px; }
+          .trending-grid {
+            max-width: 840px;
+          }
         }
 
         @media (min-width: 1280px) {

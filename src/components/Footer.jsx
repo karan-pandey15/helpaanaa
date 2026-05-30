@@ -13,6 +13,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import Logo from "./Logo";
+import { SEO_KEYWORD_PHRASES } from "@/lib/seo";
 
 const categories = [
   { name: "Attendant For Parents", path: "/pages/Attendant" },
@@ -73,15 +74,37 @@ export default function Footer() {
   return (
     <footer className="bg-[#004090] text-white pt-16 pb-8">
       <div className="max-w-[1280px] mx-auto px-4 md:px-8">
+        <nav
+          className="mb-10 pb-8 border-b border-white/10"
+          aria-label="Popular Helpaana services"
+        >
+          <h3 className="text-sm font-bold uppercase tracking-wider text-white/50 mb-4">
+            Popular on Helpaana
+          </h3>
+          <ul className="flex flex-wrap gap-2">
+            {SEO_KEYWORD_PHRASES.map((item) => (
+              <li key={item.id}>
+                <Link
+                  href={item.href}
+                  className="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/10 text-white/80 hover:bg-[#F5A623] hover:text-[#004090] transition-colors"
+                >
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-12 mb-12">
           
           {/* Column 1: About */}
           <div className="space-y-6">
             <Logo size="md" className="brightness-110" />
             <p className="text-white/70 text-sm leading-relaxed">
-              Helpaana Premium Services is India's leading doorstep service provider, 
-              connecting households with verified professionals for over 10+ services. 
-              Quality, trust, and convenience at your fingertips.
+              Helpaana is India&apos;s trusted <strong className="text-white/90 font-semibold">home service booking app</strong> and{' '}
+              <strong className="text-white/90 font-semibold">home service marketplace</strong> — book{' '}
+              mehndi artist booking, elder care companion service, senior citizen assistance, hospital visit helper, and more on one{' '}
+              <strong className="text-white/90 font-semibold">local service app</strong>.
             </p>
             <div className="flex gap-4">
               {[Facebook, Instagram, Youtube].map((Icon, idx) => (

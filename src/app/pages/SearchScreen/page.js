@@ -14,18 +14,28 @@ import {
   Clock
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { SEO_KEYWORD_PHRASES } from "@/lib/seo";
 
 const THEME_COLOR = "#457B9D";
 
+const SEO_TRENDING = SEO_KEYWORD_PHRASES.map((item) => ({
+  name: item.title,
+  href: item.href,
+  icon: "✨",
+  description: item.shortDescription,
+  keywords: item.phrase,
+}));
+
 const SERVICES = [
-  { name: "Attendant", href: "/pages/Attendant", icon: "👨‍⚕️", description: "Professional care for parents" },
-  { name: "Cosmetic", href: "/pages/Cosmetic", icon: "💄", description: "Beauty & skincare products" },
-  { name: "Groceries", href: "/pages/Groceries", icon: "🛒", description: "Daily essentials delivered" },
-  { name: "Guardian Kids", href: "/pages/GuardianKids", icon: "👶", description: "Safety for your little ones" },
-  { name: "Hotel", href: "/pages/Hotel", icon: "🏨", description: "Luxury stays and bookings" },
-  { name: "Mehndi", href: "/pages/Mehndi", icon: "🪷", description: "Traditional bridal designs" },
-  { name: "Pandit", href: "/pages/Pandit", icon: "🕉️", description: "Spiritual & ritual services" },
-  { name: "School", href: "/pages/School", icon: "🏫", description: "Educational support" },
+  ...SEO_TRENDING,
+  { name: "Attendant", href: "/pages/Attendant", icon: "👨‍⚕️", description: "Professional care for parents", keywords: "attendant" },
+  { name: "Cosmetic", href: "/pages/Cosmetic", icon: "💄", description: "Beauty & skincare products", keywords: "cosmetic" },
+  { name: "Groceries", href: "/pages/Groceries", icon: "🛒", description: "Daily essentials delivered", keywords: "groceries" },
+  { name: "Guardian Kids", href: "/pages/GuardianKids", icon: "👶", description: "Safety for your little ones", keywords: "guardian kids" },
+  { name: "Hotel", href: "/pages/Hotel", icon: "🏨", description: "Luxury stays and bookings", keywords: "hotel resort" },
+  { name: "Mehndi", href: "/pages/Mehndi", icon: "🪷", description: "Traditional bridal designs", keywords: "mehndi mehandi" },
+  { name: "Pandit", href: "/pages/Pandit", icon: "🕉️", description: "Spiritual & ritual services", keywords: "pandit puja" },
+  { name: "School", href: "/pages/School", icon: "🏫", description: "Educational support", keywords: "school uniform" },
 ];
 
 export default function SearchScreen() {
@@ -45,9 +55,10 @@ export default function SearchScreen() {
     if (!trimmed) {
       setFilteredServices(SERVICES);
     } else {
-      const filtered = SERVICES.filter(s => 
-        s.name.toLowerCase().includes(trimmed) || 
-        s.description.toLowerCase().includes(trimmed)
+      const filtered = SERVICES.filter(s =>
+        s.name.toLowerCase().includes(trimmed) ||
+        s.description.toLowerCase().includes(trimmed) ||
+        (s.keywords && s.keywords.toLowerCase().includes(trimmed))
       );
       setFilteredServices(filtered);
     }

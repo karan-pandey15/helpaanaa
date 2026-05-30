@@ -10,6 +10,11 @@ import {
   ChevronDown, LogOut, Zap
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { SEO_KEYWORD_PHRASES } from "@/lib/seo";
+
+const searchPlaceholders = [
+  ...SEO_KEYWORD_PHRASES.map((k) => k.phrase),
+];
 
 const categories = [
   { name: 'Book an Attendant', path: '/pages/Attendant' },
@@ -45,7 +50,7 @@ export default function Header() {
     const token = typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
     setIsLoggedIn(!!token);
     const interval = setInterval(() => {
-      setPlaceholderIndex((prev) => (prev + 1) % categories.length);
+      setPlaceholderIndex((prev) => (prev + 1) % searchPlaceholders.length);
     }, 3000);
     return () => clearInterval(interval);
   }, [pathname]);
@@ -76,7 +81,7 @@ export default function Header() {
             <div className="flex items-center">
               <Image
                 src="/image/helpaanaremovebglogo.png"
-                alt="HelpAana Logo"
+                alt="Helpaana - Home Service Booking App"
                 width={296}
                 height={115}
                 priority
@@ -113,7 +118,7 @@ export default function Header() {
             />
             <input
               type="text"
-              placeholder={`Search "${categories[placeholderIndex].name}"`}
+              placeholder={`Search "${searchPlaceholders[placeholderIndex]}"`}
               className="w-full h-[45px] rounded-full text-sm text-gray-800 bg-gray-50 pl-10 pr-4 outline-none transition-all duration-200 border border-gray-200 focus:bg-white focus:border-[#F5A623] focus:ring-2 focus:ring-[#F5A623]/20"
             />
           </div>
@@ -216,7 +221,7 @@ export default function Header() {
             />
             <input
               type="text"
-              placeholder={`Search "${categories[placeholderIndex].name}"`}
+              placeholder={`Search "${searchPlaceholders[placeholderIndex]}"`}
               className="w-full h-[42px] rounded-full text-[13px] text-gray-800 bg-white pl-10 pr-4 outline-none border border-gray-200 shadow-sm"
             />
           </div>
@@ -268,7 +273,7 @@ export default function Header() {
                     <div className="flex items-center">
                       <Image
                         src="/image/helpaanaremovebglogo.png"
-                        alt="HelpAana Logo"
+                        alt="Helpaana - Home Service Booking App"
                         width={227}
                         height={90}
                         priority
