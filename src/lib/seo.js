@@ -93,7 +93,7 @@ export const SEO_KEYWORDS = [
   'home services India',
   'book attendant online',
   'mehndi artist near me',
-  'senior care at home',
+  'elder care at home',
   'nurse booking app',
   'Noida home services',
 ];

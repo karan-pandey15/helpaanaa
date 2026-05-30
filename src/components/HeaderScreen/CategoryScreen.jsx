@@ -8,7 +8,7 @@ import { SITE_URL, DEFAULT_DESCRIPTION } from '@/lib/seo';
 const categories = [
   {
     id: 'seniorCareCompanion',
-    name: 'Senior Care Companion',
+    name: 'Elder Care Companion',
     image: '/image/categoryimg/gaurdiankids.png',
     screen: '/pages/Attendant',
     params: { categoryId: 'Attendant' },
@@ -96,7 +96,7 @@ const categories = [
   {
     id: 'hotel',
     name: 'Resort & Farmhouse Booking',
-    image: '/image/categoryimg/gaurdiankids.png',
+    image: '/image/categoryimg/resort.png',
     screen: '/pages/Hotel',
     params: {},
     iconBg: '#E0F2F1',
@@ -365,7 +365,7 @@ export default function CategoryScreen() {
           itemScope
           itemType="https://schema.org/SiteNavigationElement"
         >
-          {/* Trending: only Mehndi Artist + Senior Care Companion */}
+          {/* Trending: only Mehndi Artist + Elder Care Companion */}
           <section className="group-block">
             <h3 className="group-heading">{TRENDING_GROUP.title}</h3>
             <div className="cat-grid trending-grid">

@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 const categories = [
   {
     id: 'Attendant',
-    name: 'Senior Care Companion',
+    name: 'Elder Care Companion',
     image: '/image/categoryimg/gaurdiankids.png',
     screen: '/pages/Attendant',
     iconBg: '#E8F0FE',
@@ -95,7 +95,7 @@ const categories = [
   {
     id: 'hotel',
     name: 'Resort & Farmhouse Booking',
-    image: '/image/categoryimg/gaurdiankids.png',
+    image: '/image/categoryimg/resort.png',
     screen: '/pages/Hotel',
     params: {},
     iconBg: '#E0F2F1',
