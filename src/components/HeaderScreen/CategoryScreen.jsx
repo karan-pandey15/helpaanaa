@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SITE_URL, DEFAULT_DESCRIPTION } from '@/lib/seo';
@@ -181,14 +181,12 @@ const TRENDING_GROUP = {
   ids: ['mehndi', 'seniorCareCompanion'],
 };
 
-export default function CategoryScreen() {
+export default function CategoryScreen({ mode = 'full' }) {
   const [activeCategory, setActiveCategory] = useState(null);
-  const [showAllCategories, setShowAllCategories] = useState(false);
-  const [itemsPerRow, setItemsPerRow] = useState(4);
-
-  const remainingCategories = categories.filter(
-    (cat) => !trendingIds.includes(cat.id)
-  );
+  const isHomeMode = mode === 'home';
+  const trendingCategories = TRENDING_GROUP.ids
+    .map((id) => categories.find((c) => c.id === id))
+    .filter(Boolean);
 
   const getCategoryLink = (item) => {
     const params = {
@@ -203,27 +201,6 @@ export default function CategoryScreen() {
     setActiveCategory(id);
     localStorage.setItem('selectedCategoryId', id);
   };
-
-  useEffect(() => {
-    const getItemsInRow = (width) => {
-      if (width >= 1280) return 8;
-      if (width >= 1024) return 7;
-      if (width >= 768) return 6;
-      if (width >= 640) return 5;
-      return 4;
-    };
-
-    const observer = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        setItemsPerRow(getItemsInRow(entry.contentRect.width));
-      }
-    });
-
-    observer.observe(document.documentElement);
-    setItemsPerRow(getItemsInRow(document.documentElement.clientWidth));
-
-    return () => observer.disconnect();
-  }, []);
 
   const renderCategoryCard = (item) => (
     <Link
@@ -365,44 +342,30 @@ export default function CategoryScreen() {
           itemScope
           itemType="https://schema.org/SiteNavigationElement"
         >
-          {/* Trending: only Mehndi Artist + Elder Care Companion */}
-          <section className="group-block">
-            <h3 className="group-heading">{TRENDING_GROUP.title}</h3>
-            <div className="cat-grid trending-grid">
-              {TRENDING_GROUP.ids.map((id) => {
-                const item = categories.find((c) => c.id === id);
-                if (!item) return null;
-                return renderCategoryCard(item);
-              })}
-            </div>
-          </section>
-
-          {/* All remaining categories together */}
-          <section className="group-block">
-            <div className="group-header">
-              <h3 className="group-heading">All Categories</h3>
-              {!showAllCategories &&
-                remainingCategories.length > itemsPerRow && (
-                  <button
-                    className="view-all-btn"
-                    onClick={() => setShowAllCategories(true)}
-                    aria-label="View all service categories"
-                  >
-                    View All
-                  </button>
-                )}
-            </div>
-            <div className="cat-grid">
-              {remainingCategories
-                .slice(
-                  0,
-                  showAllCategories
-                    ? remainingCategories.length
-                    : itemsPerRow
-                )
-                .map((item) => renderCategoryCard(item))}
-            </div>
-          </section>
+          {isHomeMode ? (
+            <>
+              <section className="group-block">
+                <h3 className="group-heading">{TRENDING_GROUP.title}</h3>
+                <div className="cat-grid trending-grid">
+                  {trendingCategories.map((item) => renderCategoryCard(item))}
+                </div>
+              </section>
+              <section className="group-block explore-more-block">
+                <Link href="/categories" className="explore-more-link" aria-label="Open all categories page">
+                  Explore All Categories
+                </Link>
+              </section>
+            </>
+          ) : (
+            <section className="group-block">
+              <div className="group-header">
+                <h3 className="group-heading">All Categories</h3>
+              </div>
+              <div className="cat-grid">
+                {categories.map((item) => renderCategoryCard(item))}
+              </div>
+            </section>
+          )}
         </nav>
       </div>
 
@@ -448,23 +411,6 @@ export default function CategoryScreen() {
           margin-bottom: 0;
         }
 
-        .view-all-btn {
-          font-size: 14px;
-          font-weight: 600;
-          color: #2563eb;
-          background: #eff6ff;
-          border: none;
-          padding: 6px 16px;
-          border-radius: 20px;
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-
-        .view-all-btn:hover {
-          background: #dbeafe;
-          transform: scale(1.05);
-        }
-
         .cat-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -475,6 +421,32 @@ export default function CategoryScreen() {
           grid-template-columns: repeat(2, 1fr);
           max-width: 520px;
           gap: 20px;
+        }
+
+        .explore-more-block {
+          margin-top: -16px;
+          display: flex;
+          justify-content: center;
+        }
+
+        .explore-more-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 16px;
+          font-weight: 700;
+          color: #004090;
+          text-decoration: none;
+          padding: 10px 18px;
+          border-radius: 999px;
+          background: #eff6ff;
+          border: 1px solid #dbeafe;
+          transition: all 0.2s ease;
+        }
+
+        .explore-more-link:hover {
+          background: #dbeafe;
+          transform: translateY(-1px);
         }
 
         @media (min-width: 480px) {

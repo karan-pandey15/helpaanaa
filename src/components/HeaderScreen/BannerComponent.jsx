@@ -118,7 +118,7 @@ function useIsMobile(breakpoint = 768) {
 // ─────────────────────────────────────────────────────────────────
 // MAIN COMPONENT
 // ─────────────────────────────────────────────────────────────────
-export default function BannerComponent() {
+export default function BannerComponent({ bannerIds = null }) {
   const router = useRouter();
   const isMobile = useIsMobile(768);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -127,15 +127,19 @@ export default function BannerComponent() {
   const [incomingVisible, setIncomingVisible] = useState(false);
   const autoplayRef = useRef(null);
   const transitionTimeoutRef = useRef(null);
+  const filteredBanners = Array.isArray(bannerIds) && bannerIds.length > 0
+    ? bannerData.filter((banner) => bannerIds.includes(banner.id))
+    : bannerData;
+  const safeBanners = filteredBanners.length > 0 ? filteredBanners : bannerData;
 
   // ── navigation helpers ────────────────────────────────────────
   const slideNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % bannerData.length);
-  }, []);
+    setCurrentIndex((prev) => (prev + 1) % safeBanners.length);
+  }, [safeBanners.length]);
 
   const slidePrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + bannerData.length) % bannerData.length);
-  }, []);
+    setCurrentIndex((prev) => (prev - 1 + safeBanners.length) % safeBanners.length);
+  }, [safeBanners.length]);
 
   const goTo = useCallback((idx) => {
     setCurrentIndex(idx);
@@ -146,6 +150,10 @@ export default function BannerComponent() {
     clearInterval(autoplayRef.current);
     autoplayRef.current = setInterval(slideNext, 5000);
   }, [slideNext]);
+
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [safeBanners.length]);
 
   useEffect(() => {
     resetAutoplay();
@@ -163,7 +171,7 @@ export default function BannerComponent() {
   };
 
   // ── current slide ─────────────────────────────────────────────
-  const slide = bannerData[currentIndex];
+  const slide = safeBanners[currentIndex];
   const imageSrc = isMobile
     ? slide.mobileImage || slide.desktopImage
     : slide.desktopImage || slide.mobileImage;

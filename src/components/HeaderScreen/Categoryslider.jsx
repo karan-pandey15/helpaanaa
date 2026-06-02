@@ -167,7 +167,7 @@ const categories = [
   },
 ];
 
-export default function CategorySlider() {
+export default function CategorySlider({ limitToTrending = false }) {
 
   const router = useRouter();
   const [active, setActive] = useState(null);
@@ -186,7 +186,12 @@ export default function CategorySlider() {
     router.push(`${item.screen}${q}`);
   };
 
+  const visibleCategories = limitToTrending
+    ? categories.filter((item) => item.id === "mehndi" || item.id === "Attendant")
+    : categories;
+
   const mouseDown = (e) => {
+    if (limitToTrending) return;
     isDown.current = true;
     sliderRef.current.classList.add('dragging');
     startX.current = e.pageX - sliderRef.current.offsetLeft;
@@ -194,16 +199,19 @@ export default function CategorySlider() {
   };
 
   const mouseLeave = () => {
+    if (limitToTrending) return;
     isDown.current = false;
     sliderRef.current.classList.remove('dragging');
   };
 
   const mouseUp = () => {
+    if (limitToTrending) return;
     isDown.current = false;
     sliderRef.current.classList.remove('dragging');
   };
 
   const mouseMove = (e) => {
+    if (limitToTrending) return;
     if (!isDown.current) return;
     e.preventDefault();
     const x = e.pageX - sliderRef.current.offsetLeft;
@@ -229,6 +237,13 @@ export default function CategorySlider() {
         scroll-behavior:smooth;
         padding:10px 20px;
         cursor:grab;
+      }
+
+      .slider.limited{
+        justify-content:center;
+        gap:16px;
+        overflow-x:hidden;
+        cursor:default;
       }
 
       .slider.dragging{
@@ -279,6 +294,10 @@ export default function CategorySlider() {
           width:80px;
         }
 
+        .slider.limited .item{
+          width:110px;
+        }
+
         .icon{
           width:55px;
           height:55px;
@@ -295,7 +314,7 @@ export default function CategorySlider() {
       <div className="wrapper">
 
         <div
-          className="slider"
+          className={`slider ${limitToTrending ? 'limited' : ''}`}
           ref={sliderRef}
           onMouseDown={mouseDown}
           onMouseLeave={mouseLeave}
@@ -303,7 +322,7 @@ export default function CategorySlider() {
           onMouseMove={mouseMove}
         >
 
-          {categories.map((item) => (
+          {visibleCategories.map((item) => (
 
             <button
               key={item.id}
