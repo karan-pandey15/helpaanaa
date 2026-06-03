@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SITE_URL, DEFAULT_DESCRIPTION } from '@/lib/seo';
+import ExploreMoreButton from '@/components/HeaderScreen/ExploreMoreButton';
 
 const categories = [
   {
@@ -202,12 +203,12 @@ export default function CategoryScreen({ mode = 'full' }) {
     localStorage.setItem('selectedCategoryId', id);
   };
 
-  const renderCategoryCard = (item) => (
+  const renderCategoryCard = (item, isTrending = false) => (
     <Link
       key={item.id}
       href={getCategoryLink(item)}
       onClick={() => handleCategoryClick(item.id)}
-      className={`cat-card ${activeCategory === item.id ? 'active' : ''}`}
+      className={`cat-card ${isTrending ? 'trending-cat-card' : ''} ${activeCategory === item.id ? 'active' : ''}`}
       title={item.name}
       itemProp="url"
     >
@@ -218,8 +219,8 @@ export default function CategoryScreen({ mode = 'full' }) {
         <Image
           src={item.image}
           alt={item.name}
-          width={64}
-          height={64}
+          width={isTrending ? 64 : 64}
+          height={isTrending ? 64 : 64}
           className="cat-img"
         />
       </div>
@@ -248,15 +249,15 @@ export default function CategoryScreen({ mode = 'full' }) {
         }
 
         .circle-wrap {
-          width: 72px;
-          height: 72px;
+          width: 80px;
+          height: 80px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           overflow: hidden;
           flex-shrink: 0;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          transition: transform 0.18s ease, box-shadow 0.18s ease;
         }
 
         .cat-card:hover .circle-wrap {
@@ -265,9 +266,9 @@ export default function CategoryScreen({ mode = 'full' }) {
         }
 
         .cat-img {
-          width: 58px;
-          height: 58px;
-          object-fit: contain;
+          width: 64px;
+          height: 64px;
+          object-fit: cover;
         }
 
         .cat-label {
@@ -343,19 +344,17 @@ export default function CategoryScreen({ mode = 'full' }) {
           itemType="https://schema.org/SiteNavigationElement"
         >
           {isHomeMode ? (
-            <>
-              <section className="group-block">
-                <h3 className="group-heading">{TRENDING_GROUP.title}</h3>
-                <div className="cat-grid trending-grid">
-                  {trendingCategories.map((item) => renderCategoryCard(item))}
+            <section className="group-block trending-section">
+              <h3 className="group-heading">{TRENDING_GROUP.title}</h3>
+              <div className="trending-categories-row">
+                <div className="trending-cats-group">
+                  {trendingCategories.map((item) => renderCategoryCard(item, true))}
                 </div>
-              </section>
-              <section className="group-block explore-more-block">
-                <Link href="/categories" className="explore-more-link" aria-label="Open all categories page">
-                  Explore All Categories
-                </Link>
-              </section>
-            </>
+                <div className="explore-slot">
+                  <ExploreMoreButton />
+                </div>
+              </div>
+            </section>
           ) : (
             <section className="group-block">
               <div className="group-header">
@@ -417,68 +416,99 @@ export default function CategoryScreen({ mode = 'full' }) {
           gap: 12px;
         }
 
-        .trending-grid {
-          grid-template-columns: repeat(2, 1fr);
-          max-width: 520px;
-          gap: 20px;
+        .trending-section .group-heading {
+          margin-bottom: 20px;
+          text-align: left;
         }
 
-        .explore-more-block {
-          margin-top: -16px;
+        .trending-categories-row {
           display: flex;
+          flex-direction: row;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 8px;
+          width: 100%;
+          overflow: visible;
+          padding-bottom: 2px;
+        }
+
+        .trending-cats-group {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-end;
+          gap: 16px;
+          flex: 1 1 auto;
+          min-width: 0;
+        }
+
+        .explore-slot {
+          flex: 0 0 auto;
+          display: flex;
+          align-items: flex-end;
           justify-content: center;
         }
 
-        .explore-more-link {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 16px;
+        .trending-categories-row :global(.cat-card.trending-cat-card) {
+          flex: 0 0 72px;
+          width: 72px;
+          min-width: 72px;
+          max-width: 72px;
+          padding: 0;
+          gap: 6px;
+        }
+
+        .trending-categories-row :global(.trending-cat-card .circle-wrap) {
+          width: 64px !important;
+          height: 64px !important;
+          min-width: 64px !important;
+          min-height: 64px !important;
+          max-width: 64px !important;
+          max-height: 64px !important;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        .trending-categories-row :global(.trending-cat-card .cat-img) {
+          width: 64px !important;
+          height: 64px !important;
+          min-width: 64px !important;
+          min-height: 64px !important;
+          object-fit: cover !important;
+        }
+
+        .trending-categories-row :global(.trending-cat-card .cat-label) {
+          font-size: 11px;
           font-weight: 700;
-          color: #004090;
-          text-decoration: none;
-          padding: 10px 18px;
-          border-radius: 999px;
-          background: #eff6ff;
-          border: 1px solid #dbeafe;
-          transition: all 0.2s ease;
-        }
-
-        .explore-more-link:hover {
-          background: #dbeafe;
-          transform: translateY(-1px);
+          line-height: 1.25;
+          max-width: 72px;
+          min-height: 28px;
+          margin: 0;
+          display: block;
+          text-align: center;
+          color: #374151;
         }
 
         @media (min-width: 480px) {
-          .trending-grid {
-            max-width: 600px;
-            gap: 28px;
+          .trending-cats-group {
+            gap: 24px;
           }
         }
 
         @media (min-width: 640px) {
           .cat-grid { grid-template-columns: repeat(5, 1fr); gap: 16px; }
           .group-heading { font-size: 20px; }
-          .trending-grid {
-            max-width: 680px;
+          .trending-categories-row {
+            gap: 28px;
           }
         }
 
         @media (min-width: 768px) {
           .cat-grid { grid-template-columns: repeat(6, 1fr); gap: 20px; }
           .page-container { padding: 0 24px; }
-          .trending-grid {
-            max-width: 760px;
-            gap: 32px;
-          }
         }
 
         @media (min-width: 1024px) {
           .cat-grid { grid-template-columns: repeat(7, 1fr); gap: 24px; }
           .group-heading { font-size: 22px; }
-          .trending-grid {
-            max-width: 840px;
-          }
         }
 
         @media (min-width: 1280px) {

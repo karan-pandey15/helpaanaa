@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import {
@@ -11,6 +10,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SEO_KEYWORD_PHRASES } from "@/lib/seo";
+import Logo from "@/components/Logo";
 
 const searchPlaceholders = [
   ...SEO_KEYWORD_PHRASES.map((k) => k.phrase),
@@ -64,48 +64,113 @@ export default function Header() {
 
   const handleLogin = () => router.push("/pages/auth");
 
+  const isHomePage = pathname === "/";
+
   if (
     pathname.includes("/pages/ServiceDetail") ||
     pathname.includes("/pages/ladies") ||
     pathname.includes("/pages/Mehndi")
   ) return null;
 
+  if (isHomePage) {
+    return (
+      <>
+        <header className="sticky top-0 z-50 w-full bg-[#004090] border-b border-[#003272] shadow-sm">
+          <div className="max-w-[1280px] mx-auto px-4">
+            <div className="flex items-center justify-between gap-2 py-3 min-w-0">
+              <Logo size="md" asLink />
+
+              <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                <Link
+                  href="/pages/cart"
+                  className="relative flex items-center justify-center rounded-xl w-10 h-10 sm:w-11 sm:h-11 bg-[#f8fafc] border border-[#e2e8f0] hover:bg-gray-50 transition-colors"
+                  aria-label="Cart"
+                >
+                  <ShoppingCart size={20} className="text-[#001a4d]" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1.5 -right-1.5 text-[9px] font-black w-[18px] h-[18px] flex items-center justify-center rounded-full bg-[#F5A623] text-white border-2 border-white">
+                      {cartCount}
+                    </span>
+                  )}
+                </Link>
+
+                {isLoggedIn ? (
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-1.5 font-bold text-xs sm:text-[13px] px-3 sm:px-4 py-2 sm:py-2.5 rounded-full bg-[#fee2e2] border border-[#fecaca] text-[#ef4444] active:scale-95 transition-transform"
+                  >
+                    <LogOut size={16} />
+                    <span>Logout</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleLogin}
+                    className="flex items-center gap-1.5 font-bold text-xs sm:text-[13px] px-3 sm:px-4 py-2 sm:py-2.5 rounded-full bg-[rgba(245,166,35,0.1)] border border-[rgba(245,166,35,0.25)] text-[#f0800a] active:scale-95 transition-transform"
+                  >
+                    <User size={16} />
+                    <span>Login</span>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 sm:gap-3 pb-3">
+              <div className="relative flex-1 min-w-0">
+                <Search
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+                  size={16}
+                />
+                <input
+                  type="text"
+                  placeholder={`Search "${searchPlaceholders[placeholderIndex]}"`}
+                  className="w-full h-[42px] sm:h-[45px] rounded-full text-sm text-gray-800 bg-gray-50 pl-10 pr-4 outline-none border border-gray-200 focus:bg-white focus:border-[#F5A623] focus:ring-2 focus:ring-[#F5A623]/20"
+                />
+              </div>
+              <Link
+                href="/pages/dealday"
+                className="flex-shrink-0 flex items-center justify-center gap-1 font-extrabold text-[10px] sm:text-xs px-3 sm:px-4 h-[42px] sm:h-[45px] rounded-full text-white active:scale-95 transition-transform whitespace-nowrap"
+                style={{
+                  background: "linear-gradient(135deg, #F5A623 0%, #f0800a 100%)",
+                  boxShadow: "0 3px 10px rgba(245,166,35,0.25)",
+                }}
+              >
+                <Zap size={14} className="hidden sm:block flex-shrink-0" />
+                <span className="uppercase tracking-tight leading-tight">
+                  <span className="sm:hidden">Deal Day</span>
+                  <span className="hidden sm:inline">Deal of the Day</span>
+                </span>
+              </Link>
+            </div>
+          </div>
+        </header>
+      </>
+    );
+  }
+
   return (
     <>
-      <header className="sticky top-0 z-50 w-full shadow-md bg-white border-b border-gray-100">
+      <header className="sticky top-0 z-50 w-full shadow-md bg-[#004090] border-b border-[#003272]">
         {/* ── Main Row ── */}
         <div className="max-w-[1280px] mx-auto h-[80px] px-4 md:px-6 flex items-center justify-between gap-3 md:gap-5">
 
           {/* ── Logo ── */}
-          <Link href="/" className="flex-shrink-0">
-            <div className="flex items-center">
-              <Image
-                src="/image/helpaanaremovebglogo.png"
-                alt="Helpaana - Home Service Booking App"
-                width={296}
-                height={115}
-                priority
-                className="object-contain"
-                style={{ height: "115px", width: "auto" }}
-              />
-            </div>
-          </Link>
+          <Logo size="md" asLink />
 
           {/* ── Delivery Location (Desktop) ── */}
           <div
-            className="hidden lg:flex items-center gap-2.5 cursor-pointer rounded-xl px-3 py-2 transition-all duration-200 hover:bg-gray-50"
-            style={{ border: "1px solid rgba(0,0,0,0.05)" }}
+            className="hidden lg:flex items-center gap-2.5 cursor-pointer rounded-xl px-3 py-2 transition-all duration-200 hover:bg-white/10"
+            style={{ border: "1px solid rgba(255,255,255,0.25)" }}
           >
             <MapPin size={17} className="text-[#F5A623] flex-shrink-0" />
             <div className="flex flex-col">
-              <span className="text-[9px] font-bold text-gray-400 leading-none uppercase tracking-widest">
+              <span className="text-[9px] font-bold text-blue-100 leading-none uppercase tracking-widest">
                 Deliver To
               </span>
               <div className="flex items-center gap-1 mt-0.5">
-                <span className="text-[13px] font-semibold text-[#001a4d] truncate max-w-[110px]">
+                <span className="text-[13px] font-semibold text-white truncate max-w-[110px]">
                   Select Location
                 </span>
-                <ChevronDown size={13} className="text-gray-400" />
+                <ChevronDown size={13} className="text-blue-100" />
               </div>
             </div>
           </div>
@@ -212,7 +277,7 @@ export default function Header() {
         {/* ── Mobile Search + Deal Bar ── */}
         <div
           className="md:hidden flex items-center gap-3 px-4 py-3"
-          style={{ background: "#f8fafc", borderTop: "1px solid #e2e8f0" }}
+          style={{ background: "#004090", borderTop: "1px solid #003272" }}
         >
           <div className="relative flex-1">
             <Search
@@ -270,17 +335,7 @@ export default function Header() {
               >
                 <div className="flex items-center gap-3">
                   <Link href="/" className="flex-shrink-0">
-                    <div className="flex items-center">
-                      <Image
-                        src="/image/helpaanaremovebglogo.png"
-                        alt="Helpaana - Home Service Booking App"
-                        width={227}
-                        height={90}
-                        priority
-                        className="object-contain"
-                        style={{ height: "90px", width: "auto" }}
-                      />
-                    </div>
+                    <Logo size="sm" asLink />
                   </Link>
                 </div>
                 <button

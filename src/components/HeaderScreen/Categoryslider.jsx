@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import ExploreMoreButton from '@/components/HeaderScreen/ExploreMoreButton';
 
 // salon & servies 
 // food for pateints
@@ -186,8 +187,11 @@ export default function CategorySlider({ limitToTrending = false }) {
     router.push(`${item.screen}${q}`);
   };
 
+  const trendingIds = ['mehndi', 'Attendant'];
   const visibleCategories = limitToTrending
-    ? categories.filter((item) => item.id === "mehndi" || item.id === "Attendant")
+    ? trendingIds
+        .map((id) => categories.find((item) => item.id === id))
+        .filter(Boolean)
     : categories;
 
   const mouseDown = (e) => {
@@ -228,6 +232,7 @@ export default function CategorySlider({ limitToTrending = false }) {
         background:#fff;
         padding:16px 0;
         border-bottom:1px solid #eee;
+        overflow:visible;
       }
 
       .slider{
@@ -240,10 +245,71 @@ export default function CategorySlider({ limitToTrending = false }) {
       }
 
       .slider.limited{
-        justify-content:center;
-        gap:16px;
-        overflow-x:hidden;
+        display:flex;
+        flex-direction:row;
+        align-items:flex-end;
+        justify-content:space-between;
+        gap:8px;
+        width:100%;
+        overflow:visible;
         cursor:default;
+        padding:10px 16px;
+      }
+
+      .slider.limited .trending-cats-group{
+        display:flex;
+        flex-direction:row;
+        align-items:flex-end;
+        gap:16px;
+        flex:1 1 auto;
+        min-width:0;
+      }
+
+      .slider.limited .explore-slot{
+        flex:0 0 auto;
+        display:flex;
+        align-items:flex-end;
+        justify-content:center;
+      }
+
+      @media(min-width:640px){
+        .slider.limited .trending-cats-group{
+          gap:24px;
+        }
+      }
+
+      .slider.limited .item{
+        width:72px;
+        min-width:72px;
+        max-width:72px;
+        flex:0 0 72px;
+      }
+
+      .slider.limited .icon{
+        width:64px;
+        height:64px;
+        min-width:64px;
+        min-height:64px;
+        max-width:64px;
+        max-height:64px;
+        flex-shrink:0;
+      }
+
+      .slider.limited .icon :global(img){
+        width:64px !important;
+        height:64px !important;
+        min-width:64px !important;
+        min-height:64px !important;
+        object-fit:cover !important;
+      }
+
+      .slider.limited .label{
+        font-size:11px;
+        font-weight:700;
+        min-height:28px;
+        line-height:1.25;
+        max-width:72px;
+        text-align:center;
       }
 
       .slider.dragging{
@@ -266,15 +332,16 @@ export default function CategorySlider({ limitToTrending = false }) {
       }
 
       .icon{
-        width:70px;
-        height:70px;
+        width:80px;
+        height:80px;
         border-radius:50%;
         display:flex;
         align-items:center;
         justify-content:center;
         margin-bottom:6px;
-        box-shadow:0 3px 10px rgba(0,0,0,0.15);
-        transition:0.3s;
+        box-shadow:0 3px 10px rgba(0,0,0,0.12);
+        transition:0.2s;
+        overflow:hidden;
       }
 
       .icon.active{
@@ -289,18 +356,22 @@ export default function CategorySlider({ limitToTrending = false }) {
       }
 
       @media(max-width:768px){
+        .slider.limited{
+          padding:10px 12px;
+          gap:6px;
+        }
+
+        .slider.limited .trending-cats-group{
+          gap:12px;
+        }
 
         .item{
           width:80px;
         }
 
-        .slider.limited .item{
-          width:110px;
-        }
-
         .icon{
-          width:55px;
-          height:55px;
+          width:60px;
+          height:60px;
         }
 
         .label{
@@ -322,34 +393,58 @@ export default function CategorySlider({ limitToTrending = false }) {
           onMouseMove={mouseMove}
         >
 
-          {visibleCategories.map((item) => (
-
-            <button
-              key={item.id}
-              className="item"
-              onClick={() => go(item)}
-            >
-
-              <div
-                className={`icon ${active === item.id ? 'active' : ''}`}
-                style={{ background: item.iconBg }}
-              >
-
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  width={80}
-                  height={80}
-                  style={{ objectFit: 'contain', padding: 10 }}
-                />
-
+          {limitToTrending ? (
+            <>
+              <div className="trending-cats-group">
+                {visibleCategories.map((item) => (
+                  <button
+                    key={item.id}
+                    className="item"
+                    onClick={() => go(item)}
+                  >
+                    <div
+                      className={`icon ${active === item.id ? 'active' : ''}`}
+                      style={{ background: item.iconBg }}
+                    >
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        width={64}
+                        height={64}
+                        style={{ objectFit: 'cover', padding: 0, width: '100%', height: '100%' }}
+                      />
+                    </div>
+                    <span className="label">{item.name}</span>
+                  </button>
+                ))}
               </div>
-
-              <span className="label">{item.name}</span>
-
-            </button>
-
-          ))}
+              <div className="explore-slot">
+                <ExploreMoreButton />
+              </div>
+            </>
+          ) : (
+            visibleCategories.map((item) => (
+              <button
+                key={item.id}
+                className="item"
+                onClick={() => go(item)}
+              >
+                <div
+                  className={`icon ${active === item.id ? 'active' : ''}`}
+                  style={{ background: item.iconBg }}
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    width={80}
+                    height={80}
+                    style={{ objectFit: 'cover', padding: 0 }}
+                  />
+                </div>
+                <span className="label">{item.name}</span>
+              </button>
+            ))
+          )}
 
         </div>
 
