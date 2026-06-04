@@ -265,7 +265,7 @@ export default function CheckoutPage() {
         contact: profile?.phone || "",
       },
       theme: {
-        color: "#457b9d",
+        color: "#1898A5",
       },
       modal: {
         ondismiss: function() {
@@ -281,7 +281,7 @@ export default function CheckoutPage() {
   if (initializing) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-        <Loader2 className="animate-spin text-[#457b9d] mb-4" size={40} />
+        <Loader2 className="animate-spin text-[#1898A5] mb-4" size={40} />
         <p className="font-black italic text-gray-400 animate-pulse">PREPARING CHECKOUT...</p>
       </div>
     );
@@ -327,11 +327,11 @@ export default function CheckoutPage() {
             <section>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
-                  <MapPin size={16} className="text-[#457b9d]" /> Delivery Address
+                  <MapPin size={16} className="text-[#1898A5]" /> Delivery Address
                 </h3>
                 <button 
                   onClick={() => router.push('/address')}
-                  className="text-xs font-black text-[#457b9d] flex items-center gap-1 hover:underline"
+                  className="text-xs font-black text-[#1898A5] flex items-center gap-1 hover:underline"
                 >
                   <Plus size={14} /> ADD NEW
                 </button>
@@ -341,7 +341,7 @@ export default function CheckoutPage() {
                 {addresses.length === 0 ? (
                   <button 
                     onClick={() => router.push('/address')}
-                    className="w-full p-8 border-2 border-dashed border-gray-200 rounded-3xl text-gray-400 font-bold hover:border-[#457b9d] hover:text-[#457b9d] transition-all"
+                    className="w-full p-8 border-2 border-dashed border-gray-200 rounded-3xl text-gray-400 font-bold hover:border-[#1898A5] hover:text-[#1898A5] transition-all"
                   >
                     + Setup your delivery address
                   </button>
@@ -350,10 +350,10 @@ export default function CheckoutPage() {
                     <div 
                       key={addr._id}
                       onClick={() => setSelectedAddressId(addr._id)}
-                      className={`relative p-4 rounded-3xl border-2 transition-all cursor-pointer group ${selectedAddressId === addr._id ? 'border-[#457b9d] bg-white shadow-xl shadow-blue-50' : 'border-white bg-white/50 hover:border-gray-200'}`}
+                      className={`relative p-4 rounded-3xl border-2 transition-all cursor-pointer group ${selectedAddressId === addr._id ? 'border-[#1898A5] bg-white shadow-xl shadow-blue-50' : 'border-white bg-white/50 hover:border-gray-200'}`}
                     >
                       <div className="flex items-start gap-3">
-                        <div className={`mt-1 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${selectedAddressId === addr._id ? 'border-[#457b9d] bg-[#457b9d]' : 'border-gray-300'}`}>
+                        <div className={`mt-1 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${selectedAddressId === addr._id ? 'border-[#1898A5] bg-[#1898A5]' : 'border-gray-300'}`}>
                           {selectedAddressId === addr._id && <div className="w-2 h-2 bg-white rounded-full" />}
                         </div>
                         <div className="flex-1">
@@ -375,7 +375,7 @@ export default function CheckoutPage() {
             {/* Payment Method */}
             <section>
               <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                <CreditCard size={16} className="text-[#457b9d]" /> Payment Method
+                <CreditCard size={16} className="text-[#1898A5]" /> Payment Method
               </h3>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -427,7 +427,7 @@ export default function CheckoutPage() {
                   <div className="pt-6 border-t border-dashed border-gray-200">
                     <div className="flex justify-between items-center">
                       <span className="text-xl font-black italic text-gray-900 uppercase tracking-tighter">Total Payable</span>
-                      <span className="text-3xl font-black text-[#1d4e6e]">₹{billDetails.totalPayable}</span>
+                      <span className="text-3xl font-black text-[#0d5560]">₹{billDetails.totalPayable}</span>
                     </div>
                     <p className="text-[10px] font-bold text-green-600 mt-2 flex items-center gap-1 uppercase tracking-wider">
                       <CheckCircle2 size={12} /> You are saving ₹40 on this order
@@ -438,7 +438,7 @@ export default function CheckoutPage() {
                 <button 
                   onClick={handlePlaceOrder}
                   disabled={loading || !selectedAddressId}
-                  className={`w-full py-5 rounded-3xl font-black text-lg flex items-center justify-center gap-3 transition-all duration-300 shadow-xl shadow-blue-100 group ${loading || !selectedAddressId ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-[#457b9d] text-white active:scale-95 hover:bg-[#1d4e6e]'}`}
+                  className={`w-full py-5 rounded-3xl font-black text-lg flex items-center justify-center gap-3 transition-all duration-300 shadow-xl shadow-blue-100 group ${loading || !selectedAddressId ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-[#1898A5] text-white active:scale-95 hover:bg-[#0d5560]'}`}
                 >
                   {loading ? <Loader2 className="animate-spin" /> : (
                     <>
@@ -450,11 +450,11 @@ export default function CheckoutPage() {
               </div>
 
               {/* Safety Badge */}
-              <div className="flex items-center gap-3 p-6 bg-[#457b9d]/5 rounded-[30px] border border-[#457b9d]/10">
-                <div className="bg-white p-2 rounded-xl shadow-sm text-[#457b9d]">
+              <div className="flex items-center gap-3 p-6 bg-[#1898A5]/5 rounded-[30px] border border-[#1898A5]/10">
+                <div className="bg-white p-2 rounded-xl shadow-sm text-[#1898A5]">
                   <ShieldCheck size={20} />
                 </div>
-                <p className="text-[10px] font-black text-[#457b9d] uppercase leading-tight tracking-wider">
+                <p className="text-[10px] font-black text-[#1898A5] uppercase leading-tight tracking-wider">
                   Safe & Secure Checkout <br />
                   <span className="text-gray-400 font-bold">Encrypted via 256-bit SSL</span>
                 </p>
@@ -474,9 +474,9 @@ function PaymentOption({ title, description, icon: Icon, selected, onClick, prem
   return (
     <div 
       onClick={onClick}
-      className={`relative p-5 rounded-3xl border-2 transition-all cursor-pointer flex items-center gap-4 ${selected ? 'border-[#457b9d] bg-white shadow-lg' : 'border-white bg-white/50 hover:border-gray-200'}`}
+      className={`relative p-5 rounded-3xl border-2 transition-all cursor-pointer flex items-center gap-4 ${selected ? 'border-[#1898A5] bg-white shadow-lg' : 'border-white bg-white/50 hover:border-gray-200'}`}
     >
-      <div className={`p-3 rounded-2xl ${selected ? 'bg-[#457b9d] text-white' : 'bg-gray-100 text-gray-400'}`}>
+      <div className={`p-3 rounded-2xl ${selected ? 'bg-[#1898A5] text-white' : 'bg-gray-100 text-gray-400'}`}>
         <Icon size={24} />
       </div>
       <div>

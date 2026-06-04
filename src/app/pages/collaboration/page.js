@@ -41,7 +41,7 @@ export default function Collaboration() {
           
           <div className="grid grid-cols-1 gap-4 mt-6">
             <div className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
-              <div className="bg-[#004090] p-3 rounded-xl text-white">
+              <div className="bg-[#1898A5] p-3 rounded-xl text-white">
                 <Building2 size={20} />
               </div>
               <div>
@@ -51,7 +51,7 @@ export default function Collaboration() {
             </div>
             
             <div className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
-              <div className="bg-[#004090] p-3 rounded-xl text-white">
+              <div className="bg-[#1898A5] p-3 rounded-xl text-white">
                 <Handshake size={20} />
               </div>
               <div>
@@ -61,7 +61,7 @@ export default function Collaboration() {
             </div>
 
             <div className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
-              <div className="bg-[#004090] p-3 rounded-xl text-white">
+              <div className="bg-[#1898A5] p-3 rounded-xl text-white">
                 <Users size={20} />
               </div>
               <div>
@@ -80,7 +80,7 @@ export default function Collaboration() {
               <input 
                 type="text" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all"
                 placeholder="Enter Business Name"
                 value={formData.businessName}
                 onChange={(e) => setFormData({...formData, businessName: e.target.value})}
@@ -91,7 +91,7 @@ export default function Collaboration() {
               <input 
                 type="text" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all"
                 placeholder="Enter Your Name"
                 value={formData.contactPerson}
                 onChange={(e) => setFormData({...formData, contactPerson: e.target.value})}
@@ -102,7 +102,7 @@ export default function Collaboration() {
               <input 
                 type="email" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all"
                 placeholder="business@example.com"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -113,7 +113,7 @@ export default function Collaboration() {
               <input 
                 type="tel" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all"
                 placeholder="+91 XXXXX XXXXX"
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
@@ -123,7 +123,7 @@ export default function Collaboration() {
               <label className="block text-sm font-medium text-gray-700 mb-1">Type of Collaboration</label>
               <select 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all bg-white"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all bg-white"
                 value={formData.collaborationType}
                 onChange={(e) => setFormData({...formData, collaborationType: e.target.value})}
               >
@@ -139,7 +139,7 @@ export default function Collaboration() {
               <textarea 
                 rows="4" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all"
                 placeholder="Tell us how we can work together"
                 value={formData.message}
                 onChange={(e) => setFormData({...formData, message: e.target.value})}
@@ -147,7 +147,7 @@ export default function Collaboration() {
             </div>
             <button 
               type="submit"
-              className="w-full bg-[#004090] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#003070] transition-colors shadow-lg shadow-[#004090]/20"
+              className="w-full bg-[#1898A5] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#137d88] transition-colors shadow-lg shadow-[#1898A5]/20"
             >
               <Send size={18} />
               Submit Proposal
@@ -159,10 +159,10 @@ export default function Collaboration() {
           <h3 className="font-bold text-gray-800 mb-4">Direct Contact</h3>
           <div className="space-y-3">
             <p className="text-sm text-gray-600 flex items-center gap-2">
-              <span className="font-semibold text-[#004090]">Email:</span> helpaana@support.com
+              <span className="font-semibold text-[#1898A5]">Email:</span> helpaana@support.com
             </p>
             <p className="text-sm text-gray-600 flex items-center gap-2">
-              <span className="font-semibold text-[#004090]">Call:</span> +91 8887796224
+              <span className="font-semibold text-[#1898A5]">Call:</span> +91 8887796224
             </p>
           </div>
         </section>

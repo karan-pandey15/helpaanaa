@@ -14,7 +14,10 @@ body {
    font-family: 'Marcellus', 'Work Sans', serif;
 }
 :root {
-  --theme-color: #924A00;
+  --brand-primary: #1898A5;
+  --brand-primary-dark: #137d88;
+  --brand-primary-darker: #0d5560;
+  --theme-color: #1898A5;
 }
 .text-gray-700 {
   color: #000000 !important; 

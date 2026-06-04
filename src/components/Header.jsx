@@ -64,94 +64,18 @@ export default function Header() {
 
   const handleLogin = () => router.push("/pages/auth");
 
-  const isHomePage = pathname === "/";
-
   if (
     pathname.includes("/pages/ServiceDetail") ||
     pathname.includes("/pages/ladies") ||
     pathname.includes("/pages/Mehndi")
   ) return null;
 
-  if (isHomePage) {
-    return (
-      <>
-        <header className="sticky top-0 z-50 w-full bg-[#004090] border-b border-[#003272] shadow-sm">
-          <div className="max-w-[1280px] mx-auto px-4">
-            <div className="flex items-center justify-between gap-2 py-3 min-w-0">
-              <Logo size="md" asLink />
-
-              <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-                <Link
-                  href="/pages/cart"
-                  className="relative flex items-center justify-center rounded-xl w-10 h-10 sm:w-11 sm:h-11 bg-[#f8fafc] border border-[#e2e8f0] hover:bg-gray-50 transition-colors"
-                  aria-label="Cart"
-                >
-                  <ShoppingCart size={20} className="text-[#001a4d]" />
-                  {cartCount > 0 && (
-                    <span className="absolute -top-1.5 -right-1.5 text-[9px] font-black w-[18px] h-[18px] flex items-center justify-center rounded-full bg-[#F5A623] text-white border-2 border-white">
-                      {cartCount}
-                    </span>
-                  )}
-                </Link>
-
-                {isLoggedIn ? (
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center gap-1.5 font-bold text-xs sm:text-[13px] px-3 sm:px-4 py-2 sm:py-2.5 rounded-full bg-[#fee2e2] border border-[#fecaca] text-[#ef4444] active:scale-95 transition-transform"
-                  >
-                    <LogOut size={16} />
-                    <span>Logout</span>
-                  </button>
-                ) : (
-                  <button
-                    onClick={handleLogin}
-                    className="flex items-center gap-1.5 font-bold text-xs sm:text-[13px] px-3 sm:px-4 py-2 sm:py-2.5 rounded-full bg-[rgba(245,166,35,0.1)] border border-[rgba(245,166,35,0.25)] text-[#f0800a] active:scale-95 transition-transform"
-                  >
-                    <User size={16} />
-                    <span>Login</span>
-                  </button>
-                )}
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2 sm:gap-3 pb-3">
-              <div className="relative flex-1 min-w-0">
-                <Search
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-                  size={16}
-                />
-                <input
-                  type="text"
-                  placeholder={`Search "${searchPlaceholders[placeholderIndex]}"`}
-                  className="w-full h-[42px] sm:h-[45px] rounded-full text-sm text-gray-800 bg-gray-50 pl-10 pr-4 outline-none border border-gray-200 focus:bg-white focus:border-[#F5A623] focus:ring-2 focus:ring-[#F5A623]/20"
-                />
-              </div>
-              <Link
-                href="/pages/dealday"
-                className="flex-shrink-0 flex items-center justify-center gap-1 font-extrabold text-[10px] sm:text-xs px-3 sm:px-4 h-[42px] sm:h-[45px] rounded-full text-white active:scale-95 transition-transform whitespace-nowrap"
-                style={{
-                  background: "linear-gradient(135deg, #F5A623 0%, #f0800a 100%)",
-                  boxShadow: "0 3px 10px rgba(245,166,35,0.25)",
-                }}
-              >
-                <Zap size={14} className="hidden sm:block flex-shrink-0" />
-                <span className="uppercase tracking-tight leading-tight">
-                  <span className="sm:hidden">Deal Day</span>
-                  <span className="hidden sm:inline">Deal of the Day</span>
-                </span>
-              </Link>
-            </div>
-          </div>
-        </header>
-      </>
-    );
-  }
-
   return (
     <>
-      <header className="sticky top-0 z-50 w-full shadow-md bg-[#004090] border-b border-[#003272]">
+      <header className="sticky top-0 z-50 w-full bg-[#1898A5] shadow-sm">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-6">
         {/* ── Main Row ── */}
-        <div className="max-w-[1280px] mx-auto h-[80px] px-4 md:px-6 flex items-center justify-between gap-3 md:gap-5">
+        <div className="flex items-center justify-between gap-3 md:gap-5 py-3 md:py-0 md:h-[80px]">
 
           {/* ── Logo ── */}
           <Logo size="md" asLink />
@@ -215,7 +139,7 @@ export default function Header() {
                 border: "1px solid #e2e8f0",
               }}
             >
-              <ShoppingCart size={19} className="text-[#001a4d]" />
+              <ShoppingCart size={19} className="text-[#0d5560]" />
               {cartCount > 0 && (
                 <span
                   className="absolute -top-1.5 -right-1.5 text-[9px] font-black w-[18px] h-[18px] flex items-center justify-center rounded-full"
@@ -269,40 +193,39 @@ export default function Header() {
               }}
               onClick={() => setIsMobileMenuOpen(true)}
             >
-              <Menu size={22} className="text-[#001a4d]" />
+              <Menu size={22} className="text-[#0d5560]" />
             </button>
           </div>
         </div>
 
-        {/* ── Mobile Search + Deal Bar ── */}
-        <div
-          className="md:hidden flex items-center gap-3 px-4 py-3"
-          style={{ background: "#004090", borderTop: "1px solid #003272" }}
-        >
-          <div className="relative flex-1">
+        {/* ── Mobile Search + Deal Bar (same blue block as main row — no divider line) ── */}
+        <div className="md:hidden flex items-center gap-2 sm:gap-3 pb-3">
+          <div className="relative flex-1 min-w-0">
             <Search
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-              size={15}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+              size={16}
             />
             <input
               type="text"
               placeholder={`Search "${searchPlaceholders[placeholderIndex]}"`}
-              className="w-full h-[42px] rounded-full text-[13px] text-gray-800 bg-white pl-10 pr-4 outline-none border border-gray-200 shadow-sm"
+              className="w-full h-[42px] sm:h-[45px] rounded-full text-sm text-gray-800 bg-gray-50 pl-10 pr-4 outline-none border border-gray-200 focus:bg-white focus:border-[#F5A623] focus:ring-2 focus:ring-[#F5A623]/20"
             />
           </div>
           <Link
             href="/pages/dealday"
-            className="flex flex-col items-center justify-center font-extrabold rounded-full px-4 h-[42px] text-[10px] leading-tight active:scale-95 transition-transform whitespace-nowrap"
+            className="flex-shrink-0 flex items-center justify-center gap-1 font-extrabold text-[10px] sm:text-xs px-3 sm:px-4 h-[42px] sm:h-[45px] rounded-full text-white active:scale-95 transition-transform whitespace-nowrap"
             style={{
               background: "linear-gradient(135deg, #F5A623 0%, #f0800a 100%)",
-              color: "white",
-              boxShadow: "0 3px 10px rgba(245,166,35,0.2)",
-              minWidth: 80,
+              boxShadow: "0 3px 10px rgba(245,166,35,0.25)",
             }}
           >
-            <span className="uppercase tracking-tight">DEAL OF</span>
-            <span className="uppercase">THE DAY ⚡</span>
+            <Zap size={14} className="hidden sm:block flex-shrink-0" />
+            <span className="uppercase tracking-tight leading-tight">
+              <span className="sm:hidden">Deal of the Day</span>
+              <span className="hidden sm:inline">Deal of the Day</span>
+            </span>
           </Link>
+        </div>
         </div>
       </header>
 
@@ -329,19 +252,21 @@ export default function Header() {
               transition={{ type: "spring", damping: 26, stiffness: 220 }}
               className="fixed right-0 top-0 h-full w-[82%] max-w-[340px] z-[110] shadow-2xl flex flex-col bg-white"
             >
-              {/* Drawer Header */}
-              <div
-                className="flex items-center justify-between px-5 py-4 border-b border-gray-100"
-              >
-                <div className="flex items-center gap-3">
-                  <Link href="/" className="flex-shrink-0">
-                    <Logo size="sm" asLink />
-                  </Link>
-                </div>
+              {/* Drawer Header — matches site header (#1898A5) so logo is visible */}
+              <div className="flex items-center justify-between px-4 py-4 bg-[#1898A5] border-b border-[#137d88] flex-shrink-0">
+                <Link
+                  href="/"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex-shrink min-w-0 hover:opacity-95 transition-opacity"
+                  aria-label="Helpaana Home"
+                >
+                  <Logo size="sm" unconstrained />
+                </Link>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-center rounded-xl text-gray-400 hover:text-[#001a4d] transition-colors bg-gray-50 border border-gray-100"
+                  className="flex items-center justify-center rounded-xl text-white/80 hover:text-white transition-colors bg-white/10 border border-white/20 hover:bg-white/15 flex-shrink-0"
                   style={{ width: 36, height: 36 }}
+                  aria-label="Close menu"
                 >
                   <X size={18} />
                 </button>
@@ -358,7 +283,7 @@ export default function Header() {
                       key={idx}
                       href={cat.path}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-between py-3 px-4 rounded-xl text-gray-600 font-medium text-[13.5px] transition-all duration-150 hover:bg-gray-50 hover:text-[#001a4d] group border-b border-gray-50"
+                      className="flex items-center justify-between py-3 px-4 rounded-xl text-gray-600 font-medium text-[13.5px] transition-all duration-150 hover:bg-gray-50 hover:text-[#0d5560] group border-b border-gray-50"
                     >
                       {cat.name}
                       <ChevronDown
@@ -381,12 +306,12 @@ export default function Header() {
                 >
                   <div
                     className="w-10 h-10 rounded-full flex items-center justify-center text-white flex-shrink-0"
-                    style={{ background: "linear-gradient(135deg, #001a4d, #004090)" }}
+                    style={{ background: "linear-gradient(135deg, #0d5560, #1898A5)" }}
                   >
                     <User size={18} />
                   </div>
                   <div>
-                    <p className="font-bold text-[#001a4d] text-[14px]">My Account</p>
+                    <p className="font-bold text-[#0d5560] text-[14px]">My Account</p>
                     <p className="text-[11px] text-gray-400">View & Edit Profile</p>
                   </div>
                 </Link>
@@ -413,7 +338,7 @@ export default function Header() {
 
                 <button
                   onClick={() => { router.push("/pages/dealday"); setIsMobileMenuOpen(false); }}
-                  className="w-full flex items-center justify-center gap-2 font-bold py-3.5 rounded-2xl text-[14px] active:scale-95 transition-transform text-[#001a4d] bg-gray-50 border border-gray-100"
+                  className="w-full flex items-center justify-center gap-2 font-bold py-3.5 rounded-2xl text-[14px] active:scale-95 transition-transform text-[#0d5560] bg-gray-50 border border-gray-100"
                 >
                   <Zap size={16} className="text-[#F5A623]" />
                   Deal of the Day

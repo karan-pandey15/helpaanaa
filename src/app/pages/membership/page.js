@@ -62,7 +62,7 @@ const MembershipPage = () => {
 
       <div className="flex-1 overflow-y-auto">
         {/* Hero Section */}
-        <div className="bg-[#457b9d] px-6 py-10 text-center relative overflow-hidden">
+        <div className="bg-[#1898A5] px-6 py-10 text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full -ml-16 -mb-16 blur-3xl"></div>
           
@@ -120,7 +120,7 @@ const MembershipPage = () => {
               </div>
             </div>
 
-            <button className="w-full bg-[#457b9d] text-white py-5 rounded-[24px] font-black text-lg shadow-xl shadow-blue-200 active:scale-95 transition-all flex items-center justify-center gap-2 group italic uppercase">
+            <button className="w-full bg-[#1898A5] text-white py-5 rounded-[24px] font-black text-lg shadow-xl shadow-blue-200 active:scale-95 transition-all flex items-center justify-center gap-2 group italic uppercase">
               Buy Membership
             </button>
             <p className="text-[10px] text-gray-400 mt-4 font-bold uppercase tracking-widest italic">
@@ -139,7 +139,7 @@ const MembershipPage = () => {
             </p>
             <button 
               onClick={() => router.push('/pages/help-support')}
-              className="text-[10px] font-black italic text-[#457b9d] uppercase tracking-widest border-b-2 border-[#457b9d]/20 pb-1"
+              className="text-[10px] font-black italic text-[#1898A5] uppercase tracking-widest border-b-2 border-[#1898A5]/20 pb-1"
             >
               Know More
             </button>

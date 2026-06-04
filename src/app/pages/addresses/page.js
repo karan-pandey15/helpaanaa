@@ -152,7 +152,7 @@ export default function AddressPage() {
             <p className="text-gray-500 text-center mb-6">Please login to view your saved addresses</p>
             <button 
               onClick={() => window.location.href = "/"}
-              className="bg-[#457b9d] text-white px-8 py-3 rounded-full font-bold hover:bg-[#1d4e6e] transition-colors"
+              className="bg-[#1898A5] text-white px-8 py-3 rounded-full font-bold hover:bg-[#0d5560] transition-colors"
             >
               Login Now
             </button>
@@ -180,15 +180,15 @@ export default function AddressPage() {
           {/* Add New Button */}
           <button 
             onClick={() => { resetForm(); setEditingAddress(null); setShowForm(true); }}
-            className="w-full bg-white p-6 rounded-[32px] shadow-sm border border-dashed border-gray-200 flex items-center justify-between group hover:border-[#457b9d] transition-all"
+            className="w-full bg-white p-6 rounded-[32px] shadow-sm border border-dashed border-gray-200 flex items-center justify-between group hover:border-[#1898A5] transition-all"
           >
             <div className="flex items-center gap-4">
-              <div className="bg-[#457b9d]/10 p-3 rounded-2xl text-[#457b9d] group-hover:bg-[#457b9d] group-hover:text-white transition-colors">
+              <div className="bg-[#1898A5]/10 p-3 rounded-2xl text-[#1898A5] group-hover:bg-[#1898A5] group-hover:text-white transition-colors">
                 <Plus size={24} />
               </div>
               <span className="font-black italic text-gray-800 uppercase tracking-tight">Add New Address</span>
             </div>
-            <CheckCircle2 size={20} className="text-gray-100 group-hover:text-[#457b9d] transition-colors" />
+            <CheckCircle2 size={20} className="text-gray-100 group-hover:text-[#1898A5] transition-colors" />
           </button>
 
           {/* Saved Addresses List */}
@@ -213,7 +213,7 @@ export default function AddressPage() {
                     key={addr._id}
                     className="bg-white p-6 rounded-[32px] shadow-sm border border-gray-100 flex items-start gap-4 group hover:shadow-md transition-shadow"
                   >
-                    <div className="bg-gray-50 p-4 rounded-2xl text-gray-400 group-hover:bg-[#457b9d]/10 group-hover:text-[#457b9d] transition-colors">
+                    <div className="bg-gray-50 p-4 rounded-2xl text-gray-400 group-hover:bg-[#1898A5]/10 group-hover:text-[#1898A5] transition-colors">
                       {addr.label === 'Work' ? <Briefcase size={24} /> : <Home size={24} />}
                     </div>
                     
@@ -229,7 +229,7 @@ export default function AddressPage() {
                       <div className="flex gap-4 mt-4">
                         <button 
                           onClick={() => startEdit(addr)}
-                          className="text-[10px] font-black uppercase text-[#457b9d] flex items-center gap-1 hover:opacity-70"
+                          className="text-[10px] font-black uppercase text-[#1898A5] flex items-center gap-1 hover:opacity-70"
                         >
                           <Edit3 size={12} /> Edit
                         </button>
@@ -304,7 +304,7 @@ export default function AddressPage() {
                     id="isDefault"
                     checked={formData.isDefault}
                     onChange={(e) => setFormData({...formData, isDefault: e.target.checked})}
-                    className="w-5 h-5 accent-[#457b9d] rounded-lg"
+                    className="w-5 h-5 accent-[#1898A5] rounded-lg"
                   />
                   <label htmlFor="isDefault" className="text-xs font-black text-gray-500 uppercase tracking-widest cursor-pointer">Set as Default Address</label>
                 </div>
@@ -312,7 +312,7 @@ export default function AddressPage() {
                 <button 
                   type="submit"
                   disabled={submitting}
-                  className="w-full bg-[#457b9d] text-white py-5 rounded-[24px] font-black text-lg shadow-xl shadow-blue-200 active:scale-95 transition-all flex items-center justify-center gap-2 group italic uppercase"
+                  className="w-full bg-[#1898A5] text-white py-5 rounded-[24px] font-black text-lg shadow-xl shadow-blue-200 active:scale-95 transition-all flex items-center justify-center gap-2 group italic uppercase"
                 >
                   {submitting ? <Loader2 className="animate-spin" /> : 'Save Address'}
                 </button>
@@ -329,7 +329,7 @@ const InputField = ({ label, value, onChange, placeholder, required, maxLength }
   <div>
     <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] ml-4 mb-2 block">{label} {required && '*'}</label>
     <input 
-      className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm font-bold focus:ring-2 focus:ring-[#457b9d] outline-none transition-all"
+      className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm font-bold focus:ring-2 focus:ring-[#1898A5] outline-none transition-all"
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}

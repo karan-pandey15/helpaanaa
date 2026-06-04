@@ -33,7 +33,7 @@ export default function CareerPage() {
         </p>
         <button 
           onClick={() => setSubmitted(false)}
-          className="mt-6 text-[#457b9d] font-bold hover:underline"
+          className="mt-6 text-[#1898A5] font-bold hover:underline"
         >
           Submit another application
         </button>
@@ -47,7 +47,7 @@ export default function CareerPage() {
       
       <div className="p-6 space-y-8 pb-20">
         <section className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center p-4 bg-[#457b9d] text-white rounded-2xl shadow-lg shadow-[#457b9d]/30 mb-2">
+          <div className="inline-flex items-center justify-center p-4 bg-[#1898A5] text-white rounded-2xl shadow-lg shadow-[#1898A5]/30 mb-2">
             <Briefcase size={32} />
           </div>
           <h2 className="text-2xl font-bold text-gray-800">Start Your Career</h2>
@@ -57,7 +57,7 @@ export default function CareerPage() {
         </section>
 
         <section className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 space-y-4">
-          <div className="flex items-center gap-2 text-[#457b9d] font-bold mb-2">
+          <div className="flex items-center gap-2 text-[#1898A5] font-bold mb-2">
             <UserPlus size={20} />
             <h3>Application Form</h3>
           </div>
@@ -68,7 +68,7 @@ export default function CareerPage() {
               <input 
                 type="text" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#457b9d]"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5]"
                 placeholder="Your Name"
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -81,7 +81,7 @@ export default function CareerPage() {
                 <input 
                   type="tel" 
                   required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#457b9d]"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5]"
                   placeholder="+91..."
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
@@ -92,7 +92,7 @@ export default function CareerPage() {
                 <input 
                   type="text" 
                   required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#457b9d]"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5]"
                   placeholder="e.g. 2 Years"
                   value={formData.experience}
                   onChange={(e) => setFormData({...formData, experience: e.target.value})}
@@ -103,7 +103,7 @@ export default function CareerPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Interested Position</label>
               <select 
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#457b9d] appearance-none bg-white"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] appearance-none bg-white"
                 value={formData.position}
                 onChange={(e) => setFormData({...formData, position: e.target.value})}
               >
@@ -127,7 +127,7 @@ export default function CareerPage() {
                 />
                 <label 
                   htmlFor="resume-upload"
-                  className="w-full px-4 py-3 rounded-xl border-2 border-dashed border-gray-200 flex items-center justify-center gap-2 text-gray-500 cursor-pointer hover:border-[#457b9d] hover:text-[#457b9d] transition-all"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-dashed border-gray-200 flex items-center justify-center gap-2 text-gray-500 cursor-pointer hover:border-[#1898A5] hover:text-[#1898A5] transition-all"
                 >
                   <Upload size={18} />
                   {formData.resume ? formData.resume.name : 'Upload Resume (PDF/Doc)'}
@@ -137,7 +137,7 @@ export default function CareerPage() {
 
             <button 
               type="submit"
-              className="w-full bg-[#457b9d] text-white font-bold py-4 rounded-xl shadow-lg shadow-[#457b9d]/20 hover:bg-[#3d6d8c] transition-all"
+              className="w-full bg-[#1898A5] text-white font-bold py-4 rounded-xl shadow-lg shadow-[#1898A5]/20 hover:bg-[#3d6d8c] transition-all"
             >
               Submit Application
             </button>

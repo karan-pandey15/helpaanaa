@@ -3,9 +3,9 @@ import Link from 'next/link';
 
 /**
  * Helpaana brand logo — H icon + HELP (white) AANA (yellow) + tagline
- * Matches brand header: navy square, white border, lifestyle tagline
+ * Matches brand header: teal square, white border, lifestyle tagline
  */
-const Logo = ({ className = '', size = 'md', asLink = false }) => {
+const Logo = ({ className = '', size = 'md', asLink = false, unconstrained = false }) => {
   const iconSizes = {
     sm: 'w-8 h-8 rounded-lg border-[1.5px] sm:w-9 sm:h-9',
     md: 'w-[38px] h-[38px] rounded-lg border-[1.5px] sm:w-12 sm:h-12 sm:rounded-xl sm:border-2',
@@ -32,10 +32,12 @@ const Logo = ({ className = '', size = 'md', asLink = false }) => {
 
   const content = (
     <div
-      className={`flex items-center gap-2 sm:gap-3 min-w-0 w-[85%] max-w-[85%] sm:w-auto sm:max-w-none ${className}`}
+      className={`flex items-center gap-2 sm:gap-3 min-w-0 ${
+        unconstrained ? 'w-auto max-w-none' : 'w-[85%] max-w-[85%] sm:w-auto sm:max-w-none'
+      } ${className}`}
     >
       <div
-        className={`${iconSizes[size]} flex-shrink-0 bg-[#002D62] border-white flex items-center justify-center shadow-sm`}
+        className={`${iconSizes[size]} flex-shrink-0 bg-[#0d5560] border-white flex items-center justify-center shadow-sm`}
         aria-hidden="true"
       >
         <span className={`${hSizes[size]} font-black text-white leading-none select-none`}>
@@ -53,7 +55,7 @@ const Logo = ({ className = '', size = 'md', asLink = false }) => {
         <p
           className={`${taglineSizes[size]} font-semibold text-white/95 uppercase m-0 mt-0.5 sm:mt-1 leading-none whitespace-nowrap`}
         >
-          Where Lifestyle Meets Technology
+         Help, Delivered
         </p>
       </div>
     </div>

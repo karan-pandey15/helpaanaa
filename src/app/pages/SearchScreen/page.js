@@ -16,7 +16,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { SEO_KEYWORD_PHRASES } from "@/lib/seo";
 
-const THEME_COLOR = "#457B9D";
+const THEME_COLOR = "#1898A5";
 
 const SEO_TRENDING = SEO_KEYWORD_PHRASES.map((item) => ({
   name: item.title,
@@ -76,7 +76,7 @@ export default function SearchScreen() {
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col overflow-hidden">
       {/* ── Dynamic Background Glow ── */}
-      <div className="fixed top-0 left-0 right-0 h-[300px] pointer-events-none opacity-20 -z-10 bg-gradient-to-b from-[#457B9D] to-transparent" />
+      <div className="fixed top-0 left-0 right-0 h-[300px] pointer-events-none opacity-20 -z-10 bg-gradient-to-b from-[#1898A5] to-transparent" />
 
       {/* ── Search Header ── */}
       <header className="px-4 pt-8 pb-4 bg-white/80 backdrop-blur-xl border-b border-gray-100 sticky top-0 z-50">
@@ -90,7 +90,7 @@ export default function SearchScreen() {
           </motion.button>
 
           <div className="flex-1 relative group">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#457B9D] transition-colors">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#1898A5] transition-colors">
               <Search size={20} strokeWidth={2.5} />
             </div>
             <input
@@ -99,7 +99,7 @@ export default function SearchScreen() {
               placeholder="Search for services..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-gray-100/80 border-2 border-transparent focus:border-[#457B9D]/30 focus:bg-white px-12 py-3.5 text-[16px] font-semibold text-gray-900 placeholder-gray-400 outline-none transition-all"
+              className="w-full bg-gray-100/80 border-2 border-transparent focus:border-[#1898A5]/30 focus:bg-white px-12 py-3.5 text-[16px] font-semibold text-gray-900 placeholder-gray-400 outline-none transition-all"
             />
             {query.length > 0 && (
               <motion.button
@@ -130,7 +130,7 @@ export default function SearchScreen() {
                 {/* Service Grid/List */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="flex items-center gap-2 mb-2 px-1 col-span-full">
-                    <TrendingUp size={16} className="text-[#457B9D]" />
+                    <TrendingUp size={16} className="text-[#1898A5]" />
                     <span className="text-[12px] font-black uppercase tracking-[0.1em] text-gray-400">
                       {query.length > 0 ? "Matching Services" : "Suggested for you"}
                     </span>
@@ -147,7 +147,7 @@ export default function SearchScreen() {
                       onClick={() => handleNavigate(service.href)}
                       className="flex items-center gap-4 p-4 bg-white border border-gray-100 transition-all duration-300 text-left group"
                     >
-                      <div className="w-14 h-14 bg-[#457B9D]/10 flex items-center justify-center text-2xl group-hover:bg-[#457B9D] group-hover:text-white transition-all duration-300">
+                      <div className="w-14 h-14 bg-[#1898A5]/10 flex items-center justify-center text-2xl group-hover:bg-[#1898A5] group-hover:text-white transition-all duration-300">
                         {service.icon}
                       </div>
                       
@@ -163,7 +163,7 @@ export default function SearchScreen() {
                         </p>
                       </div>
 
-                      <div className="p-2.5 bg-gray-50 text-gray-300 group-hover:text-[#457B9D] group-hover:bg-[#457B9D]/10 transition-all">
+                      <div className="p-2.5 bg-gray-50 text-gray-300 group-hover:text-[#1898A5] group-hover:bg-[#1898A5]/10 transition-all">
                         <ArrowRight size={18} />
                       </div>
                     </motion.button>
@@ -173,13 +173,13 @@ export default function SearchScreen() {
                 {/* Extra attractive section if nothing typed */}
                 {!query && (
                   <div className="mt-8 pt-8 border-t border-gray-50">
-                    <div className="bg-gradient-to-r from-[#457B9D] to-[#1d4e6e] p-6 text-white relative overflow-hidden">
+                    <div className="bg-gradient-to-r from-[#1898A5] to-[#0d5560] p-6 text-white relative overflow-hidden">
                       <Sparkles className="absolute -right-4 -top-4 w-24 h-24 text-white opacity-10 rotate-12" />
                       <h4 className="text-lg font-black italic uppercase leading-none mb-2">Can&apos;t find it?</h4>
                       <p className="text-xs text-white/80 font-medium leading-relaxed max-w-[200px]">
                         Our support team is available 24/7 to help you with bookings.
                       </p>
-                      <button className="mt-4 px-6 py-2.5 bg-white text-[#457B9D] text-[12px] font-black uppercase tracking-widest active:scale-95 transition-transform">
+                      <button className="mt-4 px-6 py-2.5 bg-white text-[#1898A5] text-[12px] font-black uppercase tracking-widest active:scale-95 transition-transform">
                         Chat Now
                       </button>
                     </div>
@@ -203,7 +203,7 @@ export default function SearchScreen() {
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   onClick={handleClear}
-                  className="mt-8 text-[12px] font-black text-[#457B9D] uppercase tracking-widest border-b-2 border-[#457B9D] pb-1"
+                  className="mt-8 text-[12px] font-black text-[#1898A5] uppercase tracking-widest border-b-2 border-[#1898A5] pb-1"
                 >
                   Show all services
                 </motion.button>

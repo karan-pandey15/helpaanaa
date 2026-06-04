@@ -10,7 +10,7 @@ import { addToCart as addToCartRedux } from '@/redux/cartSlice';
 // ============================================
 // MOCK DATA & CONSTANTS
 // ============================================
-const THEME_COLOR = '#457B9D';
+const THEME_COLOR = '#1898A5';
 const PANDIT_IMAGE = 'https://lh3.googleusercontent.com/ogw/AF2bZygnDN02Te97on5Wf-4sDfYUPxMX27fbGwu4tJIZbNoA2eI=s64-c-mo';
 
 const PANDITS = [
@@ -511,10 +511,10 @@ export default function PanditPage() {
             />
             <div className="p-2 sm:p-3 md:p-4 flex flex-col flex-1">
               <h3 className="text-[11px] sm:text-sm md:text-base font-bold text-gray-800 line-clamp-1">{item.title}</h3>
-              <p className="text-[#457B9D] font-bold text-xs sm:text-sm md:text-base mt-1">₹{item.price}</p>
+              <p className="text-[#1898A5] font-bold text-xs sm:text-sm md:text-base mt-1">₹{item.price}</p>
               <button 
                 onClick={() => handleServiceClick(item, "Pooja")}
-                className="mt-2 md:mt-4 w-full py-1.5 md:py-2.5 bg-blue-50 text-[#457B9D] rounded-lg text-[10px] sm:text-xs md:text-sm font-bold border border-blue-100 hover:bg-[#457B9D] hover:text-white transition-colors"
+                className="mt-2 md:mt-4 w-full py-1.5 md:py-2.5 bg-blue-50 text-[#1898A5] rounded-lg text-[10px] sm:text-xs md:text-sm font-bold border border-blue-100 hover:bg-[#1898A5] hover:text-white transition-colors"
               >
                 Book Now
               </button>
@@ -527,7 +527,7 @@ export default function PanditPage() {
 
   const renderPoojaDetail = () => (
     <div className="flex flex-col p-4 md:p-10 pb-24 h-full overflow-y-auto max-w-6xl mx-auto">
-      <button onClick={() => setPoojaMode('grid')} className="flex items-center gap-1 text-[#457B9D] mb-6 md:mb-10 font-medium hover:underline">
+      <button onClick={() => setPoojaMode('grid')} className="flex items-center gap-1 text-[#1898A5] mb-6 md:mb-10 font-medium hover:underline">
         <ArrowBack /> <span className="text-sm md:text-base">Back to List</span>
       </button>
       
@@ -539,7 +539,7 @@ export default function PanditPage() {
         <div className="w-full md:w-1/2">
           <h2 className="text-2xl md:text-4xl font-bold text-gray-800">{selectedPooja?.title}</h2>
           <div className="flex items-center justify-between mt-4">
-            <span className="text-2xl md:text-3xl font-black text-[#457B9D]">₹{selectedPooja?.price}</span>
+            <span className="text-2xl md:text-3xl font-black text-[#1898A5]">₹{selectedPooja?.price}</span>
             <span className="text-sm md:text-base text-gray-500">📍 {selectedPooja?.location}</span>
           </div>
           
@@ -549,7 +549,7 @@ export default function PanditPage() {
               <button 
                 key={i} 
                 onClick={() => setSelectedDate(d.fullDate)}
-                className={`flex flex-col items-center min-w-[70px] md:min-w-[80px] p-4 rounded-xl border transition-all ${selectedDate === d.fullDate ? 'bg-[#457B9D] border-[#457B9D] text-white shadow-md' : 'bg-white border-gray-100 text-gray-600 hover:border-[#457B9D]'}`}
+                className={`flex flex-col items-center min-w-[70px] md:min-w-[80px] p-4 rounded-xl border transition-all ${selectedDate === d.fullDate ? 'bg-[#1898A5] border-[#1898A5] text-white shadow-md' : 'bg-white border-gray-100 text-gray-600 hover:border-[#1898A5]'}`}
               >
                 <span className="text-[10px] md:text-xs uppercase font-bold">{d.day}</span>
                 <span className="text-lg md:text-xl font-black">{d.date}</span>
@@ -565,7 +565,7 @@ export default function PanditPage() {
               addToCart({ ...selectedPooja, date: selectedDate, category: 'Pooja' });
               alert('Added to cart!');
             }}
-            className="mt-10 w-full py-4 md:py-5 bg-[#457B9D] text-white rounded-2xl font-bold text-lg md:text-xl shadow-lg active:scale-[0.98] transition-transform hover:bg-[#355f79]"
+            className="mt-10 w-full py-4 md:py-5 bg-[#1898A5] text-white rounded-2xl font-bold text-lg md:text-xl shadow-lg active:scale-[0.98] transition-transform hover:bg-[#137d88]"
           >
             Add to Cart
           </button>
@@ -603,14 +603,14 @@ export default function PanditPage() {
             <div className="p-2 sm:p-3 md:p-5 flex flex-col flex-1">
               <h3 className="text-[11px] sm:text-sm md:text-base font-black text-gray-800 leading-tight mb-1 sm:mb-2 line-clamp-2 min-h-[32px] md:min-h-[48px]">{item.name}</h3>
               
-              <div className="flex items-center gap-1 text-[#457B9D] mb-2 sm:mb-3">
-                <MapPin size={10} className="fill-[#457B9D]/10 md:size-4" />
+              <div className="flex items-center gap-1 text-[#1898A5] mb-2 sm:mb-3">
+                <MapPin size={10} className="fill-[#1898A5]/10 md:size-4" />
                 <span className="text-[10px] md:text-xs font-bold">{item.location.split(',')[0]}</span>
               </div>
               <p className='mb-2 text-[11px] sm:text-sm md:text-base' ><b>Price -</b> ₹1100</p>
               <button 
                 onClick={() => { setSelectedTemple(item); setPrasadMode('form'); }}
-                className="w-full py-2 md:py-3.5 bg-[#457B9D] text-white rounded-lg text-[10px] md:text-xs font-bold transition-all active:scale-95 hover:bg-[#355f79]"
+                className="w-full py-2 md:py-3.5 bg-[#1898A5] text-white rounded-lg text-[10px] md:text-xs font-bold transition-all active:scale-95 hover:bg-[#137d88]"
               >
                 Select Temple
               </button>
@@ -625,7 +625,7 @@ export default function PanditPage() {
     <div className="flex flex-col p-4 md:p-10 pb-24 h-full overflow-y-auto bg-white max-w-5xl mx-auto">
       <button 
         onClick={() => setPrasadMode('grid')} 
-        className="flex items-center gap-2 text-[#457B9D] mb-6 md:mb-10 font-bold hover:underline"
+        className="flex items-center gap-2 text-[#1898A5] mb-6 md:mb-10 font-bold hover:underline"
       >
         <ArrowBack /> <span className="text-sm md:text-base">Back to Temples</span>
       </button>
@@ -636,7 +636,7 @@ export default function PanditPage() {
         <div>
           <label className="text-[13px] md:text-sm font-bold text-gray-700 mb-2 block">Devotee Full Name *</label>
           <input 
-            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#1898A5]/20 transition-all"
             value={devoteeName} onChange={(e) => setDevoteeName(e.target.value)} placeholder="Name for Sankalp"
           />
         </div>
@@ -644,7 +644,7 @@ export default function PanditPage() {
         <div>
           <label className="text-[13px] md:text-sm font-bold text-gray-700 mb-2 block">Gotra (Optional)</label>
           <input 
-            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#1898A5]/20 transition-all"
             value={gotra} onChange={(e) => setGotra(e.target.value)} placeholder="Your Gotra"
           />
         </div>
@@ -652,7 +652,7 @@ export default function PanditPage() {
         <div>
           <label className="text-[13px] md:text-sm font-bold text-gray-700 mb-2 block">Rashi *</label>
           <input 
-            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#1898A5]/20 transition-all"
             value={rashi} onChange={(e) => setRashi(e.target.value)} placeholder="Your Rashi"
           />
         </div>
@@ -660,7 +660,7 @@ export default function PanditPage() {
         <div>
           <label className="text-[13px] md:text-sm font-bold text-gray-700 mb-2 block">Birth Place *</label>
           <input 
-            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#1898A5]/20 transition-all"
             value={birthPlace} onChange={(e) => setBirthPlace(e.target.value)} placeholder="City, State"
           />
         </div>
@@ -668,7 +668,7 @@ export default function PanditPage() {
         <div>
           <label className="text-[13px] md:text-sm font-bold text-gray-700 mb-2 block">Mobile Number *</label>
           <input 
-            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#1898A5]/20 transition-all"
             value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="10-digit mobile"
           />
         </div>
@@ -676,7 +676,7 @@ export default function PanditPage() {
         <div>
           <label className="text-[13px] md:text-sm font-bold text-gray-700 mb-2 block">Delivery Address *</label>
           <input 
-            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#1898A5]/20 transition-all"
             value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address to deliver Prasad"
           />
         </div>
@@ -690,8 +690,8 @@ export default function PanditPage() {
                 onClick={() => setSelectedDate(d.fullDate)}
                 className={`flex-shrink-0 w-16 h-20 md:w-20 md:h-24 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all ${
                   selectedDate === d.fullDate 
-                    ? 'bg-[#457B9D] text-white shadow-lg' 
-                    : 'bg-gray-50 text-gray-600 border border-gray-100 hover:border-[#457B9D]'
+                    ? 'bg-[#1898A5] text-white shadow-lg' 
+                    : 'bg-gray-50 text-gray-600 border border-gray-100 hover:border-[#1898A5]'
                 }`}
               >
                 <span className="text-[10px] md:text-xs font-bold">{d.day}</span>
@@ -704,7 +704,7 @@ export default function PanditPage() {
         <div className="md:col-span-2">
           <label className="text-[13px] md:text-sm font-bold text-gray-700 mb-2 block">Prayer/Wish</label>
           <textarea 
-            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base h-32 md:h-48 focus:outline-none focus:ring-2 focus:ring-[#457B9D]/20 transition-all"
+            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 text-sm md:text-base h-32 md:h-48 focus:outline-none focus:ring-2 focus:ring-[#1898A5]/20 transition-all"
             value={prayerWish} onChange={(e) => setPrayerWish(e.target.value)}
             placeholder="Write your prayer or wish here..."
           />
@@ -725,7 +725,7 @@ export default function PanditPage() {
               alert('Added to Cart!');
               setPrasadMode('grid');
             }}
-            className="w-full py-5 md:py-6 bg-[#457B9D] text-white rounded-2xl font-black text-lg md:text-2xl shadow-xl mt-4 md:mt-8 active:scale-95 transition-all hover:bg-[#355f79]"
+            className="w-full py-5 md:py-6 bg-[#1898A5] text-white rounded-2xl font-black text-lg md:text-2xl shadow-xl mt-4 md:mt-8 active:scale-95 transition-all hover:bg-[#137d88]"
           >
             Book Prasad Seva
           </button>
@@ -753,7 +753,7 @@ export default function PanditPage() {
                   <StarIcon />
                   <span className="text-[9px] sm:text-[10px] md:text-xs font-bold text-yellow-700">{p.rating}</span>
                 </div>
-                <span className="text-xs sm:text-sm md:text-base font-black text-[#457B9D]">₹{p.price}</span>
+                <span className="text-xs sm:text-sm md:text-base font-black text-[#1898A5]">₹{p.price}</span>
               </div>
             </div>
           </div>
@@ -768,16 +768,16 @@ export default function PanditPage() {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="bg-white p-10 md:p-16 rounded-3xl shadow-xl shadow-[#457B9D]/10 border border-[#457B9D]/5 max-w-sm md:max-w-lg w-full"
+        className="bg-white p-10 md:p-16 rounded-3xl shadow-xl shadow-[#1898A5]/10 border border-[#1898A5]/5 max-w-sm md:max-w-lg w-full"
       >
         <div className="text-6xl md:text-8xl mb-6">✨</div>
         <h2 className="text-2xl md:text-4xl font-black text-gray-800 uppercase tracking-tight mb-3">{selectedService}</h2>
-        <div className="h-1.5 w-16 md:w-24 bg-[#457B9D] rounded-full mx-auto mb-6"></div>
+        <div className="h-1.5 w-16 md:w-24 bg-[#1898A5] rounded-full mx-auto mb-6"></div>
         <p className="text-gray-500 md:text-lg font-medium leading-relaxed mb-8">
           We are currently working on bringing the best {selectedService} experts and services to you.
         </p>
-        <div className="bg-[#457B9D]/5 border border-[#457B9D]/10 rounded-2xl p-4">
-          <span className="text-[#457B9D] font-black text-sm md:text-base uppercase tracking-widest">Coming Soon</span>
+        <div className="bg-[#1898A5]/5 border border-[#1898A5]/10 rounded-2xl p-4">
+          <span className="text-[#1898A5] font-black text-sm md:text-base uppercase tracking-widest">Coming Soon</span>
         </div>
       </motion.div>
     </div>
@@ -785,14 +785,14 @@ export default function PanditPage() {
 
   const renderProfile = () => (
     <div className="min-h-screen bg-white w-full relative flex flex-col font-sans">
-      <div className="relative h-72 md:h-96 bg-[#457B9D] overflow-hidden">
+      <div className="relative h-72 md:h-96 bg-[#1898A5] overflow-hidden">
         <div className="absolute top-6 left-4 md:left-8 z-10">
           <button onClick={() => setCurrentView('services')} className="p-2 bg-white/20 backdrop-blur rounded-full text-white hover:bg-white/40 transition-colors">
             <ArrowBack />
           </button>
         </div>
         <img src={selectedPandit?.image} className="w-full h-full object-cover opacity-80" alt="" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 bg-gradient-to-t from-[#457B9D] to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 bg-gradient-to-t from-[#1898A5] to-transparent">
           <h2 className="text-2xl md:text-4xl font-black text-white">{selectedPandit?.name}</h2>
           <p className="text-blue-100 text-sm md:text-lg opacity-90">{selectedPandit?.specialization}</p>
         </div>
@@ -802,7 +802,7 @@ export default function PanditPage() {
         <h3 className="font-bold text-gray-800 mb-3 md:text-xl">Expertise</h3>
         <div className="flex flex-wrap gap-2 mb-8">
           {selectedPandit?.expertise.map((e, i) => (
-            <span key={i} className="px-3 py-1.5 md:px-4 md:py-2 bg-blue-50 text-[#457B9D] text-xs md:text-sm font-bold rounded-lg border border-blue-100 uppercase tracking-tight">
+            <span key={i} className="px-3 py-1.5 md:px-4 md:py-2 bg-blue-50 text-[#1898A5] text-xs md:text-sm font-bold rounded-lg border border-blue-100 uppercase tracking-tight">
               {e}
             </span>
           ))}
@@ -815,7 +815,7 @@ export default function PanditPage() {
 
         <button 
           onClick={() => alert('Booking request sent!')}
-          className="w-full py-4 md:py-5 bg-[#457B9D] text-white rounded-2xl font-black text-lg md:text-xl shadow-xl shadow-blue-100 active:scale-95 transition-all hover:bg-[#355f79]"
+          className="w-full py-4 md:py-5 bg-[#1898A5] text-white rounded-2xl font-black text-lg md:text-xl shadow-xl shadow-blue-100 active:scale-95 transition-all hover:bg-[#137d88]"
         >
           Connect Now - ₹{selectedPandit?.price}
         </button>
@@ -852,10 +852,10 @@ export default function PanditPage() {
                   if (s.key === 'Pooja Booking') setPoojaMode('grid');
                   if (s.key === 'Online Prasad Seva') setPrasadMode('grid');
                 }}
-                className={`w-full py-4 md:py-8 flex flex-col items-center gap-1 md:gap-2 border-b border-gray-50 transition-all ${selectedService === s.key ? 'bg-blue-50 border-r-4 border-[#457B9D]' : 'hover:bg-gray-50'}`}
+                className={`w-full py-4 md:py-8 flex flex-col items-center gap-1 md:gap-2 border-b border-gray-50 transition-all ${selectedService === s.key ? 'bg-blue-50 border-r-4 border-[#1898A5]' : 'hover:bg-gray-50'}`}
               >
                 <span className="text-xl md:text-3xl">{s.icon}</span>
-                <span className={`text-[8px] sm:text-[9px] md:text-[11px] font-black text-center px-1 uppercase leading-tight ${selectedService === s.key ? 'text-[#457B9D]' : 'text-gray-400'}`}>
+                <span className={`text-[8px] sm:text-[9px] md:text-[11px] font-black text-center px-1 uppercase leading-tight ${selectedService === s.key ? 'text-[#1898A5]' : 'text-gray-400'}`}>
                   {s.name}
                 </span>
               </button>
@@ -879,7 +879,7 @@ export default function PanditPage() {
         <div className="fixed bottom-4 right-4 left-4 md:left-auto md:w-80 z-[100]">
           <button 
             onClick={() => router.push('/cart')}
-            className="w-full bg-[#457B9D] text-white rounded-xl py-3 md:py-4 px-4 md:px-6 flex items-center justify-between shadow-2xl shadow-blue-200 animate-in fade-in slide-in-from-bottom-4 hover:scale-[1.02] transition-transform"
+            className="w-full bg-[#1898A5] text-white rounded-xl py-3 md:py-4 px-4 md:px-6 flex items-center justify-between shadow-2xl shadow-blue-200 animate-in fade-in slide-in-from-bottom-4 hover:scale-[1.02] transition-transform"
           >
             <div className="flex flex-col items-start">
               <span className="text-[9px] md:text-xs font-black uppercase opacity-70 tracking-widest">{cart.length} ITEMS</span>

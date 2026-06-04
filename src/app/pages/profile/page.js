@@ -211,7 +211,7 @@ export default function Profile() {
           <div className="flex items-center bg-white px-5 py-8 md:py-10 border-b border-gray-50">
             <div
               className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: "#457b9d" }}
+              style={{ backgroundColor: "#1898A5" }}
             >
               {user && user.name ? (
                 <span className="text-3xl md:text-4xl font-bold text-white">{getInitials(user.name)}</span>
@@ -231,7 +231,7 @@ export default function Profile() {
               {!isLoggedIn && (
                 <button 
                   onClick={router.push("/pages/auth")}
-                  className="bg-[#457b9d] text-white px-6 py-2 rounded-full font-bold shadow-md hover:bg-[#1d4e6e] transition-colors"
+                  className="bg-[#1898A5] text-white px-6 py-2 rounded-full font-bold shadow-md hover:bg-[#0d5560] transition-colors"
                 >
                   Login
                 </button>

@@ -8,10 +8,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#1B6B7B", // teal/slate blue
-        accent: "#F5A623",  // golden yellow
-        background: "#F8F9FA", // off-white
-        "dark-teal": "#0f4a56",
+        primary: "#1898A5",
+        "primary-dark": "#137d88",
+        "primary-darker": "#0d5560",
+        brand: {
+          DEFAULT: "#1898A5",
+          dark: "#137d88",
+          darker: "#0d5560",
+        },
+        accent: "#F5A623",
+        background: "#F8F9FA",
+        "dark-teal": "#0d5560",
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],

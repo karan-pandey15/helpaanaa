@@ -69,7 +69,7 @@ const CartPage = () => {
             </button>
             <div>
               <h1 className="text-xl font-black italic tracking-tighter text-gray-900 leading-none">MY CART</h1>
-              <p className="text-[10px] font-bold text-[#457b9d] uppercase tracking-widest mt-1">
+              <p className="text-[10px] font-bold text-[#1898A5] uppercase tracking-widest mt-1">
                 {items.length} {items.length === 1 ? 'Service' : 'Services'} Added
               </p>
             </div>
@@ -94,8 +94,8 @@ const CartPage = () => {
               className="flex flex-col items-center justify-center py-24 text-center"
             >
               <div className="relative mb-6">
-                <div className="absolute inset-0 bg-[#457b9d]/10 rounded-full scale-150 blur-2xl" />
-                <ShoppingCart size={100} className="text-[#457b9d]/20 relative z-10" />
+                <div className="absolute inset-0 bg-[#1898A5]/10 rounded-full scale-150 blur-2xl" />
+                <ShoppingCart size={100} className="text-[#1898A5]/20 relative z-10" />
               </div>
               <h2 className="text-2xl font-black text-gray-800 mb-2 italic">YOUR CART IS EMPTY</h2>
               <p className="text-sm text-gray-400 font-medium max-w-[200px] mb-8">
@@ -103,7 +103,7 @@ const CartPage = () => {
               </p>
               <button 
                 onClick={() => router.push("/")}
-                className="px-10 py-4 bg-[#457b9d] text-white font-black rounded-2xl shadow-xl shadow-blue-100 active:scale-95 transition-all"
+                className="px-10 py-4 bg-[#1898A5] text-white font-black rounded-2xl shadow-xl shadow-blue-100 active:scale-95 transition-all"
               >
                 START EXPLORING
               </button>
@@ -161,34 +161,34 @@ const CartPage = () => {
                         <div className="mt-1.5 space-y-1">
                           {item.date && (
                             <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
-                              <Calendar size={12} className="text-[#457b9d]" /> {item.date}
+                              <Calendar size={12} className="text-[#1898A5]" /> {item.date}
                             </div>
                           )}
                           {item.time && (
                             <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
-                              <Clock size={12} className="text-[#457b9d]" /> {item.time} {item.hours ? `(${item.hours} hrs)` : ''}
+                              <Clock size={12} className="text-[#1898A5]" /> {item.time} {item.hours ? `(${item.hours} hrs)` : ''}
                             </div>
                           )}
                           {item.address && (
                             <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
-                              <MapPin size={12} className="text-[#457b9d]" /> <span className="truncate">{item.address}</span>
+                              <MapPin size={12} className="text-[#1898A5]" /> <span className="truncate">{item.address}</span>
                             </div>
                           )}
                           {item.devoteeName && (
                             <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
-                              <User size={12} className="text-[#457b9d]" /> {item.devoteeName}
+                              <User size={12} className="text-[#1898A5]" /> {item.devoteeName}
                             </div>
                           )}
                           {item.studentName && (
                             <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
-                              <User size={12} className="text-[#457b9d]" /> {item.studentName} {item.studentClass ? `(${item.studentClass})` : ''}
+                              <User size={12} className="text-[#1898A5]" /> {item.studentName} {item.studentClass ? `(${item.studentClass})` : ''}
                             </div>
                           )}
                         </div>
                       </div>
 
                       <div className="flex items-center justify-between mt-3">
-                        <p className="text-lg font-black text-[#1d4e6e]">₹{item.price * item.quantity}</p>
+                        <p className="text-lg font-black text-[#0d5560]">₹{item.price * item.quantity}</p>
                         
                         {/* Quantity Controls */}
                         <div className="flex items-center bg-gray-50 rounded-xl p-1 border border-gray-100">
@@ -201,7 +201,7 @@ const CartPage = () => {
                           <span className="w-10 text-center font-black text-gray-800 text-sm">{item.quantity}</span>
                           <button 
                             onClick={() => handleAddItem(item)}
-                            className="w-8 h-8 flex items-center justify-center bg-[#457b9d] text-white rounded-lg shadow-md active:scale-90 transition-transform"
+                            className="w-8 h-8 flex items-center justify-center bg-[#1898A5] text-white rounded-lg shadow-md active:scale-90 transition-transform"
                           >
                             <Plus size={14} />
                           </button>
@@ -215,7 +215,7 @@ const CartPage = () => {
               {/* Bill Summary Card */}
               <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-4">
                 <div className="flex items-center gap-2 pb-2 border-b border-gray-50">
-                  <Info size={20} className="text-[#457b9d]" />
+                  <Info size={20} className="text-[#1898A5]" />
                   <h3 className="font-black text-gray-800 text-sm uppercase tracking-widest italic">Bill Summary</h3>
                 </div>
 
@@ -237,7 +237,7 @@ const CartPage = () => {
                   
                   <div className="pt-3 border-t border-dashed border-gray-200 flex justify-between items-center">
                     <span className="text-base font-black text-gray-800 uppercase italic">To Pay</span>
-                    <span className="text-2xl font-black text-[#1d4e6e]">₹{billDetails.totalPayable}</span>
+                    <span className="text-2xl font-black text-[#0d5560]">₹{billDetails.totalPayable}</span>
                   </div>
                 </div>
 
@@ -276,11 +276,11 @@ const CartPage = () => {
             <div className="max-w-2xl mx-auto flex items-center justify-between gap-4">
               <div className="flex flex-col">
                 <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Payable</span>
-                <span className="text-2xl font-black text-[#1d4e6e]">₹{billDetails.totalPayable}</span>
+                <span className="text-2xl font-black text-[#0d5560]">₹{billDetails.totalPayable}</span>
               </div>
               <button 
                 onClick={() => router.push('/checkout')}
-                className="flex-1 bg-[#457b9d] text-white py-4 rounded-2xl font-black text-lg shadow-xl shadow-blue-200 active:scale-95 transition-all flex items-center justify-center gap-2 group italic"
+                className="flex-1 bg-[#1898A5] text-white py-4 rounded-2xl font-black text-lg shadow-xl shadow-blue-200 active:scale-95 transition-all flex items-center justify-center gap-2 group italic"
               >
                 PROCEED TO PAY
                 <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />

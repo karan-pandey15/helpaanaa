@@ -28,7 +28,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const THEME_COLOR = "#457B9D";
+const THEME_COLOR = "#1898A5";
 const SECONDARY_COLOR = "#F4A261"; // Amazon-like orange/yellow but theme compatible
 
 const ProductDetail = ({ 
@@ -181,7 +181,7 @@ const ProductDetail = ({
           <Heart size={20} className="text-gray-600 cursor-pointer" />
           <button onClick={() => router.push('/cart')} className="relative">
             <ShoppingCart size={22} className="text-gray-700" />
-            <span className="absolute -top-2 -right-2 bg-[#457B9D] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white">0</span>
+            <span className="absolute -top-2 -right-2 bg-[#1898A5] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white">0</span>
           </button>
         </div>
       </nav>
@@ -206,7 +206,7 @@ const ProductDetail = ({
                 <div 
                   key={i} 
                   onMouseEnter={() => setActiveImage(img.url)}
-                  className={`w-12 h-12 border rounded cursor-pointer p-1 transition-all overflow-hidden bg-white ${activeImage === img.url ? 'border-[#457B9D] ring-2 ring-[#457B9D]/20 shadow-sm' : 'border-gray-300 hover:border-[#457B9D]'}`}
+                  className={`w-12 h-12 border rounded cursor-pointer p-1 transition-all overflow-hidden bg-white ${activeImage === img.url ? 'border-[#1898A5] ring-2 ring-[#1898A5]/20 shadow-sm' : 'border-gray-300 hover:border-[#1898A5]'}`}
                 >
                   <img src={img.url} className="w-full h-full object-contain" alt={`Thumbnail ${i}`} />
                 </div>
@@ -238,7 +238,7 @@ const ProductDetail = ({
                   <div 
                     key={i} 
                     onClick={() => setActiveImage(img.url)}
-                    className={`min-w-[60px] h-[60px] border rounded-lg p-1 shrink-0 ${activeImage === img.url ? 'border-[#457B9D] ring-2 ring-[#457B9D]/20' : 'border-gray-200'}`}
+                    className={`min-w-[60px] h-[60px] border rounded-lg p-1 shrink-0 ${activeImage === img.url ? 'border-[#1898A5] ring-2 ring-[#1898A5]/20' : 'border-gray-200'}`}
                   >
                     <img src={img.url} className="w-full h-full object-contain" alt={`Mobile Thumbnail ${i}`} />
                   </div>
@@ -453,7 +453,7 @@ const ProductDetail = ({
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                     placeholder="Your Name"
-                    className="p-2 border border-gray-300 rounded text-sm focus:border-[#457B9D] outline-none"
+                    className="p-2 border border-gray-300 rounded text-sm focus:border-[#1898A5] outline-none"
                   />
                   <div className="flex gap-2 items-center">
                     {[1, 2, 3, 4, 5].map((s) => (
@@ -472,9 +472,9 @@ const ProductDetail = ({
                   value={newReview}
                   onChange={(e) => setNewReview(e.target.value)}
                   placeholder="What did you like or dislike?"
-                  className="w-full p-3 border border-gray-300 rounded text-sm min-h-[100px] focus:border-[#457B9D] outline-none"
+                  className="w-full p-3 border border-gray-300 rounded text-sm min-h-[100px] focus:border-[#1898A5] outline-none"
                 />
-                <button className="bg-[#457B9D] text-white px-6 py-2 rounded-full text-sm font-bold hover:opacity-90 transition-opacity">
+                <button className="bg-[#1898A5] text-white px-6 py-2 rounded-full text-sm font-bold hover:opacity-90 transition-opacity">
                   Submit Review
                 </button>
               </form>
@@ -521,13 +521,13 @@ const ProductDetail = ({
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-[100] bg-white border-t border-gray-200 p-4 flex gap-4">
         <button 
           onClick={() => handleAddToCart('cart')}
-          className="flex-1 bg-white border border-[#457B9D] text-[#457B9D] py-3 rounded-xl font-bold text-sm shadow-sm"
+          className="flex-1 bg-white border border-[#1898A5] text-[#1898A5] py-3 rounded-xl font-bold text-sm shadow-sm"
         >
           Add to Cart
         </button>
         <button 
           onClick={() => handleAddToCart('buy')}
-          className="flex-1 bg-[#457B9D] text-white py-3 rounded-xl font-bold text-sm shadow-sm"
+          className="flex-1 bg-[#1898A5] text-white py-3 rounded-xl font-bold text-sm shadow-sm"
         >
           Buy Now
         </button>
@@ -549,7 +549,7 @@ const ProductDetail = ({
 const IconFeature = ({ icon: Icon, label }) => (
   <div className="flex flex-col items-center gap-1">
     <div className="w-10 h-10 flex items-center justify-center">
-      <Icon size={24} className="text-[#457B9D]" />
+      <Icon size={24} className="text-[#1898A5]" />
     </div>
     <span className="text-[10px] text-[#007185] font-medium text-center hover:underline cursor-pointer leading-tight">
       {label}

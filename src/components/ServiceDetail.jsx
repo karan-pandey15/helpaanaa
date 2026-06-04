@@ -236,14 +236,14 @@ const ServiceDetail = ({
         <div className="flex items-center gap-4">
           <Share2 
             size={20} 
-            className="text-gray-600 cursor-pointer hover:text-[#004090] transition-colors" 
+            className="text-gray-600 cursor-pointer hover:text-[#1898A5] transition-colors" 
             onClick={handleShare}
             title="Share this service"
           />
           <Heart size={20} className="text-gray-600 cursor-pointer hover:text-red-500 transition-colors" />
           <button onClick={() => router.push('/cart')} className="relative">
-            <ShoppingCart size={22} className="text-gray-700 hover:text-[#004090]" />
-            <span className="absolute -top-2 -right-2 bg-[#004090] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white">0</span>
+            <ShoppingCart size={22} className="text-gray-700 hover:text-[#1898A5]" />
+            <span className="absolute -top-2 -right-2 bg-[#1898A5] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white">0</span>
           </button>
         </div>
       </nav>
@@ -257,7 +257,7 @@ const ServiceDetail = ({
             
             {/* 1. Category and Heading (Title) at the Top */}
             <div className="space-y-1">
-              <span className="text-xs font-bold text-[#004090] uppercase tracking-wider block">
+              <span className="text-xs font-bold text-[#1898A5] uppercase tracking-wider block">
                 {item.category}
               </span>
               <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 leading-tight">
@@ -281,7 +281,7 @@ const ServiceDetail = ({
                 alt={title}
                 className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute top-4 left-4 bg-[#004090] text-white px-2 py-1 text-[10px] font-bold rounded shadow-sm">
+              <div className="absolute top-4 left-4 bg-[#1898A5] text-white px-2 py-1 text-[10px] font-bold rounded shadow-sm">
                 Top Rated
               </div>
             </div>
@@ -289,7 +289,7 @@ const ServiceDetail = ({
             {/* Gallery Thumbnails */}
             <div className="flex gap-2 overflow-x-auto">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className={`w-16 h-16 border rounded cursor-pointer p-1 ${i === 1 ? 'border-[#004090] ring-1 ring-[#004090]' : 'border-gray-200 hover:border-[#004090]'}`}>
+                <div key={i} className={`w-16 h-16 border rounded cursor-pointer p-1 ${i === 1 ? 'border-[#1898A5] ring-1 ring-[#1898A5]' : 'border-gray-200 hover:border-[#1898A5]'}`}>
                   <img src={image} className="w-full h-full object-contain" />
                 </div>
               ))}
@@ -306,14 +306,14 @@ const ServiceDetail = ({
             {/* 4. Add more thing section at the last */}
             <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
               <h4 className="text-sm font-bold mb-2 flex items-center gap-2">
-                <Info size={16} className="text-[#004090]" />
+                <Info size={16} className="text-[#1898A5]" />
                 Additional Requests?
               </h4>
               <textarea 
                 value={additionalRequest}
                 onChange={(e) => setAdditionalRequest(e.target.value)}
                 placeholder="Need something extra? Let us know here..."
-                className="w-full bg-white border border-gray-300 rounded p-3 text-sm focus:ring-1 focus:ring-[#004090] focus:border-[#004090] outline-none transition-all resize-none"
+                className="w-full bg-white border border-gray-300 rounded p-3 text-sm focus:ring-1 focus:ring-[#1898A5] focus:border-[#1898A5] outline-none transition-all resize-none"
                 rows={3}
               />
             </div>
@@ -322,12 +322,12 @@ const ServiceDetail = ({
             <div className="border-t border-gray-200 pt-10 mt-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-                  <div className="bg-[#004090]/10 p-2 rounded-lg">
-                    <Video size={24} className="text-[#004090]" />
+                  <div className="bg-[#1898A5]/10 p-2 rounded-lg">
+                    <Video size={24} className="text-[#1898A5]" />
                   </div>
                   Service Preview
                 </h3>
-                <span className="text-[10px] font-black bg-[#004090] text-white px-3 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                <span className="text-[10px] font-black bg-[#1898A5] text-white px-3 py-1 rounded-full uppercase tracking-widest shadow-sm">
                   Official Tutorial
                 </span>
               </div>
@@ -342,7 +342,7 @@ const ServiceDetail = ({
                   >
                     Your browser does not support the video tag.
                   </video>
-                  <div className="absolute inset-0 pointer-events-none border border-[#004090]/5 rounded-2xl"></div>
+                  <div className="absolute inset-0 pointer-events-none border border-[#1898A5]/5 rounded-2xl"></div>
                 </div>
               </div>
               <p className="text-xs text-gray-500 mt-4 text-center italic">
@@ -353,7 +353,7 @@ const ServiceDetail = ({
             {/* 5. Rating and Reviews Section */}
             <div className="border-t border-gray-200 pt-8 mt-4">
               <h3 className="text-xl font-bold mb-6 text-gray-900 flex items-center gap-2">
-                <MessageSquare size={22} className="text-[#004090]" />
+                <MessageSquare size={22} className="text-[#1898A5]" />
                 Customer Reviews
               </h3>
 
@@ -369,7 +369,7 @@ const ServiceDetail = ({
                       value={userName}
                       onChange={(e) => setUserName(e.target.value)}
                       placeholder="Enter your name"
-                      className="w-full p-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#004090]/20 focus:border-[#004090] outline-none"
+                      className="w-full p-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1898A5]/20 focus:border-[#1898A5] outline-none"
                     />
                   </div>
                   <div>
@@ -399,13 +399,13 @@ const ServiceDetail = ({
                     value={newReview}
                     onChange={(e) => setNewReview(e.target.value)}
                     placeholder="Share your experience with this service..."
-                    className="w-full p-3 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#004090]/20 focus:border-[#004090] outline-none min-h-[100px]"
+                    className="w-full p-3 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1898A5]/20 focus:border-[#1898A5] outline-none min-h-[100px]"
                   />
                 </div>
 
                 <button 
                   type="submit"
-                  className="bg-[#004090] hover:bg-[#003070] text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all flex items-center gap-2 shadow-md"
+                  className="bg-[#1898A5] hover:bg-[#137d88] text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all flex items-center gap-2 shadow-md"
                 >
                   <Send size={16} />
                   Submit Review
@@ -446,7 +446,7 @@ const ServiceDetail = ({
           {/* ── Center Column: Info & Details ── */}
           <div className="w-full lg:w-[35%] space-y-6 border-b lg:border-b-0 pb-8 pt-0 lg:pt-14">
             <div className="flex items-center gap-2 text-sm">
-              <span className="bg-[#004090] text-white px-2 py-0.5 text-[10px] font-bold rounded">HelpAana Choice</span>
+              <span className="bg-[#1898A5] text-white px-2 py-0.5 text-[10px] font-bold rounded">HelpAana Choice</span>
               <span className="text-gray-500">for "{title}"</span>
             </div>
 
@@ -468,7 +468,7 @@ const ServiceDetail = ({
 
             <div className="grid grid-cols-4 gap-2 pt-4">
               <FeatureItem icon={CheckCircle2} label="Verified" color="text-green-600" />
-              <FeatureItem icon={ShieldCheck} label="Safe" color="text-[#004090]" />
+              <FeatureItem icon={ShieldCheck} label="Safe" color="text-[#1898A5]" />
               <FeatureItem icon={Zap} label="Quick" color="text-yellow-600" />
               <FeatureItem icon={Clock} label={item.time} color="text-gray-600" />
             </div>
@@ -488,7 +488,7 @@ const ServiceDetail = ({
                       onClick={() => setSelectedDate(date.id)}
                       className={`flex flex-col items-center min-w-[60px] p-2 rounded border transition-all ${
                         selectedDate === date.id 
-                          ? 'border-[#004090] bg-blue-50 ring-1 ring-[#004090]' 
+                          ? 'border-[#1898A5] bg-blue-50 ring-1 ring-[#1898A5]' 
                           : 'border-gray-300 bg-white hover:bg-gray-50'
                       }`}
                     >
@@ -512,7 +512,7 @@ const ServiceDetail = ({
                       onClick={() => setSelectedTime(time)}
                       className={`py-2 px-1 rounded border text-xs font-bold transition-all ${
                         selectedTime === time 
-                          ? 'border-[#004090] bg-blue-50 ring-1 ring-[#004090]' 
+                          ? 'border-[#1898A5] bg-blue-50 ring-1 ring-[#1898A5]' 
                           : 'border-gray-300 bg-white hover:bg-gray-50'
                       }`}
                     >
@@ -569,7 +569,7 @@ const ServiceDetail = ({
               <div className="space-y-3 pt-2">
                 <button 
                   onClick={handleAddToCart}
-                  className="w-full bg-[#004090] hover:bg-[#003070] text-white py-2.5 rounded-full font-medium text-sm border border-[#004090] shadow-sm transition-all"
+                  className="w-full bg-[#1898A5] hover:bg-[#137d88] text-white py-2.5 rounded-full font-medium text-sm border border-[#1898A5] shadow-sm transition-all"
                 >
                   Book Now
                 </button>
@@ -578,7 +578,7 @@ const ServiceDetail = ({
               <div className="pt-4 space-y-2">
                 <div className="flex items-center justify-between text-xs text-gray-500">
                   <span>Service from</span>
-                  <span className="text-[#004090] font-bold">HelpAana</span>
+                  <span className="text-[#1898A5] font-bold">HelpAana</span>
                 </div>
                 <div className="text-[10px] text-gray-400 text-center pt-2">
                   * 100% Secure Transaction

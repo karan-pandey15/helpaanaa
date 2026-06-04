@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '@/redux/cartSlice';
 
-const PRIMARY      = "#004090";
-const PRIMARY_DARK = "#002d6e";
-const PRIMARY_MID  = "#1a5bab";
+const PRIMARY      = "#1898A5";
+const PRIMARY_DARK = "#137d88";
+const PRIMARY_MID  = "#147a88";
 const ACCENT       = "#FF6B00";
 const ACCENT_LIGHT = "#ff8c3a";
 
@@ -123,7 +123,7 @@ export default function DealOfTheDayPage() {
     <div style={{ fontFamily:"'Nunito','Segoe UI',sans-serif", background:'#EEF3FB', minHeight:'100vh', paddingBottom: cartCount > 0 ? 110 : 36 }}>
 
       {/* ══════════════ HEADER ══════════════ */}
-      <header style={{ background:`linear-gradient(135deg,${PRIMARY} 0%,${PRIMARY_DARK} 100%)`, position:'sticky', top:0, zIndex:50, boxShadow:`0 4px 24px rgba(0,64,144,0.45)` }}>
+      <header style={{ background:`linear-gradient(135deg,${PRIMARY} 0%,${PRIMARY_DARK} 100%)`, position:'sticky', top:0, zIndex:50, boxShadow:`0 4px 24px rgba(24,152,165,0.45)` }}>
 
         {/* top row */}
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'12px 16px 10px' }}>
@@ -175,7 +175,7 @@ export default function DealOfTheDayPage() {
       </header>
 
       {/* ══════════════ HERO BANNER ══════════════ */}
-      <div style={{ margin:'14px 14px 0', borderRadius:20, overflow:'hidden', position:'relative', background:`linear-gradient(120deg,${PRIMARY} 0%,${PRIMARY_MID} 55%,#2176d2 100%)`, padding:'18px 20px', display:'flex', alignItems:'center', justifyContent:'space-between', boxShadow:`0 8px 28px rgba(0,64,144,0.28)` }}>
+      <div style={{ margin:'14px 14px 0', borderRadius:20, overflow:'hidden', position:'relative', background:`linear-gradient(120deg,${PRIMARY} 0%,${PRIMARY_MID} 55%,#1898A5 100%)`, padding:'18px 20px', display:'flex', alignItems:'center', justifyContent:'space-between', boxShadow:`0 8px 28px rgba(24,152,165,0.28)` }}>
         {/* deco circles */}
         {[[{right:-20,top:-30,size:130},{right:50,bottom:-40,size:90},{left:-10,bottom:-20,size:70}]].flat().map((c,i) => (
           <div key={i} style={{ position:'absolute', width:c.size, height:c.size, borderRadius:'50%', background:'rgba(255,255,255,0.07)', ...c }} />
@@ -205,7 +205,7 @@ export default function DealOfTheDayPage() {
                   transition:'all .2s',
                   background: active ? PRIMARY : '#fff',
                   color:      active ? '#fff'  : '#555',
-                  boxShadow:  active ? `0 4px 14px rgba(0,64,144,0.35)` : '0 1px 5px rgba(0,0,0,0.09)',
+                  boxShadow:  active ? `0 4px 14px rgba(24,152,165,0.35)` : '0 1px 5px rgba(0,0,0,0.09)',
                   transform:  active ? 'scale(1.05)' : 'scale(1)',
                 }}
               >
@@ -246,7 +246,7 @@ export default function DealOfTheDayPage() {
               return (
                 <div
                   key={item._id}
-                  style={{ background:'#fff', borderRadius:18, overflow:'hidden', boxShadow:'0 2px 16px rgba(0,0,0,0.07)', display:'flex', flexDirection:'column', position:'relative', border:'1px solid rgba(0,64,144,0.09)' }}
+                  style={{ background:'#fff', borderRadius:18, overflow:'hidden', boxShadow:'0 2px 16px rgba(0,0,0,0.07)', display:'flex', flexDirection:'column', position:'relative', border:'1px solid rgba(24,152,165,0.09)' }}
                 >
                   {/* discount badge */}
                   {discount > 0 && (
@@ -279,7 +279,7 @@ export default function DealOfTheDayPage() {
                   <div style={{ padding:'10px 12px 14px', flex:1, display:'flex', flexDirection:'column' }}>
 
                     {/* sub-category tag */}
-                    <span style={{ display:'inline-block', alignSelf:'flex-start', fontSize:9, fontWeight:900, color:PRIMARY, textTransform:'uppercase', letterSpacing:.8, background:`rgba(0,64,144,0.09)`, padding:'2px 7px', borderRadius:5, marginBottom:5 }}>
+                    <span style={{ display:'inline-block', alignSelf:'flex-start', fontSize:9, fontWeight:900, color:PRIMARY, textTransform:'uppercase', letterSpacing:.8, background:`rgba(24,152,165,0.09)`, padding:'2px 7px', borderRadius:5, marginBottom:5 }}>
                       {item.sub_category}
                     </span>
 
@@ -325,7 +325,7 @@ export default function DealOfTheDayPage() {
                     {/* cart button */}
                     <div style={{ marginTop:'auto' }}>
                       {qty > 0 ? (
-                        <div style={{ background:`linear-gradient(135deg,${PRIMARY},${PRIMARY_MID})`, borderRadius:12, display:'flex', alignItems:'center', justifyContent:'space-between', padding:'4px 8px', height:38, boxShadow:`0 4px 14px rgba(0,64,144,0.3)` }}>
+                        <div style={{ background:`linear-gradient(135deg,${PRIMARY},${PRIMARY_MID})`, borderRadius:12, display:'flex', alignItems:'center', justifyContent:'space-between', padding:'4px 8px', height:38, boxShadow:`0 4px 14px rgba(24,152,165,0.3)` }}>
                           <button onClick={() => updateQuantity(item._id,-1)} style={{ background:'rgba(255,255,255,0.2)', border:'none', borderRadius:8, cursor:'pointer', width:28, height:28, display:'flex', alignItems:'center', justifyContent:'center' }}>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
                           </button>
@@ -337,7 +337,7 @@ export default function DealOfTheDayPage() {
                       ) : (
                         <button
                           onClick={() => handleAddToCart(item)}
-                          style={{ width:'100%', height:38, cursor:'pointer', background:`linear-gradient(135deg,${PRIMARY},${PRIMARY_MID})`, color:'#fff', border:'none', borderRadius:12, fontSize:12, fontWeight:900, letterSpacing:.5, boxShadow:`0 4px 14px rgba(0,64,144,0.28)` }}
+                          style={{ width:'100%', height:38, cursor:'pointer', background:`linear-gradient(135deg,${PRIMARY},${PRIMARY_MID})`, color:'#fff', border:'none', borderRadius:12, fontSize:12, fontWeight:900, letterSpacing:.5, boxShadow:`0 4px 14px rgba(24,152,165,0.28)` }}
                         >
                           ADD TO CART
                         </button>
@@ -359,7 +359,7 @@ export default function DealOfTheDayPage() {
         <div style={{ position:'fixed', bottom:20, left:14, right:14, zIndex:100 }}>
           <button
             onClick={() => router.push('/cart')}
-            style={{ width:'100%', background:`linear-gradient(135deg,${PRIMARY} 0%,${PRIMARY_MID} 100%)`, color:'#fff', border:'none', borderRadius:18, padding:'0 20px', height:66, display:'flex', alignItems:'center', justifyContent:'space-between', cursor:'pointer', boxShadow:`0 10px 32px rgba(0,64,144,0.48)` }}
+            style={{ width:'100%', background:`linear-gradient(135deg,${PRIMARY} 0%,${PRIMARY_MID} 100%)`, color:'#fff', border:'none', borderRadius:18, padding:'0 20px', height:66, display:'flex', alignItems:'center', justifyContent:'space-between', cursor:'pointer', boxShadow:`0 10px 32px rgba(24,152,165,0.48)` }}
           >
             {/* left */}
             <div style={{ display:'flex', alignItems:'center', gap:12 }}>

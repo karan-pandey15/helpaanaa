@@ -37,7 +37,7 @@ export default function AdminLoginPage() {
                 type="tel" 
                 required
                 maxLength="10"
-                className={`w-full px-4 py-4 pl-12 rounded-2xl border-2 ${error ? 'border-red-500' : 'border-gray-100'} focus:outline-none focus:border-[#457b9d] transition-all bg-gray-50 text-lg font-medium tracking-wider`}
+                className={`w-full px-4 py-4 pl-12 rounded-2xl border-2 ${error ? 'border-red-500' : 'border-gray-100'} focus:outline-none focus:border-[#1898A5] transition-all bg-gray-50 text-lg font-medium tracking-wider`}
                 placeholder="Enter admin phone"
                 value={phone}
                 onChange={(e) => {
@@ -52,7 +52,7 @@ export default function AdminLoginPage() {
 
           <button 
             type="submit"
-            className="w-full bg-[#457b9d] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#457b9d]/30 hover:bg-[#3d6d8c] transition-all text-lg"
+            className="w-full bg-[#1898A5] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#1898A5]/30 hover:bg-[#3d6d8c] transition-all text-lg"
           >
             Verify & Proceed
           </button>

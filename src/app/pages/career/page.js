@@ -41,7 +41,7 @@ export default function Career() {
           
           <div className="grid grid-cols-1 gap-4 mt-6">
             <div className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
-              <div className="bg-[#004090] p-3 rounded-xl text-white">
+              <div className="bg-[#1898A5] p-3 rounded-xl text-white">
                 <Rocket size={20} />
               </div>
               <div>
@@ -51,7 +51,7 @@ export default function Career() {
             </div>
             
             <div className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
-              <div className="bg-[#004090] p-3 rounded-xl text-white">
+              <div className="bg-[#1898A5] p-3 rounded-xl text-white">
                 <Heart size={20} />
               </div>
               <div>
@@ -61,7 +61,7 @@ export default function Career() {
             </div>
 
             <div className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
-              <div className="bg-[#004090] p-3 rounded-xl text-white">
+              <div className="bg-[#1898A5] p-3 rounded-xl text-white">
                 <Zap size={20} />
               </div>
               <div>
@@ -80,7 +80,7 @@ export default function Career() {
               <input 
                 type="text" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all"
                 placeholder="Enter Full Name"
                 value={formData.fullName}
                 onChange={(e) => setFormData({...formData, fullName: e.target.value})}
@@ -91,7 +91,7 @@ export default function Career() {
               <input 
                 type="email" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all"
                 placeholder="email@example.com"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -102,7 +102,7 @@ export default function Career() {
               <input 
                 type="tel" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all"
                 placeholder="+91 XXXXX XXXXX"
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
@@ -112,7 +112,7 @@ export default function Career() {
               <label className="block text-sm font-medium text-gray-700 mb-1">Position Interested In</label>
               <select 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all bg-white"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all bg-white"
                 value={formData.position}
                 onChange={(e) => setFormData({...formData, position: e.target.value})}
               >
@@ -129,7 +129,7 @@ export default function Career() {
               <input 
                 type="number" 
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all"
                 placeholder="e.g. 2"
                 value={formData.experience}
                 onChange={(e) => setFormData({...formData, experience: e.target.value})}
@@ -141,7 +141,7 @@ export default function Career() {
                 <input 
                   type="url" 
                   required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#004090] transition-all pl-10"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1898A5] transition-all pl-10"
                   placeholder="https://..."
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
@@ -151,7 +151,7 @@ export default function Career() {
             </div>
             <button 
               type="submit"
-              className="w-full bg-[#004090] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#003070] transition-colors shadow-lg shadow-[#004090]/20"
+              className="w-full bg-[#1898A5] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#137d88] transition-colors shadow-lg shadow-[#1898A5]/20"
             >
               <Send size={18} />
               Submit Application
@@ -162,7 +162,7 @@ export default function Career() {
         <section className="pt-6 border-t border-gray-100 text-center">
           <p className="text-sm text-gray-500">
             Don't see a relevant role? Send your resume to <br />
-            <span className="font-bold text-[#004090]">helpaana@support.com</span>
+            <span className="font-bold text-[#1898A5]">helpaana@support.com</span>
           </p>
         </section>
       </div>

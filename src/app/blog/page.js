@@ -63,7 +63,7 @@ export default function BlogPage() {
       
       <div className="p-6 space-y-8 pb-20">
         <section className="text-center space-y-3">
-          <div className="inline-flex items-center justify-center p-4 bg-[#457b9d]/10 text-[#457b9d] rounded-3xl mb-2">
+          <div className="inline-flex items-center justify-center p-4 bg-[#1898A5]/10 text-[#1898A5] rounded-3xl mb-2">
             <BookOpen size={32} />
           </div>
           <h2 className="text-2xl font-bold text-gray-800">Our Services & Insights</h2>
@@ -89,7 +89,7 @@ export default function BlogPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-4 left-4">
-                  <span className="bg-[#457b9d] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
+                  <span className="bg-[#1898A5] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
                     Service
                   </span>
                   <h3 className="text-xl font-bold text-white">{category.name}</h3>
@@ -97,7 +97,7 @@ export default function BlogPage() {
               </div>
               <div className="p-4 flex items-center justify-between">
                 <p className="text-sm text-gray-600 line-clamp-1 flex-1 pr-4">{category.description}</p>
-                <div className="bg-gray-50 p-2 rounded-full text-[#457b9d] group-hover:bg-[#457b9d] group-hover:text-white transition-colors">
+                <div className="bg-gray-50 p-2 rounded-full text-[#1898A5] group-hover:bg-[#1898A5] group-hover:text-white transition-colors">
                   <ChevronRight size={18} />
                 </div>
               </div>
@@ -110,7 +110,7 @@ export default function BlogPage() {
           <p className="text-xs text-gray-500">Select any category above to see details and book your service instantly.</p>
           <Link 
             href="/"
-            className="inline-block bg-[#457b9d] text-white font-bold px-8 py-3 rounded-2xl shadow-lg shadow-[#457b9d]/20"
+            className="inline-block bg-[#1898A5] text-white font-bold px-8 py-3 rounded-2xl shadow-lg shadow-[#1898A5]/20"
           >
             Back to Home
           </Link>

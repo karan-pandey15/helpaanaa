@@ -25,15 +25,15 @@ export default function HomePageClient() {
       </section>
 
       <section className="py-10 px-4 md:px-8 max-w-[1400px] mx-auto">
-        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#004090] via-[#166372] to-[#0f4a56] shadow-2xl">
+        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#1898A5] via-[#147a88] to-[#0d5560] shadow-2xl">
           <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-yellow-400/10 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-white/5 blur-3xl" />
           <div className="pointer-events-none absolute top-1/2 -left-10 w-44 h-44 rounded-full bg-[#F5A623]/10 blur-2xl" />
 
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10 p-8 md:p-14">
             <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-xl w-full">
-              <span className="mb-5 self-center md:self-start inline-flex items-center gap-1.5 bg-yellow-400 text-[#004090] text-[11px] font-black px-4 py-1.5 rounded-full shadow">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#004090] animate-pulse" />
+              <span className="mb-5 self-center md:self-start inline-flex items-center gap-1.5 bg-yellow-400 text-[#1898A5] text-[11px] font-black px-4 py-1.5 rounded-full shadow">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1898A5] animate-pulse" />
                 ANDROID APP IS LIVE • IOS USERS USE WEB
               </span>
 
@@ -108,9 +108,9 @@ export default function HomePageClient() {
                 <div className="h-7 bg-black flex items-center justify-center flex-shrink-0">
                   <div className="w-16 h-3.5 bg-gray-800 rounded-full" />
                 </div>
-                <div className="flex-1 bg-gradient-to-b from-[#1e7a8c] to-[#0f4a56] flex flex-col items-center px-3 pt-5 pb-4 gap-3 overflow-hidden">
+                <div className="flex-1 bg-gradient-to-b from-[#1e7a8c] to-[#0d5560] flex flex-col items-center px-3 pt-5 pb-4 gap-3 overflow-hidden">
                   <div className="w-14 h-14 bg-white rounded-[1.1rem] flex items-center justify-center shadow-xl">
-                    <span className="text-3xl font-black text-[#004090]">H</span>
+                    <span className="text-3xl font-black text-[#1898A5]">H</span>
                   </div>
                   <p className="text-white text-[11px] font-black tracking-[0.2em]">HELPAANA</p>
                   <p className="text-yellow-400 text-[8px] font-bold tracking-widest -mt-1">PREMIUM SERVICES</p>
@@ -133,7 +133,7 @@ export default function HomePageClient() {
                     ))}
                   </div>
                   <div className="w-full bg-yellow-400 rounded-xl py-2.5 text-center mt-auto shadow">
-                    <span className="text-[#004090] text-[11px] font-black tracking-wide">BOOK NOW →</span>
+                    <span className="text-[#1898A5] text-[11px] font-black tracking-wide">BOOK NOW →</span>
                   </div>
                 </div>
                 <div className="h-6 bg-black flex items-center justify-center">
@@ -174,7 +174,7 @@ export default function HomePageClient() {
                 key={title}
                 className="flex flex-col items-center text-center space-y-4 p-6 bg-white rounded-2xl shadow-sm border border-gray-100 transition-all hover:shadow-md"
               >
-                <div className="w-16 h-16 rounded-2xl bg-[#004090]/10 flex items-center justify-center text-[#004090]">
+                <div className="w-16 h-16 rounded-2xl bg-[#1898A5]/10 flex items-center justify-center text-[#1898A5]">
                   {icon}
                 </div>
                 <h3 className="text-xl font-bold text-gray-800">{title}</h3>

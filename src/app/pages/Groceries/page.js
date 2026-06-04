@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '@/redux/cartSlice';
 
-const THEME_COLOR = "#457B9D";
+const THEME_COLOR = "#1898A5";
 
 export default function GroceryPage() {
   const router = useRouter();
@@ -87,7 +87,7 @@ export default function GroceryPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-white">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-[#457B9D] border-opacity-50"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-[#1898A5] border-opacity-50"></div>
       </div>
     );
   }
@@ -116,7 +116,7 @@ export default function GroceryPage() {
               key={i}
               onClick={() => setSelectedSubCategory(sub)}
               className={`w-full py-4 flex flex-col items-center gap-2 px-1 transition-colors ${
-                selectedSubCategory === sub ? 'bg-blue-50 border-r-4 border-[#457B9D]' : ''
+                selectedSubCategory === sub ? 'bg-blue-50 border-r-4 border-[#1898A5]' : ''
               }`}
             >
               <div className="w-16 h-16 bg-white rounded-lg shadow-sm flex items-center justify-center p-2 border border-gray-50">
@@ -155,7 +155,7 @@ export default function GroceryPage() {
                   {/* Details */}
                   <div className="p-3 flex flex-col flex-1">
                     <div className="flex items-center gap-2 mb-1 min-h-[24px]">
-                      <div className={`px-1.5 py-0.5 rounded ${showDiscount ? 'bg-[#457B9D] text-white' : ''}`}>
+                      <div className={`px-1.5 py-0.5 rounded ${showDiscount ? 'bg-[#1898A5] text-white' : ''}`}>
                         <span className="text-sm font-bold">₹{item.price.selling_price}</span>
                       </div>
                       {showDiscount && (
@@ -174,7 +174,7 @@ export default function GroceryPage() {
                     {/* Add / Quantity Control */}
                     <div className="mt-auto">
                       {qty > 0 ? (
-                        <div className="bg-[#457B9D] rounded-lg flex items-center justify-between p-1 h-9">
+                        <div className="bg-[#1898A5] rounded-lg flex items-center justify-between p-1 h-9">
                           <button 
                             onClick={() => updateQuantity(item._id, -1)}
                             className="w-7 h-7 flex items-center justify-center text-white"
@@ -192,7 +192,7 @@ export default function GroceryPage() {
                       ) : (
                         <button 
                           onClick={() => handleAddToCart(item)}
-                          className="w-full border border-[#457B9D] text-[#457B9D] rounded-lg py-1.5 text-sm font-bold h-9 hover:bg-blue-50 transition-colors"
+                          className="w-full border border-[#1898A5] text-[#1898A5] rounded-lg py-1.5 text-sm font-bold h-9 hover:bg-blue-50 transition-colors"
                         >
                           ADD
                         </button>
@@ -211,7 +211,7 @@ export default function GroceryPage() {
         <div className="fixed bottom-6 left-4 right-4 z-[100]">
           <button 
             onClick={() => router.push('/cart')}
-            className="w-full bg-[#457B9D] text-white rounded-xl py-3.5 px-5 flex items-center justify-between shadow-lg shadow-blue-100 animate-in fade-in slide-in-from-bottom-4 duration-300"
+            className="w-full bg-[#1898A5] text-white rounded-xl py-3.5 px-5 flex items-center justify-between shadow-lg shadow-blue-100 animate-in fade-in slide-in-from-bottom-4 duration-300"
           >
             <div className="flex flex-col items-start">
               <span className="text-[10px] uppercase font-bold tracking-wider opacity-80">{cartCount} ITEMS</span>

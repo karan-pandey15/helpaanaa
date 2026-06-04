@@ -27,7 +27,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
-const ACCENT = "#457B9D";
+const ACCENT = "#1898A5";
 
 const MEHNDI_IMAGE_FILES = [
   "arbicmehndi.png",
@@ -175,7 +175,7 @@ const IconBrush = () => (
   </svg>
 );
 const IconInfo = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#457B9D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1898A5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="10" />
     <line x1="12" y1="8" x2="12" y2="8" strokeWidth="3" />
     <line x1="12" y1="12" x2="12" y2="16" />
@@ -196,8 +196,8 @@ const IconHandRight = ({ color }) => (
   </svg>
 );
 const IconRadioOn = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#457B9D" strokeWidth="2">
-    <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="5" fill="#457B9D" />
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1898A5" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="5" fill="#1898A5" />
   </svg>
 );
 const IconRadioOff = () => (
@@ -322,11 +322,11 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <Share2 size={20} className="text-gray-600 cursor-pointer hover:text-[#457B9D] transition-colors" onClick={handleShare} />
+          <Share2 size={20} className="text-gray-600 cursor-pointer hover:text-[#1898A5] transition-colors" onClick={handleShare} />
           <Heart size={20} className="text-gray-600 cursor-pointer hover:text-red-500 transition-colors" />
           <button onClick={() => router.push("/cart")} className="relative">
-            <ShoppingCart size={22} className="text-gray-700 hover:text-[#457B9D]" />
-            <span className="absolute -top-2 -right-2 bg-[#457B9D] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white">
+            <ShoppingCart size={22} className="text-gray-700 hover:text-[#1898A5]" />
+            <span className="absolute -top-2 -right-2 bg-[#1898A5] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white">
               0
             </span>
           </button>
@@ -339,7 +339,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
           {/* ── Left Column: Title & Image Flow ── */}
           <div className="w-full lg:w-[40%] flex flex-col gap-6">
             <div className="space-y-1">
-              <span className="text-xs font-bold text-[#457B9D] uppercase tracking-wider block">Mehndi Artist</span>
+              <span className="text-xs font-bold text-[#1898A5] uppercase tracking-wider block">Mehndi Artist</span>
               <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 leading-tight">{artist.name}</h1>
               <div className="flex items-center gap-1 mt-2">
                 <div className="flex text-yellow-400">
@@ -358,7 +358,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                 alt={artist.name}
                 className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute top-4 left-4 bg-[#457B9D] text-white px-2 py-1 text-[10px] font-bold rounded shadow-sm">
+              <div className="absolute top-4 left-4 bg-[#1898A5] text-white px-2 py-1 text-[10px] font-bold rounded shadow-sm">
                 Top Rated Artist
               </div>
             </div>
@@ -369,7 +369,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                   key={i}
                   onClick={() => setActiveImage(artist.image)}
                   className={`w-16 h-16 border rounded cursor-pointer p-1 transition-all ${
-                    activeImage === artist.image && i === 1 ? "border-[#457B9D] ring-1 ring-[#457B9D]" : "border-gray-200 hover:border-[#457B9D] hover:scale-105"
+                    activeImage === artist.image && i === 1 ? "border-[#1898A5] ring-1 ring-[#1898A5]" : "border-gray-200 hover:border-[#1898A5] hover:scale-105"
                   }`}
                 >
                   <img src={artist.image} className="w-full h-full object-contain" />
@@ -384,14 +384,14 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
 
             <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
               <h4 className="text-sm font-bold mb-2 flex items-center gap-2">
-                <Info size={16} className="text-[#457B9D]" />
+                <Info size={16} className="text-[#1898A5]" />
                 Additional Instructions?
               </h4>
               <textarea
                 value={instructions}
                 onChange={(e) => setInstructions(e.target.value)}
                 placeholder="Any specific design request or landmark..."
-                className="w-full bg-white border border-gray-300 rounded p-3 text-sm focus:ring-1 focus:ring-[#457B9D] focus:border-[#457B9D] outline-none transition-all resize-none"
+                className="w-full bg-white border border-gray-300 rounded p-3 text-sm focus:ring-1 focus:ring-[#1898A5] focus:border-[#1898A5] outline-none transition-all resize-none"
                 rows={3}
               />
             </div>
@@ -399,7 +399,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
             {/* Rating and Reviews Section */}
             <div className="border-t border-gray-200 pt-8 mt-4">
               <h3 className="text-xl font-bold mb-6 text-gray-900 flex items-center gap-2">
-                <MessageSquare size={22} className="text-[#457B9D]" />
+                <MessageSquare size={22} className="text-[#1898A5]" />
                 Customer Reviews
               </h3>
 
@@ -413,7 +413,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                       value={userName}
                       onChange={(e) => setUserName(e.target.value)}
                       placeholder="Enter your name"
-                      className="w-full p-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#457B9D]/20 focus:border-[#457B9D] outline-none"
+                      className="w-full p-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1898A5]/20 focus:border-[#1898A5] outline-none"
                     />
                   </div>
                   <div>
@@ -437,12 +437,12 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                     value={newReview}
                     onChange={(e) => setNewReview(e.target.value)}
                     placeholder="Share your experience..."
-                    className="w-full p-3 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#457B9D]/20 focus:border-[#457B9D] outline-none min-h-[100px]"
+                    className="w-full p-3 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1898A5]/20 focus:border-[#1898A5] outline-none min-h-[100px]"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="bg-[#457B9D] hover:bg-[#345d78] text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all flex items-center gap-2 shadow-md"
+                  className="bg-[#1898A5] hover:bg-[#137d88] text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all flex items-center gap-2 shadow-md"
                 >
                   <Send size={16} />
                   Submit Review
@@ -480,7 +480,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
           {/* ── Center Column: Info & Details ── */}
           <div className="w-full lg:w-[35%] space-y-6 border-b lg:border-b-0 pb-8 pt-0 lg:pt-14">
             <div className="flex items-center gap-2 text-sm">
-              <span className="bg-[#457B9D] text-white px-2 py-0.5 text-[10px] font-bold rounded">HelpAana Choice</span>
+              <span className="bg-[#1898A5] text-white px-2 py-0.5 text-[10px] font-bold rounded">HelpAana Choice</span>
               <span className="text-gray-500">for "{artist.name}"</span>
             </div>
             <hr className="border-gray-200" />
@@ -500,7 +500,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
 
             <div className="grid grid-cols-4 gap-2 pt-4">
               <FeatureItem icon={CheckCircle2} label="Verified" color="text-green-600" />
-              <FeatureItem icon={ShieldCheck} label="Safe" color="text-[#457B9D]" />
+              <FeatureItem icon={ShieldCheck} label="Safe" color="text-[#1898A5]" />
               <FeatureItem icon={Zap} label="Quick" color="text-yellow-600" />
               <FeatureItem icon={Clock} label={artist.time} color="text-gray-600" />
             </div>
@@ -512,9 +512,9 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
               <section className="bg-gray-50 p-4 rounded-xl border border-gray-100">
                 <h3 className="text-[10px] font-bold text-gray-500 uppercase mb-3">Individuals</h3>
                 <div className="flex items-center justify-between">
-                  <button onClick={() => peopleCount > 1 && setPeopleCount(c => c - 1)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center font-bold text-lg text-[#457B9D]">-</button>
+                  <button onClick={() => peopleCount > 1 && setPeopleCount(c => c - 1)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center font-bold text-lg text-[#1898A5]">-</button>
                   <span className="font-bold text-lg">{peopleCount}</span>
-                  <button onClick={() => setPeopleCount(c => c + 1)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center font-bold text-lg text-[#457B9D]">+</button>
+                  <button onClick={() => setPeopleCount(c => c + 1)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center font-bold text-lg text-[#1898A5]">+</button>
                 </div>
               </section>
 
@@ -522,7 +522,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                 <h3 className="text-[10px] font-bold text-gray-500 uppercase mb-3">Hands</h3>
                 <div className="flex gap-2">
                   {[1, 2].map(h => (
-                    <button key={h} onClick={() => setSelectedHands(h)} className={`flex-1 py-1 px-2 rounded-lg border-2 font-bold text-xs transition-all ${selectedHands === h ? 'border-[#457B9D] bg-white text-[#457B9D]' : 'border-transparent bg-white text-gray-400'}`}>
+                    <button key={h} onClick={() => setSelectedHands(h)} className={`flex-1 py-1 px-2 rounded-lg border-2 font-bold text-xs transition-all ${selectedHands === h ? 'border-[#1898A5] bg-white text-[#1898A5]' : 'border-transparent bg-white text-gray-400'}`}>
                       {h} {h === 1 ? 'Hand' : 'Hands'}
                     </button>
                   ))}
@@ -535,12 +535,12 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
               <h3 className="text-sm font-bold mb-3">Select Package</h3>
               <div className="space-y-2">
                 {PACKAGES.map(pkg => (
-                  <button key={pkg.name} onClick={() => setSelectedPackage(pkg.name)} className={`w-full flex justify-between items-center p-3 rounded-xl border transition-all ${selectedPackage === pkg.name ? 'border-[#457B9D] bg-blue-50 ring-1 ring-[#457B9D]' : 'border-gray-200 bg-white hover:bg-gray-50'}`}>
+                  <button key={pkg.name} onClick={() => setSelectedPackage(pkg.name)} className={`w-full flex justify-between items-center p-3 rounded-xl border transition-all ${selectedPackage === pkg.name ? 'border-[#1898A5] bg-blue-50 ring-1 ring-[#1898A5]' : 'border-gray-200 bg-white hover:bg-gray-50'}`}>
                     <div className="text-left">
-                      <p className={`text-xs font-bold ${selectedPackage === pkg.name ? 'text-[#457B9D]' : 'text-gray-700'}`}>{pkg.name}</p>
+                      <p className={`text-xs font-bold ${selectedPackage === pkg.name ? 'text-[#1898A5]' : 'text-gray-700'}`}>{pkg.name}</p>
                       <p className="text-[10px] text-gray-500">{pkg.desc}</p>
                     </div>
-                    <span className="text-xs font-bold text-[#457B9D]">+₹{pkg.priceAdd * selectedHands}</span>
+                    <span className="text-xs font-bold text-[#1898A5]">+₹{pkg.priceAdd * selectedHands}</span>
                   </button>
                 ))}
               </div>
@@ -557,7 +557,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                     key={idx}
                     onClick={() => setSelectedDate(idx)}
                     className={`flex flex-col items-center min-w-[60px] p-2 rounded border transition-all ${
-                      selectedDate === idx ? 'border-[#457B9D] bg-blue-50 ring-1 ring-[#457B9D]' : 'border-gray-300 bg-white hover:bg-gray-50'
+                      selectedDate === idx ? 'border-[#1898A5] bg-blue-50 ring-1 ring-[#1898A5]' : 'border-gray-300 bg-white hover:bg-gray-50'
                     }`}
                   >
                     <span className="text-[10px] uppercase text-gray-500 font-bold">{date.day}</span>
@@ -579,7 +579,7 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
                     key={time}
                     onClick={() => setSelectedTime(time)}
                     className={`py-2 px-1 rounded border text-xs font-bold transition-all ${
-                      selectedTime === time ? 'border-[#457B9D] bg-blue-50 ring-1 ring-[#457B9D]' : 'border-gray-300 bg-white hover:bg-gray-50'
+                      selectedTime === time ? 'border-[#1898A5] bg-blue-50 ring-1 ring-[#1898A5]' : 'border-gray-300 bg-white hover:bg-gray-50'
                     }`}
                   >
                     {time}
@@ -594,14 +594,14 @@ function MehndiArtistDetails({ artist, onBack, onAddToCart }) {
             <div className="lg:sticky lg:top-24 border border-gray-200 rounded-lg p-4 space-y-4 shadow-sm bg-white">
               <div className="text-2xl font-medium">₹{totalPrice}</div>
               <div className="space-y-3 pt-2">
-                <button onClick={handleBooking} className="w-full bg-[#457B9D] hover:bg-[#345d78] text-white py-2.5 rounded-full font-medium text-sm border border-[#457B9D] shadow-sm transition-all">
+                <button onClick={handleBooking} className="w-full bg-[#1898A5] hover:bg-[#137d88] text-white py-2.5 rounded-full font-medium text-sm border border-[#1898A5] shadow-sm transition-all">
                   Book Now
                 </button>
               </div>
               <div className="pt-4 space-y-2">
                 <div className="flex items-center justify-between text-xs text-gray-500">
                   <span>Artist from</span>
-                  <span className="text-[#457B9D] font-bold">HelpAana</span>
+                  <span className="text-[#1898A5] font-bold">HelpAana</span>
                 </div>
                 <div className="text-[10px] text-gray-400 text-center pt-2">* 100% Secure Transaction</div>
               </div>

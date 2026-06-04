@@ -14,7 +14,7 @@ export default function SeoHighlightSection() {
     >
       <div className="max-w-[1280px] mx-auto px-4 md:px-8">
         <header className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
-          <p className="text-[#004090] text-sm font-bold uppercase tracking-widest mb-2">
+          <p className="text-[#1898A5] text-sm font-bold uppercase tracking-widest mb-2">
             Helpaana.com
           </p>
           <h2
@@ -40,18 +40,18 @@ export default function SeoHighlightSection() {
               <li key={item.id} id={item.anchor}>
                 <Link
                   href={item.href}
-                  className="group flex flex-col h-full p-5 md:p-6 rounded-2xl border border-gray-100 bg-gray-50/80 hover:bg-white hover:border-[#004090]/30 hover:shadow-md transition-all duration-200"
+                  className="group flex flex-col h-full p-5 md:p-6 rounded-2xl border border-gray-100 bg-gray-50/80 hover:bg-white hover:border-[#1898A5]/30 hover:shadow-md transition-all duration-200"
                 >
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#004090]/70 mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#1898A5]/70 mb-2">
                     {item.phrase}
                   </span>
-                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#004090] mb-2">
+                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#1898A5] mb-2">
                     {item.title}
                   </h3>
                   <p className="text-sm text-gray-600 leading-relaxed flex-1">
                     {item.shortDescription}
                   </p>
-                  <span className="mt-4 text-sm font-semibold text-[#004090] group-hover:underline">
+                  <span className="mt-4 text-sm font-semibold text-[#1898A5] group-hover:underline">
                     Book on Helpaana →
                   </span>
                 </Link>

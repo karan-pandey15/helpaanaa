@@ -345,7 +345,7 @@ export default function CategorySlider({ limitToTrending = false }) {
       }
 
       .icon.active{
-        outline:3px solid #004090;
+        outline:3px solid #1898A5;
         transform:scale(1.08);
       }
 
