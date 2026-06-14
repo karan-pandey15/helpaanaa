@@ -57,8 +57,6 @@ const otherLinks = [
   { name: "Blog", path: "/blog" },
   { name: "Admin Login", path: "/admin/login" },
   { name: "Partner Login", path: "/partner/login" },
-  { name: "Achievements & Appearances", path: "/achievements" },
-  { name: "Our Official Business Partner", path: "/official-partner" },
 ];
 
 export default function Footer() {
