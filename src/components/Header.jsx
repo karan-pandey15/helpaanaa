@@ -11,6 +11,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { SEO_KEYWORD_PHRASES } from "@/lib/seo";
 import Logo from "@/components/Logo";
+import AppDownloadBanner from "@/components/HeaderScreen/AppDownloadBanner";
 
 const searchPlaceholders = [
   ...SEO_KEYWORD_PHRASES.map((k) => k.phrase),
@@ -72,6 +73,7 @@ export default function Header() {
 
   return (
     <>
+      {pathname === "/" && <AppDownloadBanner />}
       <header className="sticky top-0 z-50 w-full bg-[#1898A5] shadow-sm">
         <div className="max-w-[1280px] mx-auto px-4 md:px-6">
         {/* ── Main Row ── */}
@@ -100,7 +102,7 @@ export default function Header() {
           </div>
 
           {/* ── Search Bar (Desktop) ── */}
-          <div className="hidden md:flex flex-1 max-w-[50%] relative">
+          <div className="hidden md:flex flex-1 min-w-0 max-w-[50%] relative">
             <Search
               className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
               size={16}
@@ -113,19 +115,19 @@ export default function Header() {
           </div>
 
           {/* ── Right Actions ── */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex flex-shrink-0 items-center gap-2 sm:gap-3">
 
             {/* Deal of the Day — desktop only */}
             <Link
               href="/pages/dealday"
-              className="hidden lg:flex items-center gap-1.5 font-extrabold text-[13px] px-5 py-2.5 rounded-full transition-all duration-200 active:scale-95"
+              className="hidden lg:inline-flex flex-shrink-0 items-center gap-1.5 font-extrabold text-[13px] px-4 xl:px-5 py-2.5 rounded-full transition-all duration-200 active:scale-95 whitespace-nowrap"
               style={{
                 background: "linear-gradient(135deg, #F5A623 0%, #f0800a 100%)",
                 color: "white",
                 boxShadow: "0 4px 12px rgba(245,166,35,0.2)",
               }}
             >
-              <Zap size={14} />
+              <Zap size={14} className="flex-shrink-0" />
               Deal of the Day
             </Link>
 
@@ -199,7 +201,7 @@ export default function Header() {
         </div>
 
         {/* ── Mobile Search + Deal Bar (same blue block as main row — no divider line) ── */}
-        <div className="md:hidden flex items-center gap-2 sm:gap-3 pb-3">
+        <div className="md:hidden flex items-center gap-2 pb-3 min-w-0">
           <div className="relative flex-1 min-w-0">
             <Search
               className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
@@ -208,21 +210,21 @@ export default function Header() {
             <input
               type="text"
               placeholder={`Search "${searchPlaceholders[placeholderIndex]}"`}
-              className="w-full h-[42px] sm:h-[45px] rounded-full text-sm text-gray-800 bg-gray-50 pl-10 pr-4 outline-none border border-gray-200 focus:bg-white focus:border-[#F5A623] focus:ring-2 focus:ring-[#F5A623]/20"
+              className="w-full min-w-0 h-[42px] sm:h-[45px] rounded-full text-sm text-gray-800 bg-gray-50 pl-10 pr-4 outline-none border border-gray-200 focus:bg-white focus:border-[#F5A623] focus:ring-2 focus:ring-[#F5A623]/20"
             />
           </div>
           <Link
             href="/pages/dealday"
-            className="flex-shrink-0 flex items-center justify-center gap-1 font-extrabold text-[10px] sm:text-xs px-3 sm:px-4 h-[42px] sm:h-[45px] rounded-full text-white active:scale-95 transition-transform whitespace-nowrap"
+            className="flex-shrink-0 inline-flex items-center justify-center gap-1 font-extrabold px-2.5 sm:px-4 min-h-[42px] sm:min-h-[45px] rounded-full text-white active:scale-95 transition-transform"
             style={{
               background: "linear-gradient(135deg, #F5A623 0%, #f0800a 100%)",
               boxShadow: "0 3px 10px rgba(245,166,35,0.25)",
             }}
           >
-            <Zap size={14} className="hidden sm:block flex-shrink-0" />
-            <span className="uppercase tracking-tight leading-tight">
-              <span className="sm:hidden">Deal of the Day</span>
-              <span className="hidden sm:inline">Deal of the Day</span>
+            <Zap size={12} className="flex-shrink-0 sm:w-3.5 sm:h-3.5" />
+            <span className="flex flex-col items-start justify-center leading-[1.15] text-left">
+              <span className="text-[10px] sm:text-[11px] whitespace-nowrap">Deal of</span>
+              <span className="text-[10px] sm:text-[11px] whitespace-nowrap">the Day</span>
             </span>
           </Link>
         </div>

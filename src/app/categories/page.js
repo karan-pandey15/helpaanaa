@@ -7,11 +7,15 @@ export const metadata = {
   description: "Explore all Helpaana service categories in one place.",
 };
 
+/** Only these categories navigate; others do nothing on click. */
+const CLICKABLE_SLIDER_IDS = ["mehndi", "Attendant"]; // Elder Care Companion
+const CLICKABLE_GRID_IDS = ["mehndi", "seniorCareCompanion"]; // Elder Care Companion
+
 export default function CategoriesPage() {
   return (
     <main className="min-h-screen bg-white">
       <section className="w-full" aria-label="Service categories carousel">
-        <CategorySlider />
+        <CategorySlider clickableIds={CLICKABLE_SLIDER_IDS} />
       </section>
 
       <section className="w-full" aria-label="Promotional banners">
@@ -19,7 +23,7 @@ export default function CategoriesPage() {
       </section>
 
       <section className="py-8 md:py-16" aria-label="Browse all service categories">
-        <CategoryScreen mode="full" />
+        <CategoryScreen mode="full" clickableIds={CLICKABLE_GRID_IDS} />
       </section>
     </main>
   );

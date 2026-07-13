@@ -25,9 +25,9 @@ const Logo = ({ className = '', size = 'md', asLink = false, unconstrained = fal
   };
 
   const taglineSizes = {
-    sm: 'text-[6px] tracking-[0.08em] sm:text-[8px] sm:tracking-[0.12em]',
-    md: 'text-[6.5px] tracking-[0.1em] sm:text-[10px] sm:tracking-[0.18em]',
-    lg: 'text-[8px] tracking-[0.14em] sm:text-[11px] sm:tracking-[0.2em]',
+    sm: 'text-[8.5px] tracking-[0.02em] sm:text-[10px] sm:tracking-[0.04em]',
+    md: 'text-[8.5px] tracking-[0.02em] sm:text-[12px] sm:tracking-[0.06em]',
+    lg: 'text-[10px] tracking-[0.04em] sm:text-[13px] sm:tracking-[0.08em]',
   };
 
   const content = (
@@ -53,9 +53,9 @@ const Logo = ({ className = '', size = 'md', asLink = false, unconstrained = fal
           <span className="text-[#FFD23F]">AANA</span>
         </h1>
         <p
-          className={`${taglineSizes[size]} font-semibold text-white/95 uppercase m-0 mt-0.5 sm:mt-1 leading-none whitespace-nowrap`}
+          className={`${taglineSizes[size]} font-semibold text-white/95 m-0 mt-0.5 sm:mt-1 leading-none whitespace-nowrap`}
         >
-         Help, Delivered
+          Where Lifestyle Meets Technology
         </p>
       </div>
     </div>

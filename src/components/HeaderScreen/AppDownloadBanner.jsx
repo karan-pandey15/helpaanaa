@@ -9,22 +9,22 @@ const PLAY_STORE_URL =
 const STORAGE_KEY = "helpaana_app_banner_dismissed";
 
 export default function AppDownloadBanner() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     try {
-      if (localStorage.getItem(STORAGE_KEY) !== "1") {
-        setVisible(true);
+      if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+        setVisible(false);
       }
     } catch {
-      setVisible(true);
+      /* keep visible */
     }
   }, []);
 
   const dismiss = () => {
     setVisible(false);
     try {
-      localStorage.setItem(STORAGE_KEY, "1");
+      sessionStorage.setItem(STORAGE_KEY, "1");
     } catch {
       /* ignore */
     }
@@ -36,7 +36,7 @@ export default function AppDownloadBanner() {
     <div
       role="region"
       aria-label="Download Helpaana app"
-      className="w-full border-b border-[#1898A5]/12 bg-white"
+      className="w-full border-b border-black/5 bg-white"
     >
       <div className="mx-auto flex max-w-[1280px] items-center gap-2.5 px-3 py-2.5 sm:gap-3.5 sm:px-5 sm:py-3 md:px-6">
         <button

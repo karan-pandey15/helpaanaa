@@ -2,7 +2,6 @@
 
 import React from "react";
 import BannerComponent from "@/components/HeaderScreen/BannerComponent";
-import AppDownloadBanner from "@/components/HeaderScreen/AppDownloadBanner";
 import CategoryScreen from "@/components/HeaderScreen/CategoryScreen";
 import CategorySlider from "@/components/HeaderScreen/Categoryslider";
 import { CheckCircle, Zap, ShieldCheck } from "lucide-react";
@@ -13,8 +12,6 @@ const PLAY_STORE_URL =
 export default function HomePageClient() {
   return (
     <main className="min-h-screen bg-white">
-      <AppDownloadBanner />
-
       <section className="w-full" aria-label="Service categories carousel">
         <CategorySlider limitToTrending />
       </section>

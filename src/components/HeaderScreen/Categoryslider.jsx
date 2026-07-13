@@ -168,7 +168,10 @@ const categories = [
   },
 ];
 
-export default function CategorySlider({ limitToTrending = false }) {
+export default function CategorySlider({
+  limitToTrending = false,
+  clickableIds = null,
+}) {
 
   const router = useRouter();
   const [active, setActive] = useState(null);
@@ -179,7 +182,11 @@ export default function CategorySlider({ limitToTrending = false }) {
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
+  const isClickable = (id) =>
+    !Array.isArray(clickableIds) || clickableIds.includes(id);
+
   const go = (item) => {
+    if (!isClickable(item.id)) return;
     setActive(item.id);
     localStorage.setItem('selectedCategoryId', item.id);
     const params = { ...item.params, categoryId: item.id };
@@ -331,6 +338,14 @@ export default function CategorySlider({ limitToTrending = false }) {
         cursor:pointer;
       }
 
+      .item--disabled{
+        cursor:default;
+      }
+
+      .item--disabled:hover .icon{
+        transform:none;
+      }
+
       .icon{
         width:80px;
         height:80px;
@@ -426,8 +441,10 @@ export default function CategorySlider({ limitToTrending = false }) {
             visibleCategories.map((item) => (
               <button
                 key={item.id}
-                className="item"
+                type="button"
+                className={`item ${isClickable(item.id) ? '' : 'item--disabled'}`}
                 onClick={() => go(item)}
+                aria-disabled={!isClickable(item.id)}
               >
                 <div
                   className={`icon ${active === item.id ? 'active' : ''}`}

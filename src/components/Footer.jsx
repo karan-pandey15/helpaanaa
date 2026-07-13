@@ -57,6 +57,11 @@ const otherLinks = [
   { name: "Blog", path: "/blog" },
   { name: "Admin Login", path: "/admin/login" },
   { name: "Partner Login", path: "/partner/login" },
+  {
+    name: "HR Login",
+    path: "https://helpaanahrportal.vercel.app/login",
+    external: true,
+  },
 ];
 
 export default function Footer() {
@@ -163,12 +168,23 @@ export default function Footer() {
             <ul className="space-y-4">
               {otherLinks.map((link, idx) => (
                 <li key={idx}>
-                  <Link 
-                    href={link.path} 
-                    className="text-white/70 hover:text-[#F5A623] text-sm transition-colors"
-                  >
-                    {link.name}
-                  </Link>
+                  {link.external ? (
+                    <a
+                      href={link.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/70 hover:text-[#F5A623] text-sm transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.path}
+                      className="text-white/70 hover:text-[#F5A623] text-sm transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

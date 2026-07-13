@@ -182,12 +182,21 @@ const TRENDING_GROUP = {
   ids: ['mehndi', 'seniorCareCompanion'],
 };
 
-export default function CategoryScreen({ mode = 'full' }) {
+/** Categories that open a page when clicked. Others show but do nothing. */
+const DEFAULT_CLICKABLE_IDS = null; // null = all clickable
+
+export default function CategoryScreen({
+  mode = 'full',
+  clickableIds = DEFAULT_CLICKABLE_IDS,
+}) {
   const [activeCategory, setActiveCategory] = useState(null);
   const isHomeMode = mode === 'home';
   const trendingCategories = TRENDING_GROUP.ids
     .map((id) => categories.find((c) => c.id === id))
     .filter(Boolean);
+
+  const isClickable = (id) =>
+    !Array.isArray(clickableIds) || clickableIds.includes(id);
 
   const getCategoryLink = (item) => {
     const params = {
@@ -198,34 +207,38 @@ export default function CategoryScreen({ mode = 'full' }) {
     return `${item.screen}${query}`;
   };
 
-  const handleCategoryClick = (id) => {
+  const handleCategoryClick = (e, id) => {
+    if (!isClickable(id)) {
+      e.preventDefault();
+      return;
+    }
     setActiveCategory(id);
     localStorage.setItem('selectedCategoryId', id);
   };
 
-  const renderCategoryCard = (item, isTrending = false) => (
-    <Link
-      key={item.id}
-      href={getCategoryLink(item)}
-      onClick={() => handleCategoryClick(item.id)}
-      className={`cat-card ${isTrending ? 'trending-cat-card' : ''} ${activeCategory === item.id ? 'active' : ''}`}
-      title={item.name}
-      itemProp="url"
-    >
-      <div
-        className="circle-wrap"
-        style={{ backgroundColor: item.iconBg }}
-      >
-        <Image
-          src={item.image}
-          alt={item.name}
-          width={isTrending ? 64 : 64}
-          height={isTrending ? 64 : 64}
-          className="cat-img"
-        />
-      </div>
-      <span className="cat-label" itemProp="name">{item.name}</span>
+  const renderCategoryCard = (item, isTrending = false) => {
+    const clickable = isClickable(item.id);
+    const className = `cat-card ${isTrending ? 'trending-cat-card' : ''} ${activeCategory === item.id ? 'active' : ''} ${clickable ? '' : 'cat-card--disabled'}`;
 
+    const inner = (
+      <>
+        <div
+          className="circle-wrap"
+          style={{ backgroundColor: item.iconBg }}
+        >
+          <Image
+            src={item.image}
+            alt={item.name}
+            width={isTrending ? 64 : 64}
+            height={isTrending ? 64 : 64}
+            className="cat-img"
+          />
+        </div>
+        <span className="cat-label" itemProp="name">{item.name}</span>
+      </>
+    );
+
+    const cardStyles = (
       <style jsx>{`
         .cat-card {
           display: flex;
@@ -242,7 +255,12 @@ export default function CategoryScreen({ mode = 'full' }) {
           text-decoration: none;
         }
 
-        .cat-card:hover,
+        .cat-card--disabled {
+          cursor: default;
+          pointer-events: auto;
+        }
+
+        .cat-card:not(.cat-card--disabled):hover,
         .cat-card.active {
           transform: translateY(-3px);
           background: #f8faff;
@@ -260,7 +278,7 @@ export default function CategoryScreen({ mode = 'full' }) {
           transition: transform 0.18s ease, box-shadow 0.18s ease;
         }
 
-        .cat-card:hover .circle-wrap {
+        .cat-card:not(.cat-card--disabled):hover .circle-wrap {
           transform: scale(1.06);
           box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
         }
@@ -300,8 +318,37 @@ export default function CategoryScreen({ mode = 'full' }) {
           .cat-label { font-size: 14px; max-width: 120px; }
         }
       `}</style>
-    </Link>
-  );
+    );
+
+    if (!clickable) {
+      return (
+        <div
+          key={item.id}
+          className={className}
+          title={item.name}
+          role="presentation"
+          onClick={(e) => e.preventDefault()}
+        >
+          {inner}
+          {cardStyles}
+        </div>
+      );
+    }
+
+    return (
+      <Link
+        key={item.id}
+        href={getCategoryLink(item)}
+        onClick={(e) => handleCategoryClick(e, item.id)}
+        className={className}
+        title={item.name}
+        itemProp="url"
+      >
+        {inner}
+        {cardStyles}
+      </Link>
+    );
+  };
 
   const structuredData = {
     '@context': 'https://schema.org',

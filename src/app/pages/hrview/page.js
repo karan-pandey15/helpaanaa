@@ -1,8 +1,8 @@
 // app/partner/hr/page.js
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import React, { useState, useEffect, useCallback, useMemo, Suspense } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 // ---------- STORE HELPERS (localStorage) ----------
 const STORES = {
@@ -64,9 +64,18 @@ const roleDashboard = {
   Employee: "/partner/employee/dashboard",
 };
 
+function PageFallback() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#11707B]/20 border-t-[#11707B]" />
+    </div>
+  );
+}
+
 // ---------- MAIN COMPONENT ----------
-export default function HRPartnerPage() {
+function HRPartnerPageInner() {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("tab");
 
@@ -440,7 +449,8 @@ export default function HRPartnerPage() {
   };
 
   // ---- RENDER: login page ----
-  if (!session || !window.location.pathname.includes("/partner/hr/dashboard")) {
+  const isDashboard = pathname?.includes("/partner/hr/dashboard");
+  if (!session || !isDashboard) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="max-w-4xl w-full bg-white shadow-xl rounded-xl overflow-hidden">
@@ -1155,5 +1165,13 @@ export default function HRPartnerPage() {
         }
       `}</style>
     </div>
+  );
+}
+
+export default function HRPartnerPage() {
+  return (
+    <Suspense fallback={<PageFallback />}>
+      <HRPartnerPageInner />
+    </Suspense>
   );
 }
