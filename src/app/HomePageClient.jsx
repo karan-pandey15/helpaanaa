@@ -2,6 +2,7 @@
 
 import React from "react";
 import BannerComponent from "@/components/HeaderScreen/BannerComponent";
+import AppDownloadBanner from "@/components/HeaderScreen/AppDownloadBanner";
 import CategoryScreen from "@/components/HeaderScreen/CategoryScreen";
 import CategorySlider from "@/components/HeaderScreen/Categoryslider";
 import { CheckCircle, Zap, ShieldCheck } from "lucide-react";
@@ -12,12 +13,14 @@ const PLAY_STORE_URL =
 export default function HomePageClient() {
   return (
     <main className="min-h-screen bg-white">
+      <AppDownloadBanner />
+
       <section className="w-full" aria-label="Service categories carousel">
         <CategorySlider limitToTrending />
       </section>
 
       <section className="w-full" aria-label="Promotional banners">
-        <BannerComponent bannerIds={[4, 6]} />
+        <BannerComponent bannerIds={[1, 2]} />
       </section>
 
       <section className="py-6 md:py-10" aria-label="Browse trending services">

@@ -4,101 +4,22 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const mobileBannerFiles = [
-  "10.png",
-  "11.png",
-  "12.png",
-  "4.png",
-  "13.png",
-  "6.png",
-  "cosmeticbanner.png",
-  "ecommercebanner.png",
-  "fashionbanner.png",
-  "gaurdiankidsbanner.png",
-  "gymbanner.png",
-  "healthcarebanner.png",
-  "healthcarebannerwebsite.png",
-  "healthyfoodbanner.png",
-  "healthyfoodbannerwebsitee.png",
-  "helpaanacopasserngerbannerimage.png",
-  "helpaanacopessangerbanner.png",
-  "helpaanafoodservicebanner.png",
-  "helpaanagroceriesbanner.png",
-  "helpaanaphybanner.png",
-  "helpaanapregancybanner.png",
-  "luxurybanner.png",
-  "mehndibanner.png",
-  "panditjibanner.png",
-  "petwalkerbanner.png",
-  "resortbanner.png",
-  "shoolbanner.png",
-];
-
-const desktopBannerFiles = [
-  "copassengerbannerwebsite.png",
-  "copessangerbannerwebsite.png",
-  "cosmeticbannerwebsite.png",
-  "ecommercebannerwebsite.png",
-  "farmhousebannerwebsite.png",
-  "fashionbannerwebsite.png",
-  "foodservicebannerwebsite.png",
-  "gaurdiankidsbannerwebsite.png",
-  "groceriesbannerwebsite.png",
-  "healthcarebannerwebsite.png",
-  "healthyfoodbannerwebsitee.png",
-  "luxurybannerwebsite.png",
-  "mehndiartisbannerwebsite.png",
-  "panditjibannerwebsite.png",
-  "petwalkerbannerwebsite.png",
-  "physiotherapistbannerwebsite.png",
-  "pregancybannerwebsite.png",
-  "premiumgymbannerwebsite.png",
-  "salonmakeupbannerwebsite.png",
-  "schooluniformbannerwebsite.png",
-];
-
-const normalizeBannerKey = (file) =>
-  file
-    .toLowerCase()
-    .replace(".png", "")
-    .replace(/websitee?/g, "")
-    .replace("bannerimage", "banner")
-    .replace("helpaana", "")
-    .replace("copassenger", "copessanger")
-    .replace("foodservice", "food")
-    .replace("groceries", "grocery")
-    .replace("physiotherapist", "phy")
-    .replace("pregancy", "pregnancy")
-    .replace("mehndiartis", "mehndi")
-    .replace("premiumgym", "gym")
-    .replace("schooluniform", "shool")
-    .replace("farmhouse", "resort")
-    .replace("salonmakeup", "cosmetic");
-
-const desktopFileByKey = new Map(
-  desktopBannerFiles.map((file) => [normalizeBannerKey(file), file]),
-);
-
-const usedDesktopFiles = new Set();
-const pairedBanners = mobileBannerFiles.map((mobileFile) => {
-  const desktopFile = desktopFileByKey.get(normalizeBannerKey(mobileFile)) || null;
-  if (desktopFile) usedDesktopFiles.add(desktopFile);
-  return { mobileFile, desktopFile };
-});
-
-const desktopOnlyBanners = desktopBannerFiles
-  .filter((desktopFile) => !usedDesktopFiles.has(desktopFile))
-  .map((desktopFile) => ({ mobileFile: null, desktopFile }));
-
-const bannerData = [...pairedBanners, ...desktopOnlyBanners].map(
-  ({ mobileFile, desktopFile }, idx) => ({
-    id: idx + 1,
-    mobileImage: mobileFile ? `/image/bannerphone/${mobileFile}` : null,
-    desktopImage: desktopFile ? `/image/banners/${desktopFile}` : null,
+const bannerData = [
+  {
+    id: 1,
+    mobileImage: "/image/bannerphone/attendantparents.png",
+    desktopImage: "/image/bannerphone/attendantparents.png",
     route: "",
-    title: "",
-  }),
-);
+    title: "Attendant Parents",
+  },
+  {
+    id: 2,
+    mobileImage: "/image/bannerphone/mehndibanner.png",
+    desktopImage: "/image/banners/mehndiartisbannerwebsite.png",
+    route: "",
+    title: "Mehndi",
+  },
+];
 
 // ─────────────────────────────────────────────────────────────────
 // HOOK – detect mobile vs desktop (SSR-safe)
