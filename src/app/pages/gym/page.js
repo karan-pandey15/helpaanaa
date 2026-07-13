@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart as addToCartRedux, removeFromCart as removeFromCartRedux } from "@/redux/cartSlice";
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
-const GYM_ENDPOINT = "https://api.marasimpex.com/api/gym/all";
+const GYM_ENDPOINT = "https://api.helpaana.com/api/gym/all";
 
 // ─── localStorage HELPERS ────────────────────────────────────────────────────
 const USER_KEY = "marasimpex_user";

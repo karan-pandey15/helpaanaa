@@ -24,7 +24,7 @@ export default function CosmeticPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('https://api.marasimpex.com/products/category/Cosmetic');
+        const res = await fetch('https://api.helpaana.com/products/category/Cosmetic');
         const json = await res.json();
 
         if (json.ok) {

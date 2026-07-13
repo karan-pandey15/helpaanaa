@@ -9,7 +9,7 @@ const CATEGORIES = [
   {
     id: "Attendant",
     name: "Book a Attendant For Your Parents",
-    endpoint: "https://api.marasimpex.com/api/services/category/Attendant",
+    endpoint: "https://api.helpaana.com/api/services/category/Attendant",
     emoji: "🧓",
   },
   {

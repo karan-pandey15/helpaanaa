@@ -43,7 +43,7 @@ export default function DealOfTheDayPage() {
   useEffect(() => {
     (async () => {
       try {
-        const res  = await fetch('https://api.marasimpex.com/products/category/dealday');
+        const res  = await fetch('https://api.helpaana.com/products/category/dealday');
         const json = await res.json();
         if (json.ok) setProducts(json.products);
       } catch (e) {

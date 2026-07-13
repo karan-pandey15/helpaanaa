@@ -14,7 +14,7 @@ export default function FashionPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://api.marasimpex.com/products/category/fashion');
+        const response = await fetch('https://api.helpaana.com/products/category/fashion');
         const data = await response.json();
         if (data.ok) {
           setProducts(data.products);

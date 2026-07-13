@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-const API_URL = "https://api.marasimpex.com/api/hotels";
+const API_URL = "https://api.helpaana.com/api/hotels";
 const BLUE    = "#008cff";
 const DARK    = "#0f172a";
 

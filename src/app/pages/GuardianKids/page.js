@@ -10,7 +10,7 @@ const CATEGORIES = [
   {
     id: "Attendant",
     name: "Gaurdian For Your Kids",
-    endpoint: "https://api.marasimpex.com/api/services/category/GaurdianKids",
+    endpoint: "https://api.helpaana.com/api/services/category/GaurdianKids",
     emoji: "🧓",
   }, 
 ];

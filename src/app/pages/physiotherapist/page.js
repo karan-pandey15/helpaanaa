@@ -10,7 +10,7 @@ const CATEGORIES = [
   {
     id: "Physiotherapist",
     name: "Physiotherapist",
-    endpoint: "https://api.marasimpex.com/api/services/category/physiotherapist",
+    endpoint: "https://api.helpaana.com/api/services/category/physiotherapist",
     emoji: "/image/mehndiimage/physiotherapistone.png",
   }, 
 ];

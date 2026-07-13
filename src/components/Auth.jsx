@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight } from 'lucide-react';
 
-const API_BASE_URL = 'https://api.marasimpex.com/auth';
+const API_BASE_URL = 'https://api.helpaana.com/auth';
 
 const Auth = ({ onAuthSuccess, onSkip }) => {
   const router = useRouter();

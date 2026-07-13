@@ -24,7 +24,7 @@ export default function GroceryPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('https://api.marasimpex.com/products/category/Grocery');
+        const res = await fetch('https://api.helpaana.com/products/category/Grocery');
         const json = await res.json();
 
         if (json.ok) {
